@@ -1,0 +1,14 @@
+First command
+.\venv311\Scripts\Activate.ps1
+
+second command
+cd research_radar
+
+Command to run for sample papers
+python -m research_radar.pipeline --corpus data/sample_papers.json --out data/output 
+
+Fetch Papers
+python -c "from research_radar import stage1_ingest as s1; papers=s1.fetch_from_arxiv(query='federated learning healthcare', categories=['cs.LG','cs.AI'], max_results=300); s1.save_corpus(papers, 'data/papers.json'); print(len(papers), 'papers saved')"
+
+Run Pipeline
+python -m research_radar.pipeline --corpus data/papers.json

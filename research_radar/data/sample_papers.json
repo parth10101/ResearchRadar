@@ -1,0 +1,1097 @@
+[
+  {
+    "id": "reinforcement_learning_007",
+    "title": "Markov Decision Process via Exploration Strategy: A Study on Reinforcement Learning",
+    "authors": [
+      "M. Chen",
+      "T. Nguyen",
+      "A. Kulkarni",
+      "L. Wang"
+    ],
+    "year": 2018,
+    "abstract": "This work investigates markov decision process through the lens of exploration strategy, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that reinforcement learning remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_001",
+    "title": "Mri Analysis via Ct Scan: A Study on Image Registration",
+    "authors": [
+      "H. Suzuki",
+      "R. Sharma"
+    ],
+    "year": 2018,
+    "abstract": "We introduce a method that combines mri analysis with ct scan to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between image registration and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "medical_imaging_stagnant_002"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_000",
+    "title": "Q-Learning via Reward Shaping: A Study on Reinforcement Learning",
+    "authors": [
+      "V. Rao",
+      "R. Sharma",
+      "E. Johansson",
+      "T. Nguyen"
+    ],
+    "year": 2024,
+    "abstract": "This work investigates q-learning through the lens of reward shaping, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that reinforcement learning remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_008",
+      "reinforcement_learning_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_004",
+    "title": "Contextual Embedding via Tokenization: A Study on Language Model",
+    "authors": [
+      "S. Patel",
+      "T. Nguyen"
+    ],
+    "year": 2021,
+    "abstract": "This work investigates contextual embedding through the lens of tokenization, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that language model remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_006",
+      "nlp_transformers_002"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_009",
+    "title": "Pretraining via Language Model: A Study on Attention Mechanism",
+    "authors": [
+      "L. Wang",
+      "A. Kulkarni",
+      "E. Johansson",
+      "N. Fernandez"
+    ],
+    "year": 2018,
+    "abstract": "This work investigates pretraining through the lens of language model, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that attention mechanism remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_007"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_010",
+    "title": "Language Model via Transformer: A Study on Fine-Tuning",
+    "authors": [
+      "V. Rao",
+      "R. Sharma"
+    ],
+    "year": 2020,
+    "abstract": "This work investigates language model through the lens of transformer, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that fine-tuning remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_009"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_007",
+    "title": "Diagnostic Classification via Medical Imaging: A Study on Image Registration",
+    "authors": [
+      "T. Nguyen",
+      "E. Johansson",
+      "S. Patel",
+      "L. Wang"
+    ],
+    "year": 2016,
+    "abstract": "This paper surveys recent progress in diagnostic classification, highlighting medical imaging as the dominant paradigm. We identify open challenges around image registration and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "medical_imaging_stagnant_003"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_005",
+    "title": "Sequence Modeling via Attention Mechanism: A Study on Pretraining",
+    "authors": [
+      "S. Patel",
+      "R. Sharma",
+      "N. Fernandez"
+    ],
+    "year": 2022,
+    "abstract": "We introduce a method that combines sequence modeling with attention mechanism to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between pretraining and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_011"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_005",
+    "title": "Medical Imaging via Ct Scan: A Study on Convolutional Network",
+    "authors": [
+      "A. Kulkarni",
+      "R. Sharma",
+      "V. Rao"
+    ],
+    "year": 2020,
+    "abstract": "We introduce a method that combines medical imaging with ct scan to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between convolutional network and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "medical_imaging_stagnant_000"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_003",
+    "title": "Diagnostic Classification via Mri Analysis: A Study on Tumor Segmentation",
+    "authors": [
+      "S. Patel",
+      "P. Desai",
+      "L. Wang",
+      "J. Kim"
+    ],
+    "year": 2016,
+    "abstract": "We introduce a method that combines diagnostic classification with mri analysis to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between tumor segmentation and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "medical_imaging_stagnant_000"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_010",
+    "title": "Federated Learning via Privacy: A Study on Edge Devices",
+    "authors": [
+      "R. Sharma",
+      "S. Patel",
+      "V. Rao"
+    ],
+    "year": 2022,
+    "abstract": "A recurring bottleneck in federated learning systems is the reliance on privacy, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on edge devices, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_002",
+      "federated_learning_007"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_000",
+    "title": "Transformer via Attention Mechanism: A Study on Sequence Modeling",
+    "authors": [
+      "T. Nguyen",
+      "S. Patel"
+    ],
+    "year": 2023,
+    "abstract": "This work investigates transformer through the lens of attention mechanism, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that sequence modeling remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_009",
+      "nlp_transformers_011"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_006",
+    "title": "Mri Analysis via Convolutional Network: A Study on Image Registration",
+    "authors": [
+      "T. Nguyen",
+      "R. Sharma",
+      "P. Desai",
+      "S. Patel"
+    ],
+    "year": 2019,
+    "abstract": "A recurring bottleneck in mri analysis systems is the reliance on convolutional network, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on image registration, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "medical_imaging_stagnant_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_000",
+    "title": "Privacy via Federated Learning: A Study on Differential Privacy",
+    "authors": [
+      "M. Chen",
+      "R. Sharma"
+    ],
+    "year": 2020,
+    "abstract": "A recurring bottleneck in privacy systems is the reliance on federated learning, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on differential privacy, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_001",
+      "federated_learning_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_009",
+    "title": "Value Function via Actor Critic: A Study on Reinforcement Learning",
+    "authors": [
+      "V. Rao",
+      "M. Chen",
+      "S. Patel"
+    ],
+    "year": 2025,
+    "abstract": "A recurring bottleneck in value function systems is the reliance on actor critic, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on reinforcement learning, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_008"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_002",
+    "title": "Sequence Modeling via Contextual Embedding: A Study on Pretraining",
+    "authors": [
+      "E. Johansson",
+      "P. Desai"
+    ],
+    "year": 2019,
+    "abstract": "We introduce a method that combines sequence modeling with contextual embedding to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between pretraining and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_011",
+      "nlp_transformers_009"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_008",
+    "title": "Contextual Embedding via Language Model: A Study on Pretraining",
+    "authors": [
+      "H. Suzuki",
+      "T. Nguyen",
+      "N. Fernandez",
+      "M. Chen"
+    ],
+    "year": 2024,
+    "abstract": "A recurring bottleneck in contextual embedding systems is the reliance on language model, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on pretraining, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_007",
+    "title": "Entity Embedding via Triple Completion: A Study on Relation Extraction",
+    "authors": [
+      "E. Johansson",
+      "N. Fernandez"
+    ],
+    "year": 2020,
+    "abstract": "This work investigates entity embedding through the lens of triple completion, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that relation extraction remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_006"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_000",
+    "title": "Convolutional Network via Mri Analysis: A Study on Tumor Segmentation",
+    "authors": [
+      "H. Suzuki",
+      "L. Wang"
+    ],
+    "year": 2016,
+    "abstract": "This paper surveys recent progress in convolutional network, highlighting mri analysis as the dominant paradigm. We identify open challenges around tumor segmentation and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_008",
+    "title": "Reward Shaping via Value Function: A Study on Policy Gradient",
+    "authors": [
+      "A. Kulkarni",
+      "L. Wang",
+      "S. Patel"
+    ],
+    "year": 2021,
+    "abstract": "This work investigates reward shaping through the lens of value function, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that policy gradient remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_005",
+      "reinforcement_learning_006"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_011",
+    "title": "Differential Privacy via Privacy: A Study on Edge Devices",
+    "authors": [
+      "N. Fernandez",
+      "M. Chen",
+      "J. Kim",
+      "E. Johansson"
+    ],
+    "year": 2022,
+    "abstract": "This paper surveys recent progress in differential privacy, highlighting privacy as the dominant paradigm. We identify open challenges around edge devices and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_000"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_008",
+    "title": "Differential Privacy via Distributed Training: A Study on Privacy",
+    "authors": [
+      "E. Johansson",
+      "R. Sharma",
+      "V. Rao",
+      "M. Chen"
+    ],
+    "year": 2024,
+    "abstract": "A recurring bottleneck in differential privacy systems is the reliance on distributed training, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on privacy, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_009"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_003",
+    "title": "Exploration Strategy via Actor Critic: A Study on Reinforcement Learning",
+    "authors": [
+      "R. Sharma",
+      "T. Nguyen"
+    ],
+    "year": 2021,
+    "abstract": "We introduce a method that combines exploration strategy with actor critic to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between reinforcement learning and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_007"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_002",
+    "title": "Exploration Strategy via Policy Gradient: A Study on Value Function",
+    "authors": [
+      "E. Johansson",
+      "T. Nguyen"
+    ],
+    "year": 2025,
+    "abstract": "A recurring bottleneck in exploration strategy systems is the reliance on policy gradient, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on value function, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_000"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_006",
+    "title": "Gradient Aggregation via Differential Privacy: A Study on Federated Learning",
+    "authors": [
+      "J. Kim",
+      "R. Sharma"
+    ],
+    "year": 2024,
+    "abstract": "This work investigates gradient aggregation through the lens of differential privacy, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that federated learning remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_006",
+    "title": "Triple Completion via Ontology: A Study on Link Prediction",
+    "authors": [
+      "V. Rao",
+      "R. Sharma"
+    ],
+    "year": 2018,
+    "abstract": "We introduce a method that combines triple completion with ontology to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between link prediction and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_004",
+    "title": "Reward Shaping via Q-Learning: A Study on Markov Decision Process",
+    "authors": [
+      "E. Johansson",
+      "H. Suzuki"
+    ],
+    "year": 2022,
+    "abstract": "We introduce a method that combines reward shaping with q-learning to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between markov decision process and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_006",
+      "reinforcement_learning_003"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_004",
+    "title": "Tumor Segmentation via Mri Analysis: A Study on Convolutional Network",
+    "authors": [
+      "E. Johansson",
+      "T. Nguyen",
+      "L. Wang"
+    ],
+    "year": 2020,
+    "abstract": "A recurring bottleneck in tumor segmentation systems is the reliance on mri analysis, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on convolutional network, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "medical_imaging_stagnant_002"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_005",
+    "title": "Exploration Strategy via Q-Learning: A Study on Value Function",
+    "authors": [
+      "E. Johansson",
+      "P. Desai"
+    ],
+    "year": 2017,
+    "abstract": "A recurring bottleneck in exploration strategy systems is the reliance on q-learning, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on value function, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_001",
+    "title": "Value Function via Exploration Strategy: A Study on Reward Shaping",
+    "authors": [
+      "S. Patel",
+      "L. Wang"
+    ],
+    "year": 2022,
+    "abstract": "We introduce a method that combines value function with exploration strategy to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between reward shaping and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_003",
+      "reinforcement_learning_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_007",
+    "title": "Gradient Aggregation via Secure Aggregation: A Study on Federated Learning",
+    "authors": [
+      "E. Johansson",
+      "L. Wang",
+      "M. Chen"
+    ],
+    "year": 2021,
+    "abstract": "This paper surveys recent progress in gradient aggregation, highlighting secure aggregation as the dominant paradigm. We identify open challenges around federated learning and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_003",
+      "federated_learning_004"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_009",
+    "title": "Gradient Aggregation via Privacy: A Study on Edge Devices",
+    "authors": [
+      "H. Suzuki",
+      "T. Nguyen",
+      "S. Patel",
+      "L. Wang"
+    ],
+    "year": 2021,
+    "abstract": "This paper surveys recent progress in gradient aggregation, highlighting privacy as the dominant paradigm. We identify open challenges around edge devices and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_001",
+      "federated_learning_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_012",
+    "title": "Tokenization via Language Model: A Study on Attention Mechanism",
+    "authors": [
+      "P. Desai",
+      "M. Chen",
+      "J. Kim"
+    ],
+    "year": 2021,
+    "abstract": "A recurring bottleneck in tokenization systems is the reliance on language model, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on attention mechanism, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_009"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_000",
+    "title": "Relation Extraction via Triple Completion: A Study on Graph Neural Network",
+    "authors": [
+      "P. Desai",
+      "L. Wang",
+      "S. Patel",
+      "M. Chen"
+    ],
+    "year": 2024,
+    "abstract": "A recurring bottleneck in relation extraction systems is the reliance on triple completion, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on graph neural network, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_008",
+      "knowledge_graphs_010"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_003",
+    "title": "Graph Neural Network via Ontology: A Study on Triple Completion",
+    "authors": [
+      "P. Desai",
+      "M. Chen",
+      "N. Fernandez"
+    ],
+    "year": 2019,
+    "abstract": "A recurring bottleneck in graph neural network systems is the reliance on ontology, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on triple completion, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_005",
+      "knowledge_graphs_006"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "reinforcement_learning_006",
+    "title": "Exploration Strategy via Reinforcement Learning: A Study on Markov Decision Process",
+    "authors": [
+      "J. Kim",
+      "M. Chen",
+      "N. Fernandez",
+      "T. Nguyen"
+    ],
+    "year": 2019,
+    "abstract": "A recurring bottleneck in exploration strategy systems is the reliance on reinforcement learning, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on markov decision process, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "reinforcement_learning_007",
+      "reinforcement_learning_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_002",
+    "title": "Federated Learning via Client Heterogeneity: A Study on Privacy",
+    "authors": [
+      "V. Rao",
+      "J. Kim",
+      "A. Kulkarni"
+    ],
+    "year": 2020,
+    "abstract": "This paper surveys recent progress in federated learning, highlighting client heterogeneity as the dominant paradigm. We identify open challenges around privacy and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_005",
+      "federated_learning_000"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_004",
+    "title": "Privacy via Federated Learning: A Study on Gradient Aggregation",
+    "authors": [
+      "V. Rao",
+      "J. Kim",
+      "A. Kulkarni"
+    ],
+    "year": 2021,
+    "abstract": "This work investigates privacy through the lens of federated learning, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that gradient aggregation remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_005",
+      "federated_learning_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_002",
+    "title": "Ontology via Relation Extraction: A Study on Graph Neural Network",
+    "authors": [
+      "A. Kulkarni",
+      "E. Johansson",
+      "R. Sharma",
+      "T. Nguyen"
+    ],
+    "year": 2022,
+    "abstract": "This paper surveys recent progress in ontology, highlighting relation extraction as the dominant paradigm. We identify open challenges around graph neural network and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_003",
+      "knowledge_graphs_008"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_010",
+    "title": "Triple Completion via Knowledge Graph: A Study on Graph Neural Network",
+    "authors": [
+      "R. Sharma",
+      "E. Johansson"
+    ],
+    "year": 2021,
+    "abstract": "We introduce a method that combines triple completion with knowledge graph to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between graph neural network and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_006"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_003",
+    "title": "Distributed Training via Differential Privacy: A Study on Gradient Aggregation",
+    "authors": [
+      "S. Patel",
+      "L. Wang"
+    ],
+    "year": 2021,
+    "abstract": "A recurring bottleneck in distributed training systems is the reliance on differential privacy, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on gradient aggregation, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_005",
+      "federated_learning_000"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_011",
+    "title": "Pretraining via Sequence Modeling: A Study on Transformer",
+    "authors": [
+      "R. Sharma",
+      "P. Desai",
+      "V. Rao",
+      "T. Nguyen"
+    ],
+    "year": 2018,
+    "abstract": "We introduce a method that combines pretraining with sequence modeling to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between transformer and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_007",
+      "nlp_transformers_003"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_001",
+    "title": "Privacy via Client Heterogeneity: A Study on Gradient Aggregation",
+    "authors": [
+      "S. Patel",
+      "H. Suzuki"
+    ],
+    "year": 2019,
+    "abstract": "This work investigates privacy through the lens of client heterogeneity, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that gradient aggregation remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_007",
+    "title": "Sequence Modeling via Pretraining: A Study on Attention Mechanism",
+    "authors": [
+      "P. Desai",
+      "A. Kulkarni"
+    ],
+    "year": 2018,
+    "abstract": "This paper surveys recent progress in sequence modeling, highlighting pretraining as the dominant paradigm. We identify open challenges around attention mechanism and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_003"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "federated_learning_005",
+    "title": "Edge Devices via Client Heterogeneity: A Study on Federated Learning",
+    "authors": [
+      "J. Kim",
+      "E. Johansson",
+      "V. Rao",
+      "L. Wang"
+    ],
+    "year": 2019,
+    "abstract": "This paper surveys recent progress in edge devices, highlighting client heterogeneity as the dominant paradigm. We identify open challenges around federated learning and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "federated_learning_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "quantum_ml_002",
+    "title": "Variational Circuit via Quantum Advantage: A Study on Qubit Encoding",
+    "authors": [
+      "V. Rao",
+      "J. Kim",
+      "P. Desai",
+      "T. Nguyen"
+    ],
+    "year": 2022,
+    "abstract": "This paper surveys recent progress in variational circuit, highlighting quantum advantage as the dominant paradigm. We identify open challenges around qubit encoding and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_003",
+    "title": "Tokenization via Pretraining: A Study on Contextual Embedding",
+    "authors": [
+      "E. Johansson",
+      "H. Suzuki",
+      "R. Sharma",
+      "A. Kulkarni"
+    ],
+    "year": 2018,
+    "abstract": "This paper surveys recent progress in tokenization, highlighting pretraining as the dominant paradigm. We identify open challenges around contextual embedding and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_005",
+    "title": "Relation Extraction via Entity Embedding: A Study on Link Prediction",
+    "authors": [
+      "L. Wang",
+      "N. Fernandez",
+      "A. Kulkarni",
+      "R. Sharma"
+    ],
+    "year": 2018,
+    "abstract": "We introduce a method that combines relation extraction with entity embedding to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between link prediction and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "quantum_ml_001",
+    "title": "Quantum Advantage via Quantum Kernel: A Study on Qubit Encoding",
+    "authors": [
+      "H. Suzuki",
+      "J. Kim",
+      "T. Nguyen"
+    ],
+    "year": 2023,
+    "abstract": "This paper surveys recent progress in quantum advantage, highlighting quantum kernel as the dominant paradigm. We identify open challenges around qubit encoding and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "quantum_ml_002"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "medical_imaging_stagnant_002",
+    "title": "Mri Analysis via Ct Scan: A Study on Medical Imaging",
+    "authors": [
+      "N. Fernandez",
+      "L. Wang"
+    ],
+    "year": 2017,
+    "abstract": "This paper surveys recent progress in mri analysis, highlighting ct scan as the dominant paradigm. We identify open challenges around medical imaging and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "medical_imaging_stagnant_007",
+      "medical_imaging_stagnant_003"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_009",
+    "title": "Triple Completion via Relation Extraction: A Study on Graph Neural Network",
+    "authors": [
+      "S. Patel",
+      "R. Sharma"
+    ],
+    "year": 2019,
+    "abstract": "This paper surveys recent progress in triple completion, highlighting relation extraction as the dominant paradigm. We identify open challenges around graph neural network and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_006",
+      "knowledge_graphs_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "quantum_ml_000",
+    "title": "Qubit Encoding via Quantum Machine Learning: A Study on Quantum Kernel",
+    "authors": [
+      "E. Johansson",
+      "R. Sharma",
+      "J. Kim"
+    ],
+    "year": 2025,
+    "abstract": "A recurring bottleneck in qubit encoding systems is the reliance on quantum machine learning, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on quantum kernel, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "quantum_ml_002",
+      "quantum_ml_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_006",
+    "title": "Attention Mechanism via Transformer: A Study on Tokenization",
+    "authors": [
+      "M. Chen",
+      "P. Desai"
+    ],
+    "year": 2019,
+    "abstract": "This work investigates attention mechanism through the lens of transformer, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that tokenization remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_009"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_001",
+    "title": "Graph Embedding via Knowledge Graph: A Study on Ontology",
+    "authors": [
+      "M. Chen",
+      "E. Johansson",
+      "P. Desai",
+      "R. Sharma"
+    ],
+    "year": 2020,
+    "abstract": "This work investigates graph embedding through the lens of knowledge graph, proposing a new formulation that improves stability during training. We benchmark against standard baselines and show gains in downstream evaluation, while noting that ontology remains a largely unaddressed concern.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_005"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_008",
+    "title": "Link Prediction via Graph Embedding: A Study on Graph Neural Network",
+    "authors": [
+      "H. Suzuki",
+      "S. Patel",
+      "J. Kim",
+      "P. Desai"
+    ],
+    "year": 2021,
+    "abstract": "This paper surveys recent progress in link prediction, highlighting graph embedding as the dominant paradigm. We identify open challenges around graph neural network and outline a research agenda for the community.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_005",
+      "knowledge_graphs_001"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "nlp_transformers_001",
+    "title": "Fine-Tuning via Tokenization: A Study on Pretraining",
+    "authors": [
+      "V. Rao",
+      "H. Suzuki",
+      "N. Fernandez",
+      "S. Patel"
+    ],
+    "year": 2020,
+    "abstract": "We introduce a method that combines fine-tuning with tokenization to address scalability limits of prior work. Experiments across multiple datasets demonstrate improved robustness, though the interaction between pretraining and long-tail data distributions is left for future work.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "nlp_transformers_003",
+      "nlp_transformers_009"
+    ],
+    "processed": false,
+    "cluster_id": null
+  },
+  {
+    "id": "knowledge_graphs_004",
+    "title": "Knowledge Graph via Triple Completion: A Study on Ontology",
+    "authors": [
+      "R. Sharma",
+      "E. Johansson",
+      "J. Kim",
+      "T. Nguyen"
+    ],
+    "year": 2020,
+    "abstract": "A recurring bottleneck in knowledge graph systems is the reliance on triple completion, which limits generalisation. This paper proposes an alternative that reduces this dependency and evaluates its effect on ontology, reporting consistent improvements across three benchmark suites.",
+    "doi": null,
+    "source": "synthetic",
+    "pdf_path": null,
+    "references": [
+      "knowledge_graphs_009"
+    ],
+    "processed": false,
+    "cluster_id": null
+  }
+]
