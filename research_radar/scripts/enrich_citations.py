@@ -1,221 +1,359 @@
 """
-Semantic Scholar Citation Enrichment Script
-=============================================
-Enriches existing paper records in data/papers.json with citation reference lists
-using the Semantic Scholar (S2AG) API.
+Semantic Scholar Citation Enrichment  (v2 — 429-proof)
+=======================================================
+Fetches reference lists for every paper in papers.json via the
+Semantic Scholar Academic Graph API and writes them back in-place.
 
-Ultra-Conservative Rate Limiting Strategy (NEVER hits 429):
-  - 2.5s mandatory sleep before EVERY request (well below 1 req/sec limit)
-  - Tracks exact timestamp of last request for precise pacing
-  - Additional 5s "cooling" pause after every 10 papers (cluster cooldown)
-  - Incremental save every 10 papers to preserve progress
-  - Exponential backoff (10s → 20s → 40s) as a last-resort safety net
-  - Max retries = 5 (far more patient than standard 3)
+Key design decisions vs. the previous version:
+  · API key passed as --api-key CLI arg (or S2_API_KEY env var) — never hardcoded
+  · Pre-flight validation: tests the key with one known paper before starting
+  · With valid API key  → 0.5 s gap (safe for 10 req/s limit)
+  · Without API key     → 3.5 s gap (safe for 1 req/s limit)
+  · On ANY 429          → wait max(Retry-After header, 180 s) — no questions asked
+  · Maximum 2 retries per paper; if both fail, skip and continue (never stalls)
+  · Saves progress after EVERY single paper (nothing lost on Ctrl-C)
+  · --limit N           → enrich only N papers (safe for smoke-testing the key)
+  · --dry-run           → print what would be fetched, write nothing
+
+Usage:
+    python research_radar/scripts/enrich_citations.py --api-key YOUR_KEY
+    python research_radar/scripts/enrich_citations.py --api-key YOUR_KEY --limit 20
+    python research_radar/scripts/enrich_citations.py --dry-run
 """
 
+from __future__ import annotations
+
+import argparse
 import json
 import os
 import re
+import sys
 import time
 from pathlib import Path
 
 try:
     import requests
 except ImportError:
-    raise ImportError("Please install requests: pip install requests")
+    raise ImportError("Install requests first:  pip install requests")
 
 
 # ---------------------------------------------------------------------------
-# CONFIGURATION — Ultra-Conservative Rate Limiting
+# Constants
 # ---------------------------------------------------------------------------
 
-API_KEY        = os.getenv("S2_API_KEY", "s2k-e0hpokE9SYKtASaVWuosIcJBj6FvpRlJy8tNFId0")
-S2_API_URL     = "https://api.semanticscholar.org/graph/v1"
-CORPUS_PATH    = Path("data/papers.json")
+S2_API_BASE = "https://api.semanticscholar.org/graph/v1"
 
-# RATE LIMIT SETTINGS (Conservative: 1 request per 2.5 seconds = 0.4 req/sec)
-# S2 allows 1 req/sec — we use only 0.4 req/sec so we stay well below the limit
-MIN_GAP_SECONDS = 2.5   # Minimum guaranteed gap between consecutive requests
-CLUSTER_PAUSE   = 5.0   # Extra cooling pause (seconds) after every CLUSTER_SIZE papers
-CLUSTER_SIZE    = 10    # Process 10 papers → pause → next 10
-SAVE_EVERY      = 10    # Save progress to disk every 10 papers
+# A well-known arXiv paper (Attention Is All You Need) — used for key validation
+_VALIDATION_PAPER = "ARXIV:1706.03762"
 
-# Timestamp of last request (shared across all calls to enforce gap)
-_last_request_time: float = 0.0
+DEFAULT_CORPUS = Path("research_radar/data/output/papers.json")
 
 
 # ---------------------------------------------------------------------------
-# RATE LIMITER — Called before EVERY network request
+# ID normalisation (same logic as stage1_ingest.py)
 # ---------------------------------------------------------------------------
 
-def _rate_limited_sleep() -> None:
-    """
-    Guarantees at least MIN_GAP_SECONDS between consecutive requests.
-    Uses actual wall-clock timestamps — not blind sleeps — for precise pacing.
-    """
-    global _last_request_time
-    now = time.time()
-    elapsed_since_last = now - _last_request_time
-    remaining_wait = MIN_GAP_SECONDS - elapsed_since_last
-    if remaining_wait > 0:
-        time.sleep(remaining_wait)  # Only sleep the exact remaining time needed
-    _last_request_time = time.time()  # Record the actual send timestamp
-
-
-def get_headers() -> dict:
-    return {
-        "User-Agent": "ResearchRadar/1.0 (academic research tool)",
-        "x-api-key": API_KEY,
-    }
-
-
-# ---------------------------------------------------------------------------
-# UTILITY: Strip arXiv version suffixes and prefixes
-# ---------------------------------------------------------------------------
-
-def normalize_arxiv_id(raw_id: str | None) -> str | None:
-    """Strips 'arXiv:' prefix and 'v1'/'v2' version suffixes from arXiv IDs."""
-    if not raw_id:
+def _normalize_arxiv_id(raw: str | None) -> str | None:
+    if not raw:
         return None
-    cleaned = re.sub(r"^(arxiv:\s*|ARXIV:\s*)", "", raw_id.strip(), flags=re.IGNORECASE)
+    cleaned = re.sub(r"^(arxiv:\s*|arXiv:\s*|ARXIV:\s*)", "", raw.strip(), flags=re.IGNORECASE)
     cleaned = re.sub(r"v\d+$", "", cleaned)
     return cleaned.strip() or None
 
 
-# ---------------------------------------------------------------------------
-# CORE FETCHER: Fetch references for one paper
-# ---------------------------------------------------------------------------
-
-def fetch_references_for_paper(paper_id: str, source: str, max_retries: int = 5) -> list[str]:
-    """
-    Queries S2AG for references of a single paper.
-    Uses _rate_limited_sleep() before sending — guarantees 2.5s gap from previous request.
-    Uses exponential backoff starting at 10s if 429 occurs anyway (safety net).
-    """
-    # Build proper S2 paper identifier
+def _s2_paper_id(paper_id: str, source: str) -> str:
+    """Convert a corpus paper ID to the S2 identifier format."""
     if source == "arxiv" or re.match(r"^\d{4}\.\d{4,5}", paper_id):
-        clean_id = normalize_arxiv_id(paper_id)
-        s2_paper_id = f"ARXIV:{clean_id}"
-    else:
-        s2_paper_id = paper_id
+        norm = _normalize_arxiv_id(paper_id)
+        return f"ARXIV:{norm}"
+    return paper_id
 
-    url = f"{S2_API_URL}/paper/{s2_paper_id}/references"
-    params = {
-        "fields": "citedPaper.paperId,citedPaper.externalIds,citedPaper.title",
-        "limit": 50,
-    }
 
-    # RATE LIMITER: Enforce minimum 2.5s gap from previous request
-    _rate_limited_sleep()
+# ---------------------------------------------------------------------------
+# HTTP helpers
+# ---------------------------------------------------------------------------
 
-    backoff = 10.0  # Start backoff at 10 seconds (not 2s) — very patient
-    for attempt in range(max_retries + 1):
+def _headers(api_key: str | None) -> dict[str, str]:
+    h = {"User-Agent": "ResearchRadar/2.0 (academic research tool; 429-safe)"}
+    if api_key:
+        h["x-api-key"] = api_key
+    return h
+
+
+def _validate_api_key(api_key: str | None) -> bool:
+    """
+    Send one test request.
+    Returns True if the key is accepted (2xx), False otherwise.
+    Raises on network error.
+    """
+    if not api_key:
+        return False
+
+    url = f"{S2_API_BASE}/paper/{_VALIDATION_PAPER}"
+    params = {"fields": "paperId,title"}
+    try:
+        r = requests.get(url, params=params, headers=_headers(api_key), timeout=20)
+        if r.status_code == 200:
+            data = r.json()
+            title = data.get("title", "")[:50]
+            print(f"  [API Key OK]  Test paper: '{title}'")
+            return True
+        if r.status_code == 401:
+            print(f"  [API Key INVALID]  HTTP 401 — key rejected by S2.")
+            return False
+        if r.status_code == 403:
+            print(f"  [API Key FORBIDDEN]  HTTP 403 — key may be expired or wrong tier.")
+            return False
+        # Any other 2xx/3xx: treat as working
+        return r.status_code < 400
+    except requests.RequestException as e:
+        print(f"  [Network error during key validation]  {e}")
+        raise
+
+
+# ---------------------------------------------------------------------------
+# Core fetcher
+# ---------------------------------------------------------------------------
+
+def fetch_references(
+    paper_id: str,
+    source: str,
+    api_key: str | None,
+    gap_seconds: float,
+    last_request_time: list[float],   # single-element list used as mutable ref
+) -> list[str]:
+    """
+    Fetch reference IDs for one paper from S2AG /paper/{id}/references.
+
+    Rate-limiting:
+      · Sleeps exactly (gap_seconds - elapsed) before each request.
+      · On 429: reads Retry-After header, waits max(header, 180 s).
+      · Max 2 retries total — if both fail, returns [] and moves on.
+
+    Returns a list of arXiv IDs ("arXiv:XXXX.XXXXX") or S2 paper IDs.
+    """
+    s2_id  = _s2_paper_id(paper_id, source)
+    url    = f"{S2_API_BASE}/paper/{s2_id}/references"
+    params = {"fields": "citedPaper.paperId,citedPaper.externalIds,citedPaper.title", "limit": 100}
+
+    for attempt in range(1, 3):   # max 2 attempts
+        # --- Enforce minimum gap between requests ---
+        elapsed = time.time() - last_request_time[0]
+        wait    = gap_seconds - elapsed
+        if wait > 0:
+            time.sleep(wait)
+        last_request_time[0] = time.time()
+
         try:
-            resp = requests.get(url, params=params, headers=get_headers(), timeout=30)
-
-            if resp.status_code == 429:
-                # 429 = Server telling us to slow down
-                # Read Retry-After header if present, otherwise use our backoff
-                retry_after = float(resp.headers.get("retry-after", backoff))
-                # Always wait at least 10 seconds even if server says less
-                wait_time = max(retry_after, backoff)
-                print(f"    [429 Received] Waiting {wait_time:.1f}s before retry "
-                      f"(Attempt {attempt + 1}/{max_retries})...")
-                time.sleep(wait_time)
-                backoff *= 2.0  # Double backoff: 10s → 20s → 40s → 80s
-                _last_request_time = time.time()  # Reset rate limiter after long wait
-                continue
-
-            if resp.status_code == 404:
-                # Paper not indexed on Semantic Scholar — not an error
-                return []
-
-            resp.raise_for_status()
-
-            data = resp.json().get("data", [])
-            ref_ids = []
-            for item in data:
-                cited = item.get("citedPaper") or {}
-                cid = cited.get("paperId")
-                ext = cited.get("externalIds") or {}
-                arxiv_ext = ext.get("ArXiv")
-                if arxiv_ext:
-                    ref_ids.append(f"arXiv:{normalize_arxiv_id(arxiv_ext)}")
-                elif cid:
-                    ref_ids.append(cid)
-
-            return ref_ids
-
+            resp = requests.get(url, params=params, headers=_headers(api_key), timeout=30)
         except requests.RequestException as e:
-            if attempt == max_retries:
-                print(f"    [Error] Failed to fetch {paper_id}: {e}")
+            print(f"    [Network error] {e}  (attempt {attempt}/2)")
+            if attempt == 2:
                 return []
-            print(f"    [Network Error] Waiting {backoff:.1f}s before retry...")
-            time.sleep(backoff)
-            backoff *= 2.0
-            _last_request_time = time.time()
+            time.sleep(10)
+            continue
 
-    return []
+        # ---- 429: rate limited ----
+        if resp.status_code == 429:
+            retry_after = float(resp.headers.get("Retry-After", 180))
+            wait_429    = max(retry_after, 180.0)   # ALWAYS at least 3 minutes
+            print(
+                f"    [429 Rate Limited]  Waiting {wait_429:.0f}s before retry "
+                f"(attempt {attempt}/2) …"
+            )
+            time.sleep(wait_429)
+            last_request_time[0] = time.time()
+            continue   # retry same attempt number
+
+        # ---- 404: paper not indexed in S2 ----
+        if resp.status_code == 404:
+            return []
+
+        # ---- Other non-OK ----
+        if not resp.ok:
+            print(f"    [HTTP {resp.status_code}]  {resp.text[:120]}  (attempt {attempt}/2)")
+            if attempt == 2:
+                return []
+            time.sleep(5)
+            continue
+
+        # ---- Parse response ----
+        ref_ids: list[str] = []
+        for item in resp.json().get("data", []):
+            cited   = item.get("citedPaper") or {}
+            ext     = cited.get("externalIds") or {}
+            arxiv_e = ext.get("ArXiv")
+            if arxiv_e:
+                ref_ids.append(f"arXiv:{_normalize_arxiv_id(arxiv_e)}")
+            elif cited.get("paperId"):
+                ref_ids.append(cited["paperId"])
+        return ref_ids
+
+    return []   # exhausted retries
 
 
 # ---------------------------------------------------------------------------
-# MAIN
+# Main enrichment loop
 # ---------------------------------------------------------------------------
 
-def main():
-    print("\n" + "=" * 70)
-    print("  Semantic Scholar Citation Enrichment (Ultra-Conservative Mode)")
-    print("=" * 70)
+def enrich(
+    corpus_path: Path,
+    api_key: str | None,
+    key_valid: bool,
+    limit: int | None,
+    dry_run: bool,
+) -> None:
+    papers = json.loads(corpus_path.read_text(encoding="utf-8"))
+    total  = len(papers)
 
-    if not CORPUS_PATH.exists():
-        print(f"[Error] Corpus file not found at {CORPUS_PATH}. Run Stage 1 first.")
+    unenriched = [p for p in papers if not (p.get("references") or [])]
+    if limit:
+        unenriched = unenriched[:limit]
+
+    skipped = total - len([p for p in papers if not (p.get("references") or [])])
+
+    # Gap between requests
+    if key_valid:
+        gap = 0.5    # 10 req/s limit → 0.5 s = very safe margin
+    else:
+        gap = 3.5    # 1 req/s limit → 3.5 s = safe margin
+
+    est_minutes = (len(unenriched) * gap) / 60
+
+    print(f"\n  Corpus          : {corpus_path}")
+    print(f"  Total papers    : {total}")
+    print(f"  Already enriched: {skipped}")
+    print(f"  To enrich       : {len(unenriched)}"
+          + (f"  (limited to {limit})" if limit else ""))
+    print(f"  API key         : {'✓ Valid (0.5 s gap)' if key_valid else '✗ None/Invalid (3.5 s gap)'}")
+    print(f"  Est. time       : ~{est_minutes:.1f} min")
+    if dry_run:
+        print(f"\n  [DRY RUN]  No requests will be made, nothing written.")
+        for i, p in enumerate(unenriched[:10], 1):
+            print(f"    {i}. {p.get('id')}  ({p.get('source','arxiv')})")
+        if len(unenriched) > 10:
+            print(f"    … and {len(unenriched)-10} more")
         return
 
-    papers = json.loads(CORPUS_PATH.read_text(encoding="utf-8"))
-    total_papers = len(papers)
-    unenriched = [p for p in papers if not (p.get("references") or [])]
-    skipped_count = total_papers - len(unenriched)
+    print(f"{'=' * 70}\n")
 
-    print(f"  Loaded      : {total_papers} papers from {CORPUS_PATH}")
-    print(f"  To Enrich   : {len(unenriched)} papers (skipping {skipped_count} already enriched)")
-    print(f"  Pacing      : {MIN_GAP_SECONDS}s gap per request  +  {CLUSTER_PAUSE}s pause per {CLUSTER_SIZE} papers")
-    print(f"  Est. Time   : ~{(len(unenriched) * MIN_GAP_SECONDS + (len(unenriched) // CLUSTER_SIZE) * CLUSTER_PAUSE) / 60:.1f} minutes")
-    print("=" * 70)
+    last_t: list[float] = [0.0]   # mutable reference for rate limiter
+    start  = time.time()
+    done   = 0
 
-    enriched_count = 0
-    start_time = time.time()
-
-    for idx, paper in enumerate(papers, 1):
-        existing_refs = paper.get("references") or []
-        if len(existing_refs) > 0:
-            continue  # Skip already-enriched papers
-
-        pid = paper["id"]
+    for paper in unenriched:
+        pid    = paper.get("id", "")
         source = paper.get("source", "arxiv")
 
-        print(f"[{enriched_count + 1}/{len(unenriched)}] {pid}")
-        refs = fetch_references_for_paper(pid, source)
+        print(f"[{done + 1}/{len(unenriched)}]  {pid}", end="  ", flush=True)
+        refs = fetch_references(pid, source, api_key if key_valid else None, gap, last_t)
         paper["references"] = refs
-        enriched_count += 1
-        print(f"  -> {len(refs)} reference(s) found")
+        done += 1
+        print(f"→ {len(refs)} refs")
 
-        # CLUSTER COOLDOWN: After every CLUSTER_SIZE papers, pause for CLUSTER_PAUSE seconds
-        if enriched_count % CLUSTER_SIZE == 0:
-            print(f"\n  [Cluster Cooldown] Pausing {CLUSTER_PAUSE}s after {enriched_count} papers...\n")
-            time.sleep(CLUSTER_PAUSE)
+        # Save after EVERY paper — progress is never lost
+        corpus_path.write_text(json.dumps(papers, indent=2, ensure_ascii=False), encoding="utf-8")
 
-        # INCREMENTAL SAVE: Write to disk every SAVE_EVERY papers
-        if enriched_count % SAVE_EVERY == 0 or enriched_count == len(unenriched):
-            CORPUS_PATH.write_text(json.dumps(papers, indent=2, ensure_ascii=False), encoding="utf-8")
-            elapsed = time.time() - start_time
-            print(f"  [Saved] {enriched_count}/{len(unenriched)} enriched  ({elapsed:.1f}s elapsed)\n")
+        if done % 25 == 0:
+            elapsed = time.time() - start
+            remaining = (len(unenriched) - done) * gap
+            print(f"\n  Progress: {done}/{len(unenriched)} enriched  "
+                  f"({elapsed:.0f}s elapsed, ~{remaining/60:.1f} min remaining)\n")
 
-    print("\n" + "=" * 70)
-    print(f"  Enrichment Complete!")
-    print(f"  Enriched  : {enriched_count} papers")
-    print(f"  Skipped   : {skipped_count} (already had references)")
-    print(f"  Saved to  : {CORPUS_PATH}")
-    print("=" * 70 + "\n")
+    elapsed = time.time() - start
+    print(f"\n{'=' * 70}")
+    print(f"  Enrichment complete!")
+    print(f"  Enriched   : {done} papers")
+    print(f"  Skipped    : {skipped} (already had references)")
+    print(f"  Total time : {elapsed:.1f}s")
+    print(f"  Saved to   : {corpus_path}")
+    print(f"{'=' * 70}\n")
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+def _build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="python research_radar/scripts/enrich_citations.py",
+        description="Enrich papers.json with Semantic Scholar citation reference lists.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    p.add_argument(
+        "--api-key",
+        type=str,
+        default=None,
+        help="Semantic Scholar API key (overrides S2_API_KEY env var). "
+             "Get one free at https://www.semanticscholar.org/product/api",
+    )
+    p.add_argument(
+        "--corpus",
+        type=Path,
+        default=DEFAULT_CORPUS,
+        help="Path to papers.json to enrich in-place.",
+    )
+    p.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Only enrich this many papers (useful for testing the API key).",
+    )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print what would be fetched without making any network calls.",
+    )
+    p.add_argument(
+        "--skip-validation",
+        action="store_true",
+        help="Skip the API key pre-flight check (saves 1 request).",
+    )
+    return p
+
+
+def main(argv: list[str] | None = None) -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+
+    args = _build_parser().parse_args(argv)
+
+    # Resolve API key: CLI arg > env var > None
+    api_key: str | None = args.api_key or os.getenv("S2_API_KEY") or None
+
+    print(f"\n{'=' * 70}")
+    print(f"  Semantic Scholar Citation Enrichment  (v2 — 429-proof)")
+    print(f"{'=' * 70}")
+
+    if not args.corpus.exists():
+        print(f"[ERROR] Corpus not found: {args.corpus}", file=sys.stderr)
+        sys.exit(1)
+
+    # Pre-flight API key validation
+    key_valid = False
+    if args.dry_run:
+        key_valid = bool(api_key)   # no actual call in dry-run
+    elif api_key and not args.skip_validation:
+        print(f"  Validating API key …")
+        try:
+            key_valid = _validate_api_key(api_key)
+        except requests.RequestException:
+            print("  [WARNING] Could not validate key (network error). Proceeding with 3.5 s gap.")
+            key_valid = False
+    elif api_key:
+        key_valid = True   # --skip-validation: trust the user
+        print(f"  API key provided (validation skipped).")
+    else:
+        print(f"  No API key provided — using unauthenticated mode (3.5 s gap).")
+        print(f"  Tip: --api-key YOUR_KEY speeds this up 7×.")
+
+    enrich(
+        corpus_path = args.corpus,
+        api_key     = api_key,
+        key_valid   = key_valid,
+        limit       = args.limit,
+        dry_run     = args.dry_run,
+    )
 
 
 if __name__ == "__main__":
