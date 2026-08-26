@@ -48,6 +48,7 @@ import os
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 # ---------------------------------------------------------------------------
 # Bootstrap: load .env and shared S2 helpers from the package
@@ -143,7 +144,7 @@ def _normalise_ref(item: dict) -> dict:
     """Convert a raw S2 reference/citation item into the corpus schema."""
     paper = item.get("citedPaper") or item.get("citingPaper") or item
     ext   = paper.get("externalIds") or {}
-    return {
+    res = {
         "paperId"  : paper.get("paperId"),
         "title"    : (paper.get("title") or "").strip(),
         "year"     : paper.get("year"),
@@ -151,36 +152,59 @@ def _normalise_ref(item: dict) -> dict:
         "arxiv_id" : normalize_arxiv_id(ext.get("ArXiv")),
         "doi"      : ext.get("DOI"),
     }
+    intents = [i for i in (item.get("intents") or paper.get("intents") or []) if i]
+    if intents:
+        res["intents"] = intents
+    if item.get("isInfluential") or paper.get("isInfluential"):
+        res["isInfluential"] = True
+    return res
 
 
-def fetch_references(arxiv_id: str, headers: dict, delay: float) -> list[dict]:
-    """Return a list of normalised reference dicts for the given arXiv paper."""
-    url  = f"{S2_API}/paper/arXiv:{arxiv_id}/references"
-    data = _s2_get(
-        url,
-        params={"fields": _REF_FIELDS, "limit": 500},
-        headers=headers,
-        delay=delay,
-        label=arxiv_id,
+def _parse_retry_after(header_val: Any, fallback: float = 15.0) -> float:
+    """Safely parse Retry-After header as float seconds or fallback."""
+    if not header_val:
+        return fallback
+    try:
+        val = float(header_val)
+        return max(val, 2.0)
+    except (ValueError, TypeError):
+        return fallback
+
+
+def fetch_batch_data(
+    arxiv_ids: list[str],
+    headers: dict,
+    include_citations: bool = False,
+    max_retries: int = 4,
+) -> dict[str, dict]:
+    """
+    Fetch references (and citations) for up to 100 arXiv papers in a single POST request
+    using the hardened SemanticScholarClient with cross-process rate pacing.
+    Returns: {arxiv_id: {"references": [...], "citations": [...]}}
+    """
+    from research_radar.s2_client import SemanticScholarClient
+    api_key = headers.get("x-api-key")
+    client = SemanticScholarClient(api_key=api_key)
+
+    fields = (
+        "externalIds,paperId,references.paperId,references.externalIds,"
+        "references.title,references.year,references.authors,references.intents,references.isInfluential"
     )
-    if data is None:
-        return []
-    return [_normalise_ref(item) for item in data.get("data", [])]
+    if include_citations:
+        fields += ",citations.paperId,citations.externalIds,citations.title,citations.year,citations.authors"
 
+    formatted_ids = [f"ARXIV:{aid}" for aid in arxiv_ids]
+    results = client.get_papers_batch(formatted_ids, fields=fields, batch_size=len(arxiv_ids))
 
-def fetch_citations(arxiv_id: str, headers: dict, delay: float) -> list[dict]:
-    """Return a list of normalised citation dicts for the given arXiv paper."""
-    url  = f"{S2_API}/paper/arXiv:{arxiv_id}/citations"
-    data = _s2_get(
-        url,
-        params={"fields": _CIT_FIELDS, "limit": 500},
-        headers=headers,
-        delay=delay,
-        label=arxiv_id,
-    )
-    if data is None:
-        return []
-    return [_normalise_ref(item) for item in data.get("data", [])]
+    mapping = {}
+    for aid, res in zip(arxiv_ids, results):
+        if not res:
+            mapping[aid] = {"references": [], "citations": []}
+            continue
+        refs = [_normalise_ref(r) for r in (res.get("references") or []) if r]
+        cits = [_normalise_ref(c) for c in (res.get("citations") or []) if c]
+        mapping[aid] = {"references": refs, "citations": cits}
+    return mapping
 
 
 # ---------------------------------------------------------------------------
@@ -196,7 +220,7 @@ def save_corpus(papers: list[dict], path: Path) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Main enrichment loop
+# Main enrichment loop (Ultra-Fast Batch Mode)
 # ---------------------------------------------------------------------------
 
 def enrich(
@@ -206,8 +230,8 @@ def enrich(
     fetch_cits: bool,
     skip_enriched: bool,
     limit: int | None,
-    delay: float,
-    checkpoint_every: int,
+    delay: float = 2.0,
+    checkpoint_every: int = 50,
 ) -> None:
     papers  = load_corpus(corpus_path)
     headers = _get_s2_headers()
@@ -215,19 +239,19 @@ def enrich(
     if "x-api-key" in headers:
         print(f"  API key loaded ({headers['x-api-key'][:8]}...)")
     else:
-        print("  [WARN] No S2_API_KEY found — running at anonymous rate limits (100 req/5 min).")
+        print("  [WARN] No S2_API_KEY found — running in unauthenticated mode.")
 
     # Determine which papers need enriching
     to_enrich: list[dict] = []
     for p in papers:
         if p.get("source") != "arxiv":
-            continue                                     # only arXiv papers have arXiv IDs
+            continue
         arxiv_id = normalize_arxiv_id(p.get("id"))
         if not arxiv_id:
             continue
         if skip_enriched and p.get("references"):
-            continue                                     # already done
-        p["_arxiv_id_clean"] = arxiv_id                 # stash for use in the loop
+            continue
+        p["_arxiv_id_clean"] = arxiv_id
         to_enrich.append(p)
 
     if limit is not None:
@@ -238,59 +262,49 @@ def enrich(
         print("  Nothing to enrich — all arXiv papers already have references.")
         return
 
-    reqs_per_paper = 2 if fetch_cits else 1
-    est_mins       = (total * reqs_per_paper * delay) / 60
-    print(
-        f"  Papers to enrich : {total}  "
-        f"({'refs + cits' if fetch_cits else 'refs only'})"
-    )
-    print(f"  Delay per request: {delay}s")
-    print(f"  Estimated time   : ~{est_mins:.1f} minutes")
-    print(f"  Checkpoint every : {checkpoint_every} papers")
+    batch_size = 100
+    num_batches = (total + batch_size - 1) // batch_size
+    print(f"  Papers to enrich : {total} papers")
+    print(f"  Total API Calls  : {num_batches} batch request(s) (100 papers per call)")
+    print(f"  Estimated time   : ~{num_batches * 3} seconds total")
     print()
 
     enriched_count = 0
-    skipped_count  = 0
-    t0             = time.time()
+    t0 = time.time()
 
-    for i, paper in enumerate(to_enrich, 1):
-        arxiv_id = paper.pop("_arxiv_id_clean")
+    for b_idx in range(0, total, batch_size):
+        chunk = to_enrich[b_idx : b_idx + batch_size]
+        batch_num = (b_idx // batch_size) + 1
+        chunk_aids = [p["_arxiv_id_clean"] for p in chunk]
 
-        # ── References ───────────────────────────────────────────────────
-        refs = fetch_references(arxiv_id, headers, delay)
-        if refs:
-            paper["references"] = refs
-            enriched_count += 1
-        else:
-            skipped_count += 1
+        print(f"  [Batch {batch_num}/{num_batches}] Fetching {len(chunk)} papers in 1 request...", end=" ", flush=True)
+        t_b0 = time.time()
+        batch_data = fetch_batch_data(chunk_aids, headers, include_citations=fetch_cits)
+        elapsed_b = time.time() - t_b0
 
-        # ── Citations (optional) ──────────────────────────────────────────
-        if fetch_cits:
-            cits = fetch_citations(arxiv_id, headers, delay)
-            paper["citations"] = cits
+        batch_refs_count = 0
+        for p in chunk:
+            aid = p.pop("_arxiv_id_clean", None)
+            res = batch_data.get(aid, {})
+            refs = res.get("references", [])
+            if refs:
+                p["references"] = refs
+                batch_refs_count += len(refs)
+                enriched_count += 1
+            if fetch_cits:
+                p["citations"] = res.get("citations", [])
 
-        # ── Progress ──────────────────────────────────────────────────────
-        elapsed = time.time() - t0
-        rate    = i / elapsed if elapsed > 0 else 0
-        eta     = (total - i) / rate if rate > 0 else 0
-        print(
-            f"  [{i:>4}/{total}]  {arxiv_id:<20}  "
-            f"refs={len(refs):>3}  "
-            f"elapsed={elapsed:>6.0f}s  "
-            f"eta={eta:>5.0f}s"
-        )
+        print(f"[OK] Done in {elapsed_b:.2f}s ({batch_refs_count} total references found)")
+        save_corpus(papers, out_path)
 
-        # ── Checkpoint save ───────────────────────────────────────────────
-        if i % checkpoint_every == 0:
-            save_corpus(papers, out_path)
-            print(f"  -- checkpoint saved -> {out_path}")
+        # Enforce guaranteed 2.0s post-response gap between batches
+        if b_idx + batch_size < total:
+            time.sleep(max(delay, 1.5))
 
-    # ── Final save ────────────────────────────────────────────────────────
     save_corpus(papers, out_path)
-    elapsed = time.time() - t0
+    total_elapsed = time.time() - t0
     print()
-    print(f"  Done.  Enriched={enriched_count}  Skipped(not on S2)={skipped_count}")
-    print(f"  Total time : {elapsed:.1f}s")
+    print(f"  Done. Enriched={enriched_count}/{total} papers in {total_elapsed:.1f}s total.")
     print(f"  Corpus saved -> {out_path}")
 
     # ── Sample output: first enriched paper ───────────────────────────────

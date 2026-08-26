@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -58,45 +59,156 @@ def _save_corpus(papers: list[dict], path: Path) -> None:
 
 
 # ---------------------------------------------------------------------------
+# HOW: Wipe all previous query data so a new query always starts completely
+#      fresh — no stale papers, no stale output files, no stale API cache.
+# ---------------------------------------------------------------------------
+
+def _reset_workspace(corpus_path: Path, out_dir: Path) -> None:
+    """
+    Delete the previous corpus file, all output files, and the S2 query disk
+    cache so that the new query starts with a 100% clean slate.
+
+    Called automatically whenever --query is provided AND the corpus already
+    exists (meaning we are switching to a different query).
+    """
+    deleted: list[str] = []
+
+    # 1. Delete the corpus (papers.json)
+    if corpus_path.exists():
+        corpus_path.unlink()
+        deleted.append(str(corpus_path))
+
+    # 2. Wipe the output directory (HTML, JSON, NPY stage outputs)
+    if out_dir.exists():
+        shutil.rmtree(out_dir, ignore_errors=True)
+        deleted.append(str(out_dir) + "/")
+
+    # 3. Wipe the S2 query disk cache so the API is re-queried fresh
+    s2_cache_dir = Path("data/cache/s2_queries")
+    if s2_cache_dir.exists():
+        shutil.rmtree(s2_cache_dir, ignore_errors=True)
+        deleted.append(str(s2_cache_dir) + "/")
+
+    if deleted:
+        print(f"\n  [Reset] Cleared {len(deleted)} previous output(s) for new query:")
+        for d in deleted:
+            print(f"    ✗  {d}")
+    print()
+
+
+
+# ---------------------------------------------------------------------------
 # HOW: Print sample preview of paper metadata on the terminal
 # ---------------------------------------------------------------------------
 
 def _print_paper_sample(paper: dict) -> None:
-    """Print a compact metadata preview for one paper."""
+    """Print a compact metadata preview for one paper — supports arXiv and Semantic Scholar fields."""
     print("\n  -- Sample paper (first in corpus) --")
-    print(f"  ID      : {paper.get('id')}")
-    print(f"  Title   : {paper.get('title')}")
+    print(f"  ID             : {paper.get('id')}")
+    print(f"  S2 Paper ID    : {paper.get('s2_paper_id') or 'N/A'}")
+    print(f"  Title          : {paper.get('title')}")
     authors = paper.get('authors') or []
-    print(f"  Authors : {', '.join(authors[:3])}{'...' if len(authors) > 3 else ''}")
-    print(f"  Year    : {paper.get('year')}")
-    print(f"  Source  : {paper.get('source')}")
+    print(f"  Authors        : {', '.join(authors[:3])}{'...' if len(authors) > 3 else ''}")
+    print(f"  Year           : {paper.get('year')}")
+    print(f"  Source         : {paper.get('source')}")
+    print(f"  Venue          : {paper.get('venue') or 'N/A'}")
+    fos = paper.get('s2_fields_of_study') or []
+    print(f"  Fields of Study: {', '.join(fos[:3]) if fos else 'N/A'}")
     abstract = (paper.get('abstract') or '')
-    print(f"  Abstract: {abstract}")
+    print(f"  Abstract       : {abstract}")
+    tldr = paper.get('tldr')
+    if tldr:
+        print(f"  TLDR           : {tldr}")
+    cit_count = paper.get('citation_count')
+    inf_count = paper.get('influential_citation_count')
+    if cit_count is not None:
+        print(f"  Citations      : {cit_count} total  |  {inf_count} influential")
     refs = paper.get('references') or []
-    print(f"  Refs    : {len(refs)} reference(s) stored")
+    # HOW: Count references by intent type for display
+    meth_refs = sum(1 for r in refs if 'methodology' in (r.get('intents') or []))
+    res_refs  = sum(1 for r in refs if 'result'      in (r.get('intents') or []))
+    bg_refs   = sum(1 for r in refs if 'background'  in (r.get('intents') or []))
+    inf_refs  = sum(1 for r in refs if r.get('isInfluential'))
+    print(f"  Refs           : {len(refs)} reference(s) stored", end="")
+    if refs and any(r.get('intents') for r in refs):
+        print(f"  [methodology={meth_refs}  result={res_refs}  background={bg_refs}  influential={inf_refs}]", end="")
+    print()
 
 
 # ---------------------------------------------------------------------------
-# HOW: Stage 1 runner — checks if data exists on disk, or fetches from arXiv
+# HOW: Stage 1 runner — checks if data exists on disk,
+#      or fetches from either Semantic Scholar (default) or arXiv
 # ---------------------------------------------------------------------------
 
-def run_stage1(corpus_path: Path, query: str | None, max_results: int) -> list[dict]:
+def run_stage1(
+    corpus_path: Path,
+    query: str | None,
+    max_results: int,
+    source: str = "semanticscholar",
+    year: str | None = None,
+    force_fetch: bool = False,
+) -> list[dict]:
     _banner(1, "DATA INGESTION")
     from research_radar import stage1_ingest as s1
 
-    # HOW: Check if corpus already exists on disk
-    if corpus_path.exists():
-        print(f"  Corpus already exists at {corpus_path} — loading existing data.")
-        papers = s1.load_corpus(corpus_path) # HOW: Load from disk
+    # HOW: Check if corpus already exists on disk and is non-empty (unless force_fetch is requested)
+    papers = []
+    if corpus_path.exists() and not force_fetch:
+        papers = s1.load_corpus(corpus_path)
+
+    if papers and not force_fetch:
+        print(f"  Corpus already exists at {corpus_path} — loading existing data ({len(papers)} papers).")
     else:
         if not query:
-            print("[ERROR] --query is required when the corpus file doesn't exist yet.", file=sys.stderr)
+            print("[ERROR] --query is required when the corpus file doesn't exist yet, is empty, or --force-fetch is set.", file=sys.stderr)
             sys.exit(1)
-        print(f"  Fetching up to {max_results} papers for query: '{query}' ...")
-        papers = s1.fetch_from_arxiv(query=query, max_results=max_results) # HOW: Fetch live from arXiv API
-        s1.save_corpus(papers, corpus_path) # HOW: Save to disk
 
-    print(f"  [OK]  {len(papers)} papers ready.")
+        if source == "semanticscholar":
+            # HOW: Fetch via Semantic Scholar batch API (preferred — includes TLDR, citation intents,
+            #      influentialCitationCount, references with intents in ~2-4 API calls regardless of size)
+            print(f"  Source         : Semantic Scholar API (S2AG)")
+            print(f"  Query          : '{query}'")
+            print(f"  Max Results    : {max_results}")
+            if year:
+                print(f"  Year Filter    : {year}")
+            papers = s1.fetch_from_semanticscholar(
+                query=query,
+                max_results=max_results,
+                year=year,
+                bypass_cache=force_fetch,
+            )
+        else:
+            # HOW: Fallback to arXiv API (no citation intents or TLDR available)
+            print(f"  Source         : arXiv API")
+            print(f"  Query          : '{query}'")
+            print(f"  Max Results    : {max_results}")
+            papers = s1.fetch_from_arxiv(query=query, max_results=max_results)
+
+        s1.save_corpus(papers, corpus_path)  # HOW: Save to disk
+
+    if not papers:
+        return []
+
+    # HOW: Print corpus-wide ingestion summary for Semantic Scholar
+    src = papers[0].get("source", "arxiv")
+    if src == "semanticscholar":
+        n_with_tldr     = sum(1 for p in papers if p.get("tldr"))
+        n_with_refs     = sum(1 for p in papers if p.get("references"))
+        n_with_intents  = sum(1 for p in papers if any(
+            r.get("intents") for r in (p.get("references") or [])
+        ))
+        n_influential   = sum(1 for p in papers if (p.get("influential_citation_count") or 0) > 0)
+        print(f"\n  {'=' * 66}")
+        print(f"  SEMANTIC SCHOLAR INGESTION SUMMARY")
+        print(f"  {'=' * 66}")
+        print(f"  Total Papers Ingested    : {len(papers)}")
+        print(f"  Papers with TLDR         : {n_with_tldr}  ({n_with_tldr*100//max(len(papers),1)}%)")
+        print(f"  Papers with References   : {n_with_refs}  ({n_with_refs*100//max(len(papers),1)}%)")
+        print(f"  Papers with Intent Tags  : {n_with_intents}  (methodology / result / background)")
+        print(f"  Papers with Influence    : {n_influential}  (influentialCitationCount > 0)")
+        print(f"  {'=' * 66}")
+
+    print(f"\n  [OK]  {len(papers)} papers ready.")
     _print_paper_sample(papers[0])
     return papers
 
@@ -233,8 +345,8 @@ def run_stage3(papers: list[dict], out_dir: Path, model_key: str = "fast") -> No
     raw_full   = s3._build_input_string(sample_paper, max_words=99999)
     raw_words  = raw_full.split()
     word_count = len(raw_words)
-    print(f"  Step 1  [Build Input String]  title(×2) + abstract  ->  {word_count} words")
-    print(f"          Words: {raw_words}\n")  # 2. Display all words of title 2x + abstract
+    print(f"  Step 1  [Build Input String]  title(×2) + tldr + abstract + fields  ->  {word_count} words")
+    print(f"          Words: {raw_words}\n")  # 2. Display all words of title 2x + tldr + abstract + fields
 
     # Step 2: Subword Tokenization & Numerical Encoding
     info = s3.inspect_sample_transformation(sample_paper, model_key=model_key)
@@ -367,7 +479,7 @@ def run_stage4(
     if min_cluster_size:
         print(f"  HDBSCAN min cluster size: {min_cluster_size} (user-specified)")
     else:
-        print(f"  HDBSCAN min cluster size: Grid-search [8,10,12,14,16] → first yielding 5–8 topics")
+        print(f"  HDBSCAN min cluster size: Dynamic N-adaptive candidate search → maximizing composite (0.6*DBCV + 0.4*Silhouette)")
     # C1-fix: clarify 5D UMAP intent so the library warning is self-explanatory in output
     print(f"  Note: 5-D UMAP used for clustering geometry; 2-D/3-D display via PaCMAP (separate step)")
     print(f"  Pipeline: Embeddings → UMAP (5-d) → HDBSCAN → Multi-Strategy Noise Filter → KeyBERT + PaCMAP")
@@ -516,6 +628,49 @@ def run_stage4(
 
 # ---------------------------------------------------------------------------
 # HOW: Command line argument parser configuration
+# ------# ---------------------------------------------------------------------------
+# HOW: Stage 5 runner — builds both Pure Citation Graph and Knowledge Graph
+# ---------------------------------------------------------------------------
+
+def run_stage5(papers: list[dict], out_dir: Path, corpus_path: Path | None = None) -> None:
+    _banner(5, "DUAL VISUALIZATIONS: CITATION NETWORK & ACADEMIC KNOWLEDGE GRAPH")
+    from research_radar import stage5_citation_graph as s5_cit
+    from research_radar import stage5_knowledge_graph as s5_kg
+
+    topics_path = out_dir / "topic_results.json"
+    if not topics_path.exists():
+        print(f"  [WARN] Topic results not found at {topics_path}. Stage 5 requires Stage 4 output.", file=sys.stderr)
+        return
+
+    topic_results = json.loads(topics_path.read_text(encoding="utf-8"))
+
+    # 1. Visualization 1: Guided Citation & Gaps Intelligence Graph
+    print(f"\n  [Visualization 1/2] Building Guided Academic Citation & Gaps Network...")
+    papers_path = corpus_path or Path("data/papers.json")
+    s5_cit.run_stage5(papers=papers, out_dir=out_dir, corpus_path=papers_path)
+
+    # 2. Visualization 2: Academic Knowledge Graph
+    print(f"\n  [Visualization 2/2] Building Multi-Entity Academic Knowledge Graph...")
+    t0 = time.time()
+    G_kg, kg_stats = s5_kg.build_knowledge_graph(papers, topic_results)
+    kg_html_path = out_dir / "knowledge_graph.html"
+    kg_json_path = out_dir / "knowledge_graph_stats.json"
+    s5_kg.render_knowledge_graph(G_kg, kg_html_path, kg_stats)
+    kg_json_path.write_text(json.dumps(kg_stats, indent=2, ensure_ascii=False), encoding="utf-8")
+    t_kg = time.time() - t0
+    print(f"  [OK] Knowledge Graph rendered ({t_kg:.2f}s) -> {kg_html_path}")
+    print(f"       Total Entities: {kg_stats['total_nodes']}  |  Semantic Relations: {kg_stats['total_edges']}")
+    print(f"       Identified Research Gaps (White Spaces): {len(kg_stats.get('research_gaps', []))}")
+
+    print(f"\n  {'=' * 66}")
+    cit_html_path = out_dir / "citation_graph.html"
+    print(f"  1. Guided Citation & Gaps Graph : {cit_html_path}")
+    print(f"  2. Academic Knowledge Graph     : {kg_html_path}")
+    print(f"  {'=' * 66}\n")
+
+
+# ---------------------------------------------------------------------------
+# HOW: Command line argument parser configuration
 # ---------------------------------------------------------------------------
 
 def build_parser() -> argparse.ArgumentParser:
@@ -540,13 +695,41 @@ def build_parser() -> argparse.ArgumentParser:
         "--query",
         type=str,
         default=None,
-        help="arXiv search query (required only when --corpus file doesn't exist yet).",
+        help="Search query (required only when --corpus file doesn't exist yet).",
     )
     parser.add_argument(
         "--max-results",
+        "--max-papers",
+        dest="max_results",
         type=int,
         default=300,
         help="Maximum papers to fetch (Stage 1 only).",
+    )
+    parser.add_argument(
+        "--source",
+        choices=["semanticscholar", "arxiv"],
+        default="semanticscholar",
+        help=(
+            "Data source for Stage 1 ingestion. "
+            "'semanticscholar' (default) fetches via S2AG batch API with TLDR, "
+            "citation intents, influentialCitationCount, and references embedded. "
+            "'arxiv' uses the arXiv Python library (no citation data)."
+        ),
+    )
+    parser.add_argument(
+        "--year",
+        type=str,
+        default=None,
+        help=(
+            "Publication year filter for Semantic Scholar search. "
+            "Examples: '2022-2024', '2020-', '2023'. "
+            "Ignored when --source=arxiv."
+        ),
+    )
+    parser.add_argument(
+        "--force-fetch",
+        action="store_true",
+        help="Force fresh fetching from S2 API, bypassing local query cache and existing corpus file.",
     )
     parser.add_argument(
         "--no-stage1",
@@ -567,6 +750,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--no-stage4",
         action="store_true",
         help="Skip Stage 4 topic modeling.",
+    )
+    parser.add_argument(
+        "--no-stage5",
+        action="store_true",
+        help="Skip Stage 5 dual visualizations (Citation Graph + Knowledge Graph).",
     )
     parser.add_argument(
         "--model",
@@ -608,13 +796,27 @@ def main(argv: list[str] | None = None) -> None:
     print("=" * 70)
     print(f"  Corpus : {args.corpus}")
     print(f"  Output : {args.out}")
+    print(f"  Source : {args.source}")
 
     # HOW: Execute Stage 1 (Data Ingestion)
     if args.no_stage1:
         _skip(1, "DATA INGESTION", reason="--no-stage1 flag set")
         papers = _load_corpus(args.corpus)
     else:
-        papers = run_stage1(args.corpus, args.query, args.max_results)
+        # HOW: If a query is explicitly provided, always wipe previous data first.
+        #      This ensures query A's papers never bleed into query B's results.
+        #      --force-fetch alone re-fetches from API but also triggers reset.
+        if args.query:
+            _reset_workspace(args.corpus, args.out)
+
+        papers = run_stage1(
+            corpus_path=args.corpus,
+            query=args.query,
+            max_results=args.max_results,
+            source=args.source,
+            year=getattr(args, "year", None),
+            force_fetch=getattr(args, "force_fetch", False),
+        )
 
     if not papers:
         print("[ERROR] No papers in corpus. Aborting.", file=sys.stderr)
@@ -649,8 +851,16 @@ def main(argv: list[str] | None = None) -> None:
             target_topics=args.target_topics,
         )
 
-
+    # HOW: Execute Stage 5 (Dual Visualizations)
+    if args.no_stage5:
+        _skip(5, "DUAL VISUALIZATIONS", reason="--no-stage5 flag set")
+    elif args.no_stage4 and not (args.out / "topic_results.json").exists():
+        _skip(5, "DUAL VISUALIZATIONS", reason="Stage 4 was skipped and topic_results.json not found on disk")
+    else:
+        run_stage5(papers=papers, out_dir=args.out, corpus_path=args.corpus)
 
 
 if __name__ == "__main__":
     main()
+
+

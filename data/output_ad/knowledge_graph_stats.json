@@ -1,0 +1,173 @@
+{
+  "total_nodes": 479,
+  "total_edges": 650,
+  "counts_by_type": {
+    "papers": 300,
+    "topics": 10,
+    "methods": 156,
+    "datasets": 1,
+    "authors": 12
+  },
+  "top_methods": [
+    {
+      "name": "In This Paper,",
+      "count": 34
+    },
+    {
+      "name": "Reinforcement Learning",
+      "count": 28
+    },
+    {
+      "name": "Transformer",
+      "count": 20
+    },
+    {
+      "name": "Attention Mechanism",
+      "count": 11
+    },
+    {
+      "name": "To Address This",
+      "count": 10
+    },
+    {
+      "name": "Llm",
+      "count": 9
+    },
+    {
+      "name": "In This Work,",
+      "count": 9
+    },
+    {
+      "name": "We Propose A",
+      "count": 8
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "Training Set",
+      "count": 2
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "In This Paper,",
+      "dataset": "Training Set",
+      "gap_score": 68,
+      "method_papers_count": 34,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply In This Paper, to Training Set benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "Training Set",
+      "gap_score": 56,
+      "method_papers_count": 28,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Reinforcement Learning to Training Set benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Training Set",
+      "gap_score": 40,
+      "method_papers_count": 20,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Transformer to Training Set benchmark"
+    },
+    {
+      "method": "Attention Mechanism",
+      "dataset": "Training Set",
+      "gap_score": 22,
+      "method_papers_count": 11,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Attention Mechanism to Training Set benchmark"
+    },
+    {
+      "method": "To Address This",
+      "dataset": "Training Set",
+      "gap_score": 20,
+      "method_papers_count": 10,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply To Address This to Training Set benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "Training Set",
+      "gap_score": 18,
+      "method_papers_count": 9,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Llm to Training Set benchmark"
+    },
+    {
+      "method": "In This Work,",
+      "dataset": "Training Set",
+      "gap_score": 18,
+      "method_papers_count": 9,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply In This Work, to Training Set benchmark"
+    },
+    {
+      "method": "To Address These",
+      "dataset": "Training Set",
+      "gap_score": 14,
+      "method_papers_count": 7,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply To Address These to Training Set benchmark"
+    },
+    {
+      "method": "This Paper Presents",
+      "dataset": "Training Set",
+      "gap_score": 10,
+      "method_papers_count": 5,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply This Paper Presents to Training Set benchmark"
+    },
+    {
+      "method": "This Paper Introduces",
+      "dataset": "Training Set",
+      "gap_score": 8,
+      "method_papers_count": 4,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply This Paper Introduces to Training Set benchmark"
+    },
+    {
+      "method": "Diffusion Model",
+      "dataset": "Training Set",
+      "gap_score": 8,
+      "method_papers_count": 4,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Diffusion Model to Training Set benchmark"
+    },
+    {
+      "method": "To Address This,",
+      "dataset": "Training Set",
+      "gap_score": 8,
+      "method_papers_count": 4,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply To Address This, to Training Set benchmark"
+    },
+    {
+      "method": "Large Language Model",
+      "dataset": "Training Set",
+      "gap_score": 6,
+      "method_papers_count": 3,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Large Language Model to Training Set benchmark"
+    },
+    {
+      "method": "Gan",
+      "dataset": "Training Set",
+      "gap_score": 6,
+      "method_papers_count": 3,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gan to Training Set benchmark"
+    },
+    {
+      "method": "To This End,",
+      "dataset": "Training Set",
+      "gap_score": 6,
+      "method_papers_count": 3,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply To This End, to Training Set benchmark"
+    }
+  ]
+}

@@ -71,9 +71,16 @@ def _get_nlp():
             return _NLP
         except OSError:
             continue
-    raise OSError(
-        "No spaCy model found. Run: python -m spacy download en_core_web_sm"
-    )
+    try:
+        from spacy import cli as _spacy_cli
+        print("  [Setup] Downloading spaCy en_core_web_sm model...")
+        _spacy_cli.download("en_core_web_sm")
+        _NLP = spacy.load("en_core_web_sm", disable=["parser"])
+        return _NLP
+    except Exception:
+        # Fallback to blank english model if download is blocked
+        _NLP = spacy.blank("en")
+        return _NLP
 
 
 # ---------------------------------------------------------------------------
@@ -230,10 +237,13 @@ def _tokenize_verbose(clean_text_str: str, min_token_len: int = 3) -> dict:
 
 def preprocess_paper(paper: dict) -> list[str]:
     """HOW: Full single-paper preprocessing pipeline — clean → tokenize → lemmatize."""
-    # HOW: Concatenate title and abstract into one string for processing
-    title = (paper.get("title") or "").strip()
+    title    = (paper.get("title")    or "").strip()
+    tldr     = (paper.get("tldr")     or "").strip()
     abstract = (paper.get("abstract") or "").strip()
-    raw = f"{title}. {abstract}".strip()
+    fos      = " ".join(paper.get("s2_fields_of_study") or [])
+
+    parts = [title, tldr, abstract, fos]
+    raw = ". ".join(p for p in parts if p).strip()
 
     cleaned = clean_text(raw)              # HOW: Step 1 — Remove noise with Regex
     return tokenize_and_lemmatize(cleaned) # HOW: Step 2 — Tokenize, lemmatize, filter stopwords
@@ -253,7 +263,7 @@ def preprocess_paper_verbose(paper: dict) -> dict:
         {
             'id'              : paper ID string,
             'title'           : paper title string,
-            'raw_text'        : raw concatenated title + abstract string,
+            'raw_text'        : raw concatenated title + tldr + abstract + fos string,
             'raw_word_count'  : number of words in raw text,
             'cleaned_text'    : text after Regex noise removal,
             'cleaned_word_count': number of words after Regex cleaning,
@@ -263,10 +273,13 @@ def preprocess_paper_verbose(paper: dict) -> dict:
         }
     """
     title    = (paper.get("title")    or "").strip()
+    tldr     = (paper.get("tldr")     or "").strip()
     abstract = (paper.get("abstract") or "").strip()
+    fos      = " ".join(paper.get("s2_fields_of_study") or [])
 
-    # Step 1: Concatenate title + abstract into one raw string
-    raw = f"{title}. {abstract}".strip()
+    # Step 1: Concatenate title + tldr + abstract + fieldsOfStudy into one raw string
+    parts = [title, tldr, abstract, fos]
+    raw = ". ".join(p for p in parts if p).strip()
     step1_words = raw.split()  # All words in raw text
 
     # Step 2: Regex noise stripping

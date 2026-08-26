@@ -1,18 +1,46 @@
 {
   "total_nodes": 301,
-  "total_edges": 243,
-  "papers_with_outgoing_edges": 100,
-  "papers_with_incoming_edges": 61,
-  "inter_cluster_edge_count": 157,
-  "intra_cluster_edge_count": 86,
-  "isolated_papers_count": 173,
+  "total_edges": 399,
+  "papers_with_outgoing_edges": 169,
+  "papers_with_incoming_edges": 88,
+  "inter_cluster_edge_count": 235,
+  "intra_cluster_edge_count": 164,
+  "isolated_papers_count": 98,
   "most_influential_papers": [
     {
       "id": "1912.04977v3",
       "title": "Advances and Open Problems in Federated Learning",
       "year": 2019,
       "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "in_citations": 60
+      "in_citations": 97
+    },
+    {
+      "id": "2007.14390v5",
+      "title": "Flower: A Friendly Federated Learning Research Framework",
+      "year": 2020,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "in_citations": 23
+    },
+    {
+      "id": "1907.09173v2",
+      "title": "FedHealth: A Federated Transfer Learning Framework for Wearable Healthcare",
+      "year": 2019,
+      "topic_name": "IoT Edge Devices & Wearable EEG Sensing",
+      "in_citations": 17
+    },
+    {
+      "id": "2001.01523v3",
+      "title": "Think Locally, Act Globally: Federated Learning with Local and Global Representations",
+      "year": 2020,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "in_citations": 17
+    },
+    {
+      "id": "1910.03581v1",
+      "title": "FedMD: Heterogenous Federated Learning via Model Distillation",
+      "year": 2019,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "in_citations": 15
     },
     {
       "id": "1911.06270v2",
@@ -22,20 +50,6 @@
       "in_citations": 15
     },
     {
-      "id": "2001.01523v3",
-      "title": "Think Locally, Act Globally: Federated Learning with Local and Global Representations",
-      "year": 2020,
-      "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "in_citations": 14
-    },
-    {
-      "id": "1907.09173v2",
-      "title": "FedHealth: A Federated Transfer Learning Framework for Wearable Healthcare",
-      "year": 2019,
-      "topic_name": "IoT Edge Devices & Wearable EEG Sensing",
-      "in_citations": 12
-    },
-    {
       "id": "2007.14513v4",
       "title": "Group Knowledge Transfer: Federated Learning of Large CNNs at the Edge",
       "year": 2020,
@@ -43,24 +57,17 @@
       "in_citations": 11
     },
     {
-      "id": "2007.14390v5",
-      "title": "Flower: A Friendly Federated Learning Research Framework",
-      "year": 2020,
-      "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "in_citations": 9
-    },
-    {
-      "id": "1910.03581v1",
-      "title": "FedMD: Heterogenous Federated Learning via Model Distillation",
-      "year": 2019,
-      "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "in_citations": 9
-    },
-    {
       "id": "1811.11479v2",
       "title": "Communication-Efficient On-Device Machine Learning: Federated Distillation and Augmentation under Non-IID Private Data",
       "year": 2018,
       "topic_name": "Federated Learning Communication & Neural Aggregation",
+      "in_citations": 11
+    },
+    {
+      "id": "1808.04866v5",
+      "title": "Mitigating Sybils in Federated Learning Poisoning",
+      "year": 2018,
+      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
       "in_citations": 9
     },
     {
@@ -68,14 +75,7 @@
       "title": "Central Server Free Federated Learning over Single-sided Trust Social Networks",
       "year": 2019,
       "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "in_citations": 6
-    },
-    {
-      "id": "1808.04866v5",
-      "title": "Mitigating Sybils in Federated Learning Poisoning",
-      "year": 2018,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "in_citations": 6
+      "in_citations": 8
     }
   ],
   "hub_papers": [
@@ -92,6 +92,13 @@
       "year": 2021,
       "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
       "out_citations": 13
+    },
+    {
+      "id": "2409.09727v2",
+      "title": "From Challenges and Pitfalls to Recommendations and Opportunities: Implementing Federated Learning in Healthcare",
+      "year": 2024,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "out_citations": 12
     },
     {
       "id": "2111.11066v1",
@@ -115,6 +122,20 @@
       "out_citations": 9
     },
     {
+      "id": "2405.13832v1",
+      "title": "Federated Learning in Healthcare: Model Misconducts, Security, Challenges, Applications, and Future Research Directions -- A Systematic Review",
+      "year": 2024,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "out_citations": 8
+    },
+    {
+      "id": "2310.09650v2",
+      "title": "Multimodal Federated Learning in Healthcare: a Review",
+      "year": 2023,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "out_citations": 7
+    },
+    {
       "id": "2306.14483v1",
       "title": "Medical Federated Model with Mixture of Personalized and Sharing Components",
       "year": 2023,
@@ -127,113 +148,57 @@
       "year": 2022,
       "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
       "out_citations": 6
-    },
+    }
+  ],
+  "bridge_papers": [
     {
-      "id": "2107.00778v2",
-      "title": "On Bridging Generic and Personalized Federated Learning for Image Classification",
-      "year": 2021,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "out_citations": 6
-    },
-    {
-      "id": "2307.02140v3",
-      "title": "Towards Open Federated Learning Platforms: Survey and Vision from Technical and Legal Perspectives",
-      "year": 2023,
-      "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "out_citations": 5
+      "id": "2007.01135v1",
+      "title": "Student-Teacher Curriculum Learning via Reinforcement Learning: Predicting Hospital Inpatient Admission Location",
+      "year": 2020,
+      "topic_name": "Federated Learning Communication & Neural Aggregation",
+      "degree": 1
     },
     {
       "id": "2204.08467v2",
       "title": "IOP-FL: Inside-Outside Personalization for Federated Medical Image Segmentation",
       "year": 2022,
       "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "out_citations": 5
-    }
-  ],
-  "bridge_papers": [
+      "degree": 5
+    },
     {
-      "id": "2307.02140v3",
-      "title": "Towards Open Federated Learning Platforms: Survey and Vision from Technical and Legal Perspectives",
+      "id": "2206.05575v5",
+      "title": "MammoFL: Mammographic Breast Density Estimation using Federated Learning",
+      "year": 2022,
+      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
+      "degree": 1
+    },
+    {
+      "id": "2304.12012v1",
+      "title": "Fed-BioMed: Open, Transparent and Trusted Federated Learning for Real-world Healthcare Applications",
       "year": 2023,
       "topic_name": "Healthcare Systems & Medical Data Analytics",
       "degree": 5
     },
     {
-      "id": "1909.05784v3",
-      "title": "HHHFL: Hierarchical Heterogeneous Horizontal Federated Learning for Electroencephalography",
-      "year": 2019,
-      "topic_name": "IoT Edge Devices & Wearable EEG Sensing",
-      "degree": 2
-    },
-    {
-      "id": "1902.11175v2",
-      "title": "One-Shot Federated Learning",
-      "year": 2019,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 2
-    },
-    {
-      "id": "2102.12920v5",
-      "title": "Emerging Trends in Federated Learning: From Model Fusion to Federated X Learning",
+      "id": "2112.09429v2",
+      "title": "Federated Learning with Superquantile Aggregation for Heterogeneous Data",
       "year": 2021,
       "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 14
-    },
-    {
-      "id": "2210.13291v3",
-      "title": "NVIDIA FLARE: Federated Learning from Simulation to Real-World",
-      "year": 2022,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 4
-    },
-    {
-      "id": "2006.07026v2",
-      "title": "Backdoor Attacks on Federated Meta-Learning",
-      "year": 2020,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 3
-    },
-    {
-      "id": "2011.06393v1",
-      "title": "Heterogeneous Data-Aware Federated Learning",
-      "year": 2020,
-      "topic_name": "Federated Learning Communication & Neural Aggregation",
       "degree": 2
     },
     {
-      "id": "1808.04866v5",
-      "title": "Mitigating Sybils in Federated Learning Poisoning",
-      "year": 2018,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 6
-    },
-    {
-      "id": "2007.06081v1",
-      "title": "VAFL: a Method of Vertical Asynchronous Federated Learning",
-      "year": 2020,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 3
-    },
-    {
-      "id": "2206.00686v2",
-      "title": "Federated Learning in Non-IID Settings Aided by Differentially Private Synthetic Data",
-      "year": 2022,
+      "id": "2409.13004v1",
+      "title": "Data Poisoning and Leakage Analysis in Federated Learning",
+      "year": 2024,
       "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
       "degree": 2
     },
     {
-      "id": "2104.09994v3",
-      "title": "Federated Learning for Malware Detection in IoT Devices",
-      "year": 2021,
-      "topic_name": "IoT Edge Devices & Wearable EEG Sensing",
+      "id": "2008.06767v2",
+      "title": "Heterogeneous Federated Learning",
+      "year": 2020,
+      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
       "degree": 1
-    },
-    {
-      "id": "2009.11248v1",
-      "title": "FastSecAgg: Scalable Secure Aggregation for Privacy-Preserving Federated Learning",
-      "year": 2020,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 2
     },
     {
       "id": "1911.05861v1",
@@ -243,53 +208,88 @@
       "degree": 1
     },
     {
-      "id": "2005.05083v1",
-      "title": "A Federated Learning Framework for Healthcare IoT devices",
-      "year": 2020,
-      "topic_name": "IoT Edge Devices & Wearable EEG Sensing",
-      "degree": 2
-    },
-    {
-      "id": "2006.12097v3",
-      "title": "Federated Semi-Supervised Learning with Inter-Client Consistency & Disjoint Learning",
-      "year": 2020,
-      "topic_name": "Supervised Client Selection & Non-IID Label Skew",
-      "degree": 5
-    },
-    {
-      "id": "2011.10464v2",
-      "title": "A Reputation Mechanism Is All You Need: Collaborative Fairness and Adversarial Robustness in Federated Learning",
-      "year": 2020,
-      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 2
-    },
-    {
-      "id": "2206.05507v1",
-      "title": "Federated Learning with GAN-based Data Synthesis for Non-IID Clients",
+      "id": "2206.00686v2",
+      "title": "Federated Learning in Non-IID Settings Aided by Differentially Private Synthetic Data",
       "year": 2022,
       "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
-      "degree": 4
+      "degree": 2
     },
     {
-      "id": "2306.01339v1",
-      "title": "Resource-Efficient Federated Hyperdimensional Computing",
+      "id": "2109.02464v2",
+      "title": "Practical and Secure Federated Recommendation with Personalized Masks",
+      "year": 2021,
+      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
+      "degree": 2
+    },
+    {
+      "id": "2104.08094v3",
+      "title": "Personalized Semi-Supervised Federated Learning for Human Activity Recognition",
+      "year": 2021,
+      "topic_name": "Supervised Client Selection & Non-IID Label Skew",
+      "degree": 2
+    },
+    {
+      "id": "1912.04977v3",
+      "title": "Advances and Open Problems in Federated Learning",
+      "year": 2019,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "degree": 106
+    },
+    {
+      "id": "2306.09912v4",
+      "title": "Towards Quantum Federated Learning",
       "year": 2023,
-      "topic_name": "Federated Learning Communication & Neural Aggregation",
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "degree": 2
+    },
+    {
+      "id": "2107.09898v1",
+      "title": "Defending against Reconstruction Attack in Vertical Federated Learning",
+      "year": 2021,
+      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
       "degree": 1
     },
     {
-      "id": "2204.08467v2",
-      "title": "IOP-FL: Inside-Outside Personalization for Federated Medical Image Segmentation",
-      "year": 2022,
-      "topic_name": "Healthcare Systems & Medical Data Analytics",
-      "degree": 5
-    },
-    {
-      "id": "2212.11729v1",
-      "title": "Federated Learning -- Methods, Applications and beyond",
+      "id": "2206.07832v1",
+      "title": "Adaptive Expert Models for Personalization in Federated Learning",
       "year": 2022,
       "topic_name": "Healthcare Systems & Medical Data Analytics",
       "degree": 4
+    },
+    {
+      "id": "1907.09173v2",
+      "title": "FedHealth: A Federated Transfer Learning Framework for Wearable Healthcare",
+      "year": 2019,
+      "topic_name": "IoT Edge Devices & Wearable EEG Sensing",
+      "degree": 17
+    },
+    {
+      "id": "1903.07424v1",
+      "title": "Communication-Efficient Federated Deep Learning with Asynchronous Model Update and Temporally Weighted Aggregation",
+      "year": 2019,
+      "topic_name": "Federated Learning Communication & Neural Aggregation",
+      "degree": 5
+    },
+    {
+      "id": "2512.14767v1",
+      "title": "Privacy-Preserving Feature Valuation in Vertical Federated Learning Using Shapley-CMI and PSI Permutation",
+      "year": 2025,
+      "topic_name": "Adversarial Attacks & Data Poisoning Defenses",
+      "degree": 1
+    },
+    {
+      "id": "2308.07805v1",
+      "title": "Fairness and Privacy in Federated Learning and Their Implications in Healthcare",
+      "year": 2023,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "degree": 1
+    },
+    {
+      "id": "2509.02391v3",
+      "title": "Gaming and Cooperation in Federated Learning: What Can Happen and How to Monitor It",
+      "year": 2025,
+      "topic_name": "Healthcare Systems & Medical Data Analytics",
+      "degree": 2
     }
   ]
 }
