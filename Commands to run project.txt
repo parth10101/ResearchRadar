@@ -5,6 +5,29 @@
 # 1. Activate Environment (PowerShell)
 .\venv311\Scripts\Activate.ps1
 
+# ======================================================================
+# FULL-STACK & WEB UI EXECUTION (FRONTEND + BACKEND TERMINAL)
+# ======================================================================
+
+# OPTION A: 1-Click Unified Mode (Easiest - 1 Terminal)
+# Serves both the FastAPI REST API and compiled React SPA on Port 8000:
+.\venv311\Scripts\python.exe -m uvicorn research_radar.api:app --host 127.0.0.1 --port 8000 --reload
+# Then open: http://127.0.0.1:8000
+# (Or simply double-click 'run_app.bat')
+
+# OPTION B: Live Development Mode (2 Terminals with Hot-Reload)
+# Terminal 1 (FastAPI Backend):
+.\venv311\Scripts\python.exe -m uvicorn research_radar.api:app --host 127.0.0.1 --port 8000 --reload
+# Terminal 2 (Vite Frontend Hot-Reload):
+cd frontend
+npm run dev
+# Then open: http://localhost:5173
+# (Or simply double-click 'run_dev.bat')
+
+# Rebuilding the Frontend after modifications:
+cd frontend
+npm run build
+
 # 2. Run End-to-End Pipeline on Any Query (100% Rate-Limit Proof, Scalable to 500-1000+ Papers)
 # Query 1: Federated Learning
 python -m research_radar.pipeline --query "federated learning healthcare" --max-results 300 --corpus data/fl_papers.json --out data/output_fl

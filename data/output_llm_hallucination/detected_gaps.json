@@ -1,0 +1,75 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on Comprehensive Benchmark",
+      "method": "Knowledge Graph",
+      "dataset": "Comprehensive Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and Comprehensive Benchmark are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on Comprehensive Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2405.06545",
+        "2502.14302",
+        "2502.13622"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on And Benchmark",
+      "method": "Knowledge Graph",
+      "dataset": "And Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and And Benchmark are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on And Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2405.06545",
+        "2405.14486",
+        "2502.13622"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on New Benchmark",
+      "method": "Knowledge Graph",
+      "dataset": "New Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and New Benchmark are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on New Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2405.06545",
+        "2403.06448",
+        "2502.13622"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on Novel Benchmark",
+      "method": "Knowledge Graph",
+      "dataset": "Novel Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and Novel Benchmark are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on Novel Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2405.06545",
+        "5ce77edd78da",
+        "2502.13622"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on New Dataset",
+      "method": "Knowledge Graph",
+      "dataset": "New Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and New Dataset are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on New Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2405.06545",
+        "2212.13138",
+        "2502.13622"
+      ]
+    }
+  ]
+}

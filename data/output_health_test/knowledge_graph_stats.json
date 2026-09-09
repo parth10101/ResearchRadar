@@ -1,0 +1,201 @@
+{
+  "total_nodes": 158,
+  "total_edges": 173,
+  "counts_by_type": {
+    "papers": 72,
+    "topics": 8,
+    "methods": 67,
+    "datasets": 10,
+    "authors": 1
+  },
+  "top_methods": [
+    {
+      "name": "Transformer",
+      "count": 5
+    },
+    {
+      "name": "Artificial Intelligence (Ai)",
+      "count": 3
+    },
+    {
+      "name": "Federated Learning",
+      "count": 3
+    },
+    {
+      "name": "Artificial Intelligence Is",
+      "count": 2
+    },
+    {
+      "name": "Transfer Learning",
+      "count": 2
+    },
+    {
+      "name": "In This Work,",
+      "count": 2
+    },
+    {
+      "name": "Llm",
+      "count": 2
+    },
+    {
+      "name": "Blockchain",
+      "count": 1
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "PUBMED",
+      "count": 6
+    },
+    {
+      "name": "Electronic Health Records",
+      "count": 3
+    },
+    {
+      "name": "Clinical Trials",
+      "count": 2
+    },
+    {
+      "name": "X-RAY",
+      "count": 2
+    },
+    {
+      "name": "Covid-19",
+      "count": 2
+    },
+    {
+      "name": "Electronic Health Record",
+      "count": 1
+    },
+    {
+      "name": "Imagenet",
+      "count": 1
+    },
+    {
+      "name": "MRI",
+      "count": 1
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Transformer",
+      "dataset": "PUBMED",
+      "gap_score": 30,
+      "method_papers_count": 5,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Transformer to PUBMED benchmark"
+    },
+    {
+      "method": "Artificial Intelligence (Ai)",
+      "dataset": "PUBMED",
+      "gap_score": 18,
+      "method_papers_count": 3,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Artificial Intelligence (Ai) to PUBMED benchmark"
+    },
+    {
+      "method": "Federated Learning",
+      "dataset": "PUBMED",
+      "gap_score": 18,
+      "method_papers_count": 3,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Federated Learning to PUBMED benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Electronic Health Records",
+      "gap_score": 15,
+      "method_papers_count": 5,
+      "dataset_papers_count": 3,
+      "opportunity": "Apply Transformer to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Artificial Intelligence Is",
+      "dataset": "PUBMED",
+      "gap_score": 12,
+      "method_papers_count": 2,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Artificial Intelligence Is to PUBMED benchmark"
+    },
+    {
+      "method": "Transfer Learning",
+      "dataset": "PUBMED",
+      "gap_score": 12,
+      "method_papers_count": 2,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Transfer Learning to PUBMED benchmark"
+    },
+    {
+      "method": "In This Work,",
+      "dataset": "PUBMED",
+      "gap_score": 12,
+      "method_papers_count": 2,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply In This Work, to PUBMED benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Clinical Trials",
+      "gap_score": 10,
+      "method_papers_count": 5,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Transformer to Clinical Trials benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "X-RAY",
+      "gap_score": 10,
+      "method_papers_count": 5,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Transformer to X-RAY benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Covid-19",
+      "gap_score": 10,
+      "method_papers_count": 5,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Transformer to Covid-19 benchmark"
+    },
+    {
+      "method": "Artificial Intelligence (Ai)",
+      "dataset": "Electronic Health Records",
+      "gap_score": 9,
+      "method_papers_count": 3,
+      "dataset_papers_count": 3,
+      "opportunity": "Apply Artificial Intelligence (Ai) to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Blockchain",
+      "dataset": "PUBMED",
+      "gap_score": 6,
+      "method_papers_count": 1,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Blockchain to PUBMED benchmark"
+    },
+    {
+      "method": "The Integration Of",
+      "dataset": "PUBMED",
+      "gap_score": 6,
+      "method_papers_count": 1,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply The Integration Of to PUBMED benchmark"
+    },
+    {
+      "method": "Introduction: Chatgpt (Openai,",
+      "dataset": "PUBMED",
+      "gap_score": 6,
+      "method_papers_count": 1,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Introduction: Chatgpt (Openai, to PUBMED benchmark"
+    },
+    {
+      "method": "Highlights What Are",
+      "dataset": "PUBMED",
+      "gap_score": 6,
+      "method_papers_count": 1,
+      "dataset_papers_count": 6,
+      "opportunity": "Apply Highlights What Are to PUBMED benchmark"
+    }
+  ]
+}

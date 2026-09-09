@@ -1,0 +1,355 @@
+{
+  "macro_clusters": [
+    {
+      "cluster_id": 0,
+      "name": "Language Models Hallucination, Answering Machine Translation & Questioning Effectively Mitigates",
+      "keywords": [
+        "hallucination",
+        "model",
+        "llm",
+        "language"
+      ],
+      "color": "#38bdf8",
+      "glow": "rgba(56, 189, 248, 0.25)",
+      "x": 872.2,
+      "y": 237.1,
+      "radius": 28.0,
+      "paper_count": 0,
+      "pillars": [],
+      "satellites": []
+    },
+    {
+      "cluster_id": 1,
+      "name": "Improving Factuality Biomedical, Generate Semantically Validate & Answers Condition Aware",
+      "keywords": [
+        "clinical",
+        "llm",
+        "medical",
+        "model"
+      ],
+      "color": "#a855f7",
+      "glow": "rgba(168, 85, 247, 0.25)",
+      "x": 969.5,
+      "y": 434.4,
+      "radius": 28.0,
+      "paper_count": 0,
+      "pillars": [],
+      "satellites": []
+    },
+    {
+      "cluster_id": 2,
+      "name": "Dialogue Ontology Relation, Relation Extraction Generate & Large Language Models",
+      "keywords": [
+        "knowledge",
+        "reasoning",
+        "llm",
+        "graph"
+      ],
+      "color": "#10b981",
+      "glow": "rgba(16, 185, 129, 0.25)",
+      "x": 847.3,
+      "y": 617.3,
+      "radius": 28.0,
+      "paper_count": 0,
+      "pillars": [],
+      "satellites": []
+    },
+    {
+      "cluster_id": 4,
+      "name": "Question Answering Visual, Scene Graphs Commonsense & Modal Reasoning Extensive",
+      "keywords": [
+        "visual",
+        "image",
+        "hallucination",
+        "model"
+      ],
+      "color": "#eab308",
+      "glow": "rgba(234, 179, 8, 0.25)",
+      "x": 627.8,
+      "y": 602.9,
+      "radius": 28.0,
+      "paper_count": 0,
+      "pillars": [],
+      "satellites": []
+    },
+    {
+      "cluster_id": 3,
+      "name": "Agents Urban Planning, Offer Powerful Reasoning & Diverse Stakeholders Contentious",
+      "keywords": [
+        "agent",
+        "llm",
+        "model",
+        "language"
+      ],
+      "color": "#f43f5e",
+      "glow": "rgba(244, 63, 94, 0.25)",
+      "x": 530.5,
+      "y": 405.6,
+      "radius": 28.0,
+      "paper_count": 0,
+      "pillars": [],
+      "satellites": []
+    },
+    {
+      "cluster_id": 5,
+      "name": "Retrieval Augmented Generation, Lightweight Question Retrieval & Question Answering Mutual",
+      "keywords": [
+        "rag",
+        "retrieval",
+        "generation",
+        "llm"
+      ],
+      "color": "#818cf8",
+      "glow": "rgba(129, 140, 248, 0.25)",
+      "x": 652.7,
+      "y": 222.7,
+      "radius": 28.0,
+      "paper_count": 0,
+      "pillars": [],
+      "satellites": []
+    }
+  ],
+  "macro_filaments": [],
+  "gaps": [
+    {
+      "gap_id": "gap_1",
+      "rank": 1,
+      "title": "Unexplored Application of Knowledge Graph on And Dataset",
+      "method": "Knowledge Graph",
+      "dataset": "And Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 88.0,
+      "uzzi_z_score": -1.2,
+      "is_center_top": true,
+      "macro_x": 750.0,
+      "macro_y": 420.0,
+      "role": "CENTER_TOP_GAP",
+      "description": "While Knowledge Graph and And Dataset are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on And Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "hypothesis": "Applying Knowledge Graph directly to And Dataset under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Knowledge Graph",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Knowledge Graph with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on And Dataset",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Adversarial Data-Poisoning Attacks.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_2",
+      "rank": 2,
+      "title": "Unexplored Application of Knowledge Graph on And Benchmark",
+      "method": "Knowledge Graph",
+      "dataset": "And Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 88.0,
+      "uzzi_z_score": -1.38,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_LEFT",
+      "description": "While Knowledge Graph and And Benchmark are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on And Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "hypothesis": "Applying Knowledge Graph directly to And Benchmark under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Knowledge Graph",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Knowledge Graph with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on And Benchmark",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Adversarial Data-Poisoning Attacks.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_3",
+      "rank": 3,
+      "title": "Unexplored Application of Second on Electronic Health Records",
+      "method": "Second",
+      "dataset": "Electronic Health Records",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 88.0,
+      "uzzi_z_score": -1.56,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_RIGHT",
+      "description": "While Second and Electronic Health Records are prominent in current literature, zero papers in the corpus have evaluated Second directly on Electronic Health Records under Adversarial Data-Poisoning Attacks constraints.",
+      "hypothesis": "Applying Second directly to Electronic Health Records under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Second",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Second with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on Electronic Health Records",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Adversarial Data-Poisoning Attacks.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_4",
+      "rank": 4,
+      "title": "Unexplored Application of Second on Our Benchmark",
+      "method": "Second",
+      "dataset": "Our Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 88.0,
+      "uzzi_z_score": -1.74,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_LEFT",
+      "description": "While Second and Our Benchmark are prominent in current literature, zero papers in the corpus have evaluated Second directly on Our Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "hypothesis": "Applying Second directly to Our Benchmark under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Second",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Second with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on Our Benchmark",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Adversarial Data-Poisoning Attacks.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_5",
+      "rank": 5,
+      "title": "Unexplored Application of Knowledge Graphs on And Dataset",
+      "method": "Knowledge Graphs",
+      "dataset": "And Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 88.0,
+      "uzzi_z_score": -1.92,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_RIGHT",
+      "description": "While Knowledge Graphs and And Dataset are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graphs directly on And Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "hypothesis": "Applying Knowledge Graphs directly to And Dataset under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Knowledge Graphs",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Knowledge Graphs with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on And Dataset",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Adversarial Data-Poisoning Attacks.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    }
+  ],
+  "meta": {
+    "total_papers": 300,
+    "compiled_at": "2026-09-09 18:38:43",
+    "execution_time_sec": 0.001
+  }
+}

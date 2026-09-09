@@ -1,0 +1,201 @@
+{
+  "total_nodes": 1591,
+  "total_edges": 7446,
+  "counts_by_type": {
+    "papers": 1515,
+    "topics": 10,
+    "methods": 34,
+    "datasets": 20,
+    "authors": 12
+  },
+  "top_methods": [
+    {
+      "name": "Rag",
+      "count": 1480
+    },
+    {
+      "name": "Llm",
+      "count": 1437
+    },
+    {
+      "name": "Retrieval-Augmented Generation",
+      "count": 1427
+    },
+    {
+      "name": "Large Language Model",
+      "count": 466
+    },
+    {
+      "name": "Transformer",
+      "count": 209
+    },
+    {
+      "name": "Zero-Shot",
+      "count": 172
+    },
+    {
+      "name": "Lora",
+      "count": 97
+    },
+    {
+      "name": "Reinforcement Learning",
+      "count": 90
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "PUBMED",
+      "count": 31
+    },
+    {
+      "name": "Electronic Health Records",
+      "count": 13
+    },
+    {
+      "name": "EHR",
+      "count": 9
+    },
+    {
+      "name": "X-RAY",
+      "count": 9
+    },
+    {
+      "name": "Mimic-Iii",
+      "count": 6
+    },
+    {
+      "name": "SQUAD",
+      "count": 4
+    },
+    {
+      "name": "Covid-19",
+      "count": 4
+    },
+    {
+      "name": "Electronic Health Record",
+      "count": 3
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Few-Shot Learning",
+      "dataset": "PUBMED",
+      "gap_score": 2480,
+      "method_papers_count": 80,
+      "dataset_papers_count": 31,
+      "opportunity": "Apply Few-Shot Learning to PUBMED benchmark"
+    },
+    {
+      "method": "Large Language Model",
+      "dataset": "SQUAD",
+      "gap_score": 1864,
+      "method_papers_count": 466,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Large Language Model to SQUAD benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "Imagenet",
+      "gap_score": 1437,
+      "method_papers_count": 1437,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Llm to Imagenet benchmark"
+    },
+    {
+      "method": "Domain Adaptation",
+      "dataset": "PUBMED",
+      "gap_score": 1395,
+      "method_papers_count": 45,
+      "dataset_papers_count": 31,
+      "opportunity": "Apply Domain Adaptation to PUBMED benchmark"
+    },
+    {
+      "method": "Lora",
+      "dataset": "Electronic Health Records",
+      "gap_score": 1261,
+      "method_papers_count": 97,
+      "dataset_papers_count": 13,
+      "opportunity": "Apply Lora to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Few-Shot Learning",
+      "dataset": "Electronic Health Records",
+      "gap_score": 1040,
+      "method_papers_count": 80,
+      "dataset_papers_count": 13,
+      "opportunity": "Apply Few-Shot Learning to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "PUBMED",
+      "gap_score": 961,
+      "method_papers_count": 31,
+      "dataset_papers_count": 31,
+      "opportunity": "Apply Gnn to PUBMED benchmark"
+    },
+    {
+      "method": "Large Language Model",
+      "dataset": "Chexpert",
+      "gap_score": 932,
+      "method_papers_count": 466,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Large Language Model to Chexpert benchmark"
+    },
+    {
+      "method": "Contrastive Learning",
+      "dataset": "PUBMED",
+      "gap_score": 930,
+      "method_papers_count": 30,
+      "dataset_papers_count": 31,
+      "opportunity": "Apply Contrastive Learning to PUBMED benchmark"
+    },
+    {
+      "method": "Lora",
+      "dataset": "EHR",
+      "gap_score": 873,
+      "method_papers_count": 97,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Lora to EHR benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "EHR",
+      "gap_score": 810,
+      "method_papers_count": 90,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Reinforcement Learning to EHR benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "X-RAY",
+      "gap_score": 810,
+      "method_papers_count": 90,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Reinforcement Learning to X-RAY benchmark"
+    },
+    {
+      "method": "Few-Shot Learning",
+      "dataset": "X-RAY",
+      "gap_score": 720,
+      "method_papers_count": 80,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Few-Shot Learning to X-RAY benchmark"
+    },
+    {
+      "method": "Zero-Shot",
+      "dataset": "SQUAD",
+      "gap_score": 688,
+      "method_papers_count": 172,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Zero-Shot to SQUAD benchmark"
+    },
+    {
+      "method": "Zero-Shot",
+      "dataset": "Covid-19",
+      "gap_score": 688,
+      "method_papers_count": 172,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Zero-Shot to Covid-19 benchmark"
+    }
+  ]
+}

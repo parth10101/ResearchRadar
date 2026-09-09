@@ -1,0 +1,75 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on Medical Question",
+      "method": "Knowledge Graph",
+      "dataset": "Medical Question",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and Medical Question are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on Medical Question under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "02245bb92992",
+        "059cbf7e66c1",
+        "2501.00269"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on Medical Applications",
+      "method": "Knowledge Graph",
+      "dataset": "Medical Applications",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and Medical Applications are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on Medical Applications under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "02245bb92992",
+        "0965ed7216a2",
+        "2501.00269"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graphs on Medical Applications",
+      "method": "Knowledge Graphs",
+      "dataset": "Medical Applications",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graphs and Medical Applications are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graphs directly on Medical Applications under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2410.16397",
+        "0965ed7216a2",
+        "2501.00269"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Second on Clinical Decision",
+      "method": "Second",
+      "dataset": "Clinical Decision",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Second and Clinical Decision are prominent in current literature, zero papers in the corpus have evaluated Second directly on Clinical Decision under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "0127822bb9f7",
+        "02e343eac6a8",
+        "2501.00269"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Second on Medical Knowledge",
+      "method": "Second",
+      "dataset": "Medical Knowledge",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Second and Medical Knowledge are prominent in current literature, zero papers in the corpus have evaluated Second directly on Medical Knowledge under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "0127822bb9f7",
+        "0183d052cab8",
+        "2501.00269"
+      ]
+    }
+  ]
+}

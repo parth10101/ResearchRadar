@@ -1,0 +1,110 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-2",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel-2",
+      "limitation": "Atmospheric Correction",
+      "score": 0.4438,
+      "uzzi_z_score": -1.467,
+      "expected_cooccur": 1.833,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and Sentinel-2 (n=25) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on Sentinel-2 under Atmospheric Correction constraints (Uzzi z = -1.47σ).",
+      "papers_involved": [
+        "001906970cf7",
+        "002f34b8300f",
+        "00bfec7f3fce"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-1",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel-1",
+      "limitation": "Forest Structure And Height",
+      "score": 0.3601,
+      "uzzi_z_score": -1.116,
+      "expected_cooccur": 1.1,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and Sentinel-1 (n=15) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on Sentinel-1 under Forest Structure And Height constraints (Uzzi z = -1.12σ).",
+      "papers_involved": [
+        "001906970cf7",
+        "00067a04e069",
+        "00a14e2bc537"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on MODIS",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "MODIS",
+      "limitation": "Cloud Cover",
+      "score": 0.3601,
+      "uzzi_z_score": -1.116,
+      "expected_cooccur": 1.1,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and MODIS (n=15) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on MODIS under Cloud Cover constraints (Uzzi z = -1.12σ).",
+      "papers_involved": [
+        "001906970cf7",
+        "001c1dcc59a8",
+        "2109.00400"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel",
+      "limitation": "Atmospheric Correction",
+      "score": 0.3498,
+      "uzzi_z_score": -1.076,
+      "expected_cooccur": 1.027,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and Sentinel (n=14) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on Sentinel under Atmospheric Correction constraints (Uzzi z = -1.08σ).",
+      "papers_involved": [
+        "001906970cf7",
+        "00067a04e069",
+        "00bfec7f3fce"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Object Detection on Landsat",
+      "method": "Object Detection",
+      "dataset": "Landsat",
+      "limitation": "Cloud Cover",
+      "score": 0.3089,
+      "uzzi_z_score": -0.924,
+      "expected_cooccur": 0.747,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Object Detection (n=7) and Landsat (n=32) are prominent in literature, zero papers in the corpus have evaluated Object Detection directly on Landsat under Cloud Cover constraints (Uzzi z = -0.92σ).",
+      "papers_involved": [
+        "011c53383a74",
+        "00078a7f5f9c",
+        "2109.00400"
+      ]
+    }
+  ]
+}

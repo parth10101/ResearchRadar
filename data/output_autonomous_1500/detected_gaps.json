@@ -1,0 +1,75 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Second on Nuscenes Dataset",
+      "method": "Second",
+      "dataset": "Nuscenes Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Second and Nuscenes Dataset are prominent in current literature, zero papers in the corpus have evaluated Second directly on Nuscenes Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "009b56ff2ecc",
+        "2310.05245",
+        "0007c6ba6196"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Lidar-Camera Fusion on Multimodal Dataset",
+      "method": "Lidar-Camera Fusion",
+      "dataset": "Multimodal Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Lidar-Camera Fusion and Multimodal Dataset are prominent in current literature, zero papers in the corpus have evaluated Lidar-Camera Fusion directly on Multimodal Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "01ba79204be7",
+        "02da9b4c5057",
+        "0007c6ba6196"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Factor Graph on KITTI",
+      "method": "Factor Graph",
+      "dataset": "KITTI",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Factor Graph and KITTI are prominent in current literature, zero papers in the corpus have evaluated Factor Graph directly on KITTI under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "04c317a0a316",
+        "000a53aa0f54",
+        "0007c6ba6196"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Factor Graph on Nuscenes",
+      "method": "Factor Graph",
+      "dataset": "Nuscenes",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Factor Graph and Nuscenes are prominent in current literature, zero papers in the corpus have evaluated Factor Graph directly on Nuscenes under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "04c317a0a316",
+        "2310.05245",
+        "0007c6ba6196"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Factor Graph on Kitti Dataset",
+      "method": "Factor Graph",
+      "dataset": "Kitti Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Factor Graph and Kitti Dataset are prominent in current literature, zero papers in the corpus have evaluated Factor Graph directly on Kitti Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "04c317a0a316",
+        "000a53aa0f54",
+        "0007c6ba6196"
+      ]
+    }
+  ]
+}

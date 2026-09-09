@@ -1,0 +1,177 @@
+{
+  "total_nodes": 493,
+  "total_edges": 628,
+  "counts_by_type": {
+    "papers": 300,
+    "topics": 12,
+    "methods": 177,
+    "datasets": 2,
+    "authors": 2
+  },
+  "top_methods": [
+    {
+      "name": "Causal Inference",
+      "count": 93
+    },
+    {
+      "name": "Rag",
+      "count": 18
+    },
+    {
+      "name": "In This Paper,",
+      "count": 11
+    },
+    {
+      "name": "This Paper Presents",
+      "count": 7
+    },
+    {
+      "name": "Generative Adversarial Network",
+      "count": 4
+    },
+    {
+      "name": "In This Study,",
+      "count": 4
+    },
+    {
+      "name": "Transformer",
+      "count": 4
+    },
+    {
+      "name": "The Purpose Of",
+      "count": 3
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "X-RAY",
+      "count": 2
+    },
+    {
+      "name": "Imagenet",
+      "count": 1
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Causal Inference",
+      "dataset": "X-RAY",
+      "gap_score": 186,
+      "method_papers_count": 93,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Causal Inference to X-RAY benchmark"
+    },
+    {
+      "method": "Causal Inference",
+      "dataset": "Imagenet",
+      "gap_score": 93,
+      "method_papers_count": 93,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Causal Inference to Imagenet benchmark"
+    },
+    {
+      "method": "Rag",
+      "dataset": "X-RAY",
+      "gap_score": 36,
+      "method_papers_count": 18,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Rag to X-RAY benchmark"
+    },
+    {
+      "method": "In This Paper,",
+      "dataset": "X-RAY",
+      "gap_score": 22,
+      "method_papers_count": 11,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply In This Paper, to X-RAY benchmark"
+    },
+    {
+      "method": "Rag",
+      "dataset": "Imagenet",
+      "gap_score": 18,
+      "method_papers_count": 18,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Rag to Imagenet benchmark"
+    },
+    {
+      "method": "This Paper Presents",
+      "dataset": "X-RAY",
+      "gap_score": 14,
+      "method_papers_count": 7,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply This Paper Presents to X-RAY benchmark"
+    },
+    {
+      "method": "In This Paper,",
+      "dataset": "Imagenet",
+      "gap_score": 11,
+      "method_papers_count": 11,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply In This Paper, to Imagenet benchmark"
+    },
+    {
+      "method": "Generative Adversarial Network",
+      "dataset": "X-RAY",
+      "gap_score": 8,
+      "method_papers_count": 4,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Generative Adversarial Network to X-RAY benchmark"
+    },
+    {
+      "method": "In This Study,",
+      "dataset": "X-RAY",
+      "gap_score": 8,
+      "method_papers_count": 4,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply In This Study, to X-RAY benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "X-RAY",
+      "gap_score": 8,
+      "method_papers_count": 4,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Transformer to X-RAY benchmark"
+    },
+    {
+      "method": "This Paper Presents",
+      "dataset": "Imagenet",
+      "gap_score": 7,
+      "method_papers_count": 7,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply This Paper Presents to Imagenet benchmark"
+    },
+    {
+      "method": "The Purpose Of",
+      "dataset": "X-RAY",
+      "gap_score": 6,
+      "method_papers_count": 3,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply The Purpose Of to X-RAY benchmark"
+    },
+    {
+      "method": "Gan",
+      "dataset": "X-RAY",
+      "gap_score": 6,
+      "method_papers_count": 3,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gan to X-RAY benchmark"
+    },
+    {
+      "method": "Clustering",
+      "dataset": "X-RAY",
+      "gap_score": 6,
+      "method_papers_count": 3,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Clustering to X-RAY benchmark"
+    },
+    {
+      "method": "In This Article,",
+      "dataset": "X-RAY",
+      "gap_score": 4,
+      "method_papers_count": 2,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply In This Article, to X-RAY benchmark"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "total_narrated": 3,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional Networks on Protein Ligand",
+      "method": "Graph Convolutional Networks",
+      "dataset": "Protein Ligand",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "description": "While Graph Convolutional Networks and Protein Ligand are prominent in current literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Protein Ligand under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "02d13e1de6f0",
+        "04bc3e31d428",
+        "005de9611cbc"
+      ],
+      "score": 0.95,
+      "llm_narration": "\n\n## References\n1. [Predict lncRNA-drug associations based on graph neural network](https://doi.org/10.3389/fgene.2024.1388015) (2024)\n2. [Protein ligand binding site prediction using graph transformer neural network](https://doi.org/10.1371/journal.pone.0308425) (2024)\n3. [Enhancing Robustness of Graph Neural Networks through p-Laplacian](https://arxiv.org/abs/2409.19096) (2024)\n",
+      "llm_model": "openai/gpt-oss-20b",
+      "llm_provider": "Groq LPU (openai/gpt-oss-20b)",
+      "evidence_papers": [
+        {
+          "index": 1,
+          "id": "02d13e1de6f0",
+          "title": "Predict lncRNA-drug associations based on graph neural network",
+          "year": 2024,
+          "url": "https://doi.org/10.3389/fgene.2024.1388015"
+        },
+        {
+          "index": 2,
+          "id": "0995a93ad525",
+          "title": "Protein ligand binding site prediction using graph transformer neural network",
+          "year": 2024,
+          "url": "https://doi.org/10.1371/journal.pone.0308425"
+        },
+        {
+          "index": 3,
+          "id": "2409.19096",
+          "title": "Enhancing Robustness of Graph Neural Networks through p-Laplacian",
+          "year": 2024,
+          "url": "https://arxiv.org/abs/2409.19096"
+        }
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional on Prediction Molecular",
+      "method": "Graph Convolutional",
+      "dataset": "Prediction Molecular",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "description": "While Graph Convolutional and Prediction Molecular are prominent in current literature, zero papers in the corpus have evaluated Graph Convolutional directly on Prediction Molecular under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "0317b16c2558",
+        "01e40dc84348",
+        "005de9611cbc"
+      ],
+      "score": 0.8935,
+      "llm_narration": "# Research Gap & Literature Insights\n\n## 1. Top Validated Research Gap\n\n### Primary Gap: Unexplored Application of Graph Convolutional on Prediction Molecular\n* **Core Methodology ($M$)**: **[Graph Convolutional]** *(deep learning architectures that aggregate relational information across molecular graphs)*\n* **Target Benchmark ($D$)**: **[Prediction Molecular]** *(standard datasets for molecular property prediction such as QM9, MoleculeNet, and ChEMBL)*\n* **Operational Constraint ($L$)**: **[Adversarial Data‑Poisoning Attacks]** *(synthetic or real perturbations that corrupt training or test features to degrade model performance)*\n\n---\n\n### 📖 The Research Gap (Why This Matters)\n\nResearchers have rapidly advanced **Graph Convolutional** networks for modeling molecular structure and predicting properties. For instance, [1] leveraged equivariant GNNs for ligand‑based virtual screening, while [2] introduced a substructure‑aware expert model for property prediction. Enhancements to robustness, such as the p‑Laplacian regularizer in [3], have also been explored.\n\nThese studies routinely evaluate performance on clean, curated benchmarks like **Prediction Molecular**. However, real‑world chemical data can be noisy or intentionally corrupted—**adversarial data‑poisoning attacks** that alter atom types, bond orders, or feature values. Such attacks can severely mislead downstream tasks, yet **no published work has examined the resilience of Graph Convolutional models on molecular property benchmarks under these conditions**.\n\n**The Missing Intersection**: The convergence of a mature algorithm (Graph Convolutional), a widely used benchmark (Prediction Molecular), and a critical threat (Adversarial Data‑Poisoning) remains uncharted. Without empirical evidence, practitioners cannot gauge whether these models are trustworthy for safety‑critical applications like drug discovery or toxicity screening.\n\n---\n\n## 2. Topic Cluster & Structural Insights\n\nAcross the macroscopic topic clusters discovered in the corpus:\n\n- **High‑Impact Recombination Frontier**: **Topic 0 [Molecular Graph Neural Property Prediction]** represents the mature algorithmic core, while **Topic 1 [Protein Pocket Affinity Modeling]** represents the emerging application frontier.\n  * *What this means*: High‑impact papers emerge when an established algorithm is tested against an unsolved challenge. Here, researchers can take the Graph Convolutional models from Topic 0 and evaluate them on the operational robustness challenges from Topic 1, creating a robust framework that has never been published\n\n## References\n1. [Employing Molecular Conformations for Ligand-Based Virtual Screening with Equivariant Graph Neural Network and Deep Multiple Instance Learning](https://doi.org/10.3390/molecules28165982) (2023)\n2. [Adaptive Substructure-Aware Expert Model for Molecular Property Prediction](https://arxiv.org/abs/2504.05844) (2025)\n3. [Enhancing Robustness of Graph Neural Networks through p-Laplacian](https://arxiv.org/abs/2409.19096) (2024)\n",
+      "llm_model": "openai/gpt-oss-20b",
+      "llm_provider": "Groq LPU (openai/gpt-oss-20b)",
+      "evidence_papers": [
+        {
+          "index": 1,
+          "id": "0221911d570f",
+          "title": "Employing Molecular Conformations for Ligand-Based Virtual Screening with Equivariant Graph Neural Network and Deep Multiple Instance Learning",
+          "year": 2023,
+          "url": "https://doi.org/10.3390/molecules28165982"
+        },
+        {
+          "index": 2,
+          "id": "2504.05844",
+          "title": "Adaptive Substructure-Aware Expert Model for Molecular Property Prediction",
+          "year": 2025,
+          "url": "https://arxiv.org/abs/2504.05844"
+        },
+        {
+          "index": 3,
+          "id": "2409.19096",
+          "title": "Enhancing Robustness of Graph Neural Networks through p-Laplacian",
+          "year": 2024,
+          "url": "https://arxiv.org/abs/2409.19096"
+        }
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional Networks on Molecular Structures",
+      "method": "Graph Convolutional Networks",
+      "dataset": "Molecular Structures",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "description": "While Graph Convolutional Networks and Molecular Structures are prominent in current literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Molecular Structures under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "02d13e1de6f0",
+        "2104.08474",
+        "005de9611cbc"
+      ],
+      "score": 0.855,
+      "llm_narration": "# Research Gap & Literature Insights\n\n## 1. Top Validated Research Gap\n\n### Primary Gap: Unexplored Application of Graph Convolutional Networks on Molecular Structures\n* **Core Methodology ($M$)**: **[Graph Convolutional Networks]** *(deep learning models that learn from relational data in graph form)*\n* **Target Benchmark ($D$)**: **[Molecular Structures]** *(standard datasets of chemical graphs used for property prediction)*\n* **Operational Constraint ($L$)**: **[Adversarial Data‑Poisoning Attacks]** *(deliberate perturbations that corrupt molecular features to fool models)*\n\n---\n\n### 📖 The Research Gap (Why This Matters)\n\nResearchers have rapidly advanced **Graph Convolutional Networks (GCNs)** for tasks such as predicting drug‑lncRNA interactions [1] and designing new molecules with deep generative models [2]. These studies routinely evaluate GCNs on clean molecular benchmarks, demonstrating strong predictive performance.  \n\nHowever, real‑world chemical data can be compromised by **adversarial data‑poisoning attacks**—small, crafted changes to atom types or bond connections that can mislead a model [3]. In safety‑critical settings (e.g., drug discovery pipelines), such attacks could lead to costly failures.  \n\n**The Missing Intersection**: Despite the popularity of GCNs and the widespread use of molecular benchmarks, **no published paper has examined GCN performance on molecular structures under adversarial data‑poisoning attacks**. This leaves a critical blind spot: we lack empirical evidence on whether modern GCNs can withstand realistic data corruption in chemistry.\n\n---\n\n## 2. Topic Cluster & Structural Insights\n\nAcross the macroscopic topic clusters discovered in the corpus:\n\n- **High‑Impact Recombination Frontier**: **Topic 0 [Molecular Graph Neural Property Prediction]** contains mature GCN techniques, while **Topic 1 [Protein Pocket\n\n## References\n1. [Predict lncRNA-drug associations based on graph neural network](https://doi.org/10.3389/fgene.2024.1388015) (2024)\n2. [Structure-based de novo drug design using 3D deep generative models](https://arxiv.org/abs/2104.08474) (2021)\n3. [Enhancing Robustness of Graph Neural Networks through p-Laplacian](https://arxiv.org/abs/2409.19096) (2024)\n",
+      "llm_model": "openai/gpt-oss-20b",
+      "llm_provider": "Groq LPU (openai/gpt-oss-20b)",
+      "evidence_papers": [
+        {
+          "index": 1,
+          "id": "02d13e1de6f0",
+          "title": "Predict lncRNA-drug associations based on graph neural network",
+          "year": 2024,
+          "url": "https://doi.org/10.3389/fgene.2024.1388015"
+        },
+        {
+          "index": 2,
+          "id": "2104.08474",
+          "title": "Structure-based de novo drug design using 3D deep generative models",
+          "year": 2021,
+          "url": "https://arxiv.org/abs/2104.08474"
+        },
+        {
+          "index": 3,
+          "id": "2409.19096",
+          "title": "Enhancing Robustness of Graph Neural Networks through p-Laplacian",
+          "year": 2024,
+          "url": "https://arxiv.org/abs/2409.19096"
+        }
+      ]
+    }
+  ]
+}

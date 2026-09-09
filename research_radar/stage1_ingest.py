@@ -1,6 +1,6 @@
 """
-Stage 1: Data Collection
-=========================
+Stage 1: Data Ingestion
+=======================
 Dual ingestion pathway:
   - arXiv API (arxiv Python library)   — via fetch_from_arxiv()
   - Semantic Scholar API (S2AG)        — via fetch_from_semanticscholar()
@@ -51,6 +51,25 @@ def _stable_id(title: str) -> str:
     # Input: any string title  →  Output: always the same 40-character hex string
     # We slice [0:12] to keep only first 12 characters as a short unique ID
     return hashlib.sha1(title.strip().lower().encode("utf-8")).hexdigest()[:12]
+
+
+def is_english_paper(title: str | None, abstract: str | None = None) -> bool:
+    """Zero-dependency language validator to ensure clean academic processing."""
+    text = f"{title or ''} {abstract or ''}".strip()
+    if not text:
+        return True
+    non_ascii = [ch for ch in text if ord(ch) > 127]
+    if len(non_ascii) / max(1, len(text)) > 0.12:
+        return False
+    lower = f" {text.lower()} "
+    foreign_markers = [
+        " de ", " da ", " do ", " das ", " dos ", " em ", " na ", " no ",
+        " para ", " com ", " um ", " uma ", " sobre ", " pela ",
+        " pelo ", "ção ", "ções ", " und ", " der ", " die ",
+        " des ", " les ", " une ", " pour ", " avec "
+    ]
+    foreign_hits = sum(1 for m in foreign_markers if m in lower)
+    return foreign_hits < 3
 
 
 def _generate_fallback_tldr(abstract: str, title: str = "") -> str:
@@ -200,19 +219,19 @@ def _load_env_file(env_path: Path | str | None = None) -> None:
 # ---------------------------------------------------------------------------
 
 S2_API = "https://api.semanticscholar.org/graph/v1"
-DEFAULT_S2_API_KEY = "s2k-e0hpokE9SYKtASaVWuosIcJBj6FvpRlJy8tNFId0"
+DEFAULT_S2_API_KEY = None
 
 
 def _get_s2_headers() -> dict[str, str]:
     _load_env_file()
-    key = os.environ.get("S2_API_KEY") or DEFAULT_S2_API_KEY
-    headers: dict[str, str] = {
+    key = os.environ.get("S2_API_KEY")
+    if not key:
+        raise RuntimeError("S2_API_KEY not set. Add it to .env — never hardcode it.")
+    return {
         "User-Agent": "ResearchRadar-Academic/3.0 (S2-Ingest)",
         "Accept": "application/json",
+        "x-api-key": key,
     }
-    if key:
-        headers["x-api-key"] = key
-    return headers
 
 
 # ---------------------------------------------------------------------------
@@ -393,6 +412,10 @@ def _s2_paper_to_schema(raw: dict) -> dict:
         "textbook", "introduction to", "companion to", "edition", "series on", "volume "
     ]
     if any(kw in title_lower for kw in book_title_keywords):
+        return {}
+
+    # English Language Gate: Reject non-English papers from contaminating academic pipelines
+    if not is_english_paper(title_str, raw.get("abstract")):
         return {}
 
     # TLDR: extract text with automatic extractive fallback

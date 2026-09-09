@@ -1,0 +1,201 @@
+{
+  "total_nodes": 574,
+  "total_edges": 853,
+  "counts_by_type": {
+    "papers": 324,
+    "topics": 10,
+    "methods": 222,
+    "datasets": 16,
+    "authors": 2
+  },
+  "top_methods": [
+    {
+      "name": "Transformer",
+      "count": 25
+    },
+    {
+      "name": "Federated Learning",
+      "count": 20
+    },
+    {
+      "name": "Llm",
+      "count": 20
+    },
+    {
+      "name": "Transfer Learning",
+      "count": 18
+    },
+    {
+      "name": "Large Language Model",
+      "count": 17
+    },
+    {
+      "name": "Blockchain",
+      "count": 10
+    },
+    {
+      "name": "Artificial Intelligence (Ai)",
+      "count": 8
+    },
+    {
+      "name": "Ensemble Learning",
+      "count": 8
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "Electronic Health Records",
+      "count": 20
+    },
+    {
+      "name": "MRI",
+      "count": 16
+    },
+    {
+      "name": "Covid-19",
+      "count": 13
+    },
+    {
+      "name": "PUBMED",
+      "count": 10
+    },
+    {
+      "name": "X-RAY",
+      "count": 9
+    },
+    {
+      "name": "EHR",
+      "count": 9
+    },
+    {
+      "name": "Clinical Trials",
+      "count": 6
+    },
+    {
+      "name": "Electronic Health Record",
+      "count": 5
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Transformer",
+      "dataset": "Electronic Health Records",
+      "gap_score": 500,
+      "method_papers_count": 25,
+      "dataset_papers_count": 20,
+      "opportunity": "Apply Transformer to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "Electronic Health Records",
+      "gap_score": 400,
+      "method_papers_count": 20,
+      "dataset_papers_count": 20,
+      "opportunity": "Apply Llm to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Large Language Model",
+      "dataset": "Electronic Health Records",
+      "gap_score": 340,
+      "method_papers_count": 17,
+      "dataset_papers_count": 20,
+      "opportunity": "Apply Large Language Model to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Covid-19",
+      "gap_score": 325,
+      "method_papers_count": 25,
+      "dataset_papers_count": 13,
+      "opportunity": "Apply Transformer to Covid-19 benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "MRI",
+      "gap_score": 320,
+      "method_papers_count": 20,
+      "dataset_papers_count": 16,
+      "opportunity": "Apply Llm to MRI benchmark"
+    },
+    {
+      "method": "Large Language Model",
+      "dataset": "MRI",
+      "gap_score": 272,
+      "method_papers_count": 17,
+      "dataset_papers_count": 16,
+      "opportunity": "Apply Large Language Model to MRI benchmark"
+    },
+    {
+      "method": "Federated Learning",
+      "dataset": "Covid-19",
+      "gap_score": 260,
+      "method_papers_count": 20,
+      "dataset_papers_count": 13,
+      "opportunity": "Apply Federated Learning to Covid-19 benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "Covid-19",
+      "gap_score": 260,
+      "method_papers_count": 20,
+      "dataset_papers_count": 13,
+      "opportunity": "Apply Llm to Covid-19 benchmark"
+    },
+    {
+      "method": "Large Language Model",
+      "dataset": "Covid-19",
+      "gap_score": 221,
+      "method_papers_count": 17,
+      "dataset_papers_count": 13,
+      "opportunity": "Apply Large Language Model to Covid-19 benchmark"
+    },
+    {
+      "method": "Blockchain",
+      "dataset": "Electronic Health Records",
+      "gap_score": 200,
+      "method_papers_count": 10,
+      "dataset_papers_count": 20,
+      "opportunity": "Apply Blockchain to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Federated Learning",
+      "dataset": "X-RAY",
+      "gap_score": 180,
+      "method_papers_count": 20,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Federated Learning to X-RAY benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "X-RAY",
+      "gap_score": 180,
+      "method_papers_count": 20,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Llm to X-RAY benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "EHR",
+      "gap_score": 180,
+      "method_papers_count": 20,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Llm to EHR benchmark"
+    },
+    {
+      "method": "Transfer Learning",
+      "dataset": "X-RAY",
+      "gap_score": 162,
+      "method_papers_count": 18,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Transfer Learning to X-RAY benchmark"
+    },
+    {
+      "method": "Transfer Learning",
+      "dataset": "EHR",
+      "gap_score": 162,
+      "method_papers_count": 18,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Transfer Learning to EHR benchmark"
+    }
+  ]
+}

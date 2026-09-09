@@ -1,0 +1,87 @@
+[
+  {
+    "paper_id": "6f56fdf8c842",
+    "title": "Machine learning and graph neural network for finding potential drugs related to multiple myeloma",
+    "reason": "Abstract too short (8 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "c3e0df9c43b2",
+    "title": "Graph neural network-based multi-objective Bayesian optimization for enhanced screening of metal–organic frameworks with optimal separation performance",
+    "reason": "Abstract too short (17 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "71e2caca1f97",
+    "title": "Predicting the locations of cryptic pockets from single protein structures using the PocketMiner graph neural network",
+    "reason": "Near-duplicate (cosine similarity 0.9969 >= 0.98 with 00dab6a0c580)"
+  },
+  {
+    "paper_id": "1be82994e12e",
+    "title": "DREAM-GNN: Dual-route embedding-aware graph neural networks for drug repositioning",
+    "reason": "Near-duplicate (cosine similarity 0.9889 >= 0.98 with 0c310feb9caf)"
+  },
+  {
+    "paper_id": "b01624cd83b5",
+    "title": "Knowledge Graphs and Explainable Artificial Intelligence (AI) for Drug Repurposing on Rare Diseases",
+    "reason": "Near-duplicate (cosine similarity 0.9873 >= 0.98 with 1dfe0bc72fd7)"
+  },
+  {
+    "paper_id": "4c3f9d53815b",
+    "title": "Algebraic Graph-assisted Bidirectional Transformers for Molecular Prediction",
+    "reason": "Near-duplicate (cosine similarity 0.9900 >= 0.98 with 1f47d68fe87d)"
+  },
+  {
+    "paper_id": "2404.01693",
+    "title": "HeMeNet: Heterogeneous Multichannel Equivariant Network for Protein Multitask Learning",
+    "reason": "Near-duplicate (cosine similarity 0.9962 >= 0.98 with 2b59bf767ab0)"
+  },
+  {
+    "paper_id": "923a544b4417",
+    "title": "Superwater as a generative AI framework to predict water molecule positions on protein structures",
+    "reason": "Near-duplicate (cosine similarity 0.9941 >= 0.98 with 33b326f7c824)"
+  },
+  {
+    "paper_id": "836b58a11d34",
+    "title": "3DProtDTA: the deep learning model for drug-target affinity prediction based on the residue-level protein graphs",
+    "reason": "Near-duplicate (cosine similarity 0.9987 >= 0.98 with 3549df869cd1)"
+  },
+  {
+    "paper_id": "64b3f91c1d5d",
+    "title": "Combinatorial prediction of therapeutic perturbations using causally inspired neural networks",
+    "reason": "Near-duplicate (cosine similarity 0.9888 >= 0.98 with 45e046f589f0)"
+  },
+  {
+    "paper_id": "2210.16098",
+    "title": "Predicting Protein-Ligand Binding Affinity with Equivariant Line Graph Network",
+    "reason": "Near-duplicate (cosine similarity 0.9937 >= 0.98 with 46bdadb33483)"
+  },
+  {
+    "paper_id": "fa31c91401e9",
+    "title": "Graph Convolutional Neural Networks for Molecular Mechanism Exploration in COVID-19 Patient",
+    "reason": "Near-duplicate (cosine similarity 0.9920 >= 0.98 with 586f20049114)"
+  },
+  {
+    "paper_id": "c8d92ed66e39",
+    "title": "Convolutional Neural Networks For Advanced Drug Discovery And Development",
+    "reason": "Near-duplicate (cosine similarity 0.9810 >= 0.98 with 7f7902c1e48c)"
+  },
+  {
+    "paper_id": "c92fae895bf1",
+    "title": "Application of deep metric learning to molecular graph similarity",
+    "reason": "Near-duplicate (cosine similarity 0.9887 >= 0.98 with 8726d603f75f)"
+  },
+  {
+    "paper_id": "b4371abdf58b",
+    "title": "Path-based reasoning for biomedical knowledge graphs with BioPathNet",
+    "reason": "Near-duplicate (cosine similarity 0.9824 >= 0.98 with a9e32d4e9559)"
+  },
+  {
+    "paper_id": "2006.08532",
+    "title": "Improved Conditional Flow Models for Molecule to Image Synthesis",
+    "reason": "Near-duplicate (cosine similarity 0.9936 >= 0.98 with b4a2bd0449c1)"
+  },
+  {
+    "paper_id": "d0a27fcb5bdf",
+    "title": "LM-GVP: an extensible sequence and structure informed deep learning framework for protein property prediction",
+    "reason": "Near-duplicate (cosine similarity 0.9931 >= 0.98 with b7ed81c16329)"
+  }
+]

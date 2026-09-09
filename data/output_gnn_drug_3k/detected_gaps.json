@@ -1,0 +1,110 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional Networks on Protein Ligand",
+      "method": "Graph Convolutional Networks",
+      "dataset": "Protein Ligand",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.5305,
+      "uzzi_z_score": -1.89,
+      "expected_cooccur": 3.333,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Graph Convolutional Networks (n=125) and Protein Ligand (n=80) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Protein Ligand under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.89σ).",
+      "papers_involved": [
+        "02d13e1de6f0",
+        "04bc3e31d428",
+        "005de9611cbc"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional on Prediction Molecular",
+      "method": "Graph Convolutional",
+      "dataset": "Prediction Molecular",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.521,
+      "uzzi_z_score": -1.84,
+      "expected_cooccur": 3.135,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Graph Convolutional (n=171) and Prediction Molecular (n=55) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional directly on Prediction Molecular under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.84σ).",
+      "papers_involved": [
+        "0317b16c2558",
+        "01e40dc84348",
+        "005de9611cbc"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional Network on Molecular Representation",
+      "method": "Graph Convolutional Network",
+      "dataset": "Molecular Representation",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.5117,
+      "uzzi_z_score": -1.792,
+      "expected_cooccur": 2.989,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Graph Convolutional Network (n=152) and Molecular Representation (n=59) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Network directly on Molecular Representation under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.79σ).",
+      "papers_involved": [
+        "0221911d570f",
+        "00f03b6c9d17",
+        "005de9611cbc"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional Networks on Molecular Structures",
+      "method": "Graph Convolutional Networks",
+      "dataset": "Molecular Structures",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.5114,
+      "uzzi_z_score": -1.791,
+      "expected_cooccur": 3.0,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Graph Convolutional Networks (n=125) and Molecular Structures (n=72) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Molecular Structures under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.79σ).",
+      "papers_involved": [
+        "02d13e1de6f0",
+        "2104.08474",
+        "005de9611cbc"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Graph Convolutional Network on Prediction Molecular",
+      "method": "Graph Convolutional Network",
+      "dataset": "Prediction Molecular",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.4992,
+      "uzzi_z_score": -1.729,
+      "expected_cooccur": 2.787,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      },
+      "description": "While Graph Convolutional Network (n=152) and Prediction Molecular (n=55) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Network directly on Prediction Molecular under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.73σ).",
+      "papers_involved": [
+        "0221911d570f",
+        "01e40dc84348",
+        "005de9611cbc"
+      ]
+    }
+  ]
+}

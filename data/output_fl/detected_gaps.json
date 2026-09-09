@@ -1,0 +1,75 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Privacy Preserving on Healthcare Datasets",
+      "method": "Privacy Preserving",
+      "dataset": "Healthcare Datasets",
+      "limitation": "Adversarial Attacks",
+      "score": 0.88,
+      "description": "While Privacy Preserving and Healthcare Datasets are prominent in current literature, zero papers in the corpus have evaluated Privacy Preserving directly on Healthcare Datasets under Adversarial Attacks constraints.",
+      "papers_involved": [
+        "10f8df2f993f",
+        "2404.11698",
+        "12643170b128"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Privacy Preserving on Diabetes Dataset",
+      "method": "Privacy Preserving",
+      "dataset": "Diabetes Dataset",
+      "limitation": "Adversarial Attacks",
+      "score": 0.88,
+      "description": "While Privacy Preserving and Diabetes Dataset are prominent in current literature, zero papers in the corpus have evaluated Privacy Preserving directly on Diabetes Dataset under Adversarial Attacks constraints.",
+      "papers_involved": [
+        "10f8df2f993f",
+        "2404.11698",
+        "12643170b128"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Privacy Preserving on Datasets Training",
+      "method": "Privacy Preserving",
+      "dataset": "Datasets Training",
+      "limitation": "Adversarial Attacks",
+      "score": 0.88,
+      "description": "While Privacy Preserving and Datasets Training are prominent in current literature, zero papers in the corpus have evaluated Privacy Preserving directly on Datasets Training under Adversarial Attacks constraints.",
+      "papers_involved": [
+        "10f8df2f993f",
+        "2404.11698",
+        "12643170b128"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Differential Privacy on Diverse Datasets",
+      "method": "Differential Privacy",
+      "dataset": "Diverse Datasets",
+      "limitation": "Adversarial Attacks",
+      "score": 0.88,
+      "description": "While Differential Privacy and Diverse Datasets are prominent in current literature, zero papers in the corpus have evaluated Differential Privacy directly on Diverse Datasets under Adversarial Attacks constraints.",
+      "papers_involved": [
+        "10f8df2f993f",
+        "2404.11698",
+        "12643170b128"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Differential Privacy on Cancer Dataset",
+      "method": "Differential Privacy",
+      "dataset": "Cancer Dataset",
+      "limitation": "Adversarial Attacks",
+      "score": 0.88,
+      "description": "While Differential Privacy and Cancer Dataset are prominent in current literature, zero papers in the corpus have evaluated Differential Privacy directly on Cancer Dataset under Adversarial Attacks constraints.",
+      "papers_involved": [
+        "10f8df2f993f",
+        "2404.11698",
+        "12643170b128"
+      ]
+    }
+  ]
+}

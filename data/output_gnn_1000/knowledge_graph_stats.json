@@ -1,0 +1,201 @@
+{
+  "total_nodes": 1238,
+  "total_edges": 2593,
+  "counts_by_type": {
+    "papers": 1000,
+    "topics": 10,
+    "methods": 201,
+    "datasets": 15,
+    "authors": 12
+  },
+  "top_methods": [
+    {
+      "name": "Gnn",
+      "count": 620
+    },
+    {
+      "name": "Graph Neural Network",
+      "count": 251
+    },
+    {
+      "name": "Few-Shot Learning",
+      "count": 169
+    },
+    {
+      "name": "Attention Mechanism",
+      "count": 44
+    },
+    {
+      "name": "Clustering",
+      "count": 31
+    },
+    {
+      "name": "Transformer",
+      "count": 29
+    },
+    {
+      "name": "Reinforcement Learning",
+      "count": 20
+    },
+    {
+      "name": "Transfer Learning",
+      "count": 15
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "PUBMED",
+      "count": 12
+    },
+    {
+      "name": "Training Set",
+      "count": 8
+    },
+    {
+      "name": "MNIST",
+      "count": 8
+    },
+    {
+      "name": "Cifar-10",
+      "count": 8
+    },
+    {
+      "name": "Imagenet",
+      "count": 7
+    },
+    {
+      "name": "Covid-19",
+      "count": 3
+    },
+    {
+      "name": "Cifar-100",
+      "count": 3
+    },
+    {
+      "name": "MRI",
+      "count": 2
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Graph Neural Network",
+      "dataset": "MNIST",
+      "gap_score": 2008,
+      "method_papers_count": 251,
+      "dataset_papers_count": 8,
+      "opportunity": "Apply Graph Neural Network to MNIST benchmark"
+    },
+    {
+      "method": "Few-Shot Learning",
+      "dataset": "Training Set",
+      "gap_score": 1352,
+      "method_papers_count": 169,
+      "dataset_papers_count": 8,
+      "opportunity": "Apply Few-Shot Learning to Training Set benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "MRI",
+      "gap_score": 1240,
+      "method_papers_count": 620,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gnn to MRI benchmark"
+    },
+    {
+      "method": "Graph Neural Network",
+      "dataset": "Cifar-100",
+      "gap_score": 753,
+      "method_papers_count": 251,
+      "dataset_papers_count": 3,
+      "opportunity": "Apply Graph Neural Network to Cifar-100 benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "EHR",
+      "gap_score": 620,
+      "method_papers_count": 620,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Gnn to EHR benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "Electronic Health Record",
+      "gap_score": 620,
+      "method_papers_count": 620,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Gnn to Electronic Health Record benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "Clinical Trials",
+      "gap_score": 620,
+      "method_papers_count": 620,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Gnn to Clinical Trials benchmark"
+    },
+    {
+      "method": "Few-Shot Learning",
+      "dataset": "Covid-19",
+      "gap_score": 507,
+      "method_papers_count": 169,
+      "dataset_papers_count": 3,
+      "opportunity": "Apply Few-Shot Learning to Covid-19 benchmark"
+    },
+    {
+      "method": "Graph Neural Network",
+      "dataset": "MRI",
+      "gap_score": 502,
+      "method_papers_count": 251,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Graph Neural Network to MRI benchmark"
+    },
+    {
+      "method": "Clustering",
+      "dataset": "PUBMED",
+      "gap_score": 372,
+      "method_papers_count": 31,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Clustering to PUBMED benchmark"
+    },
+    {
+      "method": "Attention Mechanism",
+      "dataset": "Training Set",
+      "gap_score": 352,
+      "method_papers_count": 44,
+      "dataset_papers_count": 8,
+      "opportunity": "Apply Attention Mechanism to Training Set benchmark"
+    },
+    {
+      "method": "Attention Mechanism",
+      "dataset": "MNIST",
+      "gap_score": 352,
+      "method_papers_count": 44,
+      "dataset_papers_count": 8,
+      "opportunity": "Apply Attention Mechanism to MNIST benchmark"
+    },
+    {
+      "method": "Attention Mechanism",
+      "dataset": "Cifar-10",
+      "gap_score": 352,
+      "method_papers_count": 44,
+      "dataset_papers_count": 8,
+      "opportunity": "Apply Attention Mechanism to Cifar-10 benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "PUBMED",
+      "gap_score": 348,
+      "method_papers_count": 29,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Transformer to PUBMED benchmark"
+    },
+    {
+      "method": "Few-Shot Learning",
+      "dataset": "MRI",
+      "gap_score": 338,
+      "method_papers_count": 169,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Few-Shot Learning to MRI benchmark"
+    }
+  ]
+}

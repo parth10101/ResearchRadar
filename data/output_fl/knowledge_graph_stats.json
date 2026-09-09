@@ -1,0 +1,201 @@
+{
+  "total_nodes": 383,
+  "total_edges": 1267,
+  "counts_by_type": {
+    "papers": 311,
+    "topics": 11,
+    "methods": 29,
+    "datasets": 20,
+    "authors": 12
+  },
+  "top_methods": [
+    {
+      "name": "Federated Learning",
+      "count": 311
+    },
+    {
+      "name": "Blockchain",
+      "count": 215
+    },
+    {
+      "name": "Differential Privacy",
+      "count": 71
+    },
+    {
+      "name": "Transfer Learning",
+      "count": 51
+    },
+    {
+      "name": "Homomorphic Encryption",
+      "count": 27
+    },
+    {
+      "name": "Gan",
+      "count": 20
+    },
+    {
+      "name": "Clustering",
+      "count": 19
+    },
+    {
+      "name": "Reinforcement Learning",
+      "count": 18
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "Electronic Health Records",
+      "count": 14
+    },
+    {
+      "name": "Covid-19",
+      "count": 12
+    },
+    {
+      "name": "EHR",
+      "count": 9
+    },
+    {
+      "name": "MNIST",
+      "count": 9
+    },
+    {
+      "name": "X-RAY",
+      "count": 8
+    },
+    {
+      "name": "MRI",
+      "count": 6
+    },
+    {
+      "name": "Mimic-Iii",
+      "count": 4
+    },
+    {
+      "name": "Cifar-10",
+      "count": 4
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Homomorphic Encryption",
+      "dataset": "Covid-19",
+      "gap_score": 324,
+      "method_papers_count": 27,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Homomorphic Encryption to Covid-19 benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "Covid-19",
+      "gap_score": 216,
+      "method_papers_count": 18,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Reinforcement Learning to Covid-19 benchmark"
+    },
+    {
+      "method": "Blockchain",
+      "dataset": "Clinical Trials",
+      "gap_score": 215,
+      "method_papers_count": 215,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Blockchain to Clinical Trials benchmark"
+    },
+    {
+      "method": "Blockchain",
+      "dataset": "Genomics",
+      "gap_score": 215,
+      "method_papers_count": 215,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Blockchain to Genomics benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Electronic Health Records",
+      "gap_score": 210,
+      "method_papers_count": 15,
+      "dataset_papers_count": 14,
+      "opportunity": "Apply Transformer to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Transfer Learning",
+      "dataset": "Mimic-Iii",
+      "gap_score": 204,
+      "method_papers_count": 51,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Transfer Learning to Mimic-Iii benchmark"
+    },
+    {
+      "method": "Transfer Learning",
+      "dataset": "Cifar-10",
+      "gap_score": 204,
+      "method_papers_count": 51,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Transfer Learning to Cifar-10 benchmark"
+    },
+    {
+      "method": "Meta-Learning",
+      "dataset": "Electronic Health Records",
+      "gap_score": 182,
+      "method_papers_count": 13,
+      "dataset_papers_count": 14,
+      "opportunity": "Apply Meta-Learning to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Gan",
+      "dataset": "MNIST",
+      "gap_score": 180,
+      "method_papers_count": 20,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Gan to MNIST benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Covid-19",
+      "gap_score": 180,
+      "method_papers_count": 15,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Transformer to Covid-19 benchmark"
+    },
+    {
+      "method": "Secure Aggregation",
+      "dataset": "Covid-19",
+      "gap_score": 168,
+      "method_papers_count": 14,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Secure Aggregation to Covid-19 benchmark"
+    },
+    {
+      "method": "Meta-Learning",
+      "dataset": "Covid-19",
+      "gap_score": 156,
+      "method_papers_count": 13,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Meta-Learning to Covid-19 benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "X-RAY",
+      "gap_score": 144,
+      "method_papers_count": 18,
+      "dataset_papers_count": 8,
+      "opportunity": "Apply Reinforcement Learning to X-RAY benchmark"
+    },
+    {
+      "method": "Knowledge Distillation",
+      "dataset": "Electronic Health Records",
+      "gap_score": 140,
+      "method_papers_count": 10,
+      "dataset_papers_count": 14,
+      "opportunity": "Apply Knowledge Distillation to Electronic Health Records benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "MNIST",
+      "gap_score": 135,
+      "method_papers_count": 15,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply Transformer to MNIST benchmark"
+    }
+  ]
+}

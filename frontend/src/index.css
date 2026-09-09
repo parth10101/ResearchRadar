@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ==========================================================================
+     Surfaces & Elevation Architecture (Swiss Matte Slate/Charcoal)
+     ========================================================================== */
+  --surface-l0-canvas:     #080b11; /* Deepest viewport canvas */
+  --surface-l1-base:       #0f141f; /* Structural cards, panels, grid cells */
+  --surface-l2-elevated:   #161e2e; /* Active milestone nodes, hover states */
+  --surface-l3-sheet:      rgba(17, 24, 38, 0.94); /* Context drawers, slide-overs */
+  --surface-l3-popover:    #1c2638; /* Tooltips, dropdowns, contextual badges */
+
+  /* ==========================================================================
+     Borders & Separators (Hairline Precision)
+     ========================================================================== */
+  --border-subtle:         rgba(255, 255, 255, 0.07);
+  --border-medium:         rgba(255, 255, 255, 0.14);
+  --border-highlight:      rgba(255, 255, 255, 0.22);
+  --border-specular:       inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+  /* ==========================================================================
+     Typography & Contrast System
+     ========================================================================== */
+  --text-primary:          #f8fafc; /* 100% - Paper titles, hero values */
+  --text-secondary:        #94a3b8; /* 70%  - Method summaries, 1-line takeaways */
+  --text-tertiary:         #64748b; /* 50%  - Publication years, venues, authors */
+  --text-dim:              #475569; /* 35%  - Structural axis lines, timestamps */
+
+  /* ==========================================================================
+     Typographic Families
+     ========================================================================== */
+  --font-editorial:        'Newsreader', 'Instrument Serif', Georgia, serif;
+  --font-sans:             'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:             'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ==========================================================================
+     Functional Academic Accents (Muted & Meaningful)
+     ========================================================================== */
+  --accent-consensus:      #10b981;
+  --accent-consensus-sub:  rgba(16, 185, 129, 0.12);
+  --accent-consensus-bdr:  rgba(16, 185, 129, 0.32);
+
+  --accent-refuted:        #f43f5e;
+  --accent-refuted-warm:   #ea580c;
+  --accent-refuted-sub:    rgba(244, 63, 94, 0.12);
+  --accent-refuted-bdr:    rgba(244, 63, 94, 0.32);
+
+  --accent-canon:          #eab308;
+  --accent-canon-sub:      rgba(234, 179, 8, 0.12);
+  --accent-canon-bdr:      rgba(234, 179, 8, 0.32);
+
+  --accent-frontier:       #38bdf8;
+  --accent-frontier-sub:   rgba(56, 189, 248, 0.12);
+  --accent-frontier-bdr:   rgba(56, 189, 248, 0.32);
+
+  --accent-gap:            #a855f7;
+  --accent-gap-sub:        rgba(168, 85, 247, 0.12);
+  --accent-gap-bdr:        rgba(168, 85, 247, 0.35);
+
+  /* Physics & Motion Transitions */
+  --spring-easing:         cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  background-color: var(--surface-l0-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Surgical Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080b11;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Tabular numbers for non-jittering metrics */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Specular top highlight line */
+.specular-line {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+/* Academic card interactive lift */
+.academic-card {
+  background-color: var(--surface-l1-base);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.2s ease, transform 0.2s var(--spring-easing), background-color 0.2s ease;
+}
+
+.academic-card:hover {
+  border-color: var(--border-medium);
+  background-color: var(--surface-l2-elevated);
+}
+

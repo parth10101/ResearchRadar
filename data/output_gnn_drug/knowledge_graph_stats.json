@@ -1,0 +1,201 @@
+{
+  "total_nodes": 625,
+  "total_edges": 1741,
+  "counts_by_type": {
+    "papers": 510,
+    "topics": 10,
+    "methods": 79,
+    "datasets": 18,
+    "authors": 8
+  },
+  "top_methods": [
+    {
+      "name": "Graph Neural Network",
+      "count": 356
+    },
+    {
+      "name": "Reinforcement Learning",
+      "count": 244
+    },
+    {
+      "name": "Gnn",
+      "count": 223
+    },
+    {
+      "name": "Transformer",
+      "count": 72
+    },
+    {
+      "name": "Clustering",
+      "count": 50
+    },
+    {
+      "name": "Attention Mechanism",
+      "count": 43
+    },
+    {
+      "name": "Transfer Learning",
+      "count": 17
+    },
+    {
+      "name": "Contrastive Learning",
+      "count": 14
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "MRI",
+      "count": 5
+    },
+    {
+      "name": "Covid-19",
+      "count": 5
+    },
+    {
+      "name": "Training Set",
+      "count": 4
+    },
+    {
+      "name": "Imagenet",
+      "count": 3
+    },
+    {
+      "name": "PUBMED",
+      "count": 3
+    },
+    {
+      "name": "Clinical Trials",
+      "count": 2
+    },
+    {
+      "name": "Cifar-10",
+      "count": 2
+    },
+    {
+      "name": "Genomics",
+      "count": 2
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Graph Neural Network",
+      "dataset": "Imagenet",
+      "gap_score": 1068,
+      "method_papers_count": 356,
+      "dataset_papers_count": 3,
+      "opportunity": "Apply Graph Neural Network to Imagenet benchmark"
+    },
+    {
+      "method": "Graph Neural Network",
+      "dataset": "Cifar-10",
+      "gap_score": 712,
+      "method_papers_count": 356,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Graph Neural Network to Cifar-10 benchmark"
+    },
+    {
+      "method": "Graph Neural Network",
+      "dataset": "Cifar10",
+      "gap_score": 712,
+      "method_papers_count": 356,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Graph Neural Network to Cifar10 benchmark"
+    },
+    {
+      "method": "Graph Neural Network",
+      "dataset": "MNIST",
+      "gap_score": 712,
+      "method_papers_count": 356,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Graph Neural Network to MNIST benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "Imagenet",
+      "gap_score": 669,
+      "method_papers_count": 223,
+      "dataset_papers_count": 3,
+      "opportunity": "Apply Gnn to Imagenet benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "TCGA",
+      "gap_score": 488,
+      "method_papers_count": 244,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Reinforcement Learning to TCGA benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "Clinical Trials",
+      "gap_score": 446,
+      "method_papers_count": 223,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gnn to Clinical Trials benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "Cifar-10",
+      "gap_score": 446,
+      "method_papers_count": 223,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gnn to Cifar-10 benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "Genomics",
+      "gap_score": 446,
+      "method_papers_count": 223,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gnn to Genomics benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "Cifar10",
+      "gap_score": 446,
+      "method_papers_count": 223,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gnn to Cifar10 benchmark"
+    },
+    {
+      "method": "Gnn",
+      "dataset": "TCGA",
+      "gap_score": 446,
+      "method_papers_count": 223,
+      "dataset_papers_count": 2,
+      "opportunity": "Apply Gnn to TCGA benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Covid-19",
+      "gap_score": 360,
+      "method_papers_count": 72,
+      "dataset_papers_count": 5,
+      "opportunity": "Apply Transformer to Covid-19 benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Training Set",
+      "gap_score": 288,
+      "method_papers_count": 72,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Transformer to Training Set benchmark"
+    },
+    {
+      "method": "Clustering",
+      "dataset": "MRI",
+      "gap_score": 250,
+      "method_papers_count": 50,
+      "dataset_papers_count": 5,
+      "opportunity": "Apply Clustering to MRI benchmark"
+    },
+    {
+      "method": "Clustering",
+      "dataset": "Covid-19",
+      "gap_score": 250,
+      "method_papers_count": 50,
+      "dataset_papers_count": 5,
+      "opportunity": "Apply Clustering to Covid-19 benchmark"
+    }
+  ]
+}

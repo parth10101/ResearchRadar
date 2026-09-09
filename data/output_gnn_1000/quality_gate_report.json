@@ -1,0 +1,22 @@
+[
+  {
+    "paper_id": "28973306da19",
+    "title": "First Course on Fuzzy Theory and Applications",
+    "reason": "Abstract too short (19 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4954fa180728",
+    "title": "This Paper Is Included in the Proceedings of the 12th Usenix Symposium on Operating Systems Design and Implementation (osdi '16). Tensorflow: a System for Large-scale Machine Learning Tensorflow: a System for Large-scale Machine Learning",
+    "reason": "Abstract too short (19 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "c3d8fb489e4d",
+    "title": "A graph-convolutional neural network model for the prediction of chemical reactivity",
+    "reason": "Abstract too short (19 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "98ae444d8ff9",
+    "title": "Ant colonies for the traveling salesman problem",
+    "reason": "Near-duplicate (cosine similarity 0.9845 >= 0.98 with 2de16b5dc0b5)"
+  }
+]

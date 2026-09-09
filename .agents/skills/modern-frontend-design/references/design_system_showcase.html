@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResearchRadar • Swiss Editorial Design System Showcase</title>
+  
+  <!-- Academic Tri-Font Pairing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CDN for rapid layout structure -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            canvas: '#080b11',
+            card: '#0f141f',
+            elevated: '#161e2e',
+            sheet: 'rgba(17, 24, 38, 0.94)',
+            canon: '#eab308',
+            refuted: '#f43f5e',
+            consensus: '#10b981',
+            frontier: '#38bdf8',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080b11;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .specular-border {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#080b11] p-8 antialiased selection:bg-sky-500/20 selection:text-sky-200">
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto space-y-10">
+
+    <!-- Header & 3-Lens Switcher -->
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between pb-6 border-b border-white/8 gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">STAGE 05 // METHODOLOGICAL LINEAGE</span>
+        </div>
+        <h1 class="text-3xl font-serif text-white tracking-tight">Causal Citation Spine</h1>
+      </div>
+
+      <!-- The 3-Lens Segmented Controller -->
+      <div class="inline-flex p-1 bg-[#0f141f] border border-white/10 rounded-xl text-xs font-medium text-slate-400">
+        <button class="px-4 py-1.5 rounded-lg text-white bg-white/10 shadow-sm transition font-sans">
+          Lineage Backbone (SPLC)
+        </button>
+        <button class="px-4 py-1.5 rounded-lg hover:text-slate-200 transition font-sans">
+          Foundation Canon
+        </button>
+        <button class="px-4 py-1.5 rounded-lg hover:text-slate-200 transition flex items-center gap-2 font-sans">
+          The Frontier <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Grid Layout: Lineage Spine (Left) & Inspector / Gap Context (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Left Column: The Milestone Spine (7 Cols) -->
+      <section class="lg:col-span-7 space-y-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm font-mono text-slate-400 uppercase tracking-wider">Main Path Milestone Horizon</h2>
+          <span class="text-xs font-mono text-slate-500">Zero Courtesy Citations • 4 Milestones</span>
+        </div>
+
+        <!-- Milestone Card 1: Canon Milestone -->
+        <article class="p-5 rounded-2xl bg-[#0f141f] border border-white/8 hover:border-white/20 transition duration-300 specular-border">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-[10px] font-mono text-amber-400 uppercase font-bold tracking-wider">
+                  FOUNDATIONAL CANON
+                </span>
+                <span class="text-xs font-mono text-slate-400 tabular-nums">2017</span>
+              </div>
+              <h3 class="text-2xl font-serif text-white font-normal mt-1">Attention Is All You Need</h3>
+              <p class="text-xs text-slate-400 font-sans mt-0.5">Vaswani et al. • NeurIPS</p>
+            </div>
+            
+            <!-- Citation Velocity Sparkline -->
+            <div class="flex flex-col items-end">
+              <svg class="w-24 h-7" viewBox="0 0 96 28" fill="none">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#eab308" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#eab308" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,24 L20,22 L40,18 L60,12 L80,6 L96,2" stroke="#eab308" stroke-width="2" stroke-linecap="round"/>
+                <path d="M0,24 L20,22 L40,18 L60,12 L80,6 L96,2 L96,28 L0,28 Z" fill="url(#g1)"/>
+              </svg>
+              <span class="text-[10px] font-mono text-amber-400/90 mt-1 tabular-nums">+114k citations</span>
+            </div>
+          </div>
+
+          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+            Eliminated recurrent sequence bottlenecks; established scaled dot-product self-attention as the universal sequence transducer.
+          </p>
+
+          <div class="mt-4 pt-3 border-t border-white/6 flex items-center justify-between text-xs font-mono text-slate-400">
+            <span class="tabular-nums">SPLC Score: 0.94</span>
+            <div class="flex gap-2">
+              <button class="px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 text-slate-300 transition">📋 Copy Context</button>
+              <button class="px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 text-sky-400 transition">DOI ↗</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Spine Connector Line with Method Transition -->
+        <div class="flex items-center gap-3 pl-8 py-1">
+          <div class="w-0.5 h-6 bg-white/15"></div>
+          <span class="text-[11px] font-mono text-slate-400">Adopted multi-head attention to graph adjacency matrices</span>
+        </div>
+
+        <!-- Milestone Card 2: Empirical Refutation & Contested Claim -->
+        <article class="p-5 rounded-2xl bg-[#0f141f] border border-rose-500/30 transition duration-300 specular-border relative">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 rounded bg-rose-500/15 border border-rose-500/40 text-[10px] font-mono text-rose-400 uppercase font-bold tracking-wider">
+                  CONTESTED CLAIM ⚡
+                </span>
+                <span class="text-xs font-mono text-slate-400 tabular-nums">2021</span>
+              </div>
+              <h3 class="text-2xl font-serif text-white font-normal mt-1">Quadratic Scaling Collapse</h3>
+              <p class="text-xs text-slate-400 font-sans mt-0.5">Wu & Chen et al. • ICML</p>
+            </div>
+            
+            <!-- Price Index Meter -->
+            <div class="flex items-center gap-2">
+              <div class="text-right font-mono">
+                <div class="text-[10px] text-slate-400">BURST ACCEL</div>
+                <div class="text-xs text-rose-400 font-bold tabular-nums">4.82 σ</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THE 2-SECOND RULE: Tug-of-War Dual Bar Chart -->
+          <div class="mt-4 p-4 rounded-xl bg-[#080b11] border border-white/6 space-y-3 font-mono text-xs">
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-slate-400">
+                <span>PUBLISHED CLAIM (Clean Benchmarks)</span>
+                <span class="text-slate-200 font-bold tabular-nums">84.2%</span>
+              </div>
+              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-400/90 rounded-full" style="width: 84.2%;"></div>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-rose-400">
+                <span class="flex items-center gap-1.5">EMPIRICAL STRESS TEST (N &gt; 50k nodes)</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-rose-400 font-bold tabular-nums">38.1%</span>
+                  <span class="px-1.5 py-0.2 rounded bg-rose-500/20 text-[10px] text-rose-300 font-bold">
+                    -46.1% COLLAPSE ⚡
+                  </span>
+                </div>
+              </div>
+              <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-rose-500 rounded-full" style="width: 38.1%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+            Demonstrated that pairwise self-attention fails memory bounds on large graphs, refuting previous scalability claims.
+          </p>
+
+          <div class="mt-4 pt-3 border-t border-white/6 flex items-center justify-between text-xs font-mono text-slate-400">
+            <span class="text-rose-400 font-medium">Contested by 14 follow-up preprints</span>
+            <button class="px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 text-slate-300 transition">📋 Copy Refutation Note</button>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Right Column: Frontier Velocity & White-Space Gap Dossier (5 Cols) -->
+      <aside class="lg:col-span-5 space-y-6">
+        
+        <!-- Active Frontier Card -->
+        <div class="p-5 rounded-2xl bg-[#0f141f] border border-sky-500/30 specular-border space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+              <span class="text-xs font-mono text-sky-400 uppercase font-bold tracking-wider">THE ACTIVE FRONTIER</span>
+            </div>
+            <span class="text-xs font-mono text-slate-400 tabular-nums">Price Index: 82%</span>
+          </div>
+
+          <h3 class="text-xl font-serif text-white">Sub-Quadratic State-Space Attention</h3>
+          
+          <div class="grid grid-cols-2 gap-3 font-mono text-xs">
+            <div class="p-3 rounded-lg bg-[#080b11] border border-white/6">
+              <div class="text-slate-500 text-[10px]">12MO VELOCITY</div>
+              <div class="text-lg text-sky-400 font-bold tabular-nums mt-0.5">+340%</div>
+            </div>
+            <div class="p-3 rounded-lg bg-[#080b11] border border-white/6">
+              <div class="text-slate-500 text-[10px]">DISRUPTION INDEX</div>
+              <div class="text-lg text-emerald-400 font-bold tabular-nums mt-0.5">+0.88</div>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed font-sans">
+            Linear complexity formulation replacing attention softmax with continuous state-space recurrence, scaling to 1M+ token contexts without OOM.
+          </p>
+
+          <button class="w-full py-2.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 text-sky-300 font-medium text-xs transition">
+            Explore 18 Frontier Descendants →
+          </button>
+        </div>
+
+        <!-- White-Space Gap Discovery Box -->
+        <div class="p-5 rounded-2xl bg-[#0f141f] border border-purple-500/30 specular-border space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-purple-500/15 border border-purple-500/40 text-[10px] font-mono text-purple-300 uppercase font-bold">
+              UNEXPLORED GAP (0 PAPERS FOUND)
+            </span>
+          </div>
+
+          <h4 class="text-lg font-serif text-white">Heterogeneous GNNs with Long-Range State-Space Memory</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Cross-referencing Method: <em>Mamba State-Space</em> with Domain: <em>Clinical Knowledge Graphs</em> reveals zero published peer-reviewed implementations. High potential for high-impact grant proposals.
+          </p>
+
+          <div class="flex gap-2">
+            <button class="flex-1 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-mono text-slate-300 transition">
+              ⚡ Draft Grant Section
+            </button>
+            <button class="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-mono text-slate-300 transition">
+              Export BibTeX
+            </button>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+  </main>
+</body>
+</html>

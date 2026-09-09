@@ -1,0 +1,75 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on And Dataset",
+      "method": "Knowledge Graph",
+      "dataset": "And Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and And Dataset are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on And Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2407.05868",
+        "12587eb896a8",
+        "2408.02361"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graph on And Benchmark",
+      "method": "Knowledge Graph",
+      "dataset": "And Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graph and And Benchmark are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graph directly on And Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2407.05868",
+        "2604.14324",
+        "2408.02361"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Second on Electronic Health Records",
+      "method": "Second",
+      "dataset": "Electronic Health Records",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Second and Electronic Health Records are prominent in current literature, zero papers in the corpus have evaluated Second directly on Electronic Health Records under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2602.02780",
+        "06f1be748ab1",
+        "2408.02361"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Second on Our Benchmark",
+      "method": "Second",
+      "dataset": "Our Benchmark",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Second and Our Benchmark are prominent in current literature, zero papers in the corpus have evaluated Second directly on Our Benchmark under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2602.02780",
+        "2401.06855",
+        "2408.02361"
+      ]
+    },
+    {
+      "gap_type": "Unexplored Method-Dataset Combination",
+      "title": "Unexplored Application of Knowledge Graphs on And Dataset",
+      "method": "Knowledge Graphs",
+      "dataset": "And Dataset",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "score": 0.88,
+      "description": "While Knowledge Graphs and And Dataset are prominent in current literature, zero papers in the corpus have evaluated Knowledge Graphs directly on And Dataset under Adversarial Data-Poisoning Attacks constraints.",
+      "papers_involved": [
+        "2407.05868",
+        "12587eb896a8",
+        "2408.02361"
+      ]
+    }
+  ]
+}

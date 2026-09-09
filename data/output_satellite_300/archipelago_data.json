@@ -1,0 +1,1030 @@
+{
+  "macro_clusters": [
+    {
+      "cluster_id": 0,
+      "name": "Deep Satellite Image Classification",
+      "keywords": [
+        "image",
+        "learning",
+        "satellite",
+        "model"
+      ],
+      "color": "#38bdf8",
+      "glow": "rgba(56, 189, 248, 0.25)",
+      "x": 872.2,
+      "y": 237.1,
+      "radius": 53.0,
+      "paper_count": 54,
+      "pillars": [
+        {
+          "id": "2304.05464",
+          "title": "UnCRtainTS: Uncertainty Quantification for Cloud Removal in Optical Satellite Time Series",
+          "authors": [
+            "Patrick Ebel",
+            "Vivien Sainte Fare Garnot",
+            "Michael Schmitt"
+          ],
+          "year": 2023,
+          "citations": 85,
+          "venue": "2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)",
+          "tldr": "In this paper, we introduce UnCRtainTS, a method for multi-temporal cloud removal combining a novel attention-based architecture, and a formulation for multivariate uncertainty prediction.",
+          "abstract": "Clouds and haze often occlude optical satellite images, hindering continuous, dense monitoring of the Earth’s surface. Although modern deep learning methods can implicitly learn to ignore such occlusions, explicit cloud removal as pre-processing enables manual interpretation and allows training models when only few annotations are available. Cloud removal is challenging due to the wide range of occlusion scenarios—from scenes partially visible through haze, to completely opaque cloud coverage. Furthermore, integrating reconstructed images in downstream applications would greatly benefit from trustworthy quality assessment. In this paper, we introduce UnCRtainTS, a method for multi-temporal cloud removal combining a novel attention-based architecture, and a formulation for multivariate uncertainty prediction. These two components combined set a new state-of-the-art performance in terms of image reconstruction on two public cloud removal datasets. Additionally, we show how the well-calibrated predicted uncertainties enable a precise control of the reconstruction quality.",
+          "doi": "10.1109/CVPRW59228.2023.00202"
+        },
+        {
+          "id": "008ef3293c92",
+          "title": "Domain Adaption for Fine-Grained Urban Village Extraction From Satellite Images",
+          "authors": [
+            "Q. Shi",
+            "Mengxi Liu",
+            "Xiaoping Liu"
+          ],
+          "year": 2020,
+          "citations": 73,
+          "venue": "IEEE Geoscience and Remote Sensing Letters",
+          "tldr": "In this letter, we propose using the domain adaptation strategy to tackle the domain shift problem by employing adversarial learning to tune the semantic segmentation network so as to adaptively obtain similar outputs for input images from different domains.",
+          "abstract": "Urban villages (UVs) are distinctive products formed in the process of rapid urbanization. The fine-grained mapping of UVs from satellite images has always been a considerable challenge because of the complex urban structures and the insufficiency of labeled samples. In this letter, we propose using the domain adaptation strategy to tackle the domain shift problem by employing adversarial learning to tune the semantic segmentation network so as to adaptively obtain similar outputs for input images from different domains. The proposed method was coupled with several segmentation networks, including U-Net, RefineNet, and DeepLab v3+, and the results show that domain adaptation can significantly improve the pixel-level mapping of UVs.",
+          "doi": "10.1109/LGRS.2019.2947473"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "022824e562fd",
+          "title": "Classification of the global Sentinel-1 SAR vignettes for ocean surface process studies",
+          "year": 2019,
+          "citations": 60,
+          "doi": "10.1016/j.rse.2019.111457",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "2403.12226",
+          "title": "Large-scale flood modeling and forecasting with FloodCast",
+          "year": 2024,
+          "citations": 57,
+          "doi": "10.48550/arXiv.2403.12226",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "00d63fcb5bf7",
+          "title": "GPROF-NN: a neural-network-based implementation of the Goddard Profiling Algorithm",
+          "year": 2022,
+          "citations": 34,
+          "doi": "10.5194/amt-15-5033-2022",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "004838329c41",
+          "title": "A hybrid approach for enhanced flood prediction and assessment: Leveraging physical models, deep learning and satellite remote sensing",
+          "year": 2025,
+          "citations": 26,
+          "doi": "10.1080/20964471.2025.2530850",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "022f65a46cc7",
+          "title": "Toward the recognition of spacecraft feature components: A new benchmark and a new model",
+          "year": 2021,
+          "citations": 30,
+          "doi": "10.1007/s42064-021-0103-3",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "032ffead4061",
+          "title": "Local PM2.5 Hotspot Detector at 300 m Resolution: A Random Forest-Convolutional Neural Network Joint Model Jointly Trained on Satellite Images and Meteorology",
+          "year": 2021,
+          "citations": 18,
+          "doi": "10.3390/rs13071356",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "name": "SAR Aperture Imaging Data",
+      "keywords": [
+        "sar",
+        "radar",
+        "datum",
+        "satellite"
+      ],
+      "color": "#a855f7",
+      "glow": "rgba(168, 85, 247, 0.25)",
+      "x": 969.5,
+      "y": 434.4,
+      "radius": 50.6,
+      "paper_count": 44,
+      "pillars": [
+        {
+          "id": "00575918443d",
+          "title": "Early and persistent supershear rupture of the 2018 magnitude 7.5 Palu earthquake",
+          "authors": [
+            "H. Bao",
+            "J. Ampuero",
+            "L. Meng"
+          ],
+          "year": 2019,
+          "citations": 238,
+          "venue": "Nature Geoscience",
+          "tldr": "Here we present robust evidence of an early and persistent supershear rupture at the sub-Eshelby speed of the 2018 magnitude 7.5 Palu, Indonesia, earthquake.",
+          "abstract": "The speed at which an earthquake rupture propagates affects its energy balance and ground shaking impact. Dynamic models of supershear earthquakes, which are faster than the speed of shear waves, often start at subshear speed and later run faster than Eshelby’s speed. Here we present robust evidence of an early and persistent supershear rupture at the sub-Eshelby speed of the 2018 magnitude 7.5 Palu, Indonesia, earthquake. Slowness-enhanced back-projection of teleseismic data provides a sharp image of the rupture process, along a path consistent with the surface rupture trace inferred by subpixel correlation of synthetic-aperture radar and satellite optical images. The rupture propagated at a sustained velocity of 4.1 km s–1 from its initiation to its end, despite large fault bends. The persistent supershear speed is further validated by seismological evidence of far-field Rayleigh Mach waves. The unusual features of this earthquake probe the connections between the rupture dynamics and fault structure. An early supershear transition could be promoted by fault roughness near the hypocentre. Steady rupture propagation at a speed unexpected in homogeneous media could result from the presence of a low-velocity damaged fault zone.Supershear rupture speed occurred at the devastating 2018 magnitude 7.5 Palu earthquake, Indonesia, according to back-projection of teleseismic data.",
+          "doi": "10.1038/s41561-018-0297-z"
+        },
+        {
+          "id": "00f8c2660ea4",
+          "title": "Time-series snowmelt detection over the Antarctic using Sentinel-1 SAR images on Google Earth Engine",
+          "authors": [
+            "Dong Liang",
+            "Huadong Guo",
+            "Lu Zhang"
+          ],
+          "year": 2021,
+          "citations": 67,
+          "venue": "Peer-Reviewed Venue",
+          "tldr": "Abstract The Antarctic ice sheet is an important mass of glacier ice.",
+          "abstract": "Abstract The Antarctic ice sheet is an important mass of glacier ice. It is particularly sensitive to climate change, and the flow of Antarctica's inland glaciers into the sea, accelerated by collapsing ice shelves, threatens global sea level rise. The amount of snowmelt on the surface of the ice sheet is an important metric for accurately assessing surface material loss and albedo change, which affect the stability of the ice sheet. This study proposes a framework for quickly extracting time-series freeze-thaw information at the continental scale and 40 m resolution by taking advantage of the huge amount of synthetic aperture radar (SAR) data acquired by Sentinel-1 satellites over the Antarctic, available for rapid processing on Google Earth Engine. Co-orbit normalization is used in the proposed framework to establish a unified standard of judgement by reducing the variations in the backscattering coefficient introduced by observation geometry, terrain fluctuations, and melt conditions between images acquired at different times. We implemented the framework to produce a massive dataset of both monthly freeze-thaw information over the Antarctic and higher temporal resolution freeze-thaw information for the Larsen C ice shelf from 2015 to 2019, with overall accuracies of 93% verified by a manual visual interpretation method and 84% evaluated from automatic weather station temperatures. Due to its effectiveness and robustness, the framework can be used to analyse the spatiotemporal distribution of snowmelt, the change in melt area, and anomalous melt events in Antarctica, especially those in Larsen C caused by foehn wind.",
+          "doi": "10.1016/J.RSE.2021.112318"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "005162c36404",
+          "title": "Seismic multi-hazard and impact estimation via causal inference from satellite imagery",
+          "year": 2022,
+          "citations": 59,
+          "doi": "10.1038/s41467-022-35418-8",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "00ac9a38be21",
+          "title": "Tracking morphological changes and slope instability using spaceborne and ground-based SAR data",
+          "year": 2018,
+          "citations": 68,
+          "doi": "10.1016/J.GEOMORPH.2017.10.023",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "0355e05ed3c4",
+          "title": "Multiparametric sea state fields from synthetic aperture radar for maritime situational awareness",
+          "year": 2022,
+          "citations": 44,
+          "doi": "10.1016/j.rse.2022.113200",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "0173eed5d076",
+          "title": "Domino-style earthquakes along blind normal faults in Northern Thessaly (Greece): kinematic evidence from field observations, seismology, SAR interferometry and GNSS",
+          "year": 2021,
+          "citations": 29,
+          "doi": "10.12681/BGSG.27102",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "01fb881fd74c",
+          "title": "Ground Stability Monitoring of Undermined and Landslide Prone Areas by Means of Sentinel-1 Multi-Temporal InSAR, Case Study from Slovakia",
+          "year": 2017,
+          "citations": 42,
+          "doi": "10.3390/GEOSCIENCES7030087",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "02d38a834789",
+          "title": "Deforestation Effects on Rainfall‐Induced Shallow Landslides: Remote Sensing and Physically‐Based Modelling",
+          "year": 2019,
+          "citations": 40,
+          "doi": "10.1029/2019WR025233",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "High-Resolution Forest Water Mapping",
+      "keywords": [
+        "forest",
+        "water",
+        "datum",
+        "area"
+      ],
+      "color": "#10b981",
+      "glow": "rgba(16, 185, 129, 0.25)",
+      "x": 847.3,
+      "y": 617.3,
+      "radius": 50.3,
+      "paper_count": 43,
+      "pillars": [
+        {
+          "id": "00067a04e069",
+          "title": "Estimation of Soil Moisture Applying Modified Dubois Model to Sentinel-1; A Regional Study from Central India",
+          "authors": [
+            "Abhilasha Singh",
+            "K. Gaurav",
+            "G. Meena"
+          ],
+          "year": 2020,
+          "citations": 61,
+          "venue": "Remote Sensing",
+          "tldr": "Surface soil moisture has a wide application in climate change, agronomy, water resources, and in many other domain of science and engineering.",
+          "abstract": "Surface soil moisture has a wide application in climate change, agronomy, water resources, and in many other domain of science and engineering. Measurement of soil moisture at high spatial and temporal resolution at regional and global scale is needed for the prediction of flood, drought, planning and management of agricultural productivity to ensure food security. Recent advancement in microwave remote sensing, especially after the launch of Sentinel operational satellites has enabled the scientific community to estimate soil moisture at higher spatial and temporal resolution with greater accuracy. This study evaluates the potential of Sentinel-1A satellite images to estimate soil moisture in a semi-arid region. Exactly at the time when satellite passes over the study area, we have collected soil samples at 37 different locations and measured the soil moisture from 5 cm below the ground surface using ML3 theta probe. We processed the soil samples in laboratory to obtain volumetric soil moisture using the oven dry method. We found soil moisture measured from calibrated theta probe and oven dry method are in good agreement with Root Mean Square Error (RMSE) 0.025 m 3 /m 3 and coefficient of determination (R 2 ) 0.85. We then processed Sentinel-1A images and applied modified Dubois model to calculate relative permittivity of the soil from the backscatter values ( σ ∘ ). The volumetric soil moisture at each pixel is then calculated by applying the universal Topp’s model. Finally, we masked the pixels whose Normalised Difference Vegetation Index (NDVI) value is greater than 0.4 to generate soil moisture map as per the Dubois NDVI criterion. Our modelled soil moisture accord with the measured values with RMSE = 0.035 and R 2 = 0.75. We found a small bias in the modelled soil moisture ( 0.02 m 3 / m 3 ). However, this has reduced significantly ( 0.001 m 3 / m 3 ) after applying a bias correction based on Cumulative Distribution Function (CDF) matching. Our approach provides a first-order estimate of soil moisture from Sentinel-1A images in sparsely vegetated agricultural land.",
+          "doi": "10.3390/rs12142266"
+        },
+        {
+          "id": "001c1dcc59a8",
+          "title": "Recent wildfires in Central Chile: Detecting links between burned areas and population exposure in the wildland urban interface.",
+          "authors": [
+            "P. Sarricolea",
+            "Roberto Serrano‐Notivoli",
+            "Magdalena Fuentealba"
+          ],
+          "year": 2019,
+          "citations": 66,
+          "venue": "Science of the Total Environment",
+          "tldr": "Wildfires are gaining importance in the Mediterranean regions owing to climate change and landscape changes due to the increasing closeness between urban areas and forests prone to wildfires.",
+          "abstract": "Wildfires are gaining importance in the Mediterranean regions owing to climate change and landscape changes due to the increasing closeness between urban areas and forests prone to wildfires. We analysed the dry season wildfire occurrences in the Mediterranean region of Central Chile (32°S-39°30' S) between 2000 and 2017, using satellite images to detect burned areas, their landscape metrics and the land use and covers (vegetal) pre-wildfire, in order to determine the population living in areas that may be affected by wildfires. The existing regulations in western Mediterranean countries (Portugal, Spain, France, and Italy) were used to identify and define the wildland-urban interface (WUI) areas, quantifying the people inhabiting them and estimating the population affected by burned areas from 2001 to 2017. We used the Google Earth Engine to process MODIS products and extract both burned areas and land covers. We detected that 25% of the urban population inhabits WUI areas (i.e. Biobío, Araucanía and Valparaíso regions) where the urban population exposed to burned areas exceeds 40%. Most of the land use and land covers affected by wildfires are anthropogenic land covers, classified as savannas, croplands, evergreen broadleaf forests and woody savannas, representing >70% of the burned areas. Urban areas show only 0.6% of the burned surface from 2001 to 2017. We estimate that 55,680 people are potentially affected by wildfires, and 50% of them are in just one administrative region. These results show the imperative need for public policies as a regulating force for establishing WUI areas with the purpose of identifying wildfire risk in urban areas, such as establishing prevention methods as firewalls and prescribed fires.",
+          "doi": "10.1016/j.scitotenv.2019.135894"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "030f694686ab",
+          "title": "Forest Fire Prediction Using Machine Learning Techniques",
+          "year": 2021,
+          "citations": 41,
+          "doi": "10.1109/CONIT51480.2021.9498448",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "033b8836cf00",
+          "title": "Compositing the Minimum NDVI for Daily Water Surface Mapping",
+          "year": 2020,
+          "citations": 38,
+          "doi": "10.3390/rs12040700",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "0274645cf54d",
+          "title": "Satellite imagery for high-throughput phenotyping in breeding plots",
+          "year": 2023,
+          "citations": 30,
+          "doi": "10.3389/fpls.2023.1114670",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "00ce80877572",
+          "title": "Unsupervised Sub-Pixel Water Body Mapping with Sentinel-3 OLCI Image",
+          "year": 2019,
+          "citations": 35,
+          "doi": "10.3390/RS11030327",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "015513c800f0",
+          "title": "How does precipitation data influence the land surface data assimilation for drought monitoring?",
+          "year": 2022,
+          "citations": 32,
+          "doi": "10.1016/j.scitotenv.2022.154916",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "007c131a57c5",
+          "title": "Remote sensing applications for reservoir water level monitoring, sustainable water surface management, and environmental risks in Quang Nam province, Vietnam",
+          "year": 2021,
+          "citations": 22,
+          "doi": "10.2166/WCC.2021.347",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "name": "Flood Impact on Soil Areas",
+      "keywords": [
+        "soil",
+        "area",
+        "flood",
+        "datum"
+      ],
+      "color": "#eab308",
+      "glow": "rgba(234, 179, 8, 0.25)",
+      "x": 627.8,
+      "y": 602.9,
+      "radius": 46.3,
+      "paper_count": 29,
+      "pillars": [
+        {
+          "id": "035ac7139ded",
+          "title": "Potential Dam Breach Analysis and Flood Wave Risk Assessment Using HEC-RAS and Remote Sensing Data: A Multicriteria Approach",
+          "authors": [
+            "E. Psomiadis",
+            "Lefteris T. Tomanis",
+            "Antonis Kavvadias"
+          ],
+          "year": 2021,
+          "citations": 80,
+          "venue": "Water",
+          "tldr": "Dam breach has disastrous consequences for the economy and human lives.",
+          "abstract": "Dam breach has disastrous consequences for the economy and human lives. Floods are one of the most damaging natural phenomena, and some of the most catastrophic flash floods are related to dam collapses. The goal of the present study is to analyse the impact of a possible failure–collapse on a potentially affected area downstream of the existing Bramianos dam on southern Crete Island. HEC-RAS hydraulic analysis software was used to study the dam breach, the flood wave propagation, and estimate the extent of floods. The analysis was performed using two different relief datasets of the same area: a digital elevation model (DEM) taken from very high-resolution orthophoto images (OPH) of the National Cadastre and Mapping Agency SA and a detailed digital surface model (DSM) extracted from aerial images taken by an unmanned aerial vehicle (UAV). Remote sensing data of the Sentinel-2 satellite and OPH were utilised to create the geographic information system (GIS) layers of a thorough land use/cover classification (LULC) for the potentially flooded area, which was used to assess the impact of the flood wave. Different dam breach and flood scenarios, where the water flows over man-made structures, settlements, and olive tree cultivations, were also examined. The study area is dominated mainly by three geological formations with different hydrogeological characteristics that dictated the positioning and structure of the dam and determine the processes that shape the geomorphology and surface roughness of the floodplain, affecting flow conditions. The results show that the impact of a potential dam break at Bramianos dam is serious, and appropriate management measures should be taken to reduce the risk. The water flow downstream of the collapsed dam depends on the water volume stored in the reservoir. Moreover, the comparison of DSM and DEM cases shows that the detailed DSM may indicate more accurately the surface relief and existing natural obstacles such as vegetation, buildings, and greenhouses, enabling more realistic hydraulic simulation results. Dam breach flood simulations and innovative remote sensing data can provide valuable outcomes for engineers and stakeholders for decision-making and planning in order to confront the consequences of similar incidents worldwide.",
+          "doi": "10.3390/W13030364"
+        },
+        {
+          "id": "00fe8ddb80e2",
+          "title": "Hydro-morphodynamic modelling in Mediterranean storms – errors and uncertainties under sharp gradients",
+          "authors": [
+            "A. Sanchez-arcilla",
+            "M. García-León",
+            "V. Gracia"
+          ],
+          "year": 2014,
+          "citations": 30,
+          "venue": "Peer-Reviewed Venue",
+          "tldr": "This paper deals with the limits in hydrodynamic and morphodynamic predictions for semi-enclosed coastal domains subject to sharp gradients (in bathymetry, topography, sediment transport and coastal damages).",
+          "abstract": "Abstract. This paper deals with the limits in hydrodynamic and morphodynamic predictions for semi-enclosed coastal domains subject to sharp gradients (in bathymetry, topography, sediment transport and coastal damages). It starts with an overview of wave prediction limits (based on satellite images and buoy records) in a restricted domain, namely the Mediterranean basin, followed by an in-depth analysis of the Catalan coast, one of its land boundaries. The morphodynamic modelling for such regions is next discussed, based on the impact of a characteristic storm. The driving wave and surge conditions produce a morphodynamic response that is validated against the pre- and post-storm emerged beach state, recovered from two lidar images. The quality of the fit is discussed in terms of the physical processes and the suitability of the employed modelling suite. From here an assessment of errors and uncertainties is presented, with the aim of establishing the prediction limits for flooding and erosion analyses, key elements for coastal engineering decisions.",
+          "doi": "10.5194/NHESS-14-2993-2014"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "031e25e36f4d",
+          "title": "Monitoring of Damages to Cultural Heritage across Europe Using Remote Sensing and Earth Observation: Assessment of Scientific and Grey Literature",
+          "year": 2023,
+          "citations": 27,
+          "doi": "10.3390/rs15153748",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "01733661beca",
+          "title": "Groundwater Complexity in Urban Catchments: Shenzhen, Southern China",
+          "year": 2019,
+          "citations": 13,
+          "doi": "10.1111/gwat.12935",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "019a08eebdbe",
+          "title": "Flood hazard assessment in large plain basins with a scarce slope in the Pampean Plain, Argentina",
+          "year": 2021,
+          "citations": 11,
+          "doi": "10.1007/s10661-021-08988-1",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "02dbc576a6d7",
+          "title": "Feasibility of satellite image and GIS sampling for population representative surveys: a case study from rural Guatemala",
+          "year": 2020,
+          "citations": 11,
+          "doi": "10.1186/s12942-020-00250-0",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "033353732322",
+          "title": "Latitudinal and Situational Zonation of Coastal Catenary Sequences Observed from Satellite Images Using the Biophysical Cross-shore Classification System (BCCS)",
+          "year": 2019,
+          "citations": 11,
+          "doi": "10.2112/JCOASTRES-D-19A-00011.1",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "0088e9f19df4",
+          "title": "GEOINFORMATION MAPPING OF ANTHROPOGENICALLY TRANSFORMED LANDSCAPES OF BILA TSERKVA (UKRAINE)",
+          "year": 2022,
+          "citations": 7,
+          "doi": "10.15576/asp.fc/2022.21.1.69",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "name": "Land Cover Change Detection",
+      "keywords": [
+        "land",
+        "area",
+        "forest",
+        "change"
+      ],
+      "color": "#f43f5e",
+      "glow": "rgba(244, 63, 94, 0.25)",
+      "x": 530.5,
+      "y": 405.6,
+      "radius": 45.7,
+      "paper_count": 27,
+      "pillars": [
+        {
+          "id": "0014a4ee9b62",
+          "title": "Mapping Impacts of Crude Oil theft and Illegal Refineries on Mangrove of the Niger Delta of Nigeria with Remote Sensing Technology",
+          "authors": [
+            "T. F. Balogun"
+          ],
+          "year": 2015,
+          "citations": 17,
+          "venue": "Peer-Reviewed Venue",
+          "tldr": "Niger Delta is the oil rich region of Nigeria where extensive mangrove form one of the most important ecosystems of coastal and marine areas.",
+          "abstract": "Niger Delta is the oil rich region of Nigeria where extensive mangrove form one of the most important ecosystems of coastal and marine areas. It is a fragile ecosystem rich in biodiversity. The mangrove is exposed to the activities of crude oil bunkering and illegal refinery. This study aims at mapping the impacts of the crude oil theft and illegal refineries on the creeks and mangroves of the Niger Delta.Worldview-2 2013 satellite image was processed using supervised classification methods and Normalized Difference Vegetation Index (NDVI). Oil on the waterways covering estimated area of 9.2 km2 and stressed mangrove vegetation covering estimated area of 37.6 km2 were detected. Result of NDVI shows positive correlation with photosynthetic activities as areas with stressed vegetation around the illegal refineries had low vegetation index of -0.39 while areas with healthier vegetation had higher index of 0.55. Since illegal refineries and crude oil theft is rampant in the region, the paper recommends a regional study of the state of the mangrove in the Niger Delta. DOI: 10.5901/mjss.2015.v6n3p150",
+          "doi": "10.5901/MJSS.2015.V6N3P150"
+        },
+        {
+          "id": "02d0cf6dd944",
+          "title": "Urbanization: A Catalyst for the Emergence of Squatter Settlements and Squalor in the Vicinities of the Federal Capital City of Nigeria",
+          "authors": [
+            "Opeyemi A. Zubair",
+            "L. M. Ojigi",
+            "R. Mbih"
+          ],
+          "year": 2015,
+          "citations": 21,
+          "venue": "Peer-Reviewed Venue",
+          "tldr": "From the 1990s to date, growing deterioration of urban environmental quality, and the developments of squatter settlements and squalors have gradually become the attributes of the development patterns in the Federal Capital City (FCC), Abuja and environs in Nigeria.",
+          "abstract": "From the 1990s to date, growing deterioration of urban environmental quality, and the developments of squatter settlements and squalors have gradually become the attributes of the development patterns in the Federal Capital City (FCC), Abuja and environs in Nigeria. The FCC, Abuja and the surrounding towns and settlements popularly referred to as ‘satellite towns’ in Nigeria, are characterized by inadequate urban infrastructure, high rural-urban migration, population pressure, high cost of living, poor economic lifestyle, informal settlements and failing infrastructure. In view of these urban development dynamics and the prevailing economic situations in Nigeria, many citizens have resorted to building and settling in unapproved lands within and around the city. In attempts to maintain the designed land use and master plan of the city and to control the quality of infrastructural developments in the area, the relevant government authorities often employ the use of mass demolition of illegal constructions, and informal settlements; resulting in displacement of many inhabitants. A further repercussion of this process is the emergence of several unplanned settlements dotting the surroundings of the city area assumed to be outside the immediate development interest of the FCC authorities. This paper is therefore aimed at assessing the urbanization of the FCC, Abuja as a catalyst for the emergence of squatter settlements and squalors in and around the city. To achieve this, Landsat satellite images of Abuja in 1987, 2001 and 2006 were used in mapping and analyzing the spatial growth of the city. The results of the study showed that squatter settlements and squalors have sprang up in and around the study area due to poor housing scheme, which made proper accommodation within the city unaffordable for low income residents of the city who were mostly civil servants. It was argued in the paper that, though demolition exercise may be agreed by the Abuja City Administration as a necessity, this could be largely avoided if proper housing infrastructure is included in the planning process.",
+          "doi": "10.5539/JSD.V8N2P134"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "018f75ab0f58",
+          "title": "Estudio de bofedales en los Andes ecuatorianos a través de la comparación de imágenes Landsat-8 y Sentinel-2",
+          "year": 2019,
+          "citations": 14,
+          "doi": "10.4995/RAET.2019.11715",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "02c8d037b4c1",
+          "title": "INFORMAÇÕES GEOLÓGICO-GEOMORFOLÓGICAS COMO SUBSÍDIOS À ANÁLISE AMBIENTAL: O EXEMPLO DA PLANÍCIE COSTEIRA DE CARAVELAS - BAHIA",
+          "year": 2002,
+          "citations": 19,
+          "doi": "10.5380/GEO.V51I0.4167",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "02b7dab4e82c",
+          "title": "Evolución del delta del río Paraná y su posible vinculación con el calentamiento global",
+          "year": 2013,
+          "citations": 13,
+          "doi": "10.22179/REVMACN.15.181",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "01cbb9f79f58",
+          "title": "GEOTECNOLOGIAS NO DIAGNÓSTICO DE CONFLITOS DE USO DO SOLO DE UMA MICROBACIA DO MUNICÍPIO DE ALTA FLORESTA - MT",
+          "year": 2015,
+          "citations": 5,
+          "doi": "10.5902/1980509819619",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "02d882d6bbd8",
+          "title": "Interactive community-based tropical forest monitoring using emerging technologies",
+          "year": 2015,
+          "citations": 3,
+          "doi": "10.18174/357908",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "00e65b612795",
+          "title": "Effects of Climate Change, Land Use and Land Cover Variability on Green and Blue Water in Wami/Ruvu Basin, Tanzania",
+          "year": 2023,
+          "citations": 5,
+          "doi": "10.4314/tjs.v49i1.22",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "name": "Space Mission System Operations",
+      "keywords": [
+        "star",
+        "space",
+        "mission",
+        "system"
+      ],
+      "color": "#818cf8",
+      "glow": "rgba(129, 140, 248, 0.25)",
+      "x": 652.7,
+      "y": 222.7,
+      "radius": 45.0,
+      "paper_count": 25,
+      "pillars": [
+        {
+          "id": "astro-ph/0409568",
+          "title": "The star-forming environment of an ultraluminous X-ray source in NGC 4559: an optical study",
+          "authors": [
+            "R. Soria",
+            "M. Cropper",
+            "M. Pakull"
+          ],
+          "year": 2004,
+          "citations": 75,
+          "venue": "Peer-Reviewed Venue",
+          "tldr": "We propose that it is an expanding wave of star formation, triggered by an initial density perturbation, in a region where the gas was only marginally stable to gravitational collapse.",
+          "abstract": "We have studied the candidate optical counterparts and the stellar population in the star- forming complex around the bright ultraluminous X-ray source (ULX) in the western part of the spiral galaxy NGC 4559, using the HST Wide Field Planetary Camera 2 (WFPC2), XMM-Newton/Optical Monitor and ground-based data. We find that the ULX is located near a small group of OB stars, but is not associated with any massive young clusters nor with any extraordinary massive stars. The brightest point source in the Chandra error circle is consistent with a single blue supergiant (BSG) of mass ≈20 Mand age ≈10 Myr. A few other stars are resolved inside the error circle: mostly BSGs and red supergiants (RSGs) with inferred masses ≈10-15 Mand ages ≈20 Myr. This is consistent with the interpretation of this ULX as a black hole (BH) accreting from a high-mass donor star in its supergiant phase, with mass transfer occurring via Roche-lobe overflow. The observed optical colours and the blue-to-red supergiant ratio suggest a low metal abundance for the stellar population: 0.2 Z/Z� 0.4 (using the Padua tracks), or 0.05 Z/Z� 0.2 (using the Geneva tracks). The age of the star-forming complex is30 Myr. Hα images show that this star-forming region has a ring-like appearance. We propose that it is an expanding wave of star formation, triggered by an initial density perturbation, in a region where the gas was only marginally stable to gravitational collapse. We also suggest that the most likely trigger was a collision with a satellite dwarf galaxy going through the gas-rich outer disc of NGC 4559 less than 30 Myr ago. The culprit could be the dwarf galaxy visible a few arcsec north-west of the complex. If this is the case, this system is a scaled-down version of the Cartwheel galaxy. The X-ray data favour a BH more massive (M > 50 M� ) than typical Milky Way BH candidates. The optical data favour a young BH originating in the recent episode of massive star formation; however, they also rule out an association with young massive star clusters (none are present in the X7 field). We speculate that other mechanisms may lead to the formation of relatively massive BHs (perhaps M ∼ 50-100 M� ) from stellar evolution processes in low-metallicity environments, or when star formation is triggered by galactic collisions. Ke yw ords: accretion, accretion discs - black hole physics - galaxies: individual: NGC 4559 - X-rays: galaxies - X-rays: stars.",
+          "doi": "10.1111/j.1365-2966.2004.08438.x"
+        },
+        {
+          "id": "astro-ph/0111466",
+          "title": "Interpreting the Morphology of Diffuse Light around Satellite Galaxies",
+          "authors": [
+            "K. Johnston",
+            "P. Choi",
+            "P. Guhathakurta"
+          ],
+          "year": 2001,
+          "citations": 56,
+          "venue": "Peer-Reviewed Venue",
+          "tldr": "Recent observations of surface brightness distributions of both Milky Way and M31 satellite galaxies have revealed many instances of sudden changes or breaks in the slope of the surface brightness profiles (at some break radius rbreak).",
+          "abstract": "Recent observations of surface brightness distributions of both Milky Way and M31 satellite galaxies have revealed many instances of sudden changes or breaks in the slope of the surface brightness profiles (at some break radius rbreak). These breaks are often accompanied by increasingly elliptical isophotes and sometimes by isophote twisting. We investigate the hypothesis of a tidal origin for these features by applying the same ellipse-fitting techniques that are used on observed galaxies to numerical simulations of the destruction of satellites, represented by spherical, single-component systems. We examine how observed quantities such as rbreak, ellipticity e, and position angle ϕ of the fitted ellipses and amplitude of the extra-break population vary with the satellite's orbital eccentricity and phase, as well as our viewpoint relative to the orbit. We also look at orbit and viewpoint dependence of the rate of change of the latter three quantities with radius. We find that there are trends with orbital phase and eccentricity in all observed quantities, many of which are preserved through a wide variety of viewing angles. In particular, a generic feature of all simulations is a depletion zone just interior to an excess zone, regions in which the surface brightness is lower and higher, respectively, than the initial profile. A clear interpretation of any individual image, however, is likely to be hampered by the dependence of the observable features on these multiple parameters. For example, breaks can be excited by several physical processes and can occur well within the bound satellite population. Nevertheless, we do find we can place loose constraints on the tidal radius, mass-loss rate, orbital type and phase of the satellite, and nature of breaks, using photometric data alone.",
+          "doi": "10.1086/341040"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "0058609735fa",
+          "title": "Wide-field auroral imager onboard the Fengyun satellite",
+          "year": 2019,
+          "citations": 49,
+          "doi": "10.1038/s41377-019-0157-7",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "00d2eac3aedf",
+          "title": "Centralized visual based navigation and control of a swarm of satellites for on-orbit servicing",
+          "year": 2020,
+          "citations": 29,
+          "doi": "10.1016/j.actaastro.2020.03.015",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "2112.08089",
+          "title": "Radiation damage on SiPMs for space applications",
+          "year": 2021,
+          "citations": 26,
+          "doi": "10.1016/j.nima.2022.167488",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "2106.01611",
+          "title": "Detailed design of the science operations for the XRISM mission",
+          "year": 2021,
+          "citations": 19,
+          "doi": "10.1117/1.JATIS.7.3.037001",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "014f6984735a",
+          "title": "Multi-frame image restoration method for novel rotating synthetic aperture imaging system",
+          "year": 2021,
+          "citations": 15,
+          "doi": "10.1016/J.RINP.2021.103991",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "0032b86e4b6c",
+          "title": "Resolving time-varying attitude jitter of an optical remote sensing satellite based on a time-frequency analysis.",
+          "year": 2020,
+          "citations": 8,
+          "doi": "10.1364/oe.392194",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    }
+  ],
+  "macro_filaments": [
+    {
+      "source_id": 2,
+      "target_id": 5,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 85,
+      "width": 1.8
+    },
+    {
+      "source_id": 0,
+      "target_id": 5,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 91,
+      "width": 1.9
+    },
+    {
+      "source_id": 2,
+      "target_id": 4,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 82,
+      "width": 1.7
+    },
+    {
+      "source_id": 0,
+      "target_id": 4,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 56,
+      "width": 1.2
+    },
+    {
+      "source_id": 0,
+      "target_id": 3,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 64,
+      "width": 1.3
+    },
+    {
+      "source_id": 0,
+      "target_id": 2,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 847.3,
+      "y2": 617.3,
+      "volume": 181,
+      "width": 3.8
+    },
+    {
+      "source_id": 2,
+      "target_id": 3,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 128,
+      "width": 2.7
+    },
+    {
+      "source_id": 1,
+      "target_id": 2,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 847.3,
+      "y2": 617.3,
+      "volume": 141,
+      "width": 3.0
+    },
+    {
+      "source_id": 3,
+      "target_id": 4,
+      "x1": 530.5,
+      "y1": 405.6,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 32,
+      "width": 1.2
+    },
+    {
+      "source_id": 4,
+      "target_id": 5,
+      "x1": 627.8,
+      "y1": 602.9,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 26,
+      "width": 1.2
+    },
+    {
+      "source_id": 3,
+      "target_id": 5,
+      "x1": 530.5,
+      "y1": 405.6,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 22,
+      "width": 1.2
+    },
+    {
+      "source_id": 0,
+      "target_id": 1,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 969.5,
+      "y2": 434.4,
+      "volume": 121,
+      "width": 2.5
+    },
+    {
+      "source_id": 1,
+      "target_id": 3,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 42,
+      "width": 1.2
+    },
+    {
+      "source_id": 1,
+      "target_id": 4,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 28,
+      "width": 1.2
+    },
+    {
+      "source_id": 1,
+      "target_id": 5,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 55,
+      "width": 1.2
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "gap_1",
+      "rank": 1,
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-2",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel-2",
+      "limitation": "Atmospheric Correction",
+      "breakthrough_score": 44.4,
+      "uzzi_z_score": -1.467,
+      "is_center_top": true,
+      "macro_x": 750.0,
+      "macro_y": 420.0,
+      "role": "CENTER_TOP_GAP",
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and Sentinel-2 (n=25) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on Sentinel-2 under Atmospheric Correction constraints (Uzzi z = -1.47σ).",
+      "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to Sentinel-2 under Atmospheric Correction constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "001906970cf7",
+        "title": "Hybrid Enriched Stacked Auto Encoder and FFO-MPARCNN Algorithm for the Multispectral Image LULC Classification",
+        "authors": [
+          "Bhuvaneswari E",
+          "Anil Kumar T Ch",
+          "Haqqani Arshad"
+        ],
+        "year": 2021,
+        "citations": 0,
+        "venue": "NeurIPS / CVPR",
+        "tldr": "The satellite imagery classification task is fundamental to spatial knowledge discovery.",
+        "doi": "10.21203/RS.3.RS-717451/V1"
+      },
+      "anchor_b": {
+        "id": "002f34b8300f",
+        "title": "High Spatiotemporal Rugged Land Surface Temperature Downscaling over Saihanba Forest Park, China",
+        "authors": [
+          "X. Ouyang",
+          "Youjun Dou",
+          "Jinxin Yang"
+        ],
+        "year": 2022,
+        "citations": 14,
+        "venue": "Remote Sensing",
+        "tldr": "Satellite-derived rugged land surface temperature (LST) is an important parameter indicating the status of the Earth’s surface energy budget and its seasonal/temporal dynamic change.",
+        "doi": "10.3390/rs14112617"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
+    },
+    {
+      "gap_id": "gap_2",
+      "rank": 2,
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-1",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel-1",
+      "limitation": "Forest Structure And Height",
+      "breakthrough_score": 36.0,
+      "uzzi_z_score": -1.116,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_LEFT",
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and Sentinel-1 (n=15) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on Sentinel-1 under Forest Structure And Height constraints (Uzzi z = -1.12σ).",
+      "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to Sentinel-1 under Forest Structure And Height constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "001906970cf7",
+        "title": "Hybrid Enriched Stacked Auto Encoder and FFO-MPARCNN Algorithm for the Multispectral Image LULC Classification",
+        "authors": [
+          "Bhuvaneswari E",
+          "Anil Kumar T Ch",
+          "Haqqani Arshad"
+        ],
+        "year": 2021,
+        "citations": 0,
+        "venue": "NeurIPS / CVPR",
+        "tldr": "The satellite imagery classification task is fundamental to spatial knowledge discovery.",
+        "doi": "10.21203/RS.3.RS-717451/V1"
+      },
+      "anchor_b": {
+        "id": "00067a04e069",
+        "title": "Estimation of Soil Moisture Applying Modified Dubois Model to Sentinel-1; A Regional Study from Central India",
+        "authors": [
+          "Abhilasha Singh",
+          "K. Gaurav",
+          "G. Meena"
+        ],
+        "year": 2020,
+        "citations": 61,
+        "venue": "Remote Sensing",
+        "tldr": "Surface soil moisture has a wide application in climate change, agronomy, water resources, and in many other domain of science and engineering.",
+        "doi": "10.3390/rs12142266"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
+    },
+    {
+      "gap_id": "gap_3",
+      "rank": 3,
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on MODIS",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "MODIS",
+      "limitation": "Cloud Cover",
+      "breakthrough_score": 36.0,
+      "uzzi_z_score": -1.116,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_RIGHT",
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and MODIS (n=15) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on MODIS under Cloud Cover constraints (Uzzi z = -1.12σ).",
+      "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to MODIS under Cloud Cover constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "001906970cf7",
+        "title": "Hybrid Enriched Stacked Auto Encoder and FFO-MPARCNN Algorithm for the Multispectral Image LULC Classification",
+        "authors": [
+          "Bhuvaneswari E",
+          "Anil Kumar T Ch",
+          "Haqqani Arshad"
+        ],
+        "year": 2021,
+        "citations": 0,
+        "venue": "NeurIPS / CVPR",
+        "tldr": "The satellite imagery classification task is fundamental to spatial knowledge discovery.",
+        "doi": "10.21203/RS.3.RS-717451/V1"
+      },
+      "anchor_b": {
+        "id": "001c1dcc59a8",
+        "title": "Recent wildfires in Central Chile: Detecting links between burned areas and population exposure in the wildland urban interface.",
+        "authors": [
+          "P. Sarricolea",
+          "Roberto Serrano‐Notivoli",
+          "Magdalena Fuentealba"
+        ],
+        "year": 2019,
+        "citations": 66,
+        "venue": "Science of the Total Environment",
+        "tldr": "Wildfires are gaining importance in the Mediterranean regions owing to climate change and landscape changes due to the increasing closeness between urban areas and forests prone to wildfires.",
+        "doi": "10.1016/j.scitotenv.2019.135894"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
+    },
+    {
+      "gap_id": "gap_4",
+      "rank": 4,
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel",
+      "limitation": "Atmospheric Correction",
+      "breakthrough_score": 35.0,
+      "uzzi_z_score": -1.076,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_LEFT",
+      "description": "While Convolutional Neural Networks (CNN) (n=22) and Sentinel (n=14) are prominent in literature, zero papers in the corpus have evaluated Convolutional Neural Networks (CNN) directly on Sentinel under Atmospheric Correction constraints (Uzzi z = -1.08σ).",
+      "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to Sentinel under Atmospheric Correction constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "001906970cf7",
+        "title": "Hybrid Enriched Stacked Auto Encoder and FFO-MPARCNN Algorithm for the Multispectral Image LULC Classification",
+        "authors": [
+          "Bhuvaneswari E",
+          "Anil Kumar T Ch",
+          "Haqqani Arshad"
+        ],
+        "year": 2021,
+        "citations": 0,
+        "venue": "NeurIPS / CVPR",
+        "tldr": "The satellite imagery classification task is fundamental to spatial knowledge discovery.",
+        "doi": "10.21203/RS.3.RS-717451/V1"
+      },
+      "anchor_b": {
+        "id": "00067a04e069",
+        "title": "Estimation of Soil Moisture Applying Modified Dubois Model to Sentinel-1; A Regional Study from Central India",
+        "authors": [
+          "Abhilasha Singh",
+          "K. Gaurav",
+          "G. Meena"
+        ],
+        "year": 2020,
+        "citations": 61,
+        "venue": "Remote Sensing",
+        "tldr": "Surface soil moisture has a wide application in climate change, agronomy, water resources, and in many other domain of science and engineering.",
+        "doi": "10.3390/rs12142266"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
+    },
+    {
+      "gap_id": "gap_5",
+      "rank": 5,
+      "title": "Unexplored Application of Object Detection on Landsat",
+      "method": "Object Detection",
+      "dataset": "Landsat",
+      "limitation": "Cloud Cover",
+      "breakthrough_score": 30.9,
+      "uzzi_z_score": -0.924,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_RIGHT",
+      "description": "While Object Detection (n=7) and Landsat (n=32) are prominent in literature, zero papers in the corpus have evaluated Object Detection directly on Landsat under Cloud Cover constraints (Uzzi z = -0.92σ).",
+      "hypothesis": "Applying Object Detection directly to Landsat under Cloud Cover constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "011c53383a74",
+        "title": "A Novel Approach for Oil Spill Detection from SAR Images",
+        "authors": [
+          "D. Roopa",
+          "M. Subashini",
+          "S. Mathupriya"
+        ],
+        "year": 2023,
+        "citations": 6,
+        "venue": "2023 Intelligent Computing and Control for Engineering and Business Systems (ICCEBS)",
+        "tldr": "The main aim of this study is to identify instances of oil spills through the use of images taken from satellite.",
+        "doi": "10.1109/ICCEBS58601.2023.10448846"
+      },
+      "anchor_b": {
+        "id": "00078a7f5f9c",
+        "title": "Historical urban growth, land surface temperature dynamics, and future land use and land cover projections in the Metropolitan Region of Vale do Aço",
+        "authors": [
+          "P. Goncalves",
+          "Arthur Amaral e Silva",
+          "B. Marangon"
+        ],
+        "year": 2026,
+        "citations": 0,
+        "venue": "Theoretical and Applied Climatology",
+        "tldr": "Changes in Land Use and Land Cover (LULC), especially those associated with the urbanization process, play a fundamental role in intensifying phenomena such as heat islands.",
+        "doi": "10.1007/s00704-026-06477-4"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
+    }
+  ],
+  "meta": {
+    "total_papers": 300,
+    "compiled_at": "2026-09-08 01:27:50",
+    "execution_time_sec": 0.001
+  }
+}

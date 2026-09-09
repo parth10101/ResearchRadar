@@ -1,0 +1,181 @@
+{
+  "total_nodes": 482,
+  "total_edges": 664,
+  "counts_by_type": {
+    "papers": 293,
+    "topics": 10,
+    "methods": 175,
+    "datasets": 3,
+    "authors": 1
+  },
+  "top_methods": [
+    {
+      "name": "Knowledge Distillation",
+      "count": 39
+    },
+    {
+      "name": "Transformer",
+      "count": 28
+    },
+    {
+      "name": "In This Paper,",
+      "count": 16
+    },
+    {
+      "name": "Llm",
+      "count": 15
+    },
+    {
+      "name": "Self-Supervised Learning",
+      "count": 14
+    },
+    {
+      "name": "Zero-Shot",
+      "count": 11
+    },
+    {
+      "name": "Gan",
+      "count": 10
+    },
+    {
+      "name": "Transfer Learning",
+      "count": 9
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "Covid-19",
+      "count": 4
+    },
+    {
+      "name": "Training Set",
+      "count": 1
+    },
+    {
+      "name": "PUBMED",
+      "count": 1
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "In This Paper,",
+      "dataset": "Covid-19",
+      "gap_score": 64,
+      "method_papers_count": 16,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply In This Paper, to Covid-19 benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "Covid-19",
+      "gap_score": 60,
+      "method_papers_count": 15,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Llm to Covid-19 benchmark"
+    },
+    {
+      "method": "Zero-Shot",
+      "dataset": "Covid-19",
+      "gap_score": 44,
+      "method_papers_count": 11,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Zero-Shot to Covid-19 benchmark"
+    },
+    {
+      "method": "Gan",
+      "dataset": "Covid-19",
+      "gap_score": 40,
+      "method_papers_count": 10,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Gan to Covid-19 benchmark"
+    },
+    {
+      "method": "Knowledge Distillation",
+      "dataset": "Training Set",
+      "gap_score": 39,
+      "method_papers_count": 39,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Knowledge Distillation to Training Set benchmark"
+    },
+    {
+      "method": "Knowledge Distillation",
+      "dataset": "PUBMED",
+      "gap_score": 39,
+      "method_papers_count": 39,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Knowledge Distillation to PUBMED benchmark"
+    },
+    {
+      "method": "Attention Mechanism",
+      "dataset": "Covid-19",
+      "gap_score": 36,
+      "method_papers_count": 9,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Attention Mechanism to Covid-19 benchmark"
+    },
+    {
+      "method": "Clustering",
+      "dataset": "Covid-19",
+      "gap_score": 36,
+      "method_papers_count": 9,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Clustering to Covid-19 benchmark"
+    },
+    {
+      "method": "This Paper Presents",
+      "dataset": "Covid-19",
+      "gap_score": 32,
+      "method_papers_count": 8,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply This Paper Presents to Covid-19 benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Training Set",
+      "gap_score": 28,
+      "method_papers_count": 28,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Transformer to Training Set benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "PUBMED",
+      "gap_score": 28,
+      "method_papers_count": 28,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Transformer to PUBMED benchmark"
+    },
+    {
+      "method": "Domain Adaptation",
+      "dataset": "Covid-19",
+      "gap_score": 28,
+      "method_papers_count": 7,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Domain Adaptation to Covid-19 benchmark"
+    },
+    {
+      "method": "Large Language Model",
+      "dataset": "Covid-19",
+      "gap_score": 20,
+      "method_papers_count": 5,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Large Language Model to Covid-19 benchmark"
+    },
+    {
+      "method": "Multi-Task Learning",
+      "dataset": "Covid-19",
+      "gap_score": 20,
+      "method_papers_count": 5,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Multi-Task Learning to Covid-19 benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "Covid-19",
+      "gap_score": 16,
+      "method_papers_count": 4,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Reinforcement Learning to Covid-19 benchmark"
+    }
+  ]
+}

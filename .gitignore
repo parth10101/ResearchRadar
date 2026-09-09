@@ -13,9 +13,24 @@ build/
 .venv/
 venv/
 venv311/
+venv_gpu/
+venv*/
 env/
 .env
 data/cache/
+
+# Node.js dependencies
+node_modules/
+frontend/node_modules/
+.npm/
+
+# Backups
+*.bak
+
+# Files exceeding GitHub 100MB upload limit
+data/output_gnn_drug_3k/citation_data.json
+data/output_llm_hallucination_3k/citation_data.json
+data/output_llm_hallucination_3k/citation_graph.html
 
 # Jupyter
 .ipynb_checkpoints/

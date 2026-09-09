@@ -18,6 +18,11 @@ import sys
 import time
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 
 # ---------------------------------------------------------------------------
 # HOW: Terminal formatting helpers for printing stage banners
@@ -63,13 +68,15 @@ def _save_corpus(papers: list[dict], path: Path) -> None:
 #      fresh — no stale papers, no stale output files, no stale API cache.
 # ---------------------------------------------------------------------------
 
-def _reset_workspace(corpus_path: Path, out_dir: Path) -> None:
+def _reset_workspace(corpus_path: Path, out_dir: Path, wipe_s2_cache: bool = False) -> None:
     """
-    Delete the previous corpus file, all output files, and the S2 query disk
-    cache so that the new query starts with a 100% clean slate.
+    Delete the previous corpus file and all output files so the new query
+    starts with a clean slate.
 
-    Called automatically whenever --query is provided AND the corpus already
-    exists (meaning we are switching to a different query).
+    wipe_s2_cache: if True (only when --force-fetch is set), also delete the
+    S2 query disk cache so Stage 1 re-fetches from the API fresh.
+    If False (default for normal --query runs), the cache is preserved so the
+    same query loads in 0.02s from disk on repeat runs.
     """
     deleted: list[str] = []
 
@@ -83,11 +90,12 @@ def _reset_workspace(corpus_path: Path, out_dir: Path) -> None:
         shutil.rmtree(out_dir, ignore_errors=True)
         deleted.append(str(out_dir) + "/")
 
-    # 3. Wipe the S2 query disk cache so the API is re-queried fresh
-    s2_cache_dir = Path("data/cache/s2_queries")
-    if s2_cache_dir.exists():
-        shutil.rmtree(s2_cache_dir, ignore_errors=True)
-        deleted.append(str(s2_cache_dir) + "/")
+    # 3. Wipe the S2 query disk cache ONLY when --force-fetch is explicitly set
+    if wipe_s2_cache:
+        s2_cache_dir = Path("data/cache/s2_queries")
+        if s2_cache_dir.exists():
+            shutil.rmtree(s2_cache_dir, ignore_errors=True)
+            deleted.append(str(s2_cache_dir) + "/")
 
     if deleted:
         print(f"\n  [Reset] Cleared {len(deleted)} previous output(s) for new query:")
@@ -219,7 +227,7 @@ def run_stage1(
 # ---------------------------------------------------------------------------
 
 def run_stage2(papers: list[dict], out_dir: Path) -> dict[str, list[str]]:
-    _banner(2, "PREPROCESSING  (clean . tokenise . lemmatise)")
+    _banner(2, "PREPROCESSING")
     from research_radar import stage2_preprocess as s2
 
     t0    = time.time()
@@ -263,10 +271,28 @@ def run_stage2(papers: list[dict], out_dir: Path) -> dict[str, list[str]]:
     print(f"  Preprocessing {total} papers ...")
     print(f"  {'-' * 66}")
 
-    for idx, paper in enumerate(papers[1:], start=2):
-        report = s2.preprocess_paper_verbose(paper)
-        tokens_map[paper["id"]] = report["tokens"]
-        verbose_reports.append(report)
+    nlp = s2._get_nlp()
+    cleaned_texts = [s2.clean_text(f"{p.get('title', '')} {p.get('abstract', '')}") for p in papers[1:]]
+
+    # High-throughput vectorization: batch_size=512 batches C-level spaCy operations
+    # and avoids Windows child-process spawn/IPC socket contention, running all 3k papers in ~34s.
+    pipe_stream = nlp.pipe(cleaned_texts, batch_size=512)
+
+    for p, doc in zip(papers[1:], pipe_stream):
+        toks = [
+            tok.lemma_.lower().strip()
+            for tok in doc
+            if not (tok.is_stop or tok.is_punct or tok.is_space)
+            and len(tok.lemma_) >= 3
+            and tok.lemma_.lower().strip() not in s2.DOMAIN_STOPWORDS
+        ]
+        tokens_map[p["id"]] = toks
+        verbose_reports.append({
+            "token_count": len(toks),
+            "raw_word_count": len(f"{p.get('title', '')} {p.get('abstract', '')}".split()),
+            "cleaned_word_count": len(toks),
+            "id": p.get("id"),
+        })
 
     elapsed = time.time() - t0
     print(f"  Preprocessed {total}/{total} papers  ({elapsed:.1f}s)")
@@ -312,7 +338,7 @@ def run_stage2(papers: list[dict], out_dir: Path) -> dict[str, list[str]]:
 # ---------------------------------------------------------------------------
 
 def run_stage3(papers: list[dict], out_dir: Path, model_key: str = "fast") -> None:
-    _banner(3, "SEMANTIC EMBEDDING  (sentence-transformers · cosine space)")
+    _banner(3, "SEMANTIC EMBEDDING")
     import os
     import warnings
     os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
@@ -429,7 +455,7 @@ def run_stage4(
     min_cluster_size: int | None = None,
     target_topics: int | None = None,
 ) -> None:
-    _banner(4, "TOPIC MODELING & VALIDATION (BERTopic · PaCMAP · HDBSCAN · KeyBERT)")
+    _banner(4, "TOPIC MODELLING")
     import logging as _logging
     import numpy as np
     from research_radar import stage4_topics as s4
@@ -570,6 +596,7 @@ def run_stage4(
         "topic_labels":         {str(k): v for k, v in topic_labels.items()},
         "topic_keywords":       {str(k): v for k, v in topic_keywords.items()},
         "human_readable_names": {str(k): v for k, v in human_readable_names.items()},
+        "topic_representations": {str(k): v for k, v in result.get("topic_representations", {}).items()},
         "coords_2d":            coords_2d,
         "quality_metrics":      quality_metrics,
         "noise_audit":          noise_audit,
@@ -633,7 +660,7 @@ def run_stage4(
 # ---------------------------------------------------------------------------
 
 def run_stage5(papers: list[dict], out_dir: Path, corpus_path: Path | None = None) -> None:
-    _banner(5, "DUAL VISUALIZATIONS: CITATION NETWORK & ACADEMIC KNOWLEDGE GRAPH")
+    _banner(5, "CITATION GRAPH")
     from research_radar import stage5_citation_graph as s5_cit
     from research_radar import stage5_knowledge_graph as s5_kg
 
@@ -644,29 +671,36 @@ def run_stage5(papers: list[dict], out_dir: Path, corpus_path: Path | None = Non
 
     topic_results = json.loads(topics_path.read_text(encoding="utf-8"))
 
-    # 1. Visualization 1: Guided Citation & Gaps Intelligence Graph
-    print(f"\n  [Visualization 1/2] Building Guided Academic Citation & Gaps Network...")
+    # 1. Visualization: Guided Citation & Gaps Intelligence Graph
     papers_path = corpus_path or Path("data/papers.json")
     s5_cit.run_stage5(papers=papers, out_dir=out_dir, corpus_path=papers_path)
 
-    # 2. Visualization 2: Academic Knowledge Graph
-    print(f"\n  [Visualization 2/2] Building Multi-Entity Academic Knowledge Graph...")
-    t0 = time.time()
+    # 2. Knowledge Graph Analytics & White Space Data Preservation (silently saved to disk)
     G_kg, kg_stats = s5_kg.build_knowledge_graph(papers, topic_results)
-    kg_html_path = out_dir / "knowledge_graph.html"
     kg_json_path = out_dir / "knowledge_graph_stats.json"
-    s5_kg.render_knowledge_graph(G_kg, kg_html_path, kg_stats)
     kg_json_path.write_text(json.dumps(kg_stats, indent=2, ensure_ascii=False), encoding="utf-8")
-    t_kg = time.time() - t0
-    print(f"  [OK] Knowledge Graph rendered ({t_kg:.2f}s) -> {kg_html_path}")
-    print(f"       Total Entities: {kg_stats['total_nodes']}  |  Semantic Relations: {kg_stats['total_edges']}")
-    print(f"       Identified Research Gaps (White Spaces): {len(kg_stats.get('research_gaps', []))}")
 
-    print(f"\n  {'=' * 66}")
-    cit_html_path = out_dir / "citation_graph.html"
-    print(f"  1. Guided Citation & Gaps Graph : {cit_html_path}")
-    print(f"  2. Academic Knowledge Graph     : {kg_html_path}")
-    print(f"  {'=' * 66}\n")
+
+def run_stage6(papers: list[dict], out_dir: Path) -> dict:
+    _banner(6, "KNOWLEDGE GRAPH")
+    from research_radar import stage6_archipelago as s6
+    return s6.run_stage6(papers=papers, out_dir=out_dir)
+
+
+def run_stage7(papers: list[dict], out_dir: Path) -> dict:
+    _banner(7, "GAP IDENTIFICATION")
+    from research_radar import stage7_gap_detection as s7
+    topics_path = out_dir / "topic_results.json"
+    topics_data = None
+    if topics_path.exists():
+        topics_data = json.loads(topics_path.read_text(encoding="utf-8"))
+    return s7.run_stage7(papers=papers, topics_data=topics_data, out_dir=out_dir)
+
+
+def run_stage8(detected_gaps_data: dict, papers: list[dict], out_dir: Path) -> dict:
+    _banner(8, "GAP NARRATION")
+    from research_radar import stage8_llm_narration as s8
+    return s8.run_stage8(detected_gaps_data=detected_gaps_data, papers=papers, out_dir=out_dir)
 
 
 # ---------------------------------------------------------------------------
@@ -749,12 +783,27 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--no-stage4",
         action="store_true",
-        help="Skip Stage 4 topic modeling.",
+        help="Skip Stage 4 Topic Modelling.",
     )
     parser.add_argument(
         "--no-stage5",
         action="store_true",
-        help="Skip Stage 5 dual visualizations (Citation Graph + Knowledge Graph).",
+        help="Skip Stage 5 Citation Graph.",
+    )
+    parser.add_argument(
+        "--no-stage6",
+        action="store_true",
+        help="Skip Stage 6 Knowledge Graph.",
+    )
+    parser.add_argument(
+        "--no-stage7",
+        action="store_true",
+        help="Skip Stage 7 Gap Identification.",
+    )
+    parser.add_argument(
+        "--no-stage8",
+        action="store_true",
+        help="Skip Stage 8 Gap Narration.",
     )
     parser.add_argument(
         "--model",
@@ -782,6 +831,7 @@ def build_parser() -> argparse.ArgumentParser:
 # ---------------------------------------------------------------------------
 
 def main(argv: list[str] | None = None) -> None:
+    pipeline_start_time = time.time()
     # HOW: Force UTF-8 stdout so Unicode chars (×, ≤, ←, →, —) print correctly
     # on Windows regardless of the terminal's default cp1252 codec.
     import sys as _sys
@@ -803,11 +853,17 @@ def main(argv: list[str] | None = None) -> None:
         _skip(1, "DATA INGESTION", reason="--no-stage1 flag set")
         papers = _load_corpus(args.corpus)
     else:
-        # HOW: If a query is explicitly provided, always wipe previous data first.
-        #      This ensures query A's papers never bleed into query B's results.
-        #      --force-fetch alone re-fetches from API but also triggers reset.
+        # HOW: If a query is explicitly provided, wipe old output so query A's papers
+        #      never bleed into query B's results.
+        # BUG-7 FIX: Previously wipped the entire S2 cache on EVERY --query run, forcing
+        # full re-fetch even when the same query was just cached (adding 2+ min to runtime).
+        # Now: only wipe the S2 cache when --force-fetch is also explicitly requested.
         if args.query:
-            _reset_workspace(args.corpus, args.out)
+            _reset_workspace(
+                args.corpus,
+                args.out,
+                wipe_s2_cache=getattr(args, "force_fetch", False),
+            )
 
         papers = run_stage1(
             corpus_path=args.corpus,
@@ -836,11 +892,11 @@ def main(argv: list[str] | None = None) -> None:
     else:
         stage3_ids, stage3_embeddings = run_stage3(papers, args.out, model_key=args.model)
 
-    # HOW: Execute Stage 4 (Topic Modeling)
+    # HOW: Execute Stage 4 (Topic Modelling)
     if args.no_stage4:
-        _skip(4, "TOPIC MODELING", reason="--no-stage4 flag set")
+        _skip(4, "TOPIC MODELLING", reason="--no-stage4 flag set")
     elif stage3_ids is None or stage3_embeddings is None:
-        _skip(4, "TOPIC MODELING", reason="Stage 3 was skipped — embeddings unavailable")
+        _skip(4, "TOPIC MODELLING", reason="Stage 3 was skipped — embeddings unavailable")
     else:
         run_stage4(
             papers=papers,
@@ -851,13 +907,44 @@ def main(argv: list[str] | None = None) -> None:
             target_topics=args.target_topics,
         )
 
-    # HOW: Execute Stage 5 (Dual Visualizations)
+    # HOW: Execute Stage 5 (Citation Graph)
     if args.no_stage5:
-        _skip(5, "DUAL VISUALIZATIONS", reason="--no-stage5 flag set")
+        _skip(5, "CITATION GRAPH", reason="--no-stage5 flag set")
     elif args.no_stage4 and not (args.out / "topic_results.json").exists():
-        _skip(5, "DUAL VISUALIZATIONS", reason="Stage 4 was skipped and topic_results.json not found on disk")
+        _skip(5, "CITATION GRAPH", reason="Stage 4 was skipped and topic_results.json not found on disk")
     else:
         run_stage5(papers=papers, out_dir=args.out, corpus_path=args.corpus)
+
+    # HOW: Execute Stage 6 (Knowledge Graph)
+    if getattr(args, "no_stage6", False):
+        _skip(6, "KNOWLEDGE GRAPH", reason="--no-stage6 flag set")
+    elif not (args.out / "topic_results.json").exists():
+        _skip(6, "KNOWLEDGE GRAPH", reason="topic_results.json not found on disk")
+    else:
+        run_stage6(papers=papers, out_dir=args.out)
+
+    # HOW: Execute Stage 7 (Gap Identification)
+    detected_gaps_data = None
+    if args.no_stage7:
+        _skip(7, "GAP IDENTIFICATION", reason="--no-stage7 flag set")
+    else:
+        detected_gaps_data = run_stage7(papers=papers, out_dir=args.out)
+
+    # HOW: Execute Stage 8 (Gap Narration)
+    if args.no_stage8:
+        _skip(8, "GAP NARRATION", reason="--no-stage8 flag set")
+    else:
+        run_stage8(detected_gaps_data=detected_gaps_data, papers=papers, out_dir=args.out)
+
+    # Final Total Pipeline Runtime Summary
+    total_elapsed = time.time() - pipeline_start_time
+    total_mins = total_elapsed / 60.0
+    mins_part = int(total_elapsed // 60)
+    secs_part = int(total_elapsed % 60)
+
+    print("=" * 70)
+    print(f"  TOTAL PIPELINE EXECUTION TIME : {mins_part} min {secs_part} sec ({total_mins:.2f} mins)")
+    print("=" * 70 + "\n")
 
 
 if __name__ == "__main__":

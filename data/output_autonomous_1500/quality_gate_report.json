@@ -1,0 +1,17 @@
+[
+  {
+    "paper_id": "2410.06492",
+    "title": "A Practical-Driven Framework for Transitioning Drive-by-Wire to Autonomous Driving Systems: A Case Study with a Chrysler Pacifica Hybrid Vehicle",
+    "reason": "Near-duplicate (cosine similarity 0.9968 >= 0.98 with 00b7867eb1f6)"
+  },
+  {
+    "paper_id": "2103.13952",
+    "title": "Estimation of Closest In-Path Vehicle (CIPV) by Low-Channel LiDAR and Camera Sensor Fusion for Autonomous Vehicle",
+    "reason": "Near-duplicate (cosine similarity 0.9877 >= 0.98 with 01089b8157c8)"
+  },
+  {
+    "paper_id": "0e0f302b9675",
+    "title": "General-Purpose Deep Learning Detection and Segmentation Models for Images from a Lidar-Based Camera Sensor",
+    "reason": "Near-duplicate (cosine similarity 0.9939 >= 0.98 with 2203.04064)"
+  }
+]
