@@ -13,10 +13,10 @@ jobs:
 
     steps:
     - name: Checkout Codebase
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python 3.11
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: "3.11"
         cache: 'pip'
@@ -24,12 +24,11 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install fastapi uvicorn pytest httpx
+        pip install --no-cache-dir -r requirements.txt
 
     - name: Syntax & PyCompile Verification
       run: |
-        python -c "import py_compile, glob; [py_compile.compile(f, doraise=True) for f in glob.glob('research_radar/**/*.py', recursive=True) if not f.endswith('__init__.py') or True]; print('SYNTAX CLEAN')"
+        python -c "import py_compile, glob; [py_compile.compile(f, doraise=True) for f in glob.glob('research_radar/**/*.py', recursive=True)]; print('SYNTAX CLEAN')"
 
     - name: Verify FastAPI Service Initialization
       run: |
