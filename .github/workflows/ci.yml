@@ -29,7 +29,7 @@ jobs:
 
     - name: Syntax & PyCompile Verification
       run: |
-        python -c "import py_compile, glob; [py_compile.compile(f, doraise=True) for f in glob.glob('research_radar/*.py')]; print('SYNTAX CLEAN')"
+        python -c "import py_compile, glob; [py_compile.compile(f, doraise=True) for f in glob.glob('research_radar/**/*.py', recursive=True) if not f.endswith('__init__.py') or True]; print('SYNTAX CLEAN')"
 
     - name: Verify FastAPI Service Initialization
       run: |
