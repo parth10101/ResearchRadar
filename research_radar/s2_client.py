@@ -154,8 +154,11 @@ class SemanticScholarClient:
         _load_env_file()
         self.api_key = api_key or os.environ.get("S2_API_KEY")
         if not self.api_key:
-            raise RuntimeError("S2_API_KEY not set. Add it to .env — never hardcode it.")
-        self.min_delay = min_delay
+            # Graceful unauthenticated public tier (1.5s pacing)
+            self.min_delay = max(min_delay, 1.5)
+            print("  [S2 AG] Running in unauthenticated public mode (pace: 1.5s). For higher rate limits, set S2_API_KEY in .env.")
+        else:
+            self.min_delay = min_delay
         self.rate = RateState()
         self.session = requests.Session()
 
@@ -599,6 +602,72 @@ class SemanticScholarClient:
         except Exception as e:
             print(f"  [Direct Stream] S2 bulk search exception: {e}")
 
+        # Fallback 1: Standard Public Relevance Search (works without API key)
+        if not candidate_papers:
+            print(f"  [S2 Public Fallback] Bulk returned 0 papers; attempting standard search endpoint for '{query}'...")
+            try:
+                offset = 0
+                while len(candidate_papers) < max_results and offset < max_results * 2:
+                    search_res = self.search_papers(
+                        query=query,
+                        limit=min(max_results - len(candidate_papers), 100),
+                        offset=offset,
+                        year=year,
+                        fields_of_study=fields_of_study,
+                    )
+                    if not search_res or "data" not in search_res:
+                        break
+                    batch = search_res.get("data", [])
+                    if not batch:
+                        break
+                    _ingest_raw(batch)
+                    offset += len(batch)
+                    if len(batch) < 10:
+                        break
+            except Exception as e:
+                print(f"  [S2 Public Fallback] Search exception: {e}")
+
+        # Fallback 2: OpenAlex Works Search (open scholarly knowledge graph)
+        if not candidate_papers:
+            print(f"  [OpenAlex Fallback] S2 returned 0 papers; querying OpenAlex works search for '{query}'...")
+            try:
+                oa_url = f"https://api.openalex.org/works?search={requests.utils.quote(query)}&per_page={min(max_results, 50)}"
+                oa_resp = requests.get(oa_url, headers={"User-Agent": "ResearchRadar-Academic/3.0 (mailto:academic@researchradar.org)"}, timeout=10.0)
+                if oa_resp.status_code == 200:
+                    oa_data = oa_resp.json().get("results", [])
+                    for r in oa_data:
+                        if len(candidate_papers) >= max_results:
+                            break
+                        title = r.get("title") or ""
+                        if not title:
+                            continue
+                        doi = (r.get("doi") or "").replace("https://doi.org/", "").strip()
+                        raw_oa_abs = ""
+                        inv = r.get("abstract_inverted_index") or {}
+                        if inv:
+                            word_pos = []
+                            for w, positions in inv.items():
+                                for pos in positions:
+                                    word_pos.append((pos, w))
+                            word_pos.sort()
+                            raw_oa_abs = " ".join([w for _, w in word_pos])
+                        authors = [a.get("author", {}).get("display_name", "") for a in (r.get("authorships") or []) if a.get("author")]
+                        s2_fmt = {
+                            "paperId": r.get("id", "").split("/")[-1],
+                            "externalIds": {"DOI": doi},
+                            "title": title,
+                            "abstract": raw_oa_abs,
+                            "year": r.get("publication_year"),
+                            "publicationDate": r.get("publication_date"),
+                            "venue": (r.get("primary_location") or {}).get("source", {}).get("display_name"),
+                            "authors": [{"name": a} for a in authors],
+                            "citationCount": r.get("cited_by_count", 0),
+                            "publicationTypes": ["JournalArticle"] if r.get("type") in ("article", "journal-article") else [r.get("type", "Paper")],
+                        }
+                        _ingest_raw([s2_fmt])
+            except Exception as e:
+                print(f"  [OpenAlex Fallback] Exception: {e}")
+
         # Zero-Result / Gibberish Guardrail: If 0 papers returned, stop immediately in <1.5s
         if not candidate_papers:
             print(f"  [S2 Ingestion] No academic publications found matching '{query}'. Exiting safely.")
@@ -626,22 +695,10 @@ class SemanticScholarClient:
                 except Exception as e:
                     print(f"  [Smart Expansion] S2 bulk search exception: {e}")
 
-        # ── arXiv Emergency Fallback (Only for small remaining gap <= 200) ────────────
-        shortfall = max_results - len(candidate_papers)
-        if 0 < shortfall <= 200:
-            print(f"  [arXiv Fallback] Top-up for small {shortfall}-paper gap ...")
-            try:
-                from research_radar.stage1_ingest import fetch_from_arxiv
-                arxiv_papers = fetch_from_arxiv(query=bulk_queries[0], max_results=shortfall * 2)
-                for ap in arxiv_papers:
-                    t = (ap.get("title") or "").strip()
-                    if t and t.lower() not in existing_titles:
-                        candidate_papers.append(ap)
-                        existing_titles.add(t.lower())
-                        if len(candidate_papers) >= max_results:
-                            break
-            except Exception:
-                pass
+        # Note: Raw arXiv fallback was removed to ensure scientometric integrity.
+        # arXiv API does not provide citation counts or reference bibliographies,
+        # which would inject isolated 0-citation dummy nodes into the citation graph.
+
 
         # ── In-Memory Co-Citation Graph Synthesis → Cache ────────────────────────────
         final_papers = candidate_papers[:max_results]
@@ -785,102 +842,21 @@ class SemanticScholarClient:
 
     def _synthesize_cocitation_references(self, papers: list[dict]) -> list[dict]:
         """
-        Synthesize in-corpus co-occurrence references for pre-prints or unindexed papers.
-        Links papers whose titles, methods, or datasets are explicitly referenced in abstracts.
-        Runs 100% locally in 0.02 seconds with 0 API calls.
+        Scientometric Rigor Guardrail:
+        Purged artificial citation edge synthesis.
+        Academic integrity requires that citation graph edges strictly reflect empirical
+        bibliographic references from verified scholarly databases (S2, OpenAlex, Crossref).
+        Synthetic edge creation based on abstract word co-occurrences is prohibited.
         """
-        if not papers:
-            return papers
-
-        # Build index of corpus paper titles & authors
-        corpus_index = []
-        for p in papers:
-            pid = p.get("id") or p.get("s2_paper_id")
-            title = (p.get("title") or "").strip()
-            year = p.get("year")
-            authors = p.get("authors") or []
-            if pid and title and len(title) > 12:
-                # Core title words (ignoring short stopwords)
-                t_words = {w.lower() for w in re.findall(r"\b[a-zA-Z]{4,}\b", title) if w.lower() not in {"study", "analysis", "using", "based", "model", "system"}}
-                if t_words:
-                    corpus_index.append((pid, title, year, authors, t_words))
-
-        synthesized_count = 0
-        for p in papers:
-            if p.get("references"):
-                continue  # Already has references
-            
-            p_text = (p.get("abstract") or "") + " " + (p.get("title") or "")
-            p_text_lower = p_text.lower()
-            p_id = p.get("id") or p.get("s2_paper_id")
-
-            matches = []
-            for ref_id, ref_title, ref_year, ref_authors, t_words in corpus_index:
-                if ref_id == p_id:
-                    continue
-                # If abstract matches key distinctive title words of another corpus paper
-                matching_words = [w for w in t_words if w in p_text_lower]
-                if len(matching_words) >= min(len(t_words), 3) and len(t_words) >= 2:
-                    matches.append({
-                        "paperId": ref_id,
-                        "title": ref_title,
-                        "year": ref_year,
-                        "authors": ref_authors,
-                        "intents": ["methodology"]
-                    })
-                if len(matches) >= 10:
-                    break
-
-            if matches:
-                p["references"] = matches
-                synthesized_count += 1
-
-        if synthesized_count > 0:
-            print(f"  [Co-Occurrence Engine] Synthesized citation references for {synthesized_count} unindexed papers!")
-
         return papers
 
     def _hydrate_reference_intents(self, papers: list[dict], max_papers: int = 1000) -> list[dict]:
         """
-        High-Speed Reference Intent Hydration Engine:
-        Applies local SciCite-aligned NLP intent classification to guarantee 100% intent coverage
-        with ZERO S2 API 429 rate-limit delays (completing 300+ papers in seconds).
+        Scientometric Integrity Guardrail:
+        Preserves authentic citation intent classifications when natively provided by
+        Semantic Scholar's SciBERT model.
+        Does NOT inject heuristic title-keyword matching that misrepresents citation intent.
+        Unindexed references retain an empty or unspecified intent list.
         """
-        return self._apply_nlp_intent_fallback(papers)
-
-    def _apply_nlp_intent_fallback(self, papers: list[dict]) -> list[dict]:
-        """
-        SciCite-aligned NLP Intent Inference Fallback (Cohan et al. NAACL 2019):
-        Classifies references into methodology, result, or background when S2 API tags are unindexed.
-        Ensures 100% of references have actionable intent metadata for Research Gap Analysis.
-        """
-        method_keywords = {"model", "architecture", "framework", "algorithm", "network", "transformer", "method", "dataset", "benchmark", "loss", "pipeline", "approach"}
-        result_keywords = {"outperform", "achieve", "accuracy", "baseline", "compare", "evaluation", "experiment", "metric", "result", "state-of-the-art", "sota"}
-
-        for p in papers:
-            p_title = (p.get("title") or "").lower()
-            p_abstract = (p.get("abstract") or "").lower()
-
-            for r in (p.get("references") or []):
-                if r.get("intents"):
-                    continue  # Keep S2 native intent if present
-
-                r_title = (r.get("title") or "").lower()
-                intents = []
-
-                # Rule 1: Check for methodology / architecture overlap
-                if any(kw in r_title for kw in method_keywords) or any(kw in p_title for kw in ["based on", "using", "via"]):
-                    intents.append("methodology")
-
-                # Rule 2: Check for comparison / result evaluation
-                if any(kw in p_abstract for kw in result_keywords):
-                    intents.append("result")
-
-                # Default fallback: background citation
-                if not intents:
-                    intents.append("background")
-
-                r["intents"] = intents
-
         return papers
 

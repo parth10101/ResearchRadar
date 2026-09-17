@@ -1,16 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
-import { QueryConsole } from './components/QueryConsole';
+import { OmniScopeStudio } from './components/OmniScopeStudio';
 import { ArchipelagoCanvas } from './components/ArchipelagoCanvas';
 import { CitationTimeline } from './components/CitationTimeline';
 import { GapMatrix } from './components/GapMatrix';
 import { GrantStudio } from './components/GrantStudio';
+import { HeroSection } from './components/HeroSection';
+import { UniversalBackground } from './components/UniversalBackground';
 import { DatasetInfo, ArchipelagoData, CitationData, ResearchGap, NarratedGap, PipelineProgressEvent, Points3DData } from './types';
 
 export const App: React.FC = () => {
+  const [viewMode, setViewMode] = useState<'hero' | 'studio'>(() => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('view') === 'studio') return 'studio';
+    }
+    return 'hero';
+  });
   const [datasets, setDatasets] = useState<DatasetInfo[]>([]);
-  const [selectedDataset, setSelectedDataset] = useState<string>('output_satellite_300');
-  const [activeTab, setActiveTab] = useState<string>('query');
+  const [selectedDataset, setSelectedDataset] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('dataset')) return p.get('dataset')!;
+    }
+    return '';
+  });
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('tab')) return p.get('tab')!;
+    }
+    return 'timeline';
+  });
   const [isHealthy, setIsHealthy] = useState<boolean>(true);
 
   // Data states for the active dataset
@@ -22,47 +43,33 @@ export const App: React.FC = () => {
 
   // Pipeline execution state
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [studioUiVisible, setStudioUiVisible] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('view') === 'studio') return true;
+    }
+    return false;
+  });
+  const [selectedClusterId, setSelectedClusterId] = useState<string>('3');
+  const [activeLayer, setActiveLayer] = useState<1 | 2 | 3>(1);
   const [progressEvents, setProgressEvents] = useState<PipelineProgressEvent[]>([]);
   const [selectedGapTitle, setSelectedGapTitle] = useState<string>('');
+  const [pipelineError, setPipelineError] = useState<string | null>(null);
 
-  // 1. Initial Load: Fetch available datasets
+
+  // 1. Initial Load: Fetch available datasets list (no auto-selection — blank until user searches)
   useEffect(() => {
     fetch('/api/datasets')
       .then(res => res.json())
       .then(data => {
         if (data.datasets && data.datasets.length > 0) {
           setDatasets(data.datasets);
-          // Prefer satellite or first dataset
-          const initial = data.datasets.find((d: any) => d.id === 'output_satellite_300') || data.datasets[0];
-          setSelectedDataset(initial.id);
+          // Do NOT auto-select — let the user pick via search or presets
         }
       })
       .catch(() => {
-        // Fallback demo datasets if API offline
-        setDatasets([
-          {
-            id: 'output_satellite_300',
-            name: 'Satellite Earth Observation & Remote Sensing',
-            description: '300 remote sensing papers, CNN vs Sentinel-1/2, atmospheric correction.',
-            query: 'satellite image processing',
-            paper_count: 300,
-            has_archipelago: true,
-            has_milestones: true,
-            has_gaps: true,
-            has_narration: true,
-          },
-          {
-            id: 'output_autonomous_1500',
-            name: 'Autonomous Driving Multi-Modal Perception',
-            description: '1,500 papers, LiDAR-camera fusion, pedestrian occlusion.',
-            query: 'autonomous driving 3d object detection',
-            paper_count: 1500,
-            has_archipelago: true,
-            has_milestones: true,
-            has_gaps: true,
-            has_narration: true,
-          },
-        ]);
+        // Backend unreachable — keep empty datasets list, user can still search
       });
 
     // Check health
@@ -72,29 +79,26 @@ export const App: React.FC = () => {
       .catch(() => setIsHealthy(false));
   }, []);
 
+
   // 2. Fetch dataset resources whenever selectedDataset changes
   useEffect(() => {
     if (!selectedDataset) return;
 
-    // Fetch 3D Points Manifold
     fetch(`/api/graph/points3d?dataset=${selectedDataset}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => setPoints3dData(data))
       .catch(() => setPoints3dData(null));
 
-    // Fetch Archipelago
     fetch(`/api/graph/archipelago?dataset=${selectedDataset}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => setArchipelagoData(data))
       .catch(() => setArchipelagoData(null));
 
-    // Fetch Milestones & Citation Constellation
     fetch(`/api/graph/citation?dataset=${selectedDataset}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => setCitationData(data))
       .catch(() => setCitationData(null));
 
-    // Fetch Detected Gaps
     fetch(`/api/gaps/detected?dataset=${selectedDataset}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
@@ -103,11 +107,10 @@ export const App: React.FC = () => {
       })
       .catch(() => setDetectedGaps([]));
 
-    // Fetch Narrated Gaps
     fetch(`/api/gaps/narrated?dataset=${selectedDataset}`)
       .then(res => res.ok ? res.json() : null)
       .then(data => {
-        if (data && data.gaps) {
+        if (data && data.gaps && data.gaps.length > 0) {
           setNarratedGaps(data.gaps);
           if (data.gaps[0]) setSelectedGapTitle(data.gaps[0].title);
         } else {
@@ -115,62 +118,66 @@ export const App: React.FC = () => {
         }
       })
       .catch(() => setNarratedGaps([]));
+
   }, [selectedDataset]);
 
   // 3. Trigger Pipeline Execution with Live SSE Stream
   const handleTriggerRun = async (query: string, maxResults: number) => {
     setIsRunning(true);
     setProgressEvents([]);
+    setPipelineError(null);
 
     try {
-      const res = await fetch('/api/pipeline/run', {
+      const response = await fetch('/api/pipeline/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query, max_results: maxResults }),
       });
 
-      if (!res.ok) throw new Error('Pipeline trigger failed');
-      const jobData = await res.json();
-      const jobId = jobData.job_id;
-
-      // Connect to Server-Sent Events (SSE) stream
-      const evtSource = new EventSource(`/api/pipeline/stream/${jobId}`);
-
-      evtSource.onmessage = (event) => {
-        try {
-          const parsed: PipelineProgressEvent = JSON.parse(event.data);
-          setProgressEvents(prev => [...prev, parsed]);
-
-          if (parsed.is_terminal || parsed.progress_pct === 100) {
-            evtSource.close();
-            setIsRunning(false);
-          }
-        } catch {
-          // ignore stream parse errors
-        }
-      };
-
-      evtSource.onerror = () => {
-        evtSource.close();
-        setIsRunning(false);
-      };
-    } catch {
-      // Mock progress simulation for offline development if backend not running
-      const stages = [
-        { stage: 1, stage_name: 'Stage 1: Ingest', progress_pct: 12, message: `Ingesting papers for "${query}"` },
-        { stage: 2, stage_name: 'Stage 2: Preprocessing', progress_pct: 25, message: 'Lemmatization & stopword removal' },
-        { stage: 3, stage_name: 'Stage 3: Embedding', progress_pct: 42, message: 'Dense Sentence-Transformers vectorization' },
-        { stage: 4, stage_name: 'Stage 4: Topic Modeling', progress_pct: 60, message: 'HDBSCAN clustering & c-TF-IDF' },
-        { stage: 5, stage_name: 'Stage 5: Citation Graph', progress_pct: 78, message: '3-Lens constellation & SPLC lineage' },
-        { stage: 6, stage_name: 'Stage 6: Archipelago', progress_pct: 88, message: 'Compiling macro-cluster topology' },
-        { stage: 7, stage_name: 'Stage 7: Gap Matrix', progress_pct: 94, message: 'Uzzi et al. 2013 combinatorial z-scores' },
-        { stage: 8, stage_name: 'Stage 8: RAG Narration', progress_pct: 100, message: 'Grounded Groq LPU hypothesis synthesis' },
-      ];
-
-      for (const s of stages) {
-        await new Promise(r => setTimeout(r, 450));
-        setProgressEvents(prev => [...prev, s]);
+      if (!response.ok) {
+        throw new Error(`Pipeline failed: ${response.statusText}`);
       }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      if (!reader) return;
+
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const jsonStr = line.replace('data: ', '').trim();
+            if (!jsonStr) continue;
+
+            try {
+              const event: PipelineProgressEvent = JSON.parse(jsonStr);
+              setProgressEvents(prev => [...prev, event]);
+
+              if (event.is_terminal) {
+                setIsRunning(false);
+                if (event.dataset_id) {
+                  setSelectedDataset(event.dataset_id);
+                  // Auto launch to Archipelago Studio on completion
+                  handleLaunchWithTransition('archipelago');
+                }
+              }
+            } catch (e) {
+              console.error('Error parsing SSE event:', e);
+            }
+          }
+        }
+      }
+    } catch (err: any) {
+      console.error('Pipeline streaming error:', err);
+      setPipelineError(err.message || 'Pipeline execution failed.');
       setIsRunning(false);
     }
   };
@@ -178,75 +185,137 @@ export const App: React.FC = () => {
   const handleSelectGapForGrant = (gapTitle: string) => {
     setSelectedGapTitle(gapTitle);
     setActiveTab('grant');
+    if (viewMode !== 'studio') {
+      setViewMode('studio');
+      setStudioUiVisible(true);
+    }
+  };
+
+  // Smooth cinematic launch transition from Hero into Studio
+  const handleLaunchWithTransition = (tabId: string = 'archipelago') => {
+    setActiveTab(tabId);
+    setIsTransitioning(true);
+
+    setTimeout(() => {
+      setViewMode('studio');
+      setStudioUiVisible(true);
+      setIsTransitioning(false);
+    }, 1400);
   };
 
   return (
-    <div className="min-h-screen bg-[#080b11] text-[#f8fafc] flex flex-col selection:bg-[#38bdf8]/20 selection:text-[#38bdf8]">
-      {/* Universal Master Header */}
+    <div className="min-h-screen bg-[#080b11] text-[#f8fafc] relative overflow-x-hidden selection:bg-[#ff4300]/20 selection:text-[#ff4300] flex flex-col transition-colors duration-700">
+      {/* Universal Atmospheric Canvas persistent across all views */}
+      <UniversalBackground
+        viewMode={viewMode}
+        isTransitioning={isTransitioning}
+        activeTab={activeTab}
+        selectedClusterId={selectedClusterId}
+        onSelectCluster={setSelectedClusterId}
+        activeLayer={activeLayer}
+        points3dData={points3dData}
+      />
+
+      {/* Unified Master Navigation Header (Persistent across hero & studio modes) */}
       <Header
+        viewMode={isTransitioning ? 'hero' : viewMode}
+        activeTab={activeTab}
+        onSelectTab={(tab) => {
+          setActiveTab(tab);
+          if (viewMode !== 'studio') {
+            setStudioUiVisible(true);
+            setViewMode('studio');
+          }
+        }}
         datasets={datasets}
         selectedDataset={selectedDataset}
         onSelectDataset={setSelectedDataset}
-        activeTab={activeTab}
-        onSelectTab={setActiveTab}
-        isHealthy={isHealthy}
+        onReturnToHero={() => {
+          setIsTransitioning(false);
+          setStudioUiVisible(false);
+          setViewMode('hero');
+        }}
+        onLaunchStudio={() => {
+          handleLaunchWithTransition('archipelago');
+        }}
       />
 
-      {/* Main Tabbed Content Area */}
-      <main className="mx-auto flex-1 w-full max-w-7xl px-4 pb-12">
-        {activeTab === 'query' && (
-          <QueryConsole
-            datasets={datasets}
-            selectedDataset={selectedDataset}
-            onSelectDataset={setSelectedDataset}
-            onTriggerRun={handleTriggerRun}
+      {viewMode === 'hero' ? (
+        <div className={`flex-1 flex flex-col transition-all duration-500 ease-out ${isTransitioning ? 'opacity-0 scale-105 pointer-events-none filter blur-[2px]' : 'opacity-100 scale-100'}`}>
+          <HeroSection
+            onLaunch={handleLaunchWithTransition}
             isRunning={isRunning}
             progressEvents={progressEvents}
+            pipelineError={pipelineError}
+            onSearch={(searchQuery, corpusSize, datasetId) => {
+              // Clear any previous error
+              setPipelineError(null);
+              // PRESET CLICK: datasetId is passed — load the existing pre-computed dataset
+              if (datasetId) {
+                setSelectedDataset(datasetId);
+                return;
+              }
+
+              // CUSTOM QUERY: always trigger the live 8-stage pipeline
+              // Never silently redirect a user query to a hardcoded dataset
+              handleTriggerRun(searchQuery, corpusSize || 300);
+            }}
           />
-        )}
-
-        {activeTab === 'archipelago' && (
-          <ArchipelagoCanvas
-            data3d={points3dData}
-            datasetName={datasets.find(d => d.id === selectedDataset)?.name || 'Corpus'}
-            onNavigateToGrant={handleSelectGapForGrant}
-          />
-        )}
-
-        {activeTab === 'timeline' && (
-          <CitationTimeline data={citationData} />
-        )}
-
-        {activeTab === 'gaps' && (
-          <GapMatrix
-            gaps={detectedGaps}
-            onSelectGapForGrant={handleSelectGapForGrant}
-          />
-        )}
-
-        {activeTab === 'grant' && (
-          <GrantStudio
-            narratedGaps={narratedGaps}
-            selectedGapTitle={selectedGapTitle}
-          />
-        )}
-      </main>
-
-      {/* Swiss Editorial Footer */}
-      <footer className="border-t border-[rgba(255,255,255,0.06)] bg-[#080b11] py-6 font-mono text-[11px] text-[#64748b]">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 sm:flex-row">
-          <div className="flex items-center space-x-3">
-            <span>RESEARCHRADAR · SWISS EDITORIAL DESIGN SYSTEM</span>
-            <span>·</span>
-            <span className="text-[#94a3b8]">NO NEON CREED</span>
-          </div>
-          <div className="flex items-center space-x-4 text-[#475569]">
-            <span>Price (1965)</span>
-            <span>Uzzi et al. (Science 2013)</span>
-            <span>Groq LPU Grounded RAG</span>
-          </div>
         </div>
-      </footer>
+      ) : (
+        <div className={`relative z-10 flex flex-col flex-1 transition-all duration-700 ease-out ${studioUiVisible ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-6 scale-[0.98] pointer-events-none'}`}>
+          {/* Main Tabbed Content Area */}
+          <main className={`mx-auto flex-1 w-full ${activeTab === 'timeline' || activeTab === 'grant' || activeTab === 'archipelago' ? 'p-0 max-w-full overflow-hidden' : 'max-w-[1560px] px-4 sm:px-6 py-4 pb-12'}`}>
+            {activeTab === 'timeline' && (
+              <CitationTimeline data={citationData} />
+            )}
+
+            {activeTab === 'archipelago' && (
+              <OmniScopeStudio
+                data3d={points3dData}
+                datasetName={datasets.find(d => d.id === selectedDataset)?.name || 'Satellite Earth Observation & Remote Sensing'}
+                onNavigateToGrant={handleSelectGapForGrant}
+                selectedClusterId={selectedClusterId}
+                onSelectCluster={setSelectedClusterId}
+                activeLayer={activeLayer}
+                onSelectLayer={setActiveLayer}
+              />
+            )}
+
+            {activeTab === 'gaps' && (
+              <GapMatrix
+                gaps={detectedGaps}
+                onSelectGapForGrant={handleSelectGapForGrant}
+              />
+            )}
+
+            {activeTab === 'grant' && (
+              <GrantStudio
+                narratedGaps={narratedGaps}
+                selectedGapTitle={selectedGapTitle}
+              />
+            )}
+          </main>
+
+          {/* Swiss Editorial Footer (shown on long-scroll studio tabs) */}
+          {activeTab !== 'timeline' && activeTab !== 'archipelago' && activeTab !== 'grant' && (
+            <footer className="border-t border-[rgba(255,255,255,0.06)] bg-[#080b11]/80 backdrop-blur-md py-6 font-mono text-[11px] text-[#64748b]">
+            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 sm:flex-row">
+              <div className="flex items-center space-x-3">
+                <span>RESEARCHRADAR · SWISS SCIENTOMETRIC INTELLIGENCE</span>
+                <span>·</span>
+                <span className="text-[#ff4300]">EPISTEMIC RADAR</span>
+              </div>
+              <div className="flex items-center space-x-4 text-[#475569]">
+                <span>Price (1965)</span>
+                <span>Uzzi et al. (Science 2013)</span>
+                <span>Groq LPU Grounded RAG</span>
+              </div>
+            </div>
+          </footer>
+          )}
+        </div>
+      )}
     </div>
   );
 };

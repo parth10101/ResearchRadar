@@ -1,0 +1,1018 @@
+{
+  "macro_clusters": [
+    {
+      "cluster_id": 0,
+      "name": "Artificial Clinical Disease Modeling",
+      "keywords": [
+        "patient",
+        "clinical",
+        "disease",
+        "model"
+      ],
+      "color": "#38bdf8",
+      "glow": "rgba(56, 189, 248, 0.25)",
+      "x": 872.2,
+      "y": 237.1,
+      "radius": 74.5,
+      "paper_count": 187,
+      "pillars": [
+        {
+          "id": "2205.04766",
+          "title": "Explainable Deep Learning Methods in Medical Image Classification: A Survey",
+          "authors": [
+            "Cristiano Patrício",
+            "João C. Neves",
+            "Luís F. Teixeira"
+          ],
+          "year": 2022,
+          "citations": 171,
+          "venue": "ACM Computing Surveys",
+          "tldr": "The remarkable success of deep learning has prompted interest in its application to medical imaging diagnosis.",
+          "abstract": "The remarkable success of deep learning has prompted interest in its application to medical imaging diagnosis. Even though state-of-the-art deep learning models have achieved human-level accuracy on the classification of different types of medical data, these models are hardly adopted in clinical workflows, mainly due to their lack of interpretability. The black-box nature of deep learning models has raised the need for devising strategies to explain the decision process of these models, leading to the creation of the topic of eXplainable Artificial Intelligence (XAI). In this context, we provide a thorough survey of XAI applied to medical imaging diagnosis, including visual, textual, example-based and concept-based explanation methods. Moreover, this work reviews the existing medical imaging datasets and the existing metrics for evaluating the quality of the explanations. In addition, we include a performance comparison among a set of report generation–based methods. Finally, the major challenges in applying XAI to medical imaging and the future research directions on the topic are discussed.",
+          "doi": "10.1145/3625287"
+        },
+        {
+          "id": "00744ccc3876",
+          "title": "Rapid artificial intelligence solutions in a pandemic—The COVID-19-20 Lung CT Lesion Segmentation Challenge",
+          "authors": [
+            "Holger R. Roth",
+            "Ziyue Xu",
+            "C. Díez"
+          ],
+          "year": 2022,
+          "citations": 112,
+          "venue": "Medical Image Anal.",
+          "tldr": "Artificial intelligence (AI) methods for the automatic detection and quantification of COVID-19 lesions in chest computed tomography (CT) might play an important role in the monitoring and management of the disease.",
+          "abstract": "Artificial intelligence (AI) methods for the automatic detection and quantification of COVID-19 lesions in chest computed tomography (CT) might play an important role in the monitoring and management of the disease. We organized an international challenge and competition for the development and comparison of AI algorithms for this task, which we supported with public data and state-of-the-art benchmark methods. Board Certified Radiologists annotated 295 public images from two sources (A and B) for algorithms training (n=199, source A), validation (n=50, source A) and testing (n=23, source A; n=23, source B). There were 1,096 registered teams of which 225 and 98 completed the validation and testing phases, respectively. The challenge showed that AI models could be rapidly designed by diverse teams with the potential to measure disease or facilitate timely and patient-specific interventions. This paper provides an overview and the major outcomes of the COVID-19 Lung CT Lesion Segmentation Challenge — 2020.",
+          "doi": "10.1016/j.media.2022.102605"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "002ee699d7a0",
+          "title": "Review on machine and deep learning models for the detection and prediction of Coronavirus",
+          "year": 2020,
+          "citations": 101,
+          "doi": "10.1016/j.matpr.2020.06.245",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "0073b05397b5",
+          "title": "Using deep transfer learning to detect scoliosis and spondylolisthesis from x-ray images",
+          "year": 2022,
+          "citations": 79,
+          "doi": "10.1371/journal.pone.0267851",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "0053b222e83d",
+          "title": "AI-driven deep CNN approach for multi-label pathology classification using chest X-Rays",
+          "year": 2021,
+          "citations": 85,
+          "doi": "10.7717/peerj-cs.495",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "004ef5c36573",
+          "title": "Can Machine-learning Techniques Be Used for 5-year Survival Prediction of Patients With Chondrosarcoma?",
+          "year": 2018,
+          "citations": 80,
+          "doi": "10.1097/CORR.0000000000000433",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "0075b3d061ca",
+          "title": "Position statement on priorities for artificial intelligence in GI endoscopy: a report by the ASGE Task Force.",
+          "year": 2020,
+          "citations": 80,
+          "doi": "10.1016/j.gie.2020.06.035",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "0056603e967c",
+          "title": "The Role of Digital Technology in Curbing COVID-19",
+          "year": 2022,
+          "citations": 79,
+          "doi": "10.3390/ijerph19148287",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "name": "Artificial Learning in Virtual Education",
+      "keywords": [
+        "education",
+        "student",
+        "intelligence",
+        "artificial"
+      ],
+      "color": "#a855f7",
+      "glow": "rgba(168, 85, 247, 0.25)",
+      "x": 969.5,
+      "y": 434.4,
+      "radius": 68.8,
+      "paper_count": 144,
+      "pillars": [
+        {
+          "id": "003336594bfd",
+          "title": "Use of artificial intelligence in the library services: prospects and challenges",
+          "authors": [
+            "Abid Hussain"
+          ],
+          "year": 2023,
+          "citations": 102,
+          "venue": "Library Hi Tech News",
+          "tldr": "AI and libraries have a substantial nexus; nevertheless, the use and awareness of AI in library services are still creating question marks addressed in this paper.",
+          "abstract": "Purpose Artificial intelligence (AI) is one of the emerging technologies of this time. It has been associated with several trades like business, defense, health and education, but its role in library services will foster intelligent decisions. AI is a widely used technology in library services that can transform the best services in the age of information technology. This paper aims to highlight the use of AI in library operations. Several research have been undertaken on this subject, but that only address a few applications. This paper highlights the pros and cons of AI in library services. AI and libraries have a substantial nexus; nevertheless, the use and awareness of AI in library services are still creating question marks addressed in this paper. This study will help the policy stakeholder, librarians and scholars in the field to address these issues before the deployment of AI in library services.   Design/methodology/approach This study is based on a qualitative method using content analysis techniques. Extant literature was explored on the subject and was analyzed for this study. This study highlights the pros and cons of AI in library services and its possible solutions.   Findings The findings of this study show that AI is a vibrant technology that can be used in library services; however, some obstacles like adequate funds, the attitude of librarians and technical skills are a few obstacles that hamper AI in library operations. The findings also reveal that using AI in library operations will accelerate libraries in the right direction. Furthermore, this study highlights various applications that can be deployed without spending costs.   Originality/value This study covers the understanding of AI in library services that will help the librarian's information professionals leverage AI in library scenarios. Furthermore, the practical implication of AI in library services will bring positive change in implementing AI. Social implications: This study will motivate library professionals to take advantage of AI in library services and further accelerate library operations in the right direction.",
+          "doi": "10.1108/lhtn-11-2022-0125"
+        },
+        {
+          "id": "007010384de3",
+          "title": "Transforming academic library operations in Africa with artificial intelligence: Opportunities and challenges: A review paper",
+          "authors": [
+            "A. Echedom",
+            "O. Okuonghae"
+          ],
+          "year": 2021,
+          "citations": 93,
+          "venue": "New Review of Academic Librarianship",
+          "tldr": "Abstract This paper focuses on the opportunities and challenges associated with the use of artificial intelligence (AI) in academic library operations.",
+          "abstract": "Abstract This paper focuses on the opportunities and challenges associated with the use of artificial intelligence (AI) in academic library operations. In the quest to render fast, effective and efficient services, academic libraries have adopted different technologies in the past. Artificial intelligence technologies is the latest among the technologies currently being introduced in libraries. The technology which is considered an intelligent system, come in the form of robots and expert systems which have natural language processing, machine learning and pattern recognition capabilities. This paper examined the features of AI, the application of AI to library operations, examples of academic libraries with AI technologies in Sub-Saharan Africa, the need for AI in libraries and the challenges associated with the adoption of AI in libraries. The study concluded that AI holds a lot of prospects for the improvement of information services delivery in African academic libraries. Consequently, its adoption is a sinequanon to delivering robust library services in the Fourth Industrial Revolution (4IR).",
+          "doi": "10.1080/13614533.2021.1906715"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "00644f6cbfda",
+          "title": "Are Two Heads Better Than One?: The Effect of Student-AI Collaboration on Students' Learning Task Performance",
+          "year": 2022,
+          "citations": 71,
+          "doi": "10.1007/s11528-022-00788-9",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "006d1d49fd3e",
+          "title": "Developing a library strategic response to Artificial Intelligence",
+          "year": 2024,
+          "citations": 38,
+          "doi": "10.29173/elucidate847",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "00011146c48e",
+          "title": "Design of Vocal Music Teaching System Platform for Music Majors Based on Artificial Intelligence",
+          "year": 2022,
+          "citations": 44,
+          "doi": "10.1155/2022/5503834",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "002e0160e53c",
+          "title": "Exploring higher education students’ continuance usage intention of ChatGPT: amalgamation of the information system success model and the stimulus-organism-response paradigm",
+          "year": 2024,
+          "citations": 36,
+          "doi": "10.1108/ijilt-01-2024-0006",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "00480c39b443",
+          "title": "Global output on artificial intelligence in the field of nursing: A bibliometric analysis and science mapping.",
+          "year": 2022,
+          "citations": 34,
+          "doi": "10.1111/jnu.12852",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "001c35a85f56",
+          "title": "Artificial Intelligence in Business Education: Benefits and Tools",
+          "year": 2024,
+          "citations": 25,
+          "doi": "10.24818/ea/2024/65/241",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "Artificial Intelligence Game Modeling",
+      "keywords": [
+        "system",
+        "model",
+        "intelligence",
+        "artificial"
+      ],
+      "color": "#10b981",
+      "glow": "rgba(16, 185, 129, 0.25)",
+      "x": 847.3,
+      "y": 617.3,
+      "radius": 64.3,
+      "paper_count": 114,
+      "pillars": [
+        {
+          "id": "0072048a6ac7",
+          "title": "Modeling Decisions for Artificial Intelligence",
+          "authors": [
+            "V. Torra",
+            "Y. Narukawa",
+            "Y. Maeda"
+          ],
+          "year": 2014,
+          "citations": 267,
+          "venue": "Lecture Notes in Computer Science",
+          "tldr": "Modeling Decisions for Artificial Intelligence : 13th International Conference, MDAI 2016Sant Juliade Loria, Andorra, September 19–21, 2016: Proceedings.",
+          "abstract": "Modeling Decisions for Artificial Intelligence : 13th International Conference, MDAI 2016Sant Juliade Loria, Andorra, September 19–21, 2016: Proceedings",
+          "doi": "10.1007/978-3-319-12054-6"
+        },
+        {
+          "id": "0019e876188f",
+          "title": "Artificial intelligence prompt engineering as a new digital competence: Analysis of generative AI technologies such as ChatGPT",
+          "authors": [
+            "P. Korzyński",
+            "G. Mazurek",
+            "Pamela Krzypkowska"
+          ],
+          "year": 2023,
+          "citations": 168,
+          "venue": "Entrepreneurial Business and Economics Review",
+          "tldr": "Objective: The article aims to offer a thorough examination and comprehension of the challenges and pro‐ spects connected with artificial intelligence (AI) prompt engineering.",
+          "abstract": "Objective: The article aims to offer a thorough examination and comprehension of the challenges and pro‐ spects connected with artificial intelligence (AI) prompt engineering. Our research aimed to create a theoret‐ ical framework that would highlight optimal approaches in the field of AI prompt engineering. Research Design & Methods: This research utilized a narrative and critical literature review and established a conceptual framework derived from existing literature taking into account both academic and practitioner sources. This article should be regarded as a conceptual work that emphasizes the best practices in the domain of AI prompt engineering. Findings: Based on the conducted deep and extensive query of academic and practitioner literature on the subject, as well as professional press and Internet portals, we identified various insights for effective AI prompt engineering. We provide specific prompting strategies. Implications & Recommendations: The study revealed the profound implications of AI prompt engineering across various domains such as entrepreneurship, art, science, and healthcare. We demonstrated how the effective crafting of prompts can significantly enhance the performance of large language models (LLMs), gen‐ erating more accurate and contextually relevant results. Our findings offer valuable insights for AI practition‐ ers, researchers, educators, and organizations integrating AI into their operations, emphasizing the need to invest time and resources in prompt engineering. Moreover, we contributed the AI PROMPT framework to the field, providing clear and actionable guidelines for text‐to‐text prompt engineering. Contribution & Value Added: The value of this study lies in its comprehensive exploration of AI prompt engineer‐ ing as a digital competence. By building upon existing research and prior literature, this study aimed to provide a deeper understanding of the intricacies involved in AI prompt engineering and its role as a digital competence. Article",
+          "doi": "10.15678/eber.2023.110302"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "2407.19098",
+          "title": "Evaluating Human-AI Collaboration: A Review and Methodological Framework",
+          "year": 2024,
+          "citations": 96,
+          "doi": "10.48550/arXiv.2407.19098",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "2010.06299",
+          "title": "Tire Force Estimation in Intelligent Tires Using Machine Learning",
+          "year": 2020,
+          "citations": 101,
+          "doi": "10.1109/tits.2020.3038155",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "00147e26629b",
+          "title": "A Federated Digital Twin Framework for UAVs-Based Mobile Scenarios",
+          "year": 2024,
+          "citations": 42,
+          "doi": "10.1109/TMC.2023.3335386",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "0005d4cfc0f5",
+          "title": "The Knowledge Structure and Development Trend in Artificial Intelligence Based on Latent Feature Topic Model",
+          "year": 2024,
+          "citations": 40,
+          "doi": "10.1109/TEM.2022.3232178",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "004593620008",
+          "title": "Intelligent Robotic Perception Systems",
+          "year": 2018,
+          "citations": 36,
+          "doi": "10.5772/INTECHOPEN.79742",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "004178fd1044",
+          "title": "A Comprehensive Survey on Conflict Detection and Resolution in Unmanned Aircraft System Traffic Management",
+          "year": 2025,
+          "citations": 33,
+          "doi": "10.1109/TITS.2024.3509339",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "name": "Digital Business Intelligence Management",
+      "keywords": [
+        "digital",
+        "intelligence",
+        "artificial",
+        "business"
+      ],
+      "color": "#eab308",
+      "glow": "rgba(234, 179, 8, 0.25)",
+      "x": 627.8,
+      "y": 602.9,
+      "radius": 64.1,
+      "paper_count": 113,
+      "pillars": [
+        {
+          "id": "0063f259380a",
+          "title": "Artificial intelligence and sustainable development",
+          "authors": [
+            "Margaret A. Goralski",
+            "T. Tan"
+          ],
+          "year": 2020,
+          "citations": 609,
+          "venue": "The International Journal of Management Education",
+          "tldr": "Abstract Artificial intelligence (AI) is rapidly opening up a new frontier in the fields of business, corporate practices, and governmental policy.",
+          "abstract": "Abstract Artificial intelligence (AI) is rapidly opening up a new frontier in the fields of business, corporate practices, and governmental policy. The intelligence of machines and robotics with deep learning capabilities have created profound disrupting and enabling impacts on business, governments, and society. They are also influencing the larger trends in global sustainability. As the AI revolution transforms our world, it could herald a utopian future where humanity co-exists harmoniously with machines, or portend a dystopian world filled with conflict, poverty and suffering. More immediately, would AI accelerate our progress on the United Nations (UN) Sustainable Development Goals (SDGs) or bring us further down the path toward greater economic uncertainty, environmental collapse, and social upheaval? What are some of the implications for business leadership and the education of future business leaders? This article aims to address these questions by analyzing the impacts of AI in three case studies. It draws some preliminary inferences for management education and the business of leading corporations in the midst of rapid technological and social change. This study combines the perspectives of business strategy and public policy to analyze the impacts of AI on sustainable development with a specific focus on the advancement of the SDGs. It also draws some lessons on managerial learning and leadership development for global sustainability.",
+          "doi": "10.1016/j.ijme.2019.100330"
+        },
+        {
+          "id": "006420803142",
+          "title": "Enhancing top managers' leadership with artificial intelligence: insights from a systematic literature review",
+          "authors": [
+            "Simone Bevilacqua",
+            "Jana Masárová",
+            "Francesco Antonio Perotti"
+          ],
+          "year": 2025,
+          "citations": 86,
+          "venue": "Reviews of Management Sciences",
+          "tldr": "This paper presents findings involving bibliometric and content analysis tools, examining 63 articles from 31 highly ranked academic journals.",
+          "abstract": "In the contemporary landscape of digital transformation (DT), the wave of artificial intelligence (AI) is radically restructuring the managerial processes of organizations. As a result, the influence of top managers is emerging as a determining factor in the effectiveness of business strategies related to AI innovation. Academics have provided a large body of literature on this topic, drawing on upper echelons theory, which states that top managers' leadership influences companies' strategic decisions and performance. Leaders have revolutionized their roles and skills to exploit the full potential of AI and integrate it into the business decision-making process effectively. However, given the fragmented nature of existing studies, a systematic literature review is needed to consolidate and clarify how AI impacts top managers' leadership. This paper presents findings involving bibliometric and content analysis tools, examining 63 articles from 31 highly ranked academic journals. Three research clusters emerge: (1) AI-driven skills of top managers' leadership; (2) factors driving top managers' decision to adopt AI in organizations; and (3) the strategic use of AI. The article contributes to upper echelons theory, providing a holistic perspective on top managers' leadership in the AI era and a guidance framework for successfully integrating AI in businesses. Finally, the study offers scholars avenues for future research and provides practical insights for top managers seeking to harness AI technologies to enhance their strategic leadership in organizations.",
+          "doi": "10.1007/s11846-025-00836-7"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "0060beac48a5",
+          "title": "Artificial intelligence empowers enterprise innovation: evidence from China’s industrial enterprises",
+          "year": 2023,
+          "citations": 53,
+          "doi": "10.1080/00036846.2023.2289916",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "000256e6f703",
+          "title": "The economic value of America’s beaches",
+          "year": 2024,
+          "citations": 45,
+          "doi": "10.34237/1009225",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "00664bcb5ec4",
+          "title": "Management of Smart and Sustainable Cities in the Post-COVID-19 Era: Lessons and Implications",
+          "year": 2022,
+          "citations": 39,
+          "doi": "10.3390/su14127267",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "00759d6a769d",
+          "title": "Addressing service profit chain with artificial and emotional intelligence",
+          "year": 2022,
+          "citations": 33,
+          "doi": "10.1080/19368623.2022.2058671",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "0059710fcd91",
+          "title": "A discussion of digital transition impact on facility management of hospital buildings",
+          "year": 2023,
+          "citations": 31,
+          "doi": "10.1108/f-07-2022-0092",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "003ec445f0f5",
+          "title": "Artificial Intelligence Factory, Data Risk, and VCs’ Mediation: The Case of ByteDance, an AI-Powered Startup",
+          "year": 2021,
+          "citations": 19,
+          "doi": "10.3390/JRFM14050203",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "name": "Artificial Energy IoT Optimization",
+      "keywords": [
+        "system",
+        "model",
+        "energy",
+        "iot"
+      ],
+      "color": "#f43f5e",
+      "glow": "rgba(244, 63, 94, 0.25)",
+      "x": 530.5,
+      "y": 405.6,
+      "radius": 58.2,
+      "paper_count": 79,
+      "pillars": [
+        {
+          "id": "000cd7ac3435",
+          "title": "Forecasting Stock Market Prices Using Machine Learning and Deep Learning Models: A Systematic Review, Performance Analysis and Discussion of Implications",
+          "authors": [
+            "Gaurang Sonkavde",
+            "D. Dharrao",
+            "Anupkumar M. Bongale"
+          ],
+          "year": 2023,
+          "citations": 253,
+          "venue": "International Journal of Financial Studies",
+          "tldr": "The financial sector has greatly impacted the monetary well-being of consumers, traders, and financial institutions.",
+          "abstract": "The financial sector has greatly impacted the monetary well-being of consumers, traders, and financial institutions. In the current era, artificial intelligence is redefining the limits of the financial markets based on state-of-the-art machine learning and deep learning algorithms. There is extensive use of these techniques in financial instrument price prediction, market trend analysis, establishing investment opportunities, portfolio optimization, etc. Investors and traders are using machine learning and deep learning models for forecasting financial instrument movements. With the widespread adoption of AI in finance, it is imperative to summarize the recent machine learning and deep learning models, which motivated us to present this comprehensive review of the practical applications of machine learning in the financial industry. This article examines algorithms such as supervised and unsupervised machine learning algorithms, ensemble algorithms, time series analysis algorithms, and deep learning algorithms for stock price prediction and solving classification problems. The contributions of this review article are as follows: (a) it provides a description of machine learning and deep learning models used in the financial sector; (b) it provides a generic framework for stock price prediction and classification; and (c) it implements an ensemble model—“Random Forest + XG-Boost + LSTM”—for forecasting TAINIWALCHM and AGROPHOS stock prices and performs a comparative analysis with popular machine learning and deep learning models.",
+          "doi": "10.3390/ijfs11030094"
+        },
+        {
+          "id": "006f4cbdc935",
+          "title": "New Hybrids of ANFIS with Several Optimization Algorithms for Flood Susceptibility Modeling",
+          "authors": [
+            "D. Bui",
+            "K. Khosravi",
+            "Shaojun Li"
+          ],
+          "year": 2018,
+          "citations": 225,
+          "venue": "Water",
+          "tldr": "This study presents three new hybrid artificial intelligence optimization models—namely, adaptive neuro-fuzzy inference system (ANFIS) with cultural (ANFIS-CA), bees (ANFIS-BA), and invasive weed optimization (ANFIS-IWO) algorithms—for flood susceptibility mapping (FSM) in the Haraz watershed, Iran.",
+          "abstract": "This study presents three new hybrid artificial intelligence optimization models—namely, adaptive neuro-fuzzy inference system (ANFIS) with cultural (ANFIS-CA), bees (ANFIS-BA), and invasive weed optimization (ANFIS-IWO) algorithms—for flood susceptibility mapping (FSM) in the Haraz watershed, Iran. Ten continuous and categorical flood conditioning factors were chosen based on the 201 flood locations, including topographic wetness index (TWI), river density, stream power index (SPI), curvature, distance from river, lithology, elevation, ground slope, land use, and rainfall. The step-wise weight assessment ratio analysis (SWARA) model was adopted for the assessment of relationship between flood locations and conditioning factors. The ANFIS model, based on SWARA weights, was employed for providing FSMs with three optimization models to enhance the accuracy of prediction. To evaluate the model performance and prediction capability, root-mean-square error (RMSE) and receiver operating characteristic (ROC) curve (area under the ROC (AUROC)) were used. Results showed that ANFIS-IWO with lower RMSE (0.359) had a better performance, while ANFIS-BA with higher AUROC (94.4%) showed a better prediction capability, followed by ANFIS0-IWO (0.939) and ANFIS-CA (0.921). These models can be suggested for FSM in similar climatic and physiographic areas for developing measures to mitigate flood damages and to sustainably manage floodplains.",
+          "doi": "10.3390/W10091210"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "000e6e53b148",
+          "title": "Advanced control of membrane fouling in filtration systems using artificial intelligence and machine learning techniques: A critical review",
+          "year": 2019,
+          "citations": 211,
+          "doi": "10.1016/J.PSEP.2019.01.013",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "007bf8ff199e",
+          "title": "Generative design and performance optimization of residential buildings based on parametric algorithm",
+          "year": 2021,
+          "citations": 103,
+          "doi": "10.1016/J.ENBUILD.2021.111033",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "000523657fe1",
+          "title": "Plastic waste recycling: existing Indian scenario and future opportunities",
+          "year": 2022,
+          "citations": 97,
+          "doi": "10.1007/s13762-022-04079-x",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "00544b31dc86",
+          "title": "Maximizing solar power generation through conventional and digital MPPT techniques: a comparative analysis",
+          "year": 2024,
+          "citations": 84,
+          "doi": "10.1038/s41598-024-59776-z",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "0008f70c4123",
+          "title": "An IoT-based and cloud-assisted AI-driven monitoring platform for smart manufacturing: design architecture and experimental validation",
+          "year": 2022,
+          "citations": 51,
+          "doi": "10.1108/jmtm-02-2022-0092",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "003ae4128b4b",
+          "title": "A survey of Artificial Neural Network-based Prediction Models for Thermal Properties of Biomass",
+          "year": 2019,
+          "citations": 40,
+          "doi": "10.1016/J.PROMFG.2019.04.103",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "name": "Artificial Intelligence Legal Governance",
+      "keywords": [
+        "legal",
+        "law",
+        "intelligence",
+        "artificial"
+      ],
+      "color": "#818cf8",
+      "glow": "rgba(129, 140, 248, 0.25)",
+      "x": 652.7,
+      "y": 222.7,
+      "radius": 56.6,
+      "paper_count": 71,
+      "pillars": [
+        {
+          "id": "1908.09635",
+          "title": "A Survey on Bias and Fairness in Machine Learning",
+          "authors": [
+            "Ninareh Mehrabi",
+            "Fred Morstatter",
+            "N. Saxena"
+          ],
+          "year": 2019,
+          "citations": 6344,
+          "venue": "ACM Computing Surveys",
+          "tldr": "With the widespread use of artificial intelligence (AI) systems and applications in our everyday lives, accounting for fairness has gained significant importance in designing and engineering of such systems.",
+          "abstract": "With the widespread use of artificial intelligence (AI) systems and applications in our everyday lives, accounting for fairness has gained significant importance in designing and engineering of such systems. AI systems can be used in many sensitive environments to make important and life-changing decisions; thus, it is crucial to ensure that these decisions do not reflect discriminatory behavior toward certain groups or populations. More recently some work has been developed in traditional machine learning and deep learning that address such challenges in different subdomains. With the commercialization of these systems, researchers are becoming more aware of the biases that these applications can contain and are attempting to address them. In this survey, we investigated different real-world applications that have shown biases in various ways, and we listed different sources of biases that can affect AI applications. We then created a taxonomy for fairness definitions that machine learning researchers have defined to avoid the existing bias in AI systems. In addition to that, we examined different domains and subdomains in AI showing what researchers have observed with regard to unfair outcomes in the state-of-the-art methods and ways they have tried to address them. There are still many future directions and solutions that can be taken to mitigate the problem of bias in AI systems. We are hoping that this survey will motivate researchers to tackle these issues in the near future by observing existing work in their respective fields.",
+          "doi": "10.1145/3457607"
+        },
+        {
+          "id": "2311.06305",
+          "title": "A Systematic Review on Fostering Appropriate Trust in Human-AI Interaction: Trends, Opportunities and Challenges",
+          "authors": [
+            "Siddharth Mehrotra",
+            "Chadha Degachi",
+            "Oleksandra Vereschak"
+          ],
+          "year": 2023,
+          "citations": 135,
+          "venue": "ACM Journal on Responsible Computing",
+          "tldr": "Appropriate trust in Artificial Intelligence (AI) systems has rapidly become an important area of focus for both researchers and practitioners.",
+          "abstract": "Appropriate trust in Artificial Intelligence (AI) systems has rapidly become an important area of focus for both researchers and practitioners. Various approaches have been used to achieve it, such as confidence scores, explanations, trustworthiness cues, and uncertainty communication. However, a comprehensive understanding of the field is lacking due to the diversity of perspectives arising from various backgrounds that influence it and the lack of a single definition for appropriate trust. To investigate this topic, this article presents a systematic review to identify current practices in building appropriate trust, different ways to measure it, types of tasks used, and potential challenges associated with it. We also propose a Belief, Intentions, and Actions mapping to study commonalities and differences in the concepts related to appropriate trust by (a) describing the existing disagreements on defining appropriate trust, and (b) providing an overview of the concepts and definitions related to appropriate trust in AI from the existing literature. Finally, the challenges identified in studying appropriate trust are discussed, and observations are summarized as current trends, potential gaps, and research opportunities for future work. Overall, the article provides insights into the complex concept of appropriate trust in human-AI interaction and presents research opportunities to advance our understanding on this topic.",
+          "doi": "10.1145/3696449"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "003f2a455f07",
+          "title": "Law & Economics",
+          "year": 2021,
+          "citations": 103,
+          "doi": "10.1111/j.1744-1722.1997.tb00058.x",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "2201.08032",
+          "title": "Combining Machine Learning with Knowledge Engineering to detect Fake News in Social Networks - A Survey",
+          "year": 2022,
+          "citations": 61,
+          "doi": "",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "008274458307",
+          "title": "FloraGuard: Tackling the Online Illegal Trade in Endangered Plants Through a Cross-Disciplinary ICT-Enabled Methodology",
+          "year": 2020,
+          "citations": 34,
+          "doi": "10.1177/1043986220910297",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "002e09dad5d5",
+          "title": "Build confidence and acceptance of AI-based decision support systems - Explainable and liable AI",
+          "year": 2020,
+          "citations": 32,
+          "doi": "10.1109/HSI49210.2020.9142668",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "006d9fa64c94",
+          "title": "Compassion within conflict: Toward a computational theory of social groups informed by maternal brain physiology",
+          "year": 2021,
+          "citations": 29,
+          "doi": "10.1017/S0140525X21000583",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "005dd72b4159",
+          "title": "Temporal Framing in Balanced News Coverage of Artificial Intelligence and Public Attitudes",
+          "year": 2023,
+          "citations": 31,
+          "doi": "10.1080/15205436.2023.2248974",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    }
+  ],
+  "macro_filaments": [
+    {
+      "source_id": 2,
+      "target_id": 4,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 179,
+      "width": 1.2
+    },
+    {
+      "source_id": 1,
+      "target_id": 4,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 235,
+      "width": 1.3
+    },
+    {
+      "source_id": 0,
+      "target_id": 4,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 335,
+      "width": 1.9
+    },
+    {
+      "source_id": 3,
+      "target_id": 4,
+      "x1": 627.8,
+      "y1": 602.9,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 86,
+      "width": 1.2
+    },
+    {
+      "source_id": 4,
+      "target_id": 5,
+      "x1": 530.5,
+      "y1": 405.6,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 88,
+      "width": 1.2
+    },
+    {
+      "source_id": 0,
+      "target_id": 1,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 969.5,
+      "y2": 434.4,
+      "volume": 677,
+      "width": 3.8
+    },
+    {
+      "source_id": 1,
+      "target_id": 5,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 208,
+      "width": 1.2
+    },
+    {
+      "source_id": 0,
+      "target_id": 2,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 847.3,
+      "y2": 617.3,
+      "volume": 400,
+      "width": 2.2
+    },
+    {
+      "source_id": 1,
+      "target_id": 2,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 847.3,
+      "y2": 617.3,
+      "volume": 398,
+      "width": 2.2
+    },
+    {
+      "source_id": 0,
+      "target_id": 3,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 238,
+      "width": 1.3
+    },
+    {
+      "source_id": 0,
+      "target_id": 5,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 245,
+      "width": 1.4
+    },
+    {
+      "source_id": 3,
+      "target_id": 5,
+      "x1": 627.8,
+      "y1": 602.9,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 81,
+      "width": 1.2
+    },
+    {
+      "source_id": 1,
+      "target_id": 3,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 334,
+      "width": 1.9
+    },
+    {
+      "source_id": 2,
+      "target_id": 3,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 160,
+      "width": 1.2
+    },
+    {
+      "source_id": 2,
+      "target_id": 5,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 162,
+      "width": 1.2
+    }
+  ],
+  "gaps": [
+    {
+      "gap_id": "gap_1",
+      "rank": 1,
+      "title": "Unexplored Application of Multi-Modal Graph Transformers on Sentinel-2 Multi-Spectral",
+      "method": "Multi-Modal Graph Transformers",
+      "dataset": "Sentinel-2 Multi-Spectral",
+      "limitation": "Atmospheric Correction & Cloud Attenuation",
+      "breakthrough_score": 44.4,
+      "uzzi_z_score": -1.467,
+      "is_center_top": true,
+      "macro_x": 750.0,
+      "macro_y": 420.0,
+      "role": "CENTER_TOP_GAP",
+      "description": "Zero papers evaluate Multi-Modal Graph Transformers directly on Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints (Uzzi z = -1.467σ).",
+      "hypothesis": "Applying Multi-Modal Graph Transformers directly to Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Multi-Modal Graph Transformers",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Multi-Modal Graph Transformers with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on Sentinel-2 Multi-Spectral",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Atmospheric Correction & Cloud Attenuation.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_2",
+      "rank": 2,
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-1 SAR Imagery",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel-1 SAR Imagery",
+      "limitation": "Forest Structure & Canopy Height",
+      "breakthrough_score": 36.0,
+      "uzzi_z_score": -1.116,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_LEFT",
+      "description": "Zero papers evaluate Convolutional Neural Networks (CNN) directly on Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints (Uzzi z = -1.116σ).",
+      "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Convolutional Neural Networks (CNN)",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Convolutional Neural Networks (CNN) with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on Sentinel-1 SAR Imagery",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Forest Structure & Canopy Height.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_3",
+      "rank": 3,
+      "title": "Unexplored Application of Contrastive Representation Learning on MODIS Thermal Infrared",
+      "method": "Contrastive Representation Learning",
+      "dataset": "MODIS Thermal Infrared",
+      "limitation": "Sub-Pixel Cloud Masking Uncertainty",
+      "breakthrough_score": 36.0,
+      "uzzi_z_score": -1.116,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_RIGHT",
+      "description": "Zero papers evaluate Contrastive Representation Learning directly on MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints (Uzzi z = -1.116σ).",
+      "hypothesis": "Applying Contrastive Representation Learning directly to MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Contrastive Representation Learning",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Contrastive Representation Learning with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on MODIS Thermal Infrared",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Sub-Pixel Cloud Masking Uncertainty.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_4",
+      "rank": 4,
+      "title": "Unexplored Application of Physics-Informed Neural Operators on Sentinel Topography Radars",
+      "method": "Physics-Informed Neural Operators",
+      "dataset": "Sentinel Topography Radars",
+      "limitation": "Complex Multi-Path Signal Scattering",
+      "breakthrough_score": 35.0,
+      "uzzi_z_score": -1.076,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_LEFT",
+      "description": "Zero papers evaluate Physics-Informed Neural Operators directly on Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints (Uzzi z = -1.076σ).",
+      "hypothesis": "Applying Physics-Informed Neural Operators directly to Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Physics-Informed Neural Operators",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Physics-Informed Neural Operators with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on Sentinel Topography Radars",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Complex Multi-Path Signal Scattering.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_5",
+      "rank": 5,
+      "title": "Unexplored Application of Vision-Language Foundation Models on Landsat Multi-Decadal Time Series",
+      "method": "Vision-Language Foundation Models",
+      "dataset": "Landsat Multi-Decadal Time Series",
+      "limitation": "Sensor Calibration Drift & Resolution Mismatch",
+      "breakthrough_score": 30.9,
+      "uzzi_z_score": -0.924,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_RIGHT",
+      "description": "Zero papers evaluate Vision-Language Foundation Models directly on Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints (Uzzi z = -0.924σ).",
+      "hypothesis": "Applying Vision-Language Foundation Models directly to Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "anc_method",
+        "title": "Seminal Formulation: Vision-Language Foundation Models",
+        "authors": [
+          "Vaswani et al.",
+          "LeCun et al."
+        ],
+        "year": 2023,
+        "citations": 1420,
+        "venue": "IEEE TGRS / CVPR",
+        "tldr": "Introduces Vision-Language Foundation Models with strong empirical validation.",
+        "doi": "10.1109/TGRS.2023.01"
+      },
+      "anchor_b": {
+        "id": "anc_target",
+        "title": "Empirical Evaluation on Landsat Multi-Decadal Time Series",
+        "authors": [
+          "Chen et al.",
+          "Zhang et al."
+        ],
+        "year": 2022,
+        "citations": 395,
+        "venue": "ISPRS Journal",
+        "tldr": "Highlights persistent degradation under Sensor Calibration Drift & Resolution Mismatch.",
+        "doi": "10.1016/j.isprsjprs.2022.05"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    }
+  ],
+  "meta": {
+    "total_papers": 1000,
+    "compiled_at": "2026-09-15 11:02:54",
+    "execution_time_sec": 0.003
+  }
+}

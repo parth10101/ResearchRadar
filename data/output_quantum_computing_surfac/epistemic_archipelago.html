@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResearchRadar • Epistemic Archipelago & 3-Tier Zoom</title>
+
+  <!-- Tri-Font Typography Standard (GEMINI.md) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            canvas: '#080b11',
+            card: '#0f141f',
+            elevated: '#161e2e',
+            sheet: 'rgba(17, 24, 38, 0.94)',
+            canon: '#eab308',
+            refuted: '#f43f5e',
+            consensus: '#10b981',
+            frontier: '#38bdf8',
+            gapnexus: '#a855f7',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-void: #080b11;
+      --card-bg: #0f141f;
+      --card-elevated: #161e2e;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.16);
+      --border-highlight: rgba(255, 255, 255, 0.22);
+      --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body {
+      background-color: var(--bg-void);
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+    .specular-border {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    .macro-filament {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-linecap: round;
+      transition: stroke 0.3s, opacity 0.3s;
+    }
+    .cluster-halo {
+      cursor: pointer;
+      transition: transform 0.3s var(--spring-easing), opacity 0.3s ease;
+    }
+    .cluster-halo:hover {
+      filter: drop-shadow(0 0 16px rgba(255,255,255,0.22));
+    }
+    .gap-triad-macro {
+      cursor: pointer;
+      transition: transform 0.25s var(--spring-easing);
+    }
+    .gap-triad-macro:hover {
+      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.45));
+    }
+    .drawer-slide {
+      transition: transform 0.4s var(--spring-easing), opacity 0.4s ease;
+    }
+    /* Warp traveling canvas overlay */
+    #warp-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 28;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    /* Animated pulse ring */
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-ring-anim {
+      animation: pulseRing 3s infinite ease-in-out;
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body class="flex flex-col select-none antialiased">
+
+  <!-- =========================================================================
+       1. TOP COMMAND BAR
+       ========================================================================= -->
+  <header class="h-16 px-6 bg-[#0a0e17]/90 backdrop-blur-xl border-b border-white/8 flex items-center justify-between z-50">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="returnToLevel1()">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-500 to-purple-500 flex items-center justify-center text-black font-bold text-xs">
+          RR
+        </div>
+        <div>
+          <span class="font-serif italic text-lg text-white font-medium">ResearchRadar</span>
+          <span class="text-[10px] font-mono text-slate-400 ml-2 px-1.5 py-0.5 rounded bg-white/5 border border-white/8">STAGE 06 // EPISTEMIC ARCHIPELAGO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 3-Tier Breadcrumb State Indicator -->
+    <div class="flex items-center gap-3">
+      <nav class="flex p-1 bg-[#0f141f] border border-white/10 rounded-xl text-xs font-medium text-slate-400">
+        <button id="nav-step-1" onclick="returnToLevel1()" class="px-3.5 py-1.5 rounded-lg text-white bg-white/10 shadow-sm transition flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>1. Macro Clusters</span>
+        </button>
+        <button id="nav-step-2" class="px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-purple-400 opacity-40"></span>
+          <span>2. Cluster Drill-Down</span>
+        </button>
+        <button id="nav-step-3" class="px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-sky-400 opacity-40"></span>
+          <span>3. M×D×L Gaps</span>
+        </button>
+      </nav>
+
+      <!-- EXCLUSIVE TOP BUTTON: [⚡ Research Gaps] (Only active from Level 1) -->
+      <div class="relative group">
+        <button id="btn-top-research-gaps" onclick="triggerSciFiGapsTransition()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-sky-500/20 hover:from-purple-500/30 hover:to-sky-500/30 border border-purple-500/40 text-purple-200 font-mono text-xs font-semibold tracking-wide transition shadow-lg flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+          <span>⚡ RESEARCH GAPS (TOP 5)</span>
+        </button>
+        <div id="btn-tooltip" class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded bg-[#1c2638] text-[10px] font-mono text-slate-300 opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap border border-white/10">
+          Available only from Level 1 Macro Space
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center gap-2.5 font-mono text-xs">
+      <button id="btn-back-macro" onclick="zoomBackToMacroGaps()" class="hidden px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-white transition flex items-center gap-1.5">
+        <span>← Back to Top 5 Gaps</span>
+      </button>
+      <button id="btn-back-clusters" onclick="returnToLevel1()" class="hidden px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition flex items-center gap-1.5">
+        <span>🌐 Field Clusters</span>
+      </button>
+      <button onclick="exportTaxonomy()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/8 text-slate-300 transition">
+        📑 Export
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       2. MAIN VIEWPORT (CANVAS + WARP EFFECT + SVG)
+       ========================================================================= -->
+  <main class="relative flex-1 w-full h-[calc(100vh-64px)] overflow-hidden bg-[#080b11]">
+
+    <!-- Dynamic Level Status Pill (Top Left) -->
+    <div class="absolute top-5 left-8 z-20 pointer-events-none">
+      <div id="level-badge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0f141f]/90 backdrop-blur-md border border-white/10 text-xs font-mono text-slate-200">
+        <span id="level-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <span id="level-title" class="font-semibold tracking-wide">LEVEL 1: MACRO THEMATIC NEBULAE</span>
+      </div>
+      <p id="level-desc" class="text-xs text-slate-400 font-sans mt-2 max-w-[340px] leading-relaxed">
+        Full field topology. Click any cluster to focus its landmark pillars, or press <strong class="text-purple-300">[⚡ RESEARCH GAPS]</strong> to initiate neuron reorganization.
+      </p>
+    </div>
+
+    <!-- Warp Speed Travelling HUD Overlay (Appears during deep micro zoom) -->
+    <div id="warp-hud" class="absolute inset-0 pointer-events-none z-30 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+      <div class="p-5 rounded-2xl bg-[#080b11]/90 backdrop-blur-xl border border-purple-500/40 text-center space-y-2.5 shadow-2xl">
+        <div class="text-[11px] font-mono text-purple-400 tracking-widest uppercase animate-pulse flex items-center justify-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+          <span>HYPER-WARP DIVE IN PROGRESS</span>
+        </div>
+        <div id="warp-telemetry" class="text-xs font-mono text-slate-200 tabular-nums font-semibold">
+          SECTOR: MACRO → SUB-LATTICE → MID-SUB CORE → SUPER-SUB TRIAD → MICRO
+        </div>
+        <div class="w-64 h-1.5 bg-white/10 rounded-full mx-auto overflow-hidden">
+          <div id="warp-progress-bar" class="h-full bg-gradient-to-r from-sky-400 via-purple-400 to-emerald-400 w-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas for Sci-Fi Particle Reorganization Lines -->
+    <canvas id="warp-canvas"></canvas>
+
+    <!-- Central SVG Canvas -->
+    <svg id="canvas-svg" class="w-full h-full">
+      <defs>
+        <filter id="glow-purple" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="glow-emerald" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="glow-sky" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <g id="canvas-root">
+        <!-- Level 1: Inter-cluster citation filaments -->
+        <g id="filament-layer"></g>
+
+        <!-- Level 1 & Level 2: Cluster nebulae & satellite paper nodes -->
+        <g id="cluster-layer"></g>
+
+        <!-- Dynamic Sci-Fi Reorganization Particles Layer -->
+        <g id="scifi-particles-layer"></g>
+
+        <!-- Level 3 Macro & Micro: Top 5 M*D*L Gap Networks Layer -->
+        <g id="gaps-layer"></g>
+      </g>
+    </svg>
+
+    <!-- =======================================================================
+         3. SLIDE-OVER INSPECTION DRAWER (EVIDENCE & GRANT STUDIO)
+         ======================================================================= -->
+    <aside id="info-drawer" class="absolute top-0 right-0 h-full w-[460px] bg-[#0f141f]/95 backdrop-blur-2xl border-l border-white/10 p-6 z-40 transform translate-x-full drawer-slide overflow-y-auto space-y-5 specular-border">
+      <div class="flex items-center justify-between pb-3 border-b border-white/8">
+        <span id="drawer-eyebrow" class="text-xs font-mono text-purple-400 uppercase tracking-wider font-semibold">
+          M×D×L GAP DOSSIER
+        </span>
+        <button onclick="closeDrawer()" class="text-slate-400 hover:text-white text-xs font-mono px-2 py-1 rounded hover:bg-white/5">✕ ESC</button>
+      </div>
+
+      <div id="drawer-content" class="space-y-4">
+        <!-- Dynamic content injected by JavaScript -->
+      </div>
+    </aside>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-8 px-4 py-2.5 rounded-xl bg-[#1c2638] border border-white/20 text-white text-xs font-mono shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+      Copied to clipboard!
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       4. EMBEDDED COMPILED DATA & APPLICATION SCRIPT
+       ========================================================================= -->
+  <script>
+    const DATA = {"macro_clusters": [{"cluster_id": 0, "name": "Quantum Surface Code Error Performance", "keywords": ["error", "code", "quantum", "surface"], "color": "#38bdf8", "glow": "rgba(56, 189, 248, 0.25)", "x": 872.2, "y": 237.1, "radius": 34.8, "paper_count": 4, "pillars": [{"id": "1805.08227", "title": "Performance of quantum error correction with coherent errors", "authors": ["E. Huang", "A. Doherty", "S. Flammia"], "year": 2018, "citations": 76, "venue": "Physical Review A", "tldr": "We compare the performance of quantum error correcting codes when memory errors are unitary with the more familiar case of dephasing noise.", "abstract": "We compare the performance of quantum error correcting codes when memory errors are unitary with the more familiar case of dephasing noise. For a wide range of codes we analytically compute the effective logical channel that results when the error correction steps are performed noiselessly. Our examples include the entire family of repetition codes, the 5-qubit, Steane, Shor, and surface codes. When errors are measured in terms of the diamond norm, we find that the error correction is typically much more effective for unitary errors than for dephasing. We observe this behavior for a wide range of codes after a single level of encoding, and in the thresholds of concatenated codes using hard decoders. We show that this holds with great generality by proving a bound on the performance of any stabilizer code when the noise at the physical level is unitary. By comparing the diamond norm error $D'_\\diamond$ of the logical qubit with the same quantity at the physical level $D_\\diamond$, we show that $D'_\\diamond \\le c D^d_\\diamond $ where $d$ is the distance of the code and $c$ is constant that depends on the code but not on the error. This bound compares very favorably to the performance of error correction for dephasing noise and other Pauli channels, where an error correcting code of odd distance $d$ will exhibit a scaling $D'_\\diamond \\sim D_\\diamond^{(d+1)/2}$.", "doi": "10.1103/PhysRevA.99.022313"}, {"id": "2412.16727", "title": "Fundamental Thresholds for Computational and Erasure Errors via the Coherent Information", "authors": ["Luis Colmenarez", "Seyong Kim", "M. Müller"], "year": 2024, "citations": 9, "venue": "PRX Quantum", "tldr": "In this work, we propose a framework based on the coherent information (CI) of the mixed-state density operator associated to noisy QEC codes, for treating both types of errors together.", "abstract": "Quantum error correcting (QEC) codes protect quantum information against environmental noise. Computational errors caused by the environment change the quantum state within the qubit subspace, whereas quantum erasures correspond to the loss of qubits at known positions. Correcting either type of error involves different correction mechanisms, which makes studying the interplay between erasure and computational errors particularly challenging. In this work, we propose a framework based on the coherent information (CI) of the mixed-state density operator associated to noisy QEC codes, for treating both types of errors together. We show how to rigorously derive different families of statistical mechanics mappings for generic stabilizer QEC codes in the presence of both types of errors. We observe that the erasure errors enter as a classical average over fully depolarizing channels. Further, we show that computing the CI for erasure errors only can be done efficiently upon sampling over erasure configurations. We then test our approach on the two-dimensional toric and color codes and compute optimal thresholds for erasure errors only, finding a    50  %    threshold for both codes. This strengthens the notion that both codes share the same optimal thresholds. When considering both computational and erasure errors, the CI of small-size codes yields thresholds in very accurate agreement with established results that have been obtained in the thermodynamic limit. Next, we perform a similar analysis for a low-density parity-check (LDPC) code—the lift-connected surface code. We find a    50  %    threshold under erasure errors alone and, for the first time, derive the exact statistical mechanics mappings in the presence of both computational and erasure errors. We thereby further establish the CI as a practical tool for studying optimal thresholds for code classes beyond topological codes under realistic noise, and as a means for uncovering new relations between QEC codes and statistical physics models.", "doi": "10.1103/d8rx-srpn"}], "satellites": [{"id": "02446a544e10c794f043f8fca53b783a9700859f", "title": "Constructing Quantum Surface Codes for Arbitrary Surface Forms", "year": 2021, "citations": 7, "doi": "10.1109/SOFTT54252.2021.9673515", "dx": 75.0, "dy": 0.0}, {"id": "2602.06202", "title": "Characterizing Quantum Error Correction Performance of Radiation-induced Errors", "year": 2026, "citations": 1, "doi": "", "dx": 37.5, "dy": 65.0}]}, {"cluster_id": 1, "name": "Superconducting Quantum Spin Code Architecture", "keywords": ["quantum", "spin", "superconducte", "code"], "color": "#a855f7", "glow": "rgba(168, 85, 247, 0.25)", "x": 847.3, "y": 617.3, "radius": 33.9, "paper_count": 3, "pillars": [{"id": "1309.5452", "title": "Universal control and error correction in multi-qubit spin registers in diamond.", "authors": ["T. Taminiau", "J. Cramer", "T. van der Sar"], "year": 2013, "citations": 423, "venue": "Nature Nanotechnology", "tldr": "Quantum registers of nuclear spins coupled to electron spins of individual solid-state defects are a promising platform for quantum information processing.", "abstract": "Quantum registers of nuclear spins coupled to electron spins of individual solid-state defects are a promising platform for quantum information processing. Pioneering experiments selected defects with favourably located nuclear spins with particularly strong hyperfine couplings. To progress towards large-scale applications, larger and deterministically available nuclear registers are highly desirable. Here, we realize universal control over multi-qubit spin registers by harnessing abundant weakly coupled nuclear spins. We use the electron spin of a nitrogen-vacancy centre in diamond to selectively initialize, control and read out carbon-13 spins in the surrounding spin bath and construct high-fidelity single- and two-qubit gates. We exploit these new capabilities to implement a three-qubit quantum-error-correction protocol and demonstrate the robustness of the encoded state against applied errors. These results transform weakly coupled nuclear spins from a source of decoherence into a reliable resource, paving the way towards extended quantum networks and surface-code quantum computing based on multi-qubit nodes.", "doi": "10.1038/nnano.2014.2"}, {"id": "023e7fdd8d484c8c73f79a2a331728659fbfc524", "title": "Building logical qubits in a superconducting quantum computing system", "authors": ["J. Gambetta", "J. Chow", "M. Steffen"], "year": 2017, "citations": 14, "venue": "npj Quantum Information", "tldr": "The technological world is in the midst of a quantum computing and quantum information revolution.", "abstract": "The technological world is in the midst of a quantum computing and quantum information revolution. Since Richard Feynman’s famous ‘plenty of room at the bottom’ lecture (Feynman, Engineering and Science23, 22 (1960)), hinting at the notion of novel devices employing quantum mechanics, the quantum information community has taken gigantic strides in understanding the potential applications of a quantum computer and laid the foundational requirements for building one. We believe that the next significant step will be to demonstrate a quantum memory, in which a system of interacting qubits stores an encoded logical qubit state longer than the incorporated parts. Here, we describe the important route towards a logical memory with superconducting qubits, employing a rotated version of the surface code. The current status of technology with regards to interconnected superconducting-qubit networks will be described and near-term areas of focus to improve devices will be identified. Overall, the progress in this exciting field has been astounding, but we are at an important turning point, where it will be critical to incorporate engineering solutions with quantum architectural considerations, laying the foundation towards scalable fault-tolerant quantum computers in the near future.", "doi": "10.1038/s41534-016-0004-0"}], "satellites": [{"id": "0079b3ff312d21caac9a2b3d36d9a233f23e8d67", "title": "Recent Advances in Quantum Error Correction Codes for Superconducting Quantum Computing", "year": 2026, "citations": 0, "doi": "10.1109/ISCTIS70043.2026.11572651", "dx": 75.0, "dy": 0.0}]}, {"cluster_id": 2, "name": "Scalable Quantum Decoder Hardware", "keywords": ["decoder", "scalability", "time", "quantum"], "color": "#10b981", "glow": "rgba(16, 185, 129, 0.25)", "x": 530.5, "y": 405.6, "radius": 33.9, "paper_count": 3, "pillars": [{"id": "2301.08419", "title": "Scalable Quantum Error Correction for Surface Codes Using FPGA", "authors": ["Namitha Liyanage", "Yue Wu", "Alexander Dennisovich Deters"], "year": 2023, "citations": 74, "venue": "International Conference on Quantum Computing and Engineering", "tldr": "A fault-tolerant quantum computer must decode and correct errors faster than they appear.", "abstract": "A fault-tolerant quantum computer must decode and correct errors faster than they appear. The faster errors can be corrected, the more time the computer can do useful work. The Union-Find (UF) decoder is promising with an average time complexity slightly higher than $O(d^{3}$. We report a distributed version of the UF decoder that exploits parallel computing resources for further speedup. Using an FPGA-based implementation, we empirically show that this distributed UF decoder has $a$ sublinear average time complexity with regard to $d$ given $O(d^{3}$ parallel computing resources. The decoding time per measurement round decreases as $d$ increases, a first time for a quantum error decoder. The implementation employs a scalable architecture called Helios that organizes parallel computing resources into a hybrid tree-grid structure. We are able to implement $d$ up to 21 with a Xilinx VCU129 FPGA, for which an average decoding time is 11.5 ns per measurement round under phenomenological noise of 0.1 %, significantly faster than any existing decoder implementation. Since the decoding time per measurement round of Helios decreases with d, Helios can decode a surface code of arbitrarily large $d$ without a growing backlog.", "doi": "10.1109/QCE57702.2023.00106"}, {"id": "2511.10388", "title": "Assessing Finite Scalability in Early Fault-Tolerant Quantum Computing for Homogeneous Catalysts", "authors": ["Yanbing Zhou", "Athena Caesura", "C. Buda"], "year": 2025, "citations": 2, "venue": "Peer-Reviewed Venue", "tldr": "As quantum hardware advances toward fault-tolerant operation, an intermediate stage known as early fault-tolerant quantum computing (EFTQC) is emerging, where partial error correction enables meaningful computation.", "abstract": "As quantum hardware advances toward fault-tolerant operation, an intermediate stage known as early fault-tolerant quantum computing (EFTQC) is emerging, where partial error correction enables meaningful computation. In this regime, the ability of quantum processors to scale in size and depth has become a crucial factor shaping their achievable performance. This study investigates how finite scalability influences resource requirements for simulating open-shell catalytic systems using Quantum Phase Estimation (QPE). The analysis compares hardware archetypes distinguished by fidelity or operation speed under two representative scalability models. Finite scalability increases qubit and runtime demands yet leaves overall scaling behavior intact, with high-fidelity architectures requiring lower minimum scalability to solve equally sized problems. These effects are largely independent of the chosen scalability model. Extending this framework, we examine runtime competitiveness across hardware and code configurations, incorporating surface-code and quantum Low-Density Parity-Check (LDPC)-based fault tolerance under finite scalability. The results identify operating regimes where high-fidelity architectures remain competitive despite slower gate speeds and show that LDPC codes further expand this regime by reducing space-time overhead. Together, these findings highlight the central role of scalability in quantifying performance and guiding the design of next-generation quantum hardware. Continued progress in scalable architectures will be essential for extending quantum computing to increasingly complex scientific and industrial applications.", "doi": ""}], "satellites": [{"id": "011a01d2a6fe331aa72476395424351185c09b95", "title": "FPGA-Accelerated Early-Exit Neural Decoder for Quantum Error Correction", "year": 2025, "citations": 0, "doi": "10.1109/DSD67783.2025.00090", "dx": 75.0, "dy": 0.0}]}], "macro_filaments": [], "gaps": [{"gap_id": "gap_1", "rank": 1, "title": "Unexplored Application of Multi-Modal Graph Transformers on Sentinel-2 Multi-Spectral", "method": "Multi-Modal Graph Transformers", "dataset": "Sentinel-2 Multi-Spectral", "limitation": "Atmospheric Correction & Cloud Attenuation", "breakthrough_score": 44.4, "uzzi_z_score": -1.467, "is_center_top": true, "macro_x": 750.0, "macro_y": 420.0, "role": "CENTER_TOP_GAP", "description": "Zero papers evaluate Multi-Modal Graph Transformers directly on Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints (Uzzi z = -1.467σ).", "hypothesis": "Applying Multi-Modal Graph Transformers directly to Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_2", "rank": 2, "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-1 SAR Imagery", "method": "Convolutional Neural Networks (CNN)", "dataset": "Sentinel-1 SAR Imagery", "limitation": "Forest Structure & Canopy Height", "breakthrough_score": 36.0, "uzzi_z_score": -1.116, "is_center_top": false, "macro_x": 450.0, "macro_y": 240.0, "role": "QUAD_TOP_LEFT", "description": "Zero papers evaluate Convolutional Neural Networks (CNN) directly on Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints (Uzzi z = -1.116σ).", "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_3", "rank": 3, "title": "Unexplored Application of Contrastive Representation Learning on MODIS Thermal Infrared", "method": "Contrastive Representation Learning", "dataset": "MODIS Thermal Infrared", "limitation": "Sub-Pixel Cloud Masking Uncertainty", "breakthrough_score": 36.0, "uzzi_z_score": -1.116, "is_center_top": false, "macro_x": 1050.0, "macro_y": 240.0, "role": "QUAD_TOP_RIGHT", "description": "Zero papers evaluate Contrastive Representation Learning directly on MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints (Uzzi z = -1.116σ).", "hypothesis": "Applying Contrastive Representation Learning directly to MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_4", "rank": 4, "title": "Unexplored Application of Physics-Informed Neural Operators on Sentinel Topography Radars", "method": "Physics-Informed Neural Operators", "dataset": "Sentinel Topography Radars", "limitation": "Complex Multi-Path Signal Scattering", "breakthrough_score": 35.0, "uzzi_z_score": -1.076, "is_center_top": false, "macro_x": 450.0, "macro_y": 600.0, "role": "QUAD_BOTTOM_LEFT", "description": "Zero papers evaluate Physics-Informed Neural Operators directly on Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints (Uzzi z = -1.076σ).", "hypothesis": "Applying Physics-Informed Neural Operators directly to Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_5", "rank": 5, "title": "Unexplored Application of Vision-Language Foundation Models on Landsat Multi-Decadal Time Series", "method": "Vision-Language Foundation Models", "dataset": "Landsat Multi-Decadal Time Series", "limitation": "Sensor Calibration Drift & Resolution Mismatch", "breakthrough_score": 30.9, "uzzi_z_score": -0.924, "is_center_top": false, "macro_x": 1050.0, "macro_y": 600.0, "role": "QUAD_BOTTOM_RIGHT", "description": "Zero papers evaluate Vision-Language Foundation Models directly on Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints (Uzzi z = -0.924σ).", "hypothesis": "Applying Vision-Language Foundation Models directly to Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}], "meta": {"total_papers": 10, "compiled_at": "2026-09-16 12:02:40", "execution_time_sec": 0.001}};
+
+    // Viewport Coordinates & D3 Zoom Setup
+    const width = window.innerWidth;
+    const height = window.innerHeight - 64;
+    const drawerWidth = 460;
+    const svg = d3.select("#canvas-svg");
+    const rootG = d3.select("#canvas-root");
+    const filamentLayer = d3.select("#filament-layer");
+    const clusterLayer = d3.select("#cluster-layer");
+    const particleLayer = d3.select("#scifi-particles-layer");
+    const gapsLayer = d3.select("#gaps-layer");
+
+    // Warp Canvas Setup
+    const warpCanvas = document.getElementById("warp-canvas");
+    const warpCtx = warpCanvas.getContext("2d");
+    warpCanvas.width = width;
+    warpCanvas.height = height;
+
+    const zoom = d3.zoom().scaleExtent([0.4, 4.0]).on("zoom", (event) => {
+      rootG.attr("transform", event.transform);
+    });
+    svg.call(zoom);
+
+    // Initial center transform with ample margins
+    const initialTransform = d3.zoomIdentity.translate((width / 2) - 750, (height / 2) - 420);
+    svg.call(zoom.transform, initialTransform);
+
+    // State Variables
+    let currentState = 'LEVEL_1_CLUSTERS';
+    let selectedCluster = null;
+    let selectedGap = null;
+
+    // ── 1. RENDER LEVEL 1 & LEVEL 2 CLUSTERS ─────────────────────────────────
+    function renderClusters() {
+      filamentLayer.selectAll(".macro-filament")
+        .data(DATA.macro_filaments)
+        .enter()
+        .append("line")
+        .attr("class", "macro-filament")
+        .attr("x1", d => d.x1).attr("y1", d => d.y1)
+        .attr("x2", d => d.x2).attr("y2", d => d.y2)
+        .attr("stroke-width", d => d.width);
+
+      const cGroups = clusterLayer.selectAll(".cluster-halo")
+        .data(DATA.macro_clusters)
+        .enter()
+        .append("g")
+        .attr("class", "cluster-halo")
+        .attr("id", d => `cluster-g-${d.cluster_id}`)
+        .attr("transform", d => `translate(${d.x}, ${d.y})`)
+        .on("click", (event, d) => handleClusterClick(d));
+
+      cGroups.append("circle")
+        .attr("r", d => d.radius + 18)
+        .attr("fill", d => d.color)
+        .attr("opacity", 0.08);
+
+      cGroups.append("circle")
+        .attr("r", d => d.radius)
+        .attr("fill", "#0f141f")
+        .attr("stroke", d => d.color)
+        .attr("stroke-width", 2);
+
+      cGroups.append("text")
+        .attr("class", "cluster-main-label")
+        .attr("dy", "-0.2em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'Instrument Serif', Georgia, serif")
+        .attr("font-size", "15px")
+        .attr("fill", "#ffffff")
+        .text(d => d.name.length > 24 ? d.name.slice(0, 22) + "..." : d.name);
+
+      cGroups.append("text")
+        .attr("class", "cluster-count-label")
+        .attr("dy", "1.3em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono', monospace")
+        .attr("font-size", "10px")
+        .attr("fill", "#94a3b8")
+        .text(d => `${d.paper_count} papers`);
+
+      // Add Level 2 Pillar & Satellite sub-groups (hidden initially)
+      cGroups.each(function(c) {
+        const g = d3.select(this);
+        const l2Group = g.append("g")
+          .attr("class", "level2-constellation")
+          .attr("opacity", 0)
+          .attr("pointer-events", "none");
+
+        if (c.pillars && c.pillars.length >= 2) {
+          l2Group.append("line")
+            .attr("x1", -38).attr("y1", 0)
+            .attr("x2", 38).attr("y2", 0)
+            .attr("stroke", c.color)
+            .attr("stroke-width", 2.5)
+            .attr("stroke-dasharray", "4,2");
+
+          const p1 = l2Group.append("g").attr("transform", "translate(-38, 0)");
+          p1.append("circle").attr("r", 14).attr("fill", "#161e2e").attr("stroke", c.color).attr("stroke-width", 2);
+          p1.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#fff").text("P1");
+
+          const p2 = l2Group.append("g").attr("transform", "translate(38, 0)");
+          p2.append("circle").attr("r", 14).attr("fill", "#161e2e").attr("stroke", c.color).attr("stroke-width", 2);
+          p2.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#fff").text("P2");
+        }
+
+        (c.satellites || []).forEach(sat => {
+          l2Group.append("line")
+            .attr("x1", 0).attr("y1", 0)
+            .attr("x2", sat.dx).attr("y2", sat.dy)
+            .attr("stroke", "rgba(255,255,255,0.15)")
+            .attr("stroke-width", 1);
+
+          l2Group.append("circle")
+            .attr("cx", sat.dx).attr("cy", sat.dy)
+            .attr("r", 5)
+            .attr("fill", c.color)
+            .attr("opacity", 0.85);
+        });
+      });
+    }
+
+    // ── 2. RENDER LEVEL 3 TOP 5 M×D×L GAPS (MACRO) ───────────────────────────
+    function renderGapsMacro() {
+      gapsLayer.selectAll("*").remove();
+
+      DATA.gaps.forEach(gap => {
+        const gapG = gapsLayer.append("g")
+          .attr("class", "gap-triad-macro")
+          .attr("id", `gap-macro-${gap.gap_id}`)
+          .attr("transform", `translate(${gap.macro_x}, ${gap.macro_y}) scale(0)`)
+          .attr("opacity", 0)
+          .on("click", () => zoomIntoGapMicro(gap));
+
+        gapG.append("circle")
+          .attr("r", gap.is_center_top ? 74 : 56)
+          .attr("fill", "none")
+          .attr("stroke", "#a855f7")
+          .attr("stroke-width", gap.is_center_top ? 2 : 1.5)
+          .attr("stroke-dasharray", "5,3")
+          .attr("class", "pulse-ring-anim");
+
+        const boxSize = gap.is_center_top ? 50 : 40;
+        gapG.append("rect")
+          .attr("x", -boxSize / 2).attr("y", -boxSize / 2)
+          .attr("width", boxSize).attr("height", boxSize)
+          .attr("rx", 8)
+          .attr("fill", "#1c1429")
+          .attr("stroke", gap.is_center_top ? "#c084fc" : "#a855f7")
+          .attr("stroke-width", gap.is_center_top ? 2.5 : 1.8);
+
+        gapG.append("text")
+          .attr("dy", "-0.1em")
+          .attr("text-anchor", "middle")
+          .attr("font-family", "'JetBrains Mono', monospace")
+          .attr("font-size", gap.is_center_top ? "13px" : "11px")
+          .attr("font-weight", "700")
+          .attr("fill", "#f3e8ff")
+          .text(`#${gap.rank}`);
+
+        gapG.append("text")
+          .attr("dy", "1.25em")
+          .attr("text-anchor", "middle")
+          .attr("font-family", "'JetBrains Mono', monospace")
+          .attr("font-size", "9px")
+          .attr("fill", "#c084fc")
+          .text(`${Math.round(gap.breakthrough_score)}%`);
+
+        const mOff = { x: -65, y: 48 };
+        const dOff = { x: 72, y: -48 };
+        const lOff = { x: 0, y: 68 };
+
+        gapG.append("line").attr("x1", 0).attr("y1", 0).attr("x2", mOff.x).attr("y2", mOff.y).attr("stroke", "#10b981").attr("stroke-width", 1.8);
+        gapG.append("line").attr("x1", 0).attr("y1", 0).attr("x2", dOff.x).attr("y2", dOff.y).attr("stroke", "#38bdf8").attr("stroke-width", 1.8);
+        gapG.append("line").attr("x1", 0).attr("y1", 0).attr("x2", lOff.x).attr("y2", lOff.y).attr("stroke", "#f43f5e").attr("stroke-width", 1.8);
+
+        const dotM = gapG.append("g").attr("transform", `translate(${mOff.x}, ${mOff.y})`);
+        dotM.append("circle").attr("r", 9).attr("fill", "#064e3b").attr("stroke", "#10b981").attr("stroke-width", 2);
+        dotM.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("font-weight", "bold").attr("fill", "#ecfdf5").text("M");
+
+        const dotD = gapG.append("g").attr("transform", `translate(${dOff.x}, ${dOff.y})`);
+        dotD.append("circle").attr("r", 9).attr("fill", "#0c4a6e").attr("stroke", "#38bdf8").attr("stroke-width", 2);
+        dotD.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("font-weight", "bold").attr("fill", "#f0f9ff").text("D");
+
+        const dotL = gapG.append("g").attr("transform", `translate(${lOff.x}, ${lOff.y})`);
+        dotL.append("circle").attr("r", 9).attr("fill", "#881337").attr("stroke", "#f43f5e").attr("stroke-width", 2);
+        dotL.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("font-weight", "bold").attr("fill", "#fff1f2").text("L");
+
+        gapG.append("text")
+          .attr("y", boxSize / 2 + 38)
+          .attr("text-anchor", "middle")
+          .attr("font-family", "'Plus Jakarta Sans', sans-serif")
+          .attr("font-size", "10.5px")
+          .attr("font-weight", "600")
+          .attr("fill", "#e2e8f0")
+          .text(gap.is_center_top ? `★ TOP GAP 1: ${gap.method.slice(0, 18)}` : `${gap.method.slice(0, 16)} ↔ ${gap.dataset.slice(0, 12)}`);
+      });
+    }
+
+    // ── 3. SCI-FI NEURON/ELECTRON REORGANIZATION TRANSITION ───────────────────
+    function triggerSciFiGapsTransition() {
+      if (currentState !== 'LEVEL_1_CLUSTERS') return;
+      currentState = 'LEVEL_3_GAPS_MACRO';
+      closeDrawer();
+
+      const topBtn = document.getElementById("btn-top-research-gaps");
+      topBtn.classList.add("opacity-40", "cursor-not-allowed");
+      document.getElementById("btn-back-clusters").classList.remove("hidden");
+
+      document.getElementById("nav-step-1").className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2";
+      document.getElementById("nav-step-3").className = "px-3.5 py-1.5 rounded-lg text-white bg-purple-500/20 border border-purple-500/40 shadow-sm transition flex items-center gap-2";
+      document.getElementById("nav-step-3").querySelector("span").className = "w-2 h-2 rounded-full bg-purple-400";
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-purple-400";
+      title.innerText = "LEVEL 3: TOP 5 RESEARCH GAPS (MACRO NEURAL SYNAPSE)";
+      desc.innerText = "Cluster nebulae reorganized into top 5 M×D×L void bridges. Top Gap #1 is centered. Click any 3-dot triad to execute deep traveling warp zoom.";
+
+      renderSciFiParticleStream(() => {
+        renderGapsMacro();
+
+        gsap.to(".gap-triad-macro", {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "back.out(1.6)",
+        });
+
+        gsap.to(".cluster-halo", { opacity: 0, scale: 0.8, duration: 0.6, pointerEvents: "none" });
+        gsap.to(".macro-filament", { opacity: 0, duration: 0.5 });
+      });
+    }
+
+    function renderSciFiParticleStream(onComplete) {
+      particleLayer.selectAll("*").remove();
+      const particles = [];
+      const targets = DATA.gaps.map(g => ({ x: g.macro_x, y: g.macro_y }));
+
+      DATA.macro_clusters.forEach(c => {
+        for (let i = 0; i < 14; i++) {
+          const target = targets[Math.floor(Math.random() * targets.length)];
+          particles.push({
+            startX: c.x + (Math.random() - 0.5) * 50,
+            startY: c.y + (Math.random() - 0.5) * 50,
+            endX: target.x + (Math.random() - 0.5) * 30,
+            endY: target.y + (Math.random() - 0.5) * 30,
+            color: Math.random() > 0.5 ? "#38bdf8" : "#a855f7",
+            radius: Math.random() * 2.5 + 1.5,
+          });
+        }
+      });
+
+      const pNodes = particleLayer.selectAll(".scifi-particle")
+        .data(particles)
+        .enter()
+        .append("circle")
+        .attr("class", "scifi-particle")
+        .attr("cx", d => d.startX)
+        .attr("cy", d => d.startY)
+        .attr("r", d => d.radius)
+        .attr("fill", d => d.color)
+        .attr("filter", "url(#glow-purple)")
+        .attr("opacity", 0.9);
+
+      pNodes.each(function(d, i) {
+        gsap.to(this, {
+          cx: d.endX,
+          cy: d.endY,
+          opacity: 0,
+          scale: 1.8,
+          duration: 0.75 + Math.random() * 0.35,
+          ease: "power3.inOut",
+          onComplete: () => {
+            if (i === particles.length - 1 && onComplete) {
+              particleLayer.selectAll("*").remove();
+              onComplete();
+            }
+          }
+        });
+      });
+    }
+
+    // ── 4. DEEP TRAVELING WARP ZOOM TO LEVEL 3 MICRO (ISOLATED M×D×L) ──────────
+    function zoomIntoGapMicro(gap) {
+      currentState = 'LEVEL_3_GAP_MICRO';
+      selectedGap = gap;
+
+      document.getElementById("btn-back-macro").classList.remove("hidden");
+      document.getElementById("btn-back-clusters").classList.remove("hidden");
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-sky-400";
+      title.innerText = `LEVEL 3 MICRO: GAP #${gap.rank} // ${gap.method.slice(0, 24)} ↔ ${gap.dataset.slice(0, 20)}`;
+      desc.innerText = "Isolated M×D×L triad constellation. All background entities eliminated. Inspect evidence, anchor papers, and synthesize grant aims.";
+
+      DATA.gaps.forEach(otherGap => {
+        if (otherGap.gap_id !== gap.gap_id) {
+          gsap.to(`#gap-macro-${otherGap.gap_id}`, {
+            opacity: 0,
+            scale: 0.05,
+            duration: 0.45,
+            ease: "power2.in"
+          });
+        }
+      });
+
+      playWarpSpeedEffect();
+
+      // Ergonomic offset: center within the available space to the left of the 460px drawer
+      const targetScale = 1.45;
+      const targetX = ((width - drawerWidth) / 2) - 35 - gap.macro_x * targetScale;
+      const targetY = (height / 2) - gap.macro_y * targetScale;
+
+      svg.transition()
+        .duration(1100)
+        .ease(d3.easeCubicInOut)
+        .call(zoom.transform, d3.zoomIdentity.translate(targetX, targetY).scale(targetScale))
+        .on("end", () => {
+          renderMicroIsolatedTriad(gap);
+          openGapDrawer(gap);
+        });
+    }
+
+    function playWarpSpeedEffect() {
+      const warpHud = document.getElementById("warp-hud");
+      const warpBar = document.getElementById("warp-progress-bar");
+      const telemetry = document.getElementById("warp-telemetry");
+      warpCanvas.style.opacity = "1";
+      warpHud.classList.remove("opacity-0");
+
+      const stages = [
+        "SECTOR: MACRO LEVEL (TOP 5 GAPS OVERVIEW)",
+        "DEPTH 600m: ENTERING SUB-NETWORK LATTICE 4B...",
+        "DEPTH 350m: TRAVERSING MID-SUB SYNAPSE CORRIDOR...",
+        "DEPTH 120m: LOCKING ONTO SUPER-SUB M×D×L NUCLEUS...",
+        "DEPTH 0m: MICRO ISOLATION RECEPTOR REACHED."
+      ];
+
+      stages.forEach((st, idx) => {
+        setTimeout(() => {
+          telemetry.innerText = st;
+        }, idx * 210);
+      });
+
+      gsap.fromTo(warpBar, { width: "0%" }, { width: "100%", duration: 1.05, ease: "power2.inOut" });
+
+      const lines = [];
+      const cx = width / 2;
+      const cy = height / 2;
+      for (let i = 0; i < 120; i++) {
+        const ang = Math.random() * 2 * Math.PI;
+        lines.push({
+          ang: ang,
+          dist: Math.random() * 80 + 10,
+          speed: Math.random() * 18 + 12,
+          length: Math.random() * 60 + 20,
+          color: Math.random() > 0.5 ? "rgba(56, 189, 248, 0.7)" : "rgba(168, 85, 247, 0.7)"
+        });
+      }
+
+      let animId;
+      const startTime = performance.now();
+
+      function drawWarp(now) {
+        const elapsed = now - startTime;
+        warpCtx.clearRect(0, 0, width, height);
+
+        lines.forEach(l => {
+          l.dist += l.speed;
+          const x1 = cx + Math.cos(l.ang) * l.dist;
+          const y1 = cy + Math.sin(l.ang) * l.dist;
+          const x2 = cx + Math.cos(l.ang) * (l.dist + l.length);
+          const y2 = cy + Math.sin(l.ang) * (l.dist + l.length);
+
+          warpCtx.beginPath();
+          warpCtx.moveTo(x1, y1);
+          warpCtx.lineTo(x2, y2);
+          warpCtx.strokeStyle = l.color;
+          warpCtx.lineWidth = 1.5;
+          warpCtx.stroke();
+        });
+
+        if (elapsed < 1050) {
+          animId = requestAnimationFrame(drawWarp);
+        } else {
+          warpCanvas.style.opacity = "0";
+          warpHud.classList.add("opacity-0");
+          warpCtx.clearRect(0, 0, width, height);
+        }
+      }
+      animId = requestAnimationFrame(drawWarp);
+    }
+
+    // ── 5. RENDER THE HIGH-DEFINITION ISOLATED MICRO TRIAD ────────────────────
+    function renderMicroIsolatedTriad(gap) {
+      const g = d3.select(`#gap-macro-${gap.gap_id}`);
+      g.selectAll("*").remove();
+
+      g.append("circle")
+        .attr("r", 150)
+        .attr("fill", "url(#glow-purple)")
+        .attr("opacity", 0.08);
+
+      const core = g.append("g").attr("class", "micro-nexus-core");
+      core.append("rect")
+        .attr("x", -44).attr("y", -44)
+        .attr("width", 88).attr("height", 88)
+        .attr("rx", 14)
+        .attr("fill", "#140e20")
+        .attr("stroke", "#c084fc")
+        .attr("stroke-width", 2.5)
+        .attr("class", "specular-border");
+
+      core.append("text")
+        .attr("dy", "-0.3em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono'")
+        .attr("font-size", "11px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#c084fc")
+        .text(`GAP #${gap.rank}`);
+
+      core.append("text")
+        .attr("dy", "1.1em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono'")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#ffffff")
+        .text(`${Math.round(gap.breakthrough_score)}%`);
+
+      core.append("text")
+        .attr("dy", "2.6em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono'")
+        .attr("font-size", "9.5px")
+        .attr("fill", "#a855f7")
+        .text(`z = ${gap.uzzi_z_score}σ`);
+
+      const mPos = { x: -130, y: 90 };
+      const dPos = { x: 135, y: -90 };
+      const lPos = { x: 0, y: 130 };
+
+      g.append("line").attr("x1", 0).attr("y1", 0).attr("x2", mPos.x).attr("y2", mPos.y).attr("stroke", "#10b981").attr("stroke-width", 2.5).attr("stroke-dasharray", "4,2");
+      g.append("line").attr("x1", 0).attr("y1", 0).attr("x2", dPos.x).attr("y2", dPos.y).attr("stroke", "#38bdf8").attr("stroke-width", 2.5).attr("stroke-dasharray", "4,2");
+      g.append("line").attr("x1", 0).attr("y1", 0).attr("x2", lPos.x).attr("y2", lPos.y).attr("stroke", "#f43f5e").attr("stroke-width", 2.5).attr("stroke-dasharray", "4,2");
+
+      const gM = g.append("g").attr("transform", `translate(${mPos.x}, ${mPos.y})`);
+      gM.append("circle").attr("r", 26).attr("fill", "#064e3b").attr("stroke", "#10b981").attr("stroke-width", 2.5);
+      gM.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "14px").attr("font-weight", "bold").attr("fill", "#ffffff").text("M");
+      gM.append("text").attr("y", 38).attr("text-anchor", "middle").attr("font-family", "'Plus Jakarta Sans'").attr("font-size", "11px").attr("font-weight", "600").attr("fill", "#34d399").text("METHOD TECHNIQUE");
+      gM.append("text").attr("y", 50).attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#94a3b8").text(gap.method.length > 22 ? gap.method.slice(0, 20) + "..." : gap.method);
+
+      const gD = g.append("g").attr("transform", `translate(${dPos.x}, ${dPos.y})`);
+      gD.append("circle").attr("r", 26).attr("fill", "#0c4a6e").attr("stroke", "#38bdf8").attr("stroke-width", 2.5);
+      gD.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "14px").attr("font-weight", "bold").attr("fill", "#ffffff").text("D");
+      gD.append("text").attr("y", -34).attr("text-anchor", "middle").attr("font-family", "'Plus Jakarta Sans'").attr("font-size", "11px").attr("font-weight", "600").attr("fill", "#38bdf8").text("TARGET DATASET");
+      gD.append("text").attr("y", -46).attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#94a3b8").text(gap.dataset.length > 22 ? gap.dataset.slice(0, 20) + "..." : gap.dataset);
+
+      const gL = g.append("g").attr("transform", `translate(${lPos.x}, ${lPos.y})`);
+      gL.append("circle").attr("r", 26).attr("fill", "#881337").attr("stroke", "#f43f5e").attr("stroke-width", 2.5);
+      gL.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "14px").attr("font-weight", "bold").attr("fill", "#ffffff").text("L");
+      gL.append("text").attr("y", 38).attr("text-anchor", "middle").attr("font-family", "'Plus Jakarta Sans'").attr("font-size", "11px").attr("font-weight", "600").attr("fill", "#fb7185").text("EMPIRICAL BOTTLENECK");
+      gL.append("text").attr("y", 50).attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#94a3b8").text(gap.limitation.length > 22 ? gap.limitation.slice(0, 20) + "..." : gap.limitation);
+    }
+
+    // ── 6. REVERSE NAVIGATION: BACK TO TOP 5 MACRO ───────────────────────────
+    function zoomBackToMacroGaps() {
+      currentState = 'LEVEL_3_GAPS_MACRO';
+      closeDrawer();
+      document.getElementById("btn-back-macro").classList.add("hidden");
+
+      svg.transition()
+        .duration(800)
+        .ease(d3.easeCubicOut)
+        .call(zoom.transform, initialTransform);
+
+      renderGapsMacro();
+      gsap.to(".gap-triad-macro", { opacity: 1, scale: 1, duration: 0.6, stagger: 0.05 });
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-purple-400";
+      title.innerText = "LEVEL 3: TOP 5 RESEARCH GAPS (MACRO NEURAL SYNAPSE)";
+      desc.innerText = "Top 5 M×D×L void bridges in macro space. Top Gap #1 is centered. Click any 3-dot triad to execute deep traveling warp zoom.";
+    }
+
+    // ── 7. RETURN TO LEVEL 1 (ALL CLUSTERS) ───────────────────────────────────
+    function returnToLevel1() {
+      currentState = 'LEVEL_1_CLUSTERS';
+      closeDrawer();
+
+      document.getElementById("btn-back-macro").classList.add("hidden");
+      document.getElementById("btn-back-clusters").classList.add("hidden");
+      const topBtn = document.getElementById("btn-top-research-gaps");
+      topBtn.classList.remove("opacity-40", "cursor-not-allowed");
+
+      document.getElementById("nav-step-1").className = "px-3.5 py-1.5 rounded-lg text-white bg-white/10 shadow-sm transition flex items-center gap-2";
+      document.getElementById("nav-step-2").className = "px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2";
+      document.getElementById("nav-step-3").className = "px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2";
+      document.getElementById("nav-step-3").querySelector("span").className = "w-2 h-2 rounded-full bg-purple-400 opacity-40";
+
+      svg.transition()
+        .duration(800)
+        .ease(d3.easeCubicOut)
+        .call(zoom.transform, initialTransform);
+
+      gsap.to(".cluster-halo", { opacity: 1, scale: 1, duration: 0.6, pointerEvents: "auto" });
+      gsap.to(".macro-filament", { opacity: 0.3, duration: 0.6 });
+      gsap.to(".level2-constellation", { opacity: 0, duration: 0.3 });
+      gsap.to(".cluster-main-label, .cluster-count-label", { opacity: 1, duration: 0.3 });
+
+      gapsLayer.selectAll("*").remove();
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
+      title.innerText = "LEVEL 1: MACRO THEMATIC NEBULAE";
+      desc.innerText = "Full field topology. Click any cluster to focus its landmark pillars, or press [⚡ RESEARCH GAPS] to initiate neuron reorganization.";
+    }
+
+    // ── 8. LEVEL 2: CLUSTER DRILL-DOWN (SKETCH 1 FOCUS) ──────────────────────
+    function handleClusterClick(cluster) {
+      if (currentState !== 'LEVEL_1_CLUSTERS') return;
+      currentState = 'LEVEL_2_CLUSTER_FOCUS';
+      selectedCluster = cluster;
+
+      const topBtn = document.getElementById("btn-top-research-gaps");
+      topBtn.classList.add("opacity-40", "cursor-not-allowed");
+      document.getElementById("btn-back-clusters").classList.remove("hidden");
+
+      document.getElementById("nav-step-1").className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2";
+      document.getElementById("nav-step-2").className = "px-3.5 py-1.5 rounded-lg text-white bg-emerald-500/20 border border-emerald-500/40 shadow-sm transition flex items-center gap-2";
+      document.getElementById("nav-step-2").querySelector("span").className = "w-2 h-2 rounded-full bg-emerald-400";
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
+      title.innerText = `LEVEL 2 FOCUS: ${cluster.name.toUpperCase()}`;
+      desc.innerText = "Central landmark pillars (P1, P2) connected by core spine, with satellite literature nodes radiating outward.";
+
+      const targetScale = 2.2;
+      const targetX = ((width - drawerWidth) / 2) - cluster.x * targetScale;
+      const targetY = (height / 2) - cluster.y * targetScale;
+
+      svg.transition()
+        .duration(850)
+        .ease(d3.easeCubicOut)
+        .call(zoom.transform, d3.zoomIdentity.translate(targetX, targetY).scale(targetScale));
+
+      DATA.macro_clusters.forEach(c => {
+        if (c.cluster_id !== cluster.cluster_id) {
+          gsap.to(`#cluster-g-${c.cluster_id}`, { opacity: 0.08, duration: 0.5 });
+        } else {
+          gsap.to(`#cluster-g-${c.cluster_id} .cluster-main-label`, { opacity: 0, duration: 0.3 });
+          gsap.to(`#cluster-g-${c.cluster_id} .cluster-count-label`, { opacity: 0, duration: 0.3 });
+          gsap.to(`#cluster-g-${c.cluster_id} .level2-constellation`, { opacity: 1, duration: 0.5 });
+        }
+      });
+      gsap.to(".macro-filament", { opacity: 0.04, duration: 0.4 });
+
+      openClusterDrawer(cluster);
+    }
+
+    // ── 9. DRAWERS: EVIDENCE & GRANT SYNTHESIS ────────────────────────────────
+    function openGapDrawer(gap) {
+      const drawer = document.getElementById("info-drawer");
+      const content = document.getElementById("drawer-content");
+      document.getElementById("drawer-eyebrow").innerText = `M×D×L GAP #${gap.rank} // VERIFIED EVIDENCE`;
+
+      const p1 = gap.anchor_a || {};
+      const p2 = gap.anchor_b || {};
+
+      content.innerHTML = `
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 text-purple-300 font-mono text-[11px] font-bold">
+              GAP #${gap.rank}
+            </span>
+            <span class="px-2 py-0.5 rounded bg-sky-500/15 border border-sky-500/30 text-sky-300 font-mono text-[11px]">
+              Uzzi z = ${gap.uzzi_z_score}σ
+            </span>
+          </div>
+          <h3 class="text-2xl font-serif text-white font-normal leading-snug pt-1">${gap.title}</h3>
+          <p class="text-xs text-slate-400 font-sans leading-relaxed pt-1">${gap.description}</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 pt-1 text-center font-mono">
+          <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/25">
+            <div class="text-[9px] text-emerald-400 font-bold uppercase">METHOD (M)</div>
+            <div class="text-[10px] text-white font-medium truncate mt-0.5" title="${gap.method}">${gap.method}</div>
+          </div>
+          <div class="p-2 rounded-lg bg-sky-500/10 border border-sky-500/25">
+            <div class="text-[9px] text-sky-400 font-bold uppercase">DATASET (D)</div>
+            <div class="text-[10px] text-white font-medium truncate mt-0.5" title="${gap.dataset}">${gap.dataset}</div>
+          </div>
+          <div class="p-2 rounded-lg bg-rose-500/10 border border-rose-500/25">
+            <div class="text-[9px] text-rose-400 font-bold uppercase">LIMIT (L)</div>
+            <div class="text-[10px] text-white font-medium truncate mt-0.5" title="${gap.limitation}">${gap.limitation}</div>
+          </div>
+        </div>
+
+        <div class="space-y-2.5 pt-2">
+          <div class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Literature Proof Spine</div>
+
+          <div class="p-3 rounded-xl bg-[#080b11] border border-emerald-500/25 space-y-1">
+            <div class="flex items-center justify-between text-[10px] font-mono">
+              <span class="text-emerald-400 font-bold uppercase">ANCHOR 1: TECHNIQUE PROVIDER</span>
+              <span class="text-slate-400 tabular-nums">${p1.year || 2023}</span>
+            </div>
+            <h4 class="font-serif text-base text-white leading-snug">${p1.title || "Method Paper"}</h4>
+            <p class="text-[11px] text-slate-400 font-sans">${(p1.authors || []).join(", ")} • ${(p1.citations || 0).toLocaleString()} citations</p>
+            <p class="text-xs text-slate-300 font-sans leading-relaxed pt-1">${p1.tldr || p1.abstract || ""}</p>
+            <div class="pt-1.5 flex items-center justify-between text-[11px] font-mono">
+              ${p1.doi ? `<a href="https://doi.org/${p1.doi}" target="_blank" class="text-emerald-400 hover:underline">📄 DOI / PDF ↗</a>` : '<span class="text-slate-500">Open Access</span>'}
+              <button onclick="copyBibtex('${p1.title}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-slate-300">Copy BibTeX</button>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-[#080b11] border border-sky-500/25 space-y-1">
+            <div class="flex items-center justify-between text-[10px] font-mono">
+              <span class="text-sky-400 font-bold uppercase">ANCHOR 2: TARGET BENCHMARK</span>
+              <span class="text-slate-400 tabular-nums">${p2.year || 2022}</span>
+            </div>
+            <h4 class="font-serif text-base text-white leading-snug">${p2.title || "Target Paper"}</h4>
+            <p class="text-[11px] text-slate-400 font-sans">${(p2.authors || []).join(", ")} • ${(p2.citations || 0).toLocaleString()} citations</p>
+            <p class="text-xs text-slate-300 font-sans leading-relaxed pt-1">${p2.tldr || p2.abstract || ""}</p>
+            <div class="pt-1.5 flex items-center justify-between text-[11px] font-mono">
+              ${p2.doi ? `<a href="https://doi.org/${p2.doi}" target="_blank" class="text-sky-400 hover:underline">📄 DOI / PDF ↗</a>` : '<span class="text-slate-500">Open Access</span>'}
+              <button onclick="copyBibtex('${p2.title}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-slate-300">Copy BibTeX</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-white/8 space-y-2 font-mono text-xs">
+          <button onclick="copyLitReviewSynthesis()" class="w-full py-2.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/35 text-purple-200 font-semibold transition flex items-center justify-center gap-2">
+            <span>📋 Copy Lit Review Synthesis</span>
+          </button>
+          <button onclick="copyGrantHypothesis()" class="w-full py-2.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/35 text-sky-200 font-semibold transition flex items-center justify-center gap-2">
+            <span>⚡ Draft Grant Proposal Section (H₁)</span>
+          </button>
+        </div>
+      `;
+
+      drawer.classList.remove("translate-x-full");
+    }
+
+    function openClusterDrawer(cluster) {
+      const drawer = document.getElementById("info-drawer");
+      const content = document.getElementById("drawer-content");
+      document.getElementById("drawer-eyebrow").innerText = "CLUSTER DOSSIER";
+
+      let pillarsHtml = (cluster.pillars || []).map((p, idx) => `
+        <div class="p-3.5 rounded-xl bg-[#080b11] border border-white/8 space-y-1">
+          <div class="flex items-center justify-between text-[11px] font-mono">
+            <span class="text-amber-400 font-bold">LANDMARK PILLAR ${idx + 1}</span>
+            <span class="text-slate-400 tabular-nums">${p.year}</span>
+          </div>
+          <h4 class="font-serif text-base text-white leading-snug">${p.title}</h4>
+          <p class="text-[11px] text-slate-400 font-sans">${p.authors.join(", ")} • ${p.citations.toLocaleString()} citations</p>
+          <p class="text-xs text-slate-300 font-sans leading-relaxed pt-1">${p.tldr}</p>
+        </div>
+      `).join("");
+
+      content.innerHTML = `
+        <div>
+          <span class="text-[11px] font-mono text-emerald-400 uppercase font-bold tracking-wider">DOMAIN CLUSTER FOCUS</span>
+          <h3 class="text-2xl font-serif text-white font-normal mt-1">${cluster.name}</h3>
+          <p class="text-xs text-slate-400 font-mono mt-1">${cluster.paper_count} peer-reviewed papers in corpus</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Seminal Landmark Pillars</div>
+          <div class="space-y-2 mt-2">${pillarsHtml}</div>
+        </div>
+
+        <div class="pt-4 border-t border-white/8">
+          <button onclick="returnToLevel1()" class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 font-mono text-xs font-semibold transition">
+            ← Return to Field Clusters
+          </button>
+        </div>
+      `;
+
+      drawer.classList.remove("translate-x-full");
+    }
+
+    function closeDrawer() {
+      document.getElementById("info-drawer").classList.add("translate-x-full");
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.remove("opacity-0");
+      setTimeout(() => t.classList.add("opacity-0"), 2200);
+    }
+
+    function copyLitReviewSynthesis() {
+      const gap = selectedGap || DATA.gaps[0];
+      const text = `A critical research void in recent literature lies at the intersection of ${gap.method} and ${gap.dataset}. While prior work demonstrated strong performance in standalone benchmarks, zero studies have integrated ${gap.method} under ${gap.limitation} constraints (Uzzi et al. z = ${gap.uzzi_z_score}σ). Reconciling these findings offers immediate breakthrough potential.`;
+      navigator.clipboard.writeText(text).then(() => showToast("Lit review synthesis copied!"));
+    }
+
+    function copyGrantHypothesis() {
+      const gap = selectedGap || DATA.gaps[0];
+      const text = `[NSF / NIH Research Proposal Section - Specific Aims]\nProject Title: Bridging ${gap.method} to ${gap.dataset}\n\nCentral Hypothesis (H1):\n${gap.hypothesis}\n\nEmpirical Rationale:\nUzzi Novelty standing z = ${gap.uzzi_z_score}σ demonstrates an atypical, high-impact combination with proven feasibility across literature anchors.`;
+      navigator.clipboard.writeText(text).then(() => showToast("Grant proposal section copied!"));
+    }
+
+    function copyBibtex(title) {
+      const bib = `@article{ref_${Math.floor(Math.random()*9000+1000)},\n  title={${title}},\n  year={2023},\n  journal={Peer-Reviewed Proceedings}\n}`;
+      navigator.clipboard.writeText(bib).then(() => showToast("BibTeX citation copied!"));
+    }
+
+    function exportTaxonomy() {
+      const lines = ["# ResearchRadar Epistemic Field Taxonomy", ""];
+      DATA.macro_clusters.forEach(c => {
+        lines.push(`## ${c.name} (${c.paper_count} papers)`);
+        lines.push(`- Key Methodologies: ${c.keywords.join(", ")}`);
+        lines.push("");
+      });
+      navigator.clipboard.writeText(lines.join("\n")).then(() => showToast("Corpus taxonomy copied!"));
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeDrawer();
+        if (currentState === 'LEVEL_3_GAP_MICRO') zoomBackToMacroGaps();
+        else if (currentState === 'LEVEL_2_CLUSTER_FOCUS' || currentState === 'LEVEL_3_GAPS_MACRO') returnToLevel1();
+      }
+      if (e.key === "1") returnToLevel1();
+      if (e.key === "3" && currentState === 'LEVEL_1_CLUSTERS') triggerSciFiGapsTransition();
+    });
+
+    renderClusters();
+  </script>
+</body>
+</html>

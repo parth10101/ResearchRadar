@@ -68,10 +68,11 @@ def _resolve_paper_action_button(p, p_id):
     # Book / Monograph detection
     pub_types = p.get('publication_types') or p.get('publicationTypes') or []
     venue = str(p.get('venue') or '').lower()
-    is_book = (
+    is_article = any(at in [str(t).lower() for t in pub_types] for at in ["journalarticle", "conference", "review", "preprint"])
+    is_book = not is_article and (
         ('book' in [str(t).lower() for t in pub_types]) or
-        ('oreilly' in venue or 'publisher' in venue or 'press' in venue) or
-        any(k in title.lower() for k in [': blueprint for', 'handbook of', 'monograph', 'guide to', 'mastering bitcoin'])
+        ('oreilly' in venue) or
+        any(k in title.lower() for k in [': blueprint for', 'handbook of', 'mastering bitcoin'])
     )
 
     if is_book:
@@ -199,7 +200,12 @@ def _build_paper_ref_fingerprint(paper):
             continue
         title = (r.get('title') or "").strip()
         t_key = _clean_title_key(title)
-        if not t_key or len(t_key) < 8:
+        pid = (r.get('paperId') or "").strip().lower()
+        doi = (r.get('doi') or (r.get('externalIds') or {}).get('DOI') or "").strip().lower()
+        arx = _normalize_arxiv_id(r.get('arxiv_id') or (r.get('externalIds') or {}).get('ArXiv'))
+
+        primary_key = t_key if (t_key and len(t_key) >= 8) else (f"pid:{pid}" if pid else (f"doi:{doi}" if doi else (f"arx:{arx}" if arx else None)))
+        if not primary_key:
             continue
 
         ref_year = 0
@@ -212,14 +218,10 @@ def _build_paper_ref_fingerprint(paper):
         if paper_year > 0 and ref_year > 0 and ref_year > paper_year:
             continue
 
-        arx = r.get('arxiv_id') or (r.get('externalIds') or {}).get('ArXiv')
-        doi = r.get('doi') or (r.get('externalIds') or {}).get('DOI')
-        pid = r.get('paperId') or ""
-
-        pdf_url = f"https://arxiv.org/pdf/{_normalize_arxiv_id(arx)}.pdf" if arx else ""
+        pdf_url = f"https://arxiv.org/pdf/{arx}.pdf" if arx else ""
         doi_url = f"https://doi.org/{doi}" if doi else ""
         s2_url = f"https://www.semanticscholar.org/paper/{pid}" if (pid and len(pid) > 10) else ""
-        enc_t = urllib.parse.quote(title)
+        enc_t = urllib.parse.quote(title or "paper")
         scholar_url = f"https://scholar.google.com/scholar?q={enc_t}"
 
         # Primary link
@@ -238,19 +240,13 @@ def _build_paper_ref_fingerprint(paper):
         else:
             authors = ""
 
-        ref_year = 0
-        try:
-            ref_year = int(r.get('year', 0))
-        except (ValueError, TypeError):
-            ref_year = 0
-
         cits = r.get('citationCount') or r.get('citation_count') or 0
         venue = str(r.get('venue') or r.get('publicationVenue') or '').strip()
         intents = [i for i in (r.get('intents') or []) if i]
         is_influential = bool(r.get('isInfluential') or r.get('is_influential'))
 
-        fingerprint[t_key] = {
-            'title': title,
+        ref_info = {
+            'title': title or f"Work ({primary_key})",
             'year': ref_year,
             'venue': venue,
             'citationCount': cits,
@@ -263,6 +259,15 @@ def _build_paper_ref_fingerprint(paper):
             's2_url': s2_url,
             'scholar_url': scholar_url,
         }
+
+        # Index under primary key and all available persistent identifier aliases
+        fingerprint[primary_key] = ref_info
+        if pid:
+            fingerprint[f"pid:{pid}"] = ref_info
+        if doi:
+            fingerprint[f"doi:{doi}"] = ref_info
+        if arx:
+            fingerprint[f"arx:{arx}"] = ref_info
     return fingerprint
 
 
@@ -601,8 +606,17 @@ def _format_smart_paper_summary(paper: dict) -> str:
 
 
 def _is_book_or_nonpaper(p):
-    """Comprehensive Purifier Filter: Rejects books, textbooks, monographs, and non-research-paper press items."""
+    """
+    Metadata-Driven Purifier Filter:
+    Rejects actual books, textbooks, monographs, and non-paper press items.
+    Scientometrically sound: does NOT reject peer-reviewed journals published by Wiley or Cambridge,
+    and does NOT reject foundational tutorial papers (e.g. Hinton's Guide to RBMs, Kingma's Intro to VAE).
+    """
     pub_types = [str(t).lower() for t in (p.get("publication_types") or p.get("publicationTypes") or [])]
+    is_article = any(at in pub_types for at in ["journalarticle", "conference", "review", "preprint"])
+    if is_article:
+        return False
+
     venue = str(p.get("venue") or "").lower()
     title = str(p.get("title") or "").lower()
     abstract = str(p.get("abstract") or "").lower()
@@ -611,13 +625,12 @@ def _is_book_or_nonpaper(p):
 
     if any(bt in pub_types for bt in ["book", "bookchapter", "editorial", "other", "collection"]):
         return True
-    if any(bp in venue for bp in ["oreilly", "o'reilly", "springer book", "mit press", "cambridge", "crc press", "routledge", "wiley", "academic press", "publisher"]):
+    if any(bp in venue for bp in ["oreilly", "o'reilly", "springer book series", "crc press handbook"]):
         return True
 
     book_title_keywords = [
-        "mastering ", "blueprint for", "handbook", "monograph", "guide to", 
-        "textbook", "introduction to", "companion to", "edition", "series on", 
-        "encyclopedia", "volume "
+        "mastering bitcoin", "blueprint for", "handbook of", "monograph series",
+        "textbook on", "series on volume", "edition volume"
     ]
     if any(kw in title for kw in book_title_keywords):
         return True

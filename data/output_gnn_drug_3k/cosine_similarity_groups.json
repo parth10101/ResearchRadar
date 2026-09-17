@@ -361,7 +361,7 @@
         {
           "paper_id": "02c657968744",
           "title": "Deep Learning-Based Drug Discovery: Predicting Molecular Interactions Using Neural Networks",
-          "similarity_score": 0.7584
+          "similarity_score": 0.7585
         },
         {
           "paper_id": "9e1dcc436796",
@@ -8421,7 +8421,7 @@
         {
           "paper_id": "fddb7c35c92c",
           "title": "Recent trends in machine learning and deep learning-based prediction of G-protein coupled receptor-ligand binding affinities",
-          "similarity_score": 0.7543
+          "similarity_score": 0.7542
         },
         {
           "paper_id": "d916a89948db",
@@ -9780,7 +9780,7 @@
         {
           "paper_id": "58480444670f",
           "title": "Attention-Based Learning for Predicting Drug-Drug Interactions in Knowledge Graph Embedding Based on Multisource Fusion Information",
-          "similarity_score": 0.8498
+          "similarity_score": 0.8497
         },
         {
           "paper_id": "0559f81ebd8c",
@@ -14564,7 +14564,7 @@
         {
           "paper_id": "2105.02048",
           "title": "Accurate Prediction of Free Solvation Energy of Organic Molecules via Graph Attention Network and Message Passing Neural Network from Pairwise Atomistic Interactions",
-          "similarity_score": 0.7986
+          "similarity_score": 0.7985
         },
         {
           "paper_id": "2106.07492",
@@ -18243,7 +18243,7 @@
         {
           "paper_id": "4ad80b9f0f71",
           "title": "A Knowledge-Graph-Based Multimodal Deep Learning Framework for Identifying Drug–Drug Interactions",
-          "similarity_score": 0.8316
+          "similarity_score": 0.8315
         },
         {
           "paper_id": "906da781a797",
@@ -24050,7 +24050,7 @@
         {
           "paper_id": "397b7afb01ad",
           "title": "MTrans: M-Transformer and Knowledge Graph-Based Network for Predicting Drug–Drug Interactions",
-          "similarity_score": 0.8316
+          "similarity_score": 0.8315
         },
         {
           "paper_id": "608b61dccc4d",
@@ -25373,7 +25373,7 @@
         {
           "paper_id": "47f5a7fbfe67",
           "title": "Artificial Intelligence Reshapes Drug Development: Technological Breakthroughs, Challenges, and Future Pathways",
-          "similarity_score": 0.7043
+          "similarity_score": 0.7044
         },
         {
           "paper_id": "01737be02d88",
@@ -28504,7 +28504,7 @@
         {
           "paper_id": "1f90c85ddf9b",
           "title": "KGMAEDDI: Knowledge Graph and Molecular-Graph Masked Autoencoder for Drug-Drug Interaction Prediction.",
-          "similarity_score": 0.8498
+          "similarity_score": 0.8497
         },
         {
           "paper_id": "0559f81ebd8c",
@@ -45027,7 +45027,7 @@
         {
           "paper_id": "72a40931dead",
           "title": "Medical Drug Analysis using graph neural network",
-          "similarity_score": 0.755
+          "similarity_score": 0.7551
         },
         {
           "paper_id": "6a01c0a06c97",
@@ -49568,7 +49568,7 @@
         {
           "paper_id": "4a09c3cd0f40",
           "title": "Path-Based Graph Neural Network for Drug Synergy Prediction and Interpretation",
-          "similarity_score": 0.8182
+          "similarity_score": 0.8181
         }
       ]
     },
@@ -52203,7 +52203,7 @@
         {
           "paper_id": "fc56572b7524",
           "title": "Pushing the boundaries of molecular representation for drug discovery with graph attention mechanism.",
-          "similarity_score": 0.7554
+          "similarity_score": 0.7555
         }
       ]
     },
@@ -55458,7 +55458,7 @@
         {
           "paper_id": "4e991334ed1c",
           "title": "DVFGCDR: a dual-view fusion graph neural network for cancer drug response prediction",
-          "similarity_score": 0.7842
+          "similarity_score": 0.7843
         }
       ]
     },
@@ -56502,7 +56502,7 @@
         {
           "paper_id": "2110.05478",
           "title": "An In-depth Summary of Recent Artificial Intelligence Applications in Drug Design",
-          "similarity_score": 0.7876
+          "similarity_score": 0.7875
         },
         {
           "paper_id": "be91fc53ff7f",
@@ -63797,7 +63797,7 @@
         {
           "paper_id": "2c7f72ef6bcb",
           "title": "Graph-Based Approaches for Predicting Solvation Energy in Multiple Solvents: Open Datasets and Machine Learning Models.",
-          "similarity_score": 0.7986
+          "similarity_score": 0.7985
         }
       ]
     },
@@ -77489,7 +77489,7 @@
         {
           "paper_id": "f0acbe3c1af5",
           "title": "From Proteins to Ligands: Decoding Deep Learning Methods for Binding Affinity Prediction",
-          "similarity_score": 0.8589
+          "similarity_score": 0.859
         },
         {
           "paper_id": "7228186a2c2c",
@@ -78507,7 +78507,7 @@
         {
           "paper_id": "ed0488d52aae",
           "title": "Bridging Gaps in Ligand Binding Affinity Prediction: Empirical Machine Learning Analyses",
-          "similarity_score": 0.8589
+          "similarity_score": 0.859
         },
         {
           "paper_id": "fddb7c35c92c",
@@ -85838,7 +85838,7 @@
         {
           "paper_id": "2504.08112",
           "title": "Scaling Laws of Graph Neural Networks for Atomistic Materials Modeling*",
-          "similarity_score": 0.5591
+          "similarity_score": 0.559
         }
       ]
     },
@@ -86293,7 +86293,7 @@
         {
           "paper_id": "db2caaeccd54",
           "title": "PT-KGNN: A framework for pre-training biomedical knowledge graphs with graph neural networks",
-          "similarity_score": 0.6086
+          "similarity_score": 0.6085
         },
         {
           "paper_id": "2206.07253",
@@ -86908,7 +86908,7 @@
         {
           "paper_id": "014d038645ff",
           "title": "Fault Location Method of Distribution Network Based on Improved Graph Neural Network",
-          "similarity_score": 0.4926
+          "similarity_score": 0.4927
         },
         {
           "paper_id": "00c81c8b24e6",
@@ -89512,7 +89512,7 @@
         {
           "paper_id": "1910.11858",
           "title": "BANANAS: Bayesian Optimization with Neural Architectures for Neural Architecture Search",
-          "similarity_score": 0.6457
+          "similarity_score": 0.6458
         },
         {
           "paper_id": "6ea983fb796d",
@@ -90065,7 +90065,7 @@
         {
           "paper_id": "012545f9ae08",
           "title": "Bayesian-Optimized Learning on Heterogeneous Multipartite Graphs: A Framework for Multi-Level Relational Data",
-          "similarity_score": 0.6457
+          "similarity_score": 0.6458
         },
         {
           "paper_id": "90c70191c5cb",
@@ -90545,7 +90545,7 @@
         {
           "paper_id": "00a5daac5cb8",
           "title": "XGBoost-Based Intelligent Decision Making of HVDC System with Knowledge Graph",
-          "similarity_score": 0.4926
+          "similarity_score": 0.4927
         },
         {
           "paper_id": "6cfb461ff791",

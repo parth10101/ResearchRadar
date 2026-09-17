@@ -109,6 +109,7 @@ def compute_topic_coherence_npmi(
     """
     Computes Normalized Pointwise Mutual Information (NPMI) topic coherence across all topics.
     Ranges from -1 (never co-occur) to +1 (perfect co-occurrence). Higher is better.
+    Supports both unigrams and n-gram keyword phrases (Röder et al. WSDM 2015 §3.2).
     """
     if not topic_keywords or not tokenized_corpus:
         return 0.0
@@ -117,37 +118,39 @@ def compute_topic_coherence_npmi(
     if total_docs == 0:
         return 0.0
 
-    doc_sets = [set(doc) for doc in tokenized_corpus]
+    doc_sets = [set(t.lower() for t in doc) for doc in tokenized_corpus]
+    doc_strings = [" ".join(doc).lower() for doc in tokenized_corpus]
+
+    def has_term(idx: int, term: str) -> bool:
+        if " " in term:
+            return term in doc_strings[idx]
+        return term in doc_sets[idx]
 
     def doc_freq(word: str) -> int:
-        return sum(1 for s in doc_sets if word in s)
+        return sum(1 for idx in range(total_docs) if has_term(idx, word))
 
     def co_doc_freq(w1: str, w2: str) -> int:
-        return sum(1 for s in doc_sets if w1 in s and w2 in s)
+        return sum(1 for idx in range(total_docs) if has_term(idx, w1) and has_term(idx, w2))
 
     topic_npmi_scores = []
 
     for tid, words in topic_keywords.items():
         if tid == -1 or not words:
             continue
-        words_eval = words[:top_n]
+        words_eval = [w.lower().strip() for w in words[:top_n] if w.strip()]
         k = len(words_eval)
         if k < 2:
             continue
 
         pair_scores = []
         for i in range(k):
-            w_i = words_eval[i].lower()
+            w_i = words_eval[i]
             p_i = (doc_freq(w_i) + 1.0) / (total_docs + 2.0)
 
             for j in range(i + 1, k):
-                w_j = words_eval[j].lower()
+                w_j = words_eval[j]
                 p_j = (doc_freq(w_j) + 1.0) / (total_docs + 2.0)
-                # B6-fix: joint probability uses the same +2 Laplace denominator as
-                # marginals. Both are document-level frequencies over the same sample
-                # space (documents), so Add-1 smoothing requires +k states = +2
-                # (document contains pair / does not). Previous +4 was incorrect.
-                # (Röder et al. WSDM 2015 §3.2; Chen & Goodman ACL 1998)
+                # Joint probability uses Laplace denominator +2 over binary document state
                 p_ij = (co_doc_freq(w_i, w_j) + 1.0) / (total_docs + 2.0)
 
                 pmi = math.log((p_ij / (p_i * p_j)) + eps)
@@ -171,26 +174,32 @@ def compute_topic_coherence_cv(
 ) -> float:
     """
     Computes confirmation-based C_v coherence approximation using cosine similarity of NPMI profiles.
-    Reference: Röder et al. (WSDM 2015) Section 4.3.
+    Reference: Röder et al. (WSDM 2015) Section 4.3. Supports unigram and n-gram phrases.
     """
     if not topic_keywords or not tokenized_corpus:
         return 0.0
 
     total_docs = len(tokenized_corpus)
-    doc_sets = [set(doc) for doc in tokenized_corpus]
+    doc_sets = [set(t.lower() for t in doc) for doc in tokenized_corpus]
+    doc_strings = [" ".join(doc).lower() for doc in tokenized_corpus]
+
+    def has_term(idx: int, term: str) -> bool:
+        if " " in term:
+            return term in doc_strings[idx]
+        return term in doc_sets[idx]
 
     def doc_freq(word: str) -> int:
-        return sum(1 for s in doc_sets if word in s)
+        return sum(1 for idx in range(total_docs) if has_term(idx, word))
 
     def co_doc_freq(w1: str, w2: str) -> int:
-        return sum(1 for s in doc_sets if w1 in s and w2 in s)
+        return sum(1 for idx in range(total_docs) if has_term(idx, w1) and has_term(idx, w2))
 
     cv_scores = []
 
     for tid, words in topic_keywords.items():
         if tid == -1 or not words:
             continue
-        words_eval = [w.lower() for w in words[:top_n]]
+        words_eval = [w.lower().strip() for w in words[:top_n] if w.strip()]
         k = len(words_eval)
         if k < 2:
             continue
@@ -202,8 +211,6 @@ def compute_topic_coherence_cv(
             for j in range(k):
                 w_j = words_eval[j]
                 p_j = (doc_freq(w_j) + 1.0) / (total_docs + 2.0)
-                # B6-fix: same denominator (+2) for joint and marginal probabilities.
-                # (Röder et al. WSDM 2015 §3.2; Chen & Goodman ACL 1998)
                 p_ij = (co_doc_freq(w_i, w_j) + 1.0) / (total_docs + 2.0)
 
                 pmi = math.log((p_ij / (p_i * p_j)) + eps)

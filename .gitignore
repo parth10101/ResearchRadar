@@ -18,6 +18,8 @@ venv*/
 env/
 .env
 data/cache/
+data/output_test*/
+data/output_test/
 
 # Node.js dependencies
 node_modules/

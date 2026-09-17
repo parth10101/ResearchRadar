@@ -1,0 +1,314 @@
+{
+  "total_points": 10,
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "name": "Topic 0: Quantum Surface Code Error",
+      "color": "#E41A1C",
+      "point_count": 4,
+      "centroid": {
+        "x": -7.295,
+        "y": -1.297,
+        "z": -1.089
+      },
+      "points": [
+        {
+          "id": "Performance",
+          "x": -7.866,
+          "y": -1.666,
+          "z": -1.303,
+          "cluster_id": 0,
+          "cluster_name": "Topic 0: Quantum Surface Code Error",
+          "color": "#E41A1C",
+          "title": "ID: 1805.08227 | Year: 2018",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        },
+        {
+          "id": "Fundamental",
+          "x": -7.734,
+          "y": -1.704,
+          "z": -1.587,
+          "cluster_id": 0,
+          "cluster_name": "Topic 0: Quantum Surface Code Error",
+          "color": "#E41A1C",
+          "title": "ID: 2412.16727 | Year: 2024",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        },
+        {
+          "id": "Characterizing",
+          "x": -6.852,
+          "y": -0.871,
+          "z": -0.543,
+          "cluster_id": 0,
+          "cluster_name": "Topic 0: Quantum Surface Code Error",
+          "color": "#E41A1C",
+          "title": "ID: 2602.06202 | Year: 2026",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        },
+        {
+          "id": "Constructing",
+          "x": -6.727,
+          "y": -0.947,
+          "z": -0.922,
+          "cluster_id": 0,
+          "cluster_name": "Topic 0: Quantum Surface Code Error",
+          "color": "#E41A1C",
+          "title": "ID: 02446a544e10c794f043f8fca53b783a9700859f | Year: 2021",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        }
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "name": "Topic 1: Superconducting Quantum Sp",
+      "color": "#377EB8",
+      "point_count": 3,
+      "centroid": {
+        "x": -8.61,
+        "y": -0.893,
+        "z": 1.822
+      },
+      "points": [
+        {
+          "id": "Recent",
+          "x": -7.948,
+          "y": -0.515,
+          "z": 1.936,
+          "cluster_id": 1,
+          "cluster_name": "Topic 1: Superconducting Quantum Sp",
+          "color": "#377EB8",
+          "title": "ID: 0079b3ff312d21caac9a2b3d36d9a233f23e8d67 | Year: 2026",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        },
+        {
+          "id": "Building",
+          "x": -8.754,
+          "y": -0.873,
+          "z": 2.076,
+          "cluster_id": 1,
+          "cluster_name": "Topic 1: Superconducting Quantum Sp",
+          "color": "#377EB8",
+          "title": "ID: 023e7fdd8d484c8c73f79a2a331728659fbfc524 | Year: 2017",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        },
+        {
+          "id": "Universal",
+          "x": -9.128,
+          "y": -1.291,
+          "z": 1.455,
+          "cluster_id": 1,
+          "cluster_name": "Topic 1: Superconducting Quantum Sp",
+          "color": "#377EB8",
+          "title": "ID: 1309.5452 | Year: 2013",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "Topic 2: Scalable Quantum Decoder H",
+      "color": "#4DAF4A",
+      "point_count": 3,
+      "centroid": {
+        "x": 15.774,
+        "y": 1.304,
+        "z": -0.709
+      },
+      "points": [
+        {
+          "id": "FPGA-Accelerated",
+          "x": 15.776,
+          "y": 1.305,
+          "z": -0.709,
+          "cluster_id": 2,
+          "cluster_name": "Topic 2: Scalable Quantum Decoder H",
+          "color": "#4DAF4A",
+          "title": "ID: 011a01d2a6fe331aa72476395424351185c09b95 | Year: 2025",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        },
+        {
+          "id": "Scalable",
+          "x": 15.774,
+          "y": 1.304,
+          "z": -0.709,
+          "cluster_id": 2,
+          "cluster_name": "Topic 2: Scalable Quantum Decoder H",
+          "color": "#4DAF4A",
+          "title": "ID: 2301.08419 | Year: 2023",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        },
+        {
+          "id": "Assessing",
+          "x": 15.772,
+          "y": 1.304,
+          "z": -0.709,
+          "cluster_id": 2,
+          "cluster_name": "Topic 2: Scalable Quantum Decoder H",
+          "color": "#4DAF4A",
+          "title": "ID: 2511.10388 | Year: 2025",
+          "authors": [],
+          "year": 2023,
+          "citations": 0,
+          "venue": "Academic Conference",
+          "tldr": "",
+          "abstract": "",
+          "doi": ""
+        }
+      ]
+    }
+  ],
+  "gaps_3d": [
+    {
+      "gap_id": "gap_1",
+      "rank": 1,
+      "title": "Structural Disconnect: Quantum Surface Code Error Performance \u2194 Superconducting Quantum Spin Code Architecture",
+      "method": null,
+      "dataset": null,
+      "limitation": null,
+      "score": 0.95,
+      "uzzi_z_score": -1.45,
+      "description": "Semantically related sub-domains 'Quantum Surface Code Error Performance' (n=4) and 'Superconducting Quantum Spin Code Architecture' (n=3) show zero cross-citation bridges in the corpus, indicating knowledge isolation (Harmonic Mass = 3.4).",
+      "source_cluster": 0,
+      "target_cluster": 1,
+      "centroid": {
+        "x": -7.952,
+        "y": -1.095,
+        "z": 1.567
+      }
+    },
+    {
+      "gap_id": "gap_2",
+      "rank": 2,
+      "title": "Structural Disconnect: Quantum Surface Code Error Performance \u2194 Scalable Quantum Decoder Hardware",
+      "method": null,
+      "dataset": null,
+      "limitation": null,
+      "score": 0.95,
+      "uzzi_z_score": -1.45,
+      "description": "Semantically related sub-domains 'Quantum Surface Code Error Performance' (n=4) and 'Scalable Quantum Decoder Hardware' (n=3) show zero cross-citation bridges in the corpus, indicating knowledge isolation (Harmonic Mass = 3.4).",
+      "source_cluster": 1,
+      "target_cluster": 2,
+      "centroid": {
+        "x": 3.582,
+        "y": 0.206,
+        "z": 1.756
+      }
+    },
+    {
+      "gap_id": "gap_3",
+      "rank": 3,
+      "title": "Structural Disconnect: Superconducting Quantum Spin Code Architecture \u2194 Scalable Quantum Decoder Hardware",
+      "method": null,
+      "dataset": null,
+      "limitation": null,
+      "score": 0.95,
+      "uzzi_z_score": -1.45,
+      "description": "Semantically related sub-domains 'Superconducting Quantum Spin Code Architecture' (n=3) and 'Scalable Quantum Decoder Hardware' (n=3) show zero cross-citation bridges in the corpus, indicating knowledge isolation (Harmonic Mass = 3.0).",
+      "source_cluster": 2,
+      "target_cluster": 0,
+      "centroid": {
+        "x": 4.239,
+        "y": 0.004,
+        "z": 0.301
+      }
+    },
+    {
+      "gap_id": "gap_4",
+      "rank": 4,
+      "title": "Under-Explored Sparse Frontier: Superconducting Quantum Spin Code Architecture",
+      "method": null,
+      "dataset": null,
+      "limitation": null,
+      "score": 0.88,
+      "uzzi_z_score": -1.45,
+      "description": "Topic 'Superconducting Quantum Spin Code Architecture' exhibits high volume sparsity (3 papers) and publication stagnancy (latest paper: 2026), marking an unresolved research challenge.",
+      "source_cluster": 0,
+      "target_cluster": 1,
+      "centroid": {
+        "x": -7.952,
+        "y": -1.095,
+        "z": 1.567
+      }
+    },
+    {
+      "gap_id": "gap_5",
+      "rank": 5,
+      "title": "Under-Explored Sparse Frontier: Quantum Surface Code Error Performance",
+      "method": null,
+      "dataset": null,
+      "limitation": null,
+      "score": 0.84,
+      "uzzi_z_score": -1.45,
+      "description": "Topic 'Quantum Surface Code Error Performance' exhibits high volume sparsity (4 papers) and publication stagnancy (latest paper: 2026), marking an unresolved research challenge.",
+      "source_cluster": 1,
+      "target_cluster": 2,
+      "centroid": {
+        "x": 3.582,
+        "y": 0.206,
+        "z": 1.756
+      }
+    }
+  ],
+  "bounds": {
+    "min_x": -9.128,
+    "max_x": 15.776,
+    "min_y": -1.704,
+    "max_y": 1.305,
+    "min_z": -1.587,
+    "max_z": 2.076
+  }
+}

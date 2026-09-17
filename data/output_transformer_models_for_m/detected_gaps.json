@@ -1,0 +1,104 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Under-Explored Sparse Frontier",
+      "title": "Under-Explored Sparse Frontier: Transformer for Panoramic Dental Radiomics",
+      "topic": "Transformer for Panoramic Dental Radiomics",
+      "cluster_size": 12,
+      "max_year": 2026,
+      "score": 0.9952,
+      "scientific_basis": {
+        "paper": "Bornmann & Mutz, JASIST 2015; Campello et al., ACM TKDD 2015",
+        "doi": "10.1002/asi.23329",
+        "formula": "CAGR = (P_end / P_start)^(1 / delta_t) - 1; Sparsity = 1 - (N_cluster / N_total)"
+      },
+      "description": "Topic 'Transformer for Panoramic Dental Radiomics' exhibits high volume sparsity (12 papers) and publication stagnancy (latest paper: 2026), marking an unresolved research challenge.",
+      "papers_involved": [
+        "095d7b86d182",
+        "14781ff49a1d",
+        "1ad71942f03e"
+      ]
+    },
+    {
+      "gap_type": "Missing Citation Bridge (Knowledge Disconnect)",
+      "title": "Structural Disconnect: Transformer Attention for 3D Medical Segmentation ↔ Mamba-UNet for Medical Image Segmentation",
+      "topic_1": "Transformer Attention for 3D Medical Segmentation",
+      "topic_2": "Mamba-UNet for Medical Image Segmentation",
+      "score": 0.5185,
+      "harmonic_mass": 103.7,
+      "scientific_basis": {
+        "paper": "Boyack & Klavans, JASIST 2010; Kalyan et al., EMNLP 2022",
+        "doi": "10.1002/asi.21419",
+        "formula": "BridgeDeficit = 1 - (C_12 / sqrt(V1 * V2)); IsolatedMass = 2*V1*V2 / (V1 + V2)"
+      },
+      "description": "Semantically related sub-domains 'Transformer Attention for 3D Medical Segmentation' (n=293) and 'Mamba-UNet for Medical Image Segmentation' (n=63) show zero cross-citation bridges in the corpus, indicating knowledge isolation (Harmonic Mass = 103.7).",
+      "papers_involved": [
+        "28985763e3ab",
+        "6276b8e11728",
+        "267ce41bff8d",
+        "3e8749fa93d7"
+      ]
+    },
+    {
+      "gap_type": "Missing Citation Bridge (Knowledge Disconnect)",
+      "title": "Structural Disconnect: Transformer Attention for 3D Medical Segmentation ↔ Vision Transformer for Skin Lesion Segmentation",
+      "topic_1": "Transformer Attention for 3D Medical Segmentation",
+      "topic_2": "Vision Transformer for Skin Lesion Segmentation",
+      "score": 0.352,
+      "harmonic_mass": 70.39,
+      "scientific_basis": {
+        "paper": "Boyack & Klavans, JASIST 2010; Kalyan et al., EMNLP 2022",
+        "doi": "10.1002/asi.21419",
+        "formula": "BridgeDeficit = 1 - (C_12 / sqrt(V1 * V2)); IsolatedMass = 2*V1*V2 / (V1 + V2)"
+      },
+      "description": "Semantically related sub-domains 'Transformer Attention for 3D Medical Segmentation' (n=293) and 'Vision Transformer for Skin Lesion Segmentation' (n=40) show zero cross-citation bridges in the corpus, indicating knowledge isolation (Harmonic Mass = 70.4).",
+      "papers_involved": [
+        "28985763e3ab",
+        "6276b8e11728",
+        "3f78f6015959",
+        "26a14b1cf605"
+      ]
+    },
+    {
+      "gap_type": "Missing Citation Bridge (Knowledge Disconnect)",
+      "title": "Structural Disconnect: Transformer Attention for 3D Medical Segmentation ↔ Attention-Driven CNN-Transformer for Lung Nodule Segmentation",
+      "topic_1": "Transformer Attention for 3D Medical Segmentation",
+      "topic_2": "Attention-Driven CNN-Transformer for Lung Nodule Segmentation",
+      "score": 0.2639,
+      "harmonic_mass": 52.78,
+      "scientific_basis": {
+        "paper": "Boyack & Klavans, JASIST 2010; Kalyan et al., EMNLP 2022",
+        "doi": "10.1002/asi.21419",
+        "formula": "BridgeDeficit = 1 - (C_12 / sqrt(V1 * V2)); IsolatedMass = 2*V1*V2 / (V1 + V2)"
+      },
+      "description": "Semantically related sub-domains 'Transformer Attention for 3D Medical Segmentation' (n=293) and 'Attention-Driven CNN-Transformer for Lung Nodule Segmentation' (n=29) show zero cross-citation bridges in the corpus, indicating knowledge isolation (Harmonic Mass = 52.8).",
+      "papers_involved": [
+        "28985763e3ab",
+        "6276b8e11728",
+        "2b7a9a82c475",
+        "44fb70b3be61"
+      ]
+    },
+    {
+      "gap_type": "Missing Citation Bridge (Knowledge Disconnect)",
+      "title": "Structural Disconnect: Transformer Attention for 3D Medical Segmentation ↔ Multi-Modal Transformer for Medical Image Segmentation",
+      "topic_1": "Transformer Attention for 3D Medical Segmentation",
+      "topic_2": "Multi-Modal Transformer for Medical Image Segmentation",
+      "score": 0.2472,
+      "harmonic_mass": 49.44,
+      "scientific_basis": {
+        "paper": "Boyack & Klavans, JASIST 2010; Kalyan et al., EMNLP 2022",
+        "doi": "10.1002/asi.21419",
+        "formula": "BridgeDeficit = 1 - (C_12 / sqrt(V1 * V2)); IsolatedMass = 2*V1*V2 / (V1 + V2)"
+      },
+      "description": "Semantically related sub-domains 'Transformer Attention for 3D Medical Segmentation' (n=293) and 'Multi-Modal Transformer for Medical Image Segmentation' (n=27) show zero cross-citation bridges in the corpus, indicating knowledge isolation (Harmonic Mass = 49.4).",
+      "papers_involved": [
+        "28985763e3ab",
+        "6276b8e11728",
+        "235304854bdf",
+        "456992988383"
+      ]
+    }
+  ]
+}

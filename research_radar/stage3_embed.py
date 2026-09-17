@@ -1,8 +1,12 @@
 """
-Stage 3: Semantic Embedding
-===========================
-Title (2× weighted) + abstract → dense vector, via sentence-transformers.
-Mirrors Eq. 3.1 in the report: e_i = f_θ(title_i ⊕ title_i ⊕ abstract_i)
+Stage 3: Semantic Embedding & Dense Vector Representation
+==========================================================
+Structured Bibliographic Encoding + Abstract → Dense Vector via Bi-Encoders.
+Literature Standards:
+  - Cohan et al. (ACL 2020) SPECTER: Scientific Document Embeddings via Citation Graphs
+  - Beltagy et al. (EMNLP 2019) SciBERT: Pretrained Language Model for Scientific Text
+  - Su et al. (2021) Whitening Sentence Representations for Better Isotropy
+  - Roy & Vetterli (2007) Dimensionality and Effective Rank of Random Signals
 
 NOTE ON STAGE 2 BYPASS
 -----------------------
@@ -12,20 +16,13 @@ NOT use Stage 2's lemmatized token lists. This is intentional.
 Sentence-transformers are fine-tuned on natural-language prose sentences.
 Feeding them a bag of stripped lemmas ("neural network train classif...") would
 break their contextual understanding and degrade embedding quality.
-Stage 2 tokens are used by Stage 4 (TF-IDF / topic clustering), not here.
-
-Two selectable models:
-  - all-MiniLM-L6-v2                  (384-d, fast, default)
-  - allenai/scibert-scivocab-uncased   (768-d, slower, more accurate on sci text)
+Stage 2 tokens are used by Stage 4 (c-TF-IDF / topic keywords), not here.
 
 Storage (three files per embedding run):
-  {prefix}.npy           — embedding matrix,  shape (N, D), float32
-  {prefix}_ids.json      — parallel paper ID list (row i  ↔  IDs[i])
-  {prefix}_meta.json     — model name, dimension, paper count, timestamp
-                           (prevents loading 384-d vectors when 768-d is expected)
-
-Swap save_embeddings / load_embeddings for pgvector calls at real scale
-(see report Section 3.3.3 for the SQL schema and IVFFlat index).
+  {prefix}.npy           — embedding matrix, shape (N, D), float32
+  {prefix}_ids.json      — parallel paper ID list (row i ↔ IDs[i])
+  {prefix}_meta.json     — model name, dimension, paper count, timestamp,
+                           and scientometric diagnostics (effective rank, isotropy)
 """
 
 from __future__ import annotations
@@ -45,6 +42,8 @@ except ImportError:
 __all__ = [
     "MODEL_CHOICES",
     "generate_embeddings",
+    "apply_whitening",
+    "compute_embedding_diagnostics",
     "save_embeddings",
     "load_embeddings",
     "load_metadata",
@@ -71,16 +70,16 @@ _MODEL_CACHE: dict[str, "SentenceTransformer"] = {}
 def _resolve_device() -> str:
     """
     Auto-detects optimal compute device with guaranteed cross-platform safety:
-    - If CUDA GPU is available with >= 1.5GB free VRAM: returns 'cuda'
+    - If CUDA GPU is available with >= 1.5GB FREE VRAM: returns 'cuda'
     - Otherwise (CPU-only laptop, Intel Iris, AMD, Apple Silicon): returns 'cpu'
-    Never throws exceptions or crashes on lower-spec teammate hardware.
+    Never throws exceptions or crashes on lower-spec hardware.
     """
     try:
         import torch
         if torch.cuda.is_available():
             idx = torch.cuda.current_device()
-            total_vram = torch.cuda.get_device_properties(idx).total_memory
-            if total_vram >= 1.5 * (1024**3):
+            free_mem, _ = torch.cuda.mem_get_info(idx)
+            if free_mem >= 1.5 * (1024**3):
                 return "cuda"
     except Exception:
         pass
@@ -103,72 +102,234 @@ def _get_model(model_key: str = "fast", device: str | None = None) -> "SentenceT
 
 
 # ---------------------------------------------------------------------------
-# HOW: Input string is constructed for each paper
-# Title is repeated twice so the model pays 2× attention to it (Eq. 3.1)
-# Natural prose is preserved — lemma tokens from Stage 2 are NOT used here
+# Structured Academic Input Construction & Head-Tail Truncation
 # ---------------------------------------------------------------------------
 
-def _build_input_string(paper: dict, max_words: int = 512, tokenizer=None) -> str:
+def _build_input_string(
+    paper: dict,
+    max_words: int = 512,
+    tokenizer=None,
+    max_tokens: int = 480,
+) -> str:
     """
-    Builds the multi-signal sentence fed to the embedding model for one paper.
+    Builds the multi-signal structured string fed to the embedding model for one paper.
 
-    Formula  : title(2×) + tldr + abstract + fieldsOfStudy
-    Title is repeated ONLY when total subword tokens stay below 480, preventing
-    silent abstract truncation at the BERT 512-token limit.
-    (Cohan et al. SPECTER ACL 2020; Kenton & Toutanova BERT NAACL 2019 §A.3)
+    Scientometric Structure:
+      "Title: {title}. Summary: {tldr}. Abstract: {abstract} Fields: {fos}."
 
-    When tokenizer is provided: truncation is at the subword level (correct).
-    When tokenizer is None: falls back to word-level truncation (legacy, for callers
-    that invoke this without a loaded model).
+    Literature Standards:
+      - Cohan et al. (ACL 2020) SPECTER: Clean section demarcation avoids attention smearing.
+      - Head-Tail Truncation: Retains both the opening context (problem/methods) and
+        concluding sentences (empirical results/contributions) of the abstract,
+        preventing information loss under the transformer subword token budget.
     """
     title    = (paper.get("title")    or "").strip()
     tldr     = (paper.get("tldr")     or "").strip()
     abstract = (paper.get("abstract") or "").strip()
-    fos      = " ".join(paper.get("s2_fields_of_study") or [])
+    fos_list = paper.get("s2_fields_of_study") or []
+    fos      = ", ".join(f for f in fos_list if f)
 
-    # B2-fix: Only double the title if doing so stays safely within the 512 subword
-    # token limit. A long abstract can already consume 400+ tokens; doubling a 15-word
-    # title adds ~20 tokens — generally safe. But for long titles (>30 words) over
-    # long abstracts, the title repeat would push past 512 and silently truncate the
-    # end of the abstract (the conclusion/contribution sentences).
-    if tokenizer is not None:
-        # Precise path: measure actual subword token budget
-        single_title_str = " ".join(p for p in [title, tldr, abstract, fos] if p)
-        token_len_single = len(tokenizer.encode(single_title_str, add_special_tokens=True))
-        title_tok_len    = len(tokenizer.encode(title, add_special_tokens=False))
-        # Only repeat title if it fits within the 480-token safe budget (leaves 32 for specials)
-        use_double_title = (token_len_single + title_tok_len) <= 480
-    else:
-        # Word-level approximation when tokenizer is not available:
-        # Average BPE expansion for scientific text is ~1.3 subwords/word.
-        # Repeat title only if estimated total stays under 480 subwords.
-        title_words    = len(title.split())
-        content_words  = len(" ".join(p for p in [title, tldr, abstract, fos] if p).split())
-        use_double_title = (content_words + title_words) * 1.3 <= 480
-
-    parts = [title, title] if use_double_title else [title]
+    # Build structured document sections with clean punctuation boundaries
+    sections = []
+    if title:
+        clean_title = title.rstrip(".")
+        sections.append(f"Title: {clean_title}.")
     if tldr:
-        parts.append(tldr)
+        clean_tldr = tldr.rstrip(".")
+        sections.append(f"Summary: {clean_tldr}.")
     if abstract:
-        parts.append(abstract)
+        sections.append(f"Abstract: {abstract}")
     if fos:
-        parts.append(fos)
+        sections.append(f"Fields: {fos}.")
 
-    combined = " ".join(p for p in parts if p).strip()
+    combined = " ".join(sections).strip()
 
     if tokenizer is not None:
-        # B3-fix: Truncate at SUBWORD token level, not word level (BERT §A.3)
-        token_ids = tokenizer.encode(combined, add_special_tokens=False, max_length=480, truncation=True)
-        return tokenizer.decode(token_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+        # Measure subword token length
+        token_ids = tokenizer.encode(combined, add_special_tokens=False)
+        if len(token_ids) <= max_tokens:
+            return tokenizer.decode(token_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+
+        # Head-tail truncation to preserve conclusion and findings
+        header_sections = []
+        if title:
+            header_sections.append(f"Title: {title.rstrip('.')}.")
+        if tldr:
+            header_sections.append(f"Summary: {tldr.rstrip('.')}.")
+        if fos:
+            header_sections.append(f"Fields: {fos}.")
+        header_str = " ".join(header_sections)
+        header_toks = tokenizer.encode(header_str, add_special_tokens=False)
+
+        # Ensure header leaves sufficient budget for abstract
+        max_header_tokens = max(10, int(max_tokens * 0.40))
+        if len(header_toks) > max_header_tokens:
+            header_toks = header_toks[:max_header_tokens]
+            header_str = tokenizer.decode(header_toks, skip_special_tokens=True, clean_up_tokenization_spaces=True)
+
+        # Remaining subword budget allocated to abstract
+        abstract_prefix = " Abstract: "
+        prefix_toks = tokenizer.encode(abstract_prefix, add_special_tokens=False)
+        remaining_budget = max(8, max_tokens - len(header_toks) - len(prefix_toks))
+        abs_toks = tokenizer.encode(abstract, add_special_tokens=False)
+
+        if len(abs_toks) <= remaining_budget:
+            truncated_abs_toks = abs_toks
+        else:
+            # 50% budget to opening (methods/problem), 50% budget to closing (findings/results)
+            head_budget = max(4, int(remaining_budget * 0.50))
+            tail_budget = max(4, remaining_budget - head_budget)
+            truncated_abs_toks = abs_toks[:head_budget] + abs_toks[-tail_budget:]
+
+        truncated_abstract = tokenizer.decode(
+            truncated_abs_toks, skip_special_tokens=True, clean_up_tokenization_spaces=True
+        )
+
+        final_str = f"{header_str} Abstract: {truncated_abstract}".strip()
+        final_ids = tokenizer.encode(final_str, add_special_tokens=False)
+        if len(final_ids) > max_tokens:
+            final_ids = final_ids[:max_tokens]
+        return tokenizer.decode(final_ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)
     else:
-        # Fallback: word-level truncation for callers without tokenizer
+        # Word-level fallback
         words = combined.split()
-        return " ".join(words[:max_words])
+        if len(words) <= max_words:
+            return combined
+        head_words = int(max_words * 0.65)
+        tail_words = max_words - head_words
+        return " ".join(words[:head_words] + words[-tail_words:])
 
 
 
 # ---------------------------------------------------------------------------
-# HOW: All papers are encoded into a normalized dense embedding matrix
+# Whitening Transformation (Su et al. 2021)
+# ---------------------------------------------------------------------------
+
+def apply_whitening(
+    embeddings: np.ndarray,
+    target_dim: int | None = None,
+    eps: float = 1e-7,
+) -> tuple[np.ndarray, dict]:
+    """
+    Applies SVD-based Whitening transformation to dense embeddings (Su et al. 2021).
+    Transforms anisotropic embedding space (narrow cone) into an isotropic hypersphere
+    where covariance is the identity matrix I.
+
+    Args:
+        embeddings: np.ndarray of shape (N, D), float32
+        target_dim: Optional reduced dimension (PCA-style dimensionality reduction)
+        eps: Regularization factor to prevent division by near-zero singular values
+
+    Returns:
+        whitened_embeddings: np.ndarray of shape (N, D) or (N, target_dim), L2-normalized
+        transform_info: dict containing 'mean' vector and 'whitening_matrix'
+    """
+    n, d = embeddings.shape
+    if n < 2:
+        return embeddings.copy(), {"mean": np.zeros(d, dtype=np.float32), "whitening_matrix": np.eye(d, dtype=np.float32)}
+
+    # 1. Empirical mean centering
+    mu = np.mean(embeddings, axis=0, keepdims=True)
+    centered = embeddings - mu
+
+    # 2. Empirical covariance matrix
+    cov = (centered.T @ centered) / (n - 1)
+
+    # 3. SVD: cov = U @ diag(S) @ V^T
+    u, s, _ = np.linalg.svd(cov)
+
+    # 4. Whitening transformation matrix: W = U @ diag(1 / sqrt(s + eps))
+    inv_sqrt_s = 1.0 / np.sqrt(s + eps)
+    if target_dim is not None and target_dim < d:
+        u = u[:, :target_dim]
+        inv_sqrt_s = inv_sqrt_s[:target_dim]
+
+    whitening_matrix = (u @ np.diag(inv_sqrt_s)).astype(np.float32)
+
+    # 5. Transform and re-normalize onto unit hypersphere
+    whitened = centered @ whitening_matrix
+    norms = np.linalg.norm(whitened, axis=1, keepdims=True)
+    norms[norms < 1e-9] = 1.0
+    normalized_whitened = (whitened / norms).astype(np.float32)
+
+    return normalized_whitened, {
+        "mean": mu.squeeze(0).astype(np.float32),
+        "whitening_matrix": whitening_matrix,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Scientometric Diagnostics Suite (Roy & Vetterli 2007)
+# ---------------------------------------------------------------------------
+
+def compute_embedding_diagnostics(embeddings: np.ndarray) -> dict:
+    """
+    Computes rigorous scientometric and information-theoretic diagnostics:
+    1. Mean off-diagonal cosine similarity (hyperspherical isotropy / clustering propensity)
+    2. Effective rank (Roy & Vetterli 2007) via spectral entropy: exp(-sum p_k ln p_k)
+    3. Dimensional variance & dead dimensions count (identifies representation collapse)
+    4. Isotropy score (condition ratio: sigma_min / sigma_max)
+    """
+    n, d = embeddings.shape
+    if n == 0 or d == 0:
+        return {}
+
+    norms = np.linalg.norm(embeddings, axis=1)
+    avg_norm = float(np.mean(norms))
+
+    # 1. Off-diagonal cosine similarity
+    if n > 1:
+        if n <= 1500:
+            S = embeddings @ embeddings.T
+            np.fill_diagonal(S, 0.0)
+            mean_off_diag = float(np.sum(S) / (n * (n - 1)))
+        else:
+            # Monte Carlo sampling of pairs for memory safety on large N
+            rng = np.random.default_rng(42)
+            sample_size = 2000
+            idx1 = rng.integers(0, n, size=sample_size)
+            idx2 = rng.integers(0, n, size=sample_size)
+            mask = idx1 != idx2
+            idx1, idx2 = idx1[mask], idx2[mask]
+            pair_sims = np.sum(embeddings[idx1] * embeddings[idx2], axis=1)
+            mean_off_diag = float(np.mean(pair_sims))
+    else:
+        mean_off_diag = 1.0
+
+    # 2. Singular Value Decomposition & Effective Rank
+    s = np.linalg.svd(embeddings, compute_uv=False)
+    s_sum = float(np.sum(s))
+    if s_sum > 1e-9:
+        p = s / s_sum
+        p_nonzero = p[p > 1e-12]
+        entropy = -float(np.sum(p_nonzero * np.log(p_nonzero)))
+        effective_rank = float(np.exp(entropy))
+    else:
+        effective_rank = 1.0
+
+    # 3. Isotropy score: ratio of min to max singular values
+    max_s = float(np.max(s)) if len(s) > 0 else 1.0
+    min_s = float(np.min(s)) if len(s) > 0 else 0.0
+    isotropy_score = float(min_s / (max_s + 1e-9))
+
+    # 4. Dimensional variance and dead dimension detection
+    dim_vars = np.var(embeddings, axis=0)
+    dead_dims = int(np.sum(dim_vars < 1e-7))
+
+    return {
+        "paper_count": n,
+        "embedding_dimension": d,
+        "avg_l2_norm": round(avg_norm, 4),
+        "mean_off_diagonal_cosine": round(mean_off_diag, 4),
+        "effective_rank": round(effective_rank, 2),
+        "effective_rank_ratio": round(effective_rank / max(1, min(n, d)), 4),
+        "isotropy_score": round(isotropy_score, 6),
+        "dead_dimensions": dead_dims,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Batch Encoding with Dynamic Hardware Throttling
 # ---------------------------------------------------------------------------
 
 def generate_embeddings(
@@ -176,26 +337,23 @@ def generate_embeddings(
     model_key:         str = "fast",
     batch_size:        int = 128,
     show_progress_bar: bool = False,
+    normalize_mode:    str = "l2",
 ) -> tuple[list[str], np.ndarray]:
     """
-    Encodes all papers into L2-normalized dense vectors.
+    Encodes all papers into dense semantic representations.
 
     Args:
         papers            : list of paper dicts (must have 'title', 'abstract', 'id' keys)
-        model_key         : 'fast' (all-MiniLM-L6-v2, 384-d) or
-                            'accurate' (scibert, 768-d)
-        batch_size        : starting batch hint; actual batch is N-adaptive (see below)
+        model_key         : key from MODEL_CHOICES ('fast', 'bge', 'specter2', etc.)
+        batch_size        : target batch size (automatically throttled to available VRAM)
         show_progress_bar : whether to display progress bar (default False)
+        normalize_mode    : 'l2' (standard unit norm), 'centered' (mean centered + L2),
+                            or 'whitened' (SVD whitened isotropic hypersphere)
 
     Returns:
         ids        : list[str]   paper IDs, aligned row-for-row with embeddings
-        embeddings : np.ndarray  shape (N, D), float32, L2-normalized
-
-    Raises:
-        ValueError  if papers list is empty
-        ImportError if sentence-transformers is not installed
+        embeddings : np.ndarray  shape (N, D), float32, normalized per normalize_mode
     """
-    # HOW: Guard against empty input — prevents cryptic KeyError downstream
     if not papers:
         raise ValueError(
             "generate_embeddings received an empty papers list. "
@@ -204,29 +362,26 @@ def generate_embeddings(
 
     device = _resolve_device()
     model = _get_model(model_key, device=device)
-
-    # B2/B3-fix: Pass the model's tokenizer into _build_input_string so title
-    # doubling and truncation operate at the subword level, not the word level.
-    # (Kenton & Toutanova BERT §A.3; Cohan et al. SPECTER ACL 2020)
     tokenizer = getattr(model, "tokenizer", None)
 
-    # HOW: Safe ID fallback — if a paper somehow has id=None (e.g. title-less
-    # entry from Stage 1), we generate a positional placeholder instead of
-    # storing None in the ID list, which would silently corrupt the index.
     ids   = [p.get("id") or f"paper_{i}" for i, p in enumerate(papers)]
     texts = [_build_input_string(p, tokenizer=tokenizer) for p in papers]
 
-    # A3-fix: N-adaptive batch size so memory stays safe for both small and large
-    # corpora and both 384-d (fast) and 768-d (SciBERT/SPECTER2) models.
-    # Formula: min(256, max(32, N // 12)) — scales from 32 at N=100 to 250 at N=3000.
-    # (Rajbhandari et al. ZeRO: Memory Optimizations Toward Training Trillion Parameter
-    # Models, SC 2020 — per-pass memory is O(batch × seq × d_model))
     n_papers = len(papers)
     adaptive_batch = min(256, max(32, n_papers // 12))
 
     import torch
     if device == "cuda":
-        encode_batch = 128
+        try:
+            free_mem, _ = torch.cuda.mem_get_info()
+            if free_mem >= 4.0 * (1024**3):
+                encode_batch = min(128, batch_size)
+            elif free_mem >= 2.0 * (1024**3):
+                encode_batch = min(64, batch_size)
+            else:
+                encode_batch = min(32, batch_size)
+        except Exception:
+            encode_batch = 32
     else:
         encode_batch = adaptive_batch
         try:
@@ -236,14 +391,44 @@ def generate_embeddings(
         except Exception:
             pass
 
-    with torch.inference_mode():
-        embeddings = model.encode(
-            texts,
-            batch_size=encode_batch,
-            show_progress_bar=show_progress_bar,
-            convert_to_numpy=True,
-            normalize_embeddings=True,   # L2-normalize so cosine sim == dot product
-        )
+    # Safe inference with automatic CUDA OOM fallback
+    try:
+        with torch.inference_mode():
+            raw_embeddings = model.encode(
+                texts,
+                batch_size=encode_batch,
+                show_progress_bar=show_progress_bar,
+                convert_to_numpy=True,
+                normalize_embeddings=False,
+            )
+    except (torch.cuda.OutOfMemoryError, RuntimeError) as e:
+        if "CUDA out of memory" in str(e) or isinstance(e, getattr(torch.cuda, "OutOfMemoryError", ())):
+            torch.cuda.empty_cache()
+            cpu_model = _get_model(model_key, device="cpu")
+            with torch.inference_mode():
+                raw_embeddings = cpu_model.encode(
+                    texts,
+                    batch_size=adaptive_batch,
+                    show_progress_bar=show_progress_bar,
+                    convert_to_numpy=True,
+                    normalize_embeddings=False,
+                )
+        else:
+            raise e
+
+    # Apply requested normalization mode
+    if normalize_mode == "whitened" and len(papers) >= 2:
+        embeddings, _ = apply_whitening(raw_embeddings)
+    elif normalize_mode == "centered" and len(papers) >= 2:
+        centered = raw_embeddings - np.mean(raw_embeddings, axis=0, keepdims=True)
+        norms = np.linalg.norm(centered, axis=1, keepdims=True)
+        norms[norms < 1e-9] = 1.0
+        embeddings = (centered / norms).astype(np.float32)
+    else:
+        norms = np.linalg.norm(raw_embeddings, axis=1, keepdims=True)
+        norms[norms < 1e-9] = 1.0
+        embeddings = (raw_embeddings / norms).astype(np.float32)
+
     return ids, embeddings
 
 
@@ -263,25 +448,28 @@ def save_embeddings(
 ) -> None:
     """
     Saves the embedding matrix to disk as a numpy .npy file.
-    If save_extra is True, also saves {prefix}_ids.json and {prefix}_meta.json.
+    If save_extra is True, also saves {prefix}_ids.json and {prefix}_meta.json
+    with comprehensive scientometric diagnostics (effective rank, isotropy).
     """
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # HOW: Save the raw float32 matrix as a binary .npy file (fast, compact)
+    # Save the raw float32 matrix as a binary .npy file (fast, compact)
     np.save(out_dir / f"{prefix}.npy", embeddings)
 
     if save_extra:
-        # HOW: Save the ID list as JSON so rows can be looked up by paper ID
+        # Save the ID list as JSON so rows can be looked up by paper ID
         (out_dir / f"{prefix}_ids.json").write_text(json.dumps(ids))
 
-        # HOW: Save metadata so future loads know which model produced these vectors
+        # Save metadata with scientometric diagnostics
+        diagnostics = compute_embedding_diagnostics(embeddings)
         meta = {
             "model_key":   model_key,
             "model_name":  MODEL_CHOICES.get(model_key, model_key),
             "dimension":   embeddings.shape[1],
             "paper_count": embeddings.shape[0],
             "created_at":  time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "diagnostics": diagnostics,
         }
         (out_dir / f"{prefix}_meta.json").write_text(json.dumps(meta, indent=2))
 
@@ -360,7 +548,7 @@ def inspect_sample_transformation(paper: dict, model_key: str = "fast") -> dict:
     model = _get_model(model_key)
     tokenizer = model.tokenizer
 
-    input_str = _build_input_string(paper)
+    input_str = _build_input_string(paper, tokenizer=tokenizer)
     tokens = tokenizer.tokenize(input_str)
     encoded = tokenizer(input_str, return_tensors="pt")
 
@@ -376,7 +564,7 @@ def inspect_sample_transformation(paper: dict, model_key: str = "fast") -> dict:
 
 
 # ---------------------------------------------------------------------------
-# HOW: Full Pairwise Cosine Similarity JSON Exporter for Stage 4
+# Full Pairwise Cosine Similarity JSON Exporter for Stage 4
 # ---------------------------------------------------------------------------
 
 def save_similarity_groups(
@@ -386,56 +574,56 @@ def save_similarity_groups(
     out_dir:    str | Path = "data",
     prefix:     str = "cosine_similarity_groups",
     top_k:      int = 5,
+    chunk_size: int = 1024,
 ) -> Path:
     """
-    Computes pairwise cosine top-K similarity and exports a sparse JSON
-    mapping every paper to its Top-K most similar papers in the corpus.
+    Computes pairwise cosine top-K similarity in memory-bounded chunks and exports
+    a sparse JSON mapping every paper to its Top-K most similar papers in the corpus.
 
-    A2-fix: Replaced O(N²) sequential dot-product loop with a single
-    batched matrix multiply S = E @ E.T (one BLAS dgemm call), then
-    np.argpartition per row for O(N·K) top-K extraction.
-    At N=3,000: reduces 9M sequential dot products → 1 matrix call (~1s vs ~90s).
-    (Golub & Van Loan, Matrix Computations 4th Ed., Johns Hopkins 2013 §1.1)
+    Complexity & Memory Boundary:
+      Instead of allocating an O(N²) dense matrix in memory (which exhausts RAM at large N),
+      this processes rows in blocks of chunk_size (default 1024), capping peak RAM at O(C · N).
     """
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     id_to_title = {p.get("id"): (p.get("title") or "") for p in papers}
     n = len(ids)
 
-    # Single batched matrix multiply: S[i,j] = cosine_sim(i,j) because embeddings are L2-normalized
-    S = embeddings @ embeddings.T   # shape (N, N), float32, one BLAS call
-
-    # np.argpartition gives top-(k+1) indices in O(N) per row (not O(N log N) argsort)
-    # We need k+1 because we exclude self-similarity (diagonal).
     kp1 = min(top_k + 1, n)
-    top_idx_matrix = np.argpartition(-S, kth=kp1 - 1, axis=1)[:, :kp1]  # shape (N, k+1)
-
     groups = []
-    for i, p_id in enumerate(ids):
-        # Get the top-k+1 candidate indices sorted by similarity score
-        cand_idx = top_idx_matrix[i]
-        cand_scores = S[i, cand_idx]
-        # Sort the small candidate list descending by score
-        sorted_order = np.argsort(-cand_scores)
-        similar_list = []
-        for order_idx in sorted_order:
-            j = cand_idx[order_idx]
-            if j == i:
-                continue   # Skip self
-            other_id = ids[j]
-            similar_list.append({
-                "paper_id": other_id,
-                "title": id_to_title.get(other_id, ""),
-                "similarity_score": round(float(S[i, j]), 4),
-            })
-            if len(similar_list) >= top_k:
-                break
 
-        groups.append({
-            "query_paper_id": p_id,
-            "query_title": id_to_title.get(p_id, ""),
-            "similar_papers": similar_list,
-        })
+    # Process in row chunks to prevent O(N²) memory allocation
+    for start_idx in range(0, n, chunk_size):
+        end_idx = min(start_idx + chunk_size, n)
+        S_chunk = embeddings[start_idx:end_idx] @ embeddings.T
+
+        top_idx_chunk = np.argpartition(-S_chunk, kth=kp1 - 1, axis=1)[:, :kp1]
+
+        for row_in_chunk, i in enumerate(range(start_idx, end_idx)):
+            p_id = ids[i]
+            cand_idx = top_idx_chunk[row_in_chunk]
+            cand_scores = S_chunk[row_in_chunk, cand_idx]
+            sorted_order = np.argsort(-cand_scores)
+
+            similar_list = []
+            for order_idx in sorted_order:
+                j = cand_idx[order_idx]
+                if j == i:
+                    continue   # Skip self
+                other_id = ids[j]
+                similar_list.append({
+                    "paper_id": other_id,
+                    "title": id_to_title.get(other_id, ""),
+                    "similarity_score": round(float(S_chunk[row_in_chunk, j]), 4),
+                })
+                if len(similar_list) >= top_k:
+                    break
+
+            groups.append({
+                "query_paper_id": p_id,
+                "query_title": id_to_title.get(p_id, ""),
+                "similar_papers": similar_list,
+            })
 
     output_path = out_dir / f"{prefix}.json"
     data = {

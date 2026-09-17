@@ -1,0 +1,292 @@
+[
+  {
+    "id": "1805.08227",
+    "s2_paper_id": "0031ef85cb648ecd4718da656abca042cf5bea4b",
+    "title": "Performance of quantum error correction with coherent errors",
+    "authors": [
+      "E. Huang",
+      "A. Doherty",
+      "S. Flammia"
+    ],
+    "year": 2018,
+    "doi": "10.1103/PhysRevA.99.022313",
+    "source": "semanticscholar",
+    "abstract": "We compare the performance of quantum error correcting codes when memory errors are unitary with the more familiar case of dephasing noise. For a wide range of codes we analytically compute the effective logical channel that results when the error correction steps are performed noiselessly. Our examples include the entire family of repetition codes, the 5-qubit, Steane, Shor, and surface codes. When errors are measured in terms of the diamond norm, we find that the error correction is typically much more effective for unitary errors than for dephasing. We observe this behavior for a wide range of codes after a single level of encoding, and in the thresholds of concatenated codes using hard decoders. We show that this holds with great generality by proving a bound on the performance of any stabilizer code when the noise at the physical level is unitary. By comparing the diamond norm error $D'_\\diamond$ of the logical qubit with the same quantity at the physical level $D_\\diamond$, we show that $D'_\\diamond \\le c D^d_\\diamond $ where $d$ is the distance of the code and $c$ is constant that depends on the code but not on the error. This bound compares very favorably to the performance of error correction for dephasing noise and other Pauli channels, where an error correcting code of odd distance $d$ will exhibit a scaling $D'_\\diamond \\sim D_\\diamond^{(d+1)/2}$.",
+    "tldr": "We compare the performance of quantum error correcting codes when memory errors are unitary with the more familiar case of dephasing noise.",
+    "citation_count": 76,
+    "influential_citation_count": 4,
+    "venue": "Physical Review A",
+    "publication_types": [],
+    "s2_fields_of_study": [
+      "Physics"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": "https://arxiv.org/pdf/1805.08227"
+  },
+  {
+    "id": "0079b3ff312d21caac9a2b3d36d9a233f23e8d67",
+    "s2_paper_id": "0079b3ff312d21caac9a2b3d36d9a233f23e8d67",
+    "title": "Recent Advances in Quantum Error Correction Codes for Superconducting Quantum Computing",
+    "authors": [
+      "Zihang Wang",
+      "G. Gao",
+      "Guangming Wu"
+    ],
+    "year": 2026,
+    "doi": "10.1109/ISCTIS70043.2026.11572651",
+    "source": "semanticscholar",
+    "abstract": "Superconducting quantum computing has become one of the leading technological routes toward practical quantum computing due to its relatively long coherence times and compatibility with scalable integration. However, the high error rates of physical qubits create a scaling paradox that limits further system expansion, making quantum error correction (QEC) a core enabler of fault-tolerant quantum computing. This paper briefly introduces superconducting quantum noise models, stabilizer-code principles, and representative research achievements from 2022 to 2023 as necessary theoretical background and benchmarking references, while mainly focusing on the latest research advances in quantum error correction codes in the field of superconducting quantum computing from 2024 to 2026. It elaborates on the foundational principles of superconducting quantum noise models and stabilizer codes, with a focus on analyzing the architectures and mechanisms of surface codes, color codes, high-rate qLDPC codes, and bosonic codes. This work also summarizes recent milestone achievements, including the first exponential suppression of logical errors achieved by surface codes, the significant reduction of hardware redundancy enabled by high-rate codes, and the break-even point crossed by bosonic codes. Through multidimensional comparisons, it is shown that achieving fault tolerance at the million-qubit scale will require deep synergistic optimization of hardware, codes, and decoders. On this basis, pathways and guidance are provided for building low-overhead, high-efficiency universal quantum computers.",
+    "tldr": "Superconducting quantum computing has become one of the leading technological routes toward practical quantum computing due to its relatively long coherence times and compatibility with scalable integration.",
+    "citation_count": 0,
+    "influential_citation_count": 0,
+    "venue": "2026 6th International Symposium on Computer Technology and Information Science (ISCTIS)",
+    "publication_types": [],
+    "s2_fields_of_study": [
+      "Physics",
+      "Engineering",
+      "Computer Science"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": ""
+  },
+  {
+    "id": "2412.16727",
+    "s2_paper_id": "008223e80c1803d65249e1698950df6856164c8f",
+    "title": "Fundamental Thresholds for Computational and Erasure Errors via the Coherent Information",
+    "authors": [
+      "Luis Colmenarez",
+      "Seyong Kim",
+      "M. Müller"
+    ],
+    "year": 2024,
+    "doi": "10.1103/d8rx-srpn",
+    "source": "semanticscholar",
+    "abstract": "Quantum error correcting (QEC) codes protect quantum information against environmental noise. Computational errors caused by the environment change the quantum state within the qubit subspace, whereas quantum erasures correspond to the loss of qubits at known positions. Correcting either type of error involves different correction mechanisms, which makes studying the interplay between erasure and computational errors particularly challenging. In this work, we propose a framework based on the coherent information (CI) of the mixed-state density operator associated to noisy QEC codes, for treating both types of errors together. We show how to rigorously derive different families of statistical mechanics mappings for generic stabilizer QEC codes in the presence of both types of errors. We observe that the erasure errors enter as a classical average over fully depolarizing channels. Further, we show that computing the CI for erasure errors only can be done efficiently upon sampling over erasure configurations. We then test our approach on the two-dimensional toric and color codes and compute optimal thresholds for erasure errors only, finding a    50  %    threshold for both codes. This strengthens the notion that both codes share the same optimal thresholds. When considering both computational and erasure errors, the CI of small-size codes yields thresholds in very accurate agreement with established results that have been obtained in the thermodynamic limit. Next, we perform a similar analysis for a low-density parity-check (LDPC) code—the lift-connected surface code. We find a    50  %    threshold under erasure errors alone and, for the first time, derive the exact statistical mechanics mappings in the presence of both computational and erasure errors. We thereby further establish the CI as a practical tool for studying optimal thresholds for code classes beyond topological codes under realistic noise, and as a means for uncovering new relations between QEC codes and statistical physics models.",
+    "tldr": "In this work, we propose a framework based on the coherent information (CI) of the mixed-state density operator associated to noisy QEC codes, for treating both types of errors together.",
+    "citation_count": 9,
+    "influential_citation_count": 0,
+    "venue": "PRX Quantum",
+    "publication_types": [
+      "JournalArticle"
+    ],
+    "s2_fields_of_study": [
+      "Physics",
+      "Computer Science"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": "https://doi.org/10.1103/d8rx-srpn"
+  },
+  {
+    "id": "2602.06202",
+    "s2_paper_id": "00b2017605bb32b3a94c41d4a690b9300c407f2d",
+    "title": "Characterizing Quantum Error Correction Performance of Radiation-induced Errors",
+    "authors": [
+      "Paul Baity",
+      "A. K. Nayak",
+      "L. Varshney",
+      "Nicholas Jeon",
+      "Byung-Jun Yoon",
+      "Peter J. Love",
+      "Adolfy Hoisie"
+    ],
+    "year": 2026,
+    "doi": null,
+    "source": "semanticscholar",
+    "abstract": "Radiation impacts are a current challenge with computing on superconducting-based quantum devices because they can lead to widespread correlated errors across the device. Such errors can be problematic for quantum error correction (QEC) codes, which are generally designed to correct independent errors. To address this, we have developed a computational model to simulate the effects of radiation impacts on QEC performance. This is achieved by building from recently developed models of quasiparticle density, mapping radiation-induced qubit error rates onto a quantum error channel and simulation of a simple surface code. We also provide a performance metric to quantify the resilience of a QEC code to radiation impacts. Additionally, we sweep various parameters of chip design to test mitigation strategies for improved QEC performance. Our model approach is holistic, allowing for modular performance testing of error mitigation strategies and chip and code designs.",
+    "tldr": "Radiation impacts are a current challenge with computing on superconducting-based quantum devices because they can lead to widespread correlated errors across the device.",
+    "citation_count": 1,
+    "influential_citation_count": 0,
+    "venue": null,
+    "publication_types": [],
+    "s2_fields_of_study": [
+      "Physics"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": ""
+  },
+  {
+    "id": "011a01d2a6fe331aa72476395424351185c09b95",
+    "s2_paper_id": "011a01d2a6fe331aa72476395424351185c09b95",
+    "title": "FPGA-Accelerated Early-Exit Neural Decoder for Quantum Error Correction",
+    "authors": [
+      "R. Huo",
+      "José L. Núñez-Yáñez"
+    ],
+    "year": 2025,
+    "doi": "10.1109/DSD67783.2025.00090",
+    "source": "semanticscholar",
+    "abstract": "Quantum error correction (QEC) is indispensable for fault-tolerant quantum computing, yet implementing powerful decoders in hardware remains a bottleneck. Classical algorithms like Minimum Weight Perfect Matching (MWPM) achieve excellent performance but have the problems such as high latency and resource demands, while many emerging machine learning (ML) based decoders either neglect quantization effects or rely on deep networks that exceed practical FPGA budgets. In this work, we present QUNET, a quantized modular UNet decoder for surface codes, which incorporates quantization-aware training (QAT) to compress weights and activations to as low as 4 bits and introduces an early-exit mechanism that dynamically routes simple syndromes through a shallower subnetwork to save on average 34% of decoding time. Our design achieves competitive logical accuracy compared to MWPM, while consuming up to 50% fewer FPGA resources than dataflow implementations, demonstrating a practical hardware deployment of QEC decoders that provide great flexibility and efficiency. The modularity of our design also ensures high scalability, allowing the creation of deeper networks without additional hardware overhead.",
+    "tldr": "In this work, we present QUNET, a quantized modular UNet decoder for surface codes, which incorporates quantization-aware training (QAT) to compress weights and activations to as low as 4 bits and introduces an early-exit mechanism that dynamically routes simple syndromes through a shallower subnetwork to save on average 34% of decoding time.",
+    "citation_count": 0,
+    "influential_citation_count": 0,
+    "venue": "Euromicro Symposium on Digital Systems Design",
+    "publication_types": [
+      "JournalArticle",
+      "Conference"
+    ],
+    "s2_fields_of_study": [
+      "Computer Science",
+      "Physics"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": ""
+  },
+  {
+    "id": "2301.08419",
+    "s2_paper_id": "01fa4b33dbd61a640c18adcddb778c405cc21fcf",
+    "title": "Scalable Quantum Error Correction for Surface Codes Using FPGA",
+    "authors": [
+      "Namitha Liyanage",
+      "Yue Wu",
+      "Alexander Dennisovich Deters",
+      "Lin Zhong"
+    ],
+    "year": 2023,
+    "doi": "10.1109/QCE57702.2023.00106",
+    "source": "semanticscholar",
+    "abstract": "A fault-tolerant quantum computer must decode and correct errors faster than they appear. The faster errors can be corrected, the more time the computer can do useful work. The Union-Find (UF) decoder is promising with an average time complexity slightly higher than $O(d^{3}$. We report a distributed version of the UF decoder that exploits parallel computing resources for further speedup. Using an FPGA-based implementation, we empirically show that this distributed UF decoder has $a$ sublinear average time complexity with regard to $d$ given $O(d^{3}$ parallel computing resources. The decoding time per measurement round decreases as $d$ increases, a first time for a quantum error decoder. The implementation employs a scalable architecture called Helios that organizes parallel computing resources into a hybrid tree-grid structure. We are able to implement $d$ up to 21 with a Xilinx VCU129 FPGA, for which an average decoding time is 11.5 ns per measurement round under phenomenological noise of 0.1 %, significantly faster than any existing decoder implementation. Since the decoding time per measurement round of Helios decreases with d, Helios can decode a surface code of arbitrarily large $d$ without a growing backlog.",
+    "tldr": "A fault-tolerant quantum computer must decode and correct errors faster than they appear.",
+    "citation_count": 74,
+    "influential_citation_count": 13,
+    "venue": "International Conference on Quantum Computing and Engineering",
+    "publication_types": [
+      "JournalArticle",
+      "Conference"
+    ],
+    "s2_fields_of_study": [
+      "Physics",
+      "Computer Science"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": "https://arxiv.org/pdf/2301.08419"
+  },
+  {
+    "id": "023e7fdd8d484c8c73f79a2a331728659fbfc524",
+    "s2_paper_id": "023e7fdd8d484c8c73f79a2a331728659fbfc524",
+    "title": "Building logical qubits in a superconducting quantum computing system",
+    "authors": [
+      "J. Gambetta",
+      "J. Chow",
+      "M. Steffen"
+    ],
+    "year": 2017,
+    "doi": "10.1038/s41534-016-0004-0",
+    "source": "semanticscholar",
+    "abstract": "The technological world is in the midst of a quantum computing and quantum information revolution. Since Richard Feynman’s famous ‘plenty of room at the bottom’ lecture (Feynman, Engineering and Science23, 22 (1960)), hinting at the notion of novel devices employing quantum mechanics, the quantum information community has taken gigantic strides in understanding the potential applications of a quantum computer and laid the foundational requirements for building one. We believe that the next significant step will be to demonstrate a quantum memory, in which a system of interacting qubits stores an encoded logical qubit state longer than the incorporated parts. Here, we describe the important route towards a logical memory with superconducting qubits, employing a rotated version of the surface code. The current status of technology with regards to interconnected superconducting-qubit networks will be described and near-term areas of focus to improve devices will be identified. Overall, the progress in this exciting field has been astounding, but we are at an important turning point, where it will be critical to incorporate engineering solutions with quantum architectural considerations, laying the foundation towards scalable fault-tolerant quantum computers in the near future.",
+    "tldr": "The technological world is in the midst of a quantum computing and quantum information revolution.",
+    "citation_count": 14,
+    "influential_citation_count": 0,
+    "venue": "npj Quantum Information",
+    "publication_types": [],
+    "s2_fields_of_study": [
+      "Physics",
+      "Engineering"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": "https://www.nature.com/articles/s41534-016-0004-0.pdf"
+  },
+  {
+    "id": "02446a544e10c794f043f8fca53b783a9700859f",
+    "s2_paper_id": "02446a544e10c794f043f8fca53b783a9700859f",
+    "title": "Constructing Quantum Surface Codes for Arbitrary Surface Forms",
+    "authors": [
+      "Melinda Br Ginting",
+      "Khoirul Anwar",
+      "Dick Maryopi"
+    ],
+    "year": 2021,
+    "doi": "10.1109/SOFTT54252.2021.9673515",
+    "source": "semanticscholar",
+    "abstract": "Quantum technology has been considered as one of the key enablers for the sixth-generation (6G) wireless commu-nication systems. Since we rely on vulnerable quantum states, the main challenge in quantum communication is to compute and send information in a reliable manner, which requires highly reliable quantum error corrections (QEC) with high fidelity. This paper proposes counter-clockwise standard forms to construct quantum surface codes for arbitrary surface forms. We show that our procedure can give result to the same codes as the currently available quantum surface codes. We investigate the matrix generated from Roffe $[[5,1,2]]$ quantum surface codes and compare to that of the proposed $[[5,1,2]]$ quantum surface codes. We perform a series of computer simulations to evaluate the codes in terms of quantum word error rate (QWER) under depolarizing channel model. Our results confirm that we can construct good performance quantum surface codes using counter-clockwise standard forms that helps the design of any arbitrary forms of quantum surface codes.",
+    "tldr": "Quantum technology has been considered as one of the key enablers for the sixth-generation (6G) wireless commu-nication systems.",
+    "citation_count": 7,
+    "influential_citation_count": 0,
+    "venue": "2021 IEEE Symposium On Future Telecommunication Technologies (SOFTT)",
+    "publication_types": [],
+    "s2_fields_of_study": [
+      "Physics",
+      "Computer Science"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": ""
+  },
+  {
+    "id": "1309.5452",
+    "s2_paper_id": "02a84961c8c3cca00d43088f56940416f15d6239",
+    "title": "Universal control and error correction in multi-qubit spin registers in diamond.",
+    "authors": [
+      "T. Taminiau",
+      "J. Cramer",
+      "T. van der Sar",
+      "V. Dobrovitski",
+      "R. Hanson"
+    ],
+    "year": 2013,
+    "doi": "10.1038/nnano.2014.2",
+    "source": "semanticscholar",
+    "abstract": "Quantum registers of nuclear spins coupled to electron spins of individual solid-state defects are a promising platform for quantum information processing. Pioneering experiments selected defects with favourably located nuclear spins with particularly strong hyperfine couplings. To progress towards large-scale applications, larger and deterministically available nuclear registers are highly desirable. Here, we realize universal control over multi-qubit spin registers by harnessing abundant weakly coupled nuclear spins. We use the electron spin of a nitrogen-vacancy centre in diamond to selectively initialize, control and read out carbon-13 spins in the surrounding spin bath and construct high-fidelity single- and two-qubit gates. We exploit these new capabilities to implement a three-qubit quantum-error-correction protocol and demonstrate the robustness of the encoded state against applied errors. These results transform weakly coupled nuclear spins from a source of decoherence into a reliable resource, paving the way towards extended quantum networks and surface-code quantum computing based on multi-qubit nodes.",
+    "tldr": "Quantum registers of nuclear spins coupled to electron spins of individual solid-state defects are a promising platform for quantum information processing.",
+    "citation_count": 423,
+    "influential_citation_count": 15,
+    "venue": "Nature Nanotechnology",
+    "publication_types": [
+      "JournalArticle"
+    ],
+    "s2_fields_of_study": [
+      "Physics",
+      "Medicine",
+      "Materials Science"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": "https://arxiv.org/pdf/1309.5452"
+  },
+  {
+    "id": "2511.10388",
+    "s2_paper_id": "046578dd7f315c089f0a97dfd31d14e09bc2a8bd",
+    "title": "Assessing Finite Scalability in Early Fault-Tolerant Quantum Computing for Homogeneous Catalysts",
+    "authors": [
+      "Yanbing Zhou",
+      "Athena Caesura",
+      "C. Buda",
+      "Xavier Jackson",
+      "Clena M. Abuan",
+      "Shangjie Guo"
+    ],
+    "year": 2025,
+    "doi": null,
+    "source": "semanticscholar",
+    "abstract": "As quantum hardware advances toward fault-tolerant operation, an intermediate stage known as early fault-tolerant quantum computing (EFTQC) is emerging, where partial error correction enables meaningful computation. In this regime, the ability of quantum processors to scale in size and depth has become a crucial factor shaping their achievable performance. This study investigates how finite scalability influences resource requirements for simulating open-shell catalytic systems using Quantum Phase Estimation (QPE). The analysis compares hardware archetypes distinguished by fidelity or operation speed under two representative scalability models. Finite scalability increases qubit and runtime demands yet leaves overall scaling behavior intact, with high-fidelity architectures requiring lower minimum scalability to solve equally sized problems. These effects are largely independent of the chosen scalability model. Extending this framework, we examine runtime competitiveness across hardware and code configurations, incorporating surface-code and quantum Low-Density Parity-Check (LDPC)-based fault tolerance under finite scalability. The results identify operating regimes where high-fidelity architectures remain competitive despite slower gate speeds and show that LDPC codes further expand this regime by reducing space-time overhead. Together, these findings highlight the central role of scalability in quantifying performance and guiding the design of next-generation quantum hardware. Continued progress in scalable architectures will be essential for extending quantum computing to increasingly complex scientific and industrial applications.",
+    "tldr": "As quantum hardware advances toward fault-tolerant operation, an intermediate stage known as early fault-tolerant quantum computing (EFTQC) is emerging, where partial error correction enables meaningful computation.",
+    "citation_count": 2,
+    "influential_citation_count": 0,
+    "venue": null,
+    "publication_types": [],
+    "s2_fields_of_study": [
+      "Physics",
+      "Chemistry",
+      "Engineering"
+    ],
+    "references": [],
+    "processed": false,
+    "cluster_id": null,
+    "pdf_url": ""
+  }
+]

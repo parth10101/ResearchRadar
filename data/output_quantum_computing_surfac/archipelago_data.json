@@ -1,0 +1,313 @@
+{
+  "macro_clusters": [
+    {
+      "cluster_id": 0,
+      "name": "Quantum Surface Code Error Performance",
+      "keywords": [
+        "error",
+        "code",
+        "quantum",
+        "surface"
+      ],
+      "color": "#38bdf8",
+      "glow": "rgba(56, 189, 248, 0.25)",
+      "x": 872.2,
+      "y": 237.1,
+      "radius": 34.8,
+      "paper_count": 4,
+      "pillars": [
+        {
+          "id": "1805.08227",
+          "title": "Performance of quantum error correction with coherent errors",
+          "authors": [
+            "E. Huang",
+            "A. Doherty",
+            "S. Flammia"
+          ],
+          "year": 2018,
+          "citations": 76,
+          "venue": "Physical Review A",
+          "tldr": "We compare the performance of quantum error correcting codes when memory errors are unitary with the more familiar case of dephasing noise.",
+          "abstract": "We compare the performance of quantum error correcting codes when memory errors are unitary with the more familiar case of dephasing noise. For a wide range of codes we analytically compute the effective logical channel that results when the error correction steps are performed noiselessly. Our examples include the entire family of repetition codes, the 5-qubit, Steane, Shor, and surface codes. When errors are measured in terms of the diamond norm, we find that the error correction is typically much more effective for unitary errors than for dephasing. We observe this behavior for a wide range of codes after a single level of encoding, and in the thresholds of concatenated codes using hard decoders. We show that this holds with great generality by proving a bound on the performance of any stabilizer code when the noise at the physical level is unitary. By comparing the diamond norm error $D'_\\diamond$ of the logical qubit with the same quantity at the physical level $D_\\diamond$, we show that $D'_\\diamond \\le c D^d_\\diamond $ where $d$ is the distance of the code and $c$ is constant that depends on the code but not on the error. This bound compares very favorably to the performance of error correction for dephasing noise and other Pauli channels, where an error correcting code of odd distance $d$ will exhibit a scaling $D'_\\diamond \\sim D_\\diamond^{(d+1)/2}$.",
+          "doi": "10.1103/PhysRevA.99.022313"
+        },
+        {
+          "id": "2412.16727",
+          "title": "Fundamental Thresholds for Computational and Erasure Errors via the Coherent Information",
+          "authors": [
+            "Luis Colmenarez",
+            "Seyong Kim",
+            "M. Müller"
+          ],
+          "year": 2024,
+          "citations": 9,
+          "venue": "PRX Quantum",
+          "tldr": "In this work, we propose a framework based on the coherent information (CI) of the mixed-state density operator associated to noisy QEC codes, for treating both types of errors together.",
+          "abstract": "Quantum error correcting (QEC) codes protect quantum information against environmental noise. Computational errors caused by the environment change the quantum state within the qubit subspace, whereas quantum erasures correspond to the loss of qubits at known positions. Correcting either type of error involves different correction mechanisms, which makes studying the interplay between erasure and computational errors particularly challenging. In this work, we propose a framework based on the coherent information (CI) of the mixed-state density operator associated to noisy QEC codes, for treating both types of errors together. We show how to rigorously derive different families of statistical mechanics mappings for generic stabilizer QEC codes in the presence of both types of errors. We observe that the erasure errors enter as a classical average over fully depolarizing channels. Further, we show that computing the CI for erasure errors only can be done efficiently upon sampling over erasure configurations. We then test our approach on the two-dimensional toric and color codes and compute optimal thresholds for erasure errors only, finding a    50  %    threshold for both codes. This strengthens the notion that both codes share the same optimal thresholds. When considering both computational and erasure errors, the CI of small-size codes yields thresholds in very accurate agreement with established results that have been obtained in the thermodynamic limit. Next, we perform a similar analysis for a low-density parity-check (LDPC) code—the lift-connected surface code. We find a    50  %    threshold under erasure errors alone and, for the first time, derive the exact statistical mechanics mappings in the presence of both computational and erasure errors. We thereby further establish the CI as a practical tool for studying optimal thresholds for code classes beyond topological codes under realistic noise, and as a means for uncovering new relations between QEC codes and statistical physics models.",
+          "doi": "10.1103/d8rx-srpn"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "02446a544e10c794f043f8fca53b783a9700859f",
+          "title": "Constructing Quantum Surface Codes for Arbitrary Surface Forms",
+          "year": 2021,
+          "citations": 7,
+          "doi": "10.1109/SOFTT54252.2021.9673515",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "2602.06202",
+          "title": "Characterizing Quantum Error Correction Performance of Radiation-induced Errors",
+          "year": 2026,
+          "citations": 1,
+          "doi": "",
+          "dx": 37.5,
+          "dy": 65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "name": "Superconducting Quantum Spin Code Architecture",
+      "keywords": [
+        "quantum",
+        "spin",
+        "superconducte",
+        "code"
+      ],
+      "color": "#a855f7",
+      "glow": "rgba(168, 85, 247, 0.25)",
+      "x": 847.3,
+      "y": 617.3,
+      "radius": 33.9,
+      "paper_count": 3,
+      "pillars": [
+        {
+          "id": "1309.5452",
+          "title": "Universal control and error correction in multi-qubit spin registers in diamond.",
+          "authors": [
+            "T. Taminiau",
+            "J. Cramer",
+            "T. van der Sar"
+          ],
+          "year": 2013,
+          "citations": 423,
+          "venue": "Nature Nanotechnology",
+          "tldr": "Quantum registers of nuclear spins coupled to electron spins of individual solid-state defects are a promising platform for quantum information processing.",
+          "abstract": "Quantum registers of nuclear spins coupled to electron spins of individual solid-state defects are a promising platform for quantum information processing. Pioneering experiments selected defects with favourably located nuclear spins with particularly strong hyperfine couplings. To progress towards large-scale applications, larger and deterministically available nuclear registers are highly desirable. Here, we realize universal control over multi-qubit spin registers by harnessing abundant weakly coupled nuclear spins. We use the electron spin of a nitrogen-vacancy centre in diamond to selectively initialize, control and read out carbon-13 spins in the surrounding spin bath and construct high-fidelity single- and two-qubit gates. We exploit these new capabilities to implement a three-qubit quantum-error-correction protocol and demonstrate the robustness of the encoded state against applied errors. These results transform weakly coupled nuclear spins from a source of decoherence into a reliable resource, paving the way towards extended quantum networks and surface-code quantum computing based on multi-qubit nodes.",
+          "doi": "10.1038/nnano.2014.2"
+        },
+        {
+          "id": "023e7fdd8d484c8c73f79a2a331728659fbfc524",
+          "title": "Building logical qubits in a superconducting quantum computing system",
+          "authors": [
+            "J. Gambetta",
+            "J. Chow",
+            "M. Steffen"
+          ],
+          "year": 2017,
+          "citations": 14,
+          "venue": "npj Quantum Information",
+          "tldr": "The technological world is in the midst of a quantum computing and quantum information revolution.",
+          "abstract": "The technological world is in the midst of a quantum computing and quantum information revolution. Since Richard Feynman’s famous ‘plenty of room at the bottom’ lecture (Feynman, Engineering and Science23, 22 (1960)), hinting at the notion of novel devices employing quantum mechanics, the quantum information community has taken gigantic strides in understanding the potential applications of a quantum computer and laid the foundational requirements for building one. We believe that the next significant step will be to demonstrate a quantum memory, in which a system of interacting qubits stores an encoded logical qubit state longer than the incorporated parts. Here, we describe the important route towards a logical memory with superconducting qubits, employing a rotated version of the surface code. The current status of technology with regards to interconnected superconducting-qubit networks will be described and near-term areas of focus to improve devices will be identified. Overall, the progress in this exciting field has been astounding, but we are at an important turning point, where it will be critical to incorporate engineering solutions with quantum architectural considerations, laying the foundation towards scalable fault-tolerant quantum computers in the near future.",
+          "doi": "10.1038/s41534-016-0004-0"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "0079b3ff312d21caac9a2b3d36d9a233f23e8d67",
+          "title": "Recent Advances in Quantum Error Correction Codes for Superconducting Quantum Computing",
+          "year": 2026,
+          "citations": 0,
+          "doi": "10.1109/ISCTIS70043.2026.11572651",
+          "dx": 75.0,
+          "dy": 0.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "Scalable Quantum Decoder Hardware",
+      "keywords": [
+        "decoder",
+        "scalability",
+        "time",
+        "quantum"
+      ],
+      "color": "#10b981",
+      "glow": "rgba(16, 185, 129, 0.25)",
+      "x": 530.5,
+      "y": 405.6,
+      "radius": 33.9,
+      "paper_count": 3,
+      "pillars": [
+        {
+          "id": "2301.08419",
+          "title": "Scalable Quantum Error Correction for Surface Codes Using FPGA",
+          "authors": [
+            "Namitha Liyanage",
+            "Yue Wu",
+            "Alexander Dennisovich Deters"
+          ],
+          "year": 2023,
+          "citations": 74,
+          "venue": "International Conference on Quantum Computing and Engineering",
+          "tldr": "A fault-tolerant quantum computer must decode and correct errors faster than they appear.",
+          "abstract": "A fault-tolerant quantum computer must decode and correct errors faster than they appear. The faster errors can be corrected, the more time the computer can do useful work. The Union-Find (UF) decoder is promising with an average time complexity slightly higher than $O(d^{3}$. We report a distributed version of the UF decoder that exploits parallel computing resources for further speedup. Using an FPGA-based implementation, we empirically show that this distributed UF decoder has $a$ sublinear average time complexity with regard to $d$ given $O(d^{3}$ parallel computing resources. The decoding time per measurement round decreases as $d$ increases, a first time for a quantum error decoder. The implementation employs a scalable architecture called Helios that organizes parallel computing resources into a hybrid tree-grid structure. We are able to implement $d$ up to 21 with a Xilinx VCU129 FPGA, for which an average decoding time is 11.5 ns per measurement round under phenomenological noise of 0.1 %, significantly faster than any existing decoder implementation. Since the decoding time per measurement round of Helios decreases with d, Helios can decode a surface code of arbitrarily large $d$ without a growing backlog.",
+          "doi": "10.1109/QCE57702.2023.00106"
+        },
+        {
+          "id": "2511.10388",
+          "title": "Assessing Finite Scalability in Early Fault-Tolerant Quantum Computing for Homogeneous Catalysts",
+          "authors": [
+            "Yanbing Zhou",
+            "Athena Caesura",
+            "C. Buda"
+          ],
+          "year": 2025,
+          "citations": 2,
+          "venue": "Peer-Reviewed Venue",
+          "tldr": "As quantum hardware advances toward fault-tolerant operation, an intermediate stage known as early fault-tolerant quantum computing (EFTQC) is emerging, where partial error correction enables meaningful computation.",
+          "abstract": "As quantum hardware advances toward fault-tolerant operation, an intermediate stage known as early fault-tolerant quantum computing (EFTQC) is emerging, where partial error correction enables meaningful computation. In this regime, the ability of quantum processors to scale in size and depth has become a crucial factor shaping their achievable performance. This study investigates how finite scalability influences resource requirements for simulating open-shell catalytic systems using Quantum Phase Estimation (QPE). The analysis compares hardware archetypes distinguished by fidelity or operation speed under two representative scalability models. Finite scalability increases qubit and runtime demands yet leaves overall scaling behavior intact, with high-fidelity architectures requiring lower minimum scalability to solve equally sized problems. These effects are largely independent of the chosen scalability model. Extending this framework, we examine runtime competitiveness across hardware and code configurations, incorporating surface-code and quantum Low-Density Parity-Check (LDPC)-based fault tolerance under finite scalability. The results identify operating regimes where high-fidelity architectures remain competitive despite slower gate speeds and show that LDPC codes further expand this regime by reducing space-time overhead. Together, these findings highlight the central role of scalability in quantifying performance and guiding the design of next-generation quantum hardware. Continued progress in scalable architectures will be essential for extending quantum computing to increasingly complex scientific and industrial applications.",
+          "doi": ""
+        }
+      ],
+      "satellites": [
+        {
+          "id": "011a01d2a6fe331aa72476395424351185c09b95",
+          "title": "FPGA-Accelerated Early-Exit Neural Decoder for Quantum Error Correction",
+          "year": 2025,
+          "citations": 0,
+          "doi": "10.1109/DSD67783.2025.00090",
+          "dx": 75.0,
+          "dy": 0.0
+        }
+      ]
+    }
+  ],
+  "macro_filaments": [],
+  "gaps": [
+    {
+      "gap_id": "gap_1",
+      "rank": 1,
+      "title": "Unexplored Application of Multi-Modal Graph Transformers on Sentinel-2 Multi-Spectral",
+      "method": "Multi-Modal Graph Transformers",
+      "dataset": "Sentinel-2 Multi-Spectral",
+      "limitation": "Atmospheric Correction & Cloud Attenuation",
+      "breakthrough_score": 44.4,
+      "uzzi_z_score": -1.467,
+      "is_center_top": true,
+      "macro_x": 750.0,
+      "macro_y": 420.0,
+      "role": "CENTER_TOP_GAP",
+      "description": "Zero papers evaluate Multi-Modal Graph Transformers directly on Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints (Uzzi z = -1.467σ).",
+      "hypothesis": "Applying Multi-Modal Graph Transformers directly to Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": null,
+      "anchor_b": null,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_2",
+      "rank": 2,
+      "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-1 SAR Imagery",
+      "method": "Convolutional Neural Networks (CNN)",
+      "dataset": "Sentinel-1 SAR Imagery",
+      "limitation": "Forest Structure & Canopy Height",
+      "breakthrough_score": 36.0,
+      "uzzi_z_score": -1.116,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_LEFT",
+      "description": "Zero papers evaluate Convolutional Neural Networks (CNN) directly on Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints (Uzzi z = -1.116σ).",
+      "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": null,
+      "anchor_b": null,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_3",
+      "rank": 3,
+      "title": "Unexplored Application of Contrastive Representation Learning on MODIS Thermal Infrared",
+      "method": "Contrastive Representation Learning",
+      "dataset": "MODIS Thermal Infrared",
+      "limitation": "Sub-Pixel Cloud Masking Uncertainty",
+      "breakthrough_score": 36.0,
+      "uzzi_z_score": -1.116,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_RIGHT",
+      "description": "Zero papers evaluate Contrastive Representation Learning directly on MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints (Uzzi z = -1.116σ).",
+      "hypothesis": "Applying Contrastive Representation Learning directly to MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": null,
+      "anchor_b": null,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_4",
+      "rank": 4,
+      "title": "Unexplored Application of Physics-Informed Neural Operators on Sentinel Topography Radars",
+      "method": "Physics-Informed Neural Operators",
+      "dataset": "Sentinel Topography Radars",
+      "limitation": "Complex Multi-Path Signal Scattering",
+      "breakthrough_score": 35.0,
+      "uzzi_z_score": -1.076,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_LEFT",
+      "description": "Zero papers evaluate Physics-Informed Neural Operators directly on Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints (Uzzi z = -1.076σ).",
+      "hypothesis": "Applying Physics-Informed Neural Operators directly to Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": null,
+      "anchor_b": null,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    },
+    {
+      "gap_id": "gap_5",
+      "rank": 5,
+      "title": "Unexplored Application of Vision-Language Foundation Models on Landsat Multi-Decadal Time Series",
+      "method": "Vision-Language Foundation Models",
+      "dataset": "Landsat Multi-Decadal Time Series",
+      "limitation": "Sensor Calibration Drift & Resolution Mismatch",
+      "breakthrough_score": 30.9,
+      "uzzi_z_score": -0.924,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_RIGHT",
+      "description": "Zero papers evaluate Vision-Language Foundation Models directly on Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints (Uzzi z = -0.924σ).",
+      "hypothesis": "Applying Vision-Language Foundation Models directly to Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": null,
+      "anchor_b": null,
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null"
+      }
+    }
+  ],
+  "meta": {
+    "total_papers": 10,
+    "compiled_at": "2026-09-16 12:02:40",
+    "execution_time_sec": 0.001
+  }
+}

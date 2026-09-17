@@ -255,55 +255,36 @@ def compile_archipelago_data(
                 "authors": authors1[:3],
                 "year": p1.get("year") or 2023,
                 "citations": p1.get("citation_count") or 0,
-                "venue": p1.get("venue") or "NeurIPS / CVPR",
+                "venue": p1.get("venue") or "",
                 "tldr": p1.get("tldr") or (p1.get("abstract") or "")[:220] + "...",
                 "doi": p1.get("doi") or "",
             }
         else:
-            anchor_a = {
-                "id": "anc_method",
-                "title": f"Seminal Formulation: {g.get('method') or 'Proposed Method'}",
-                "authors": ["Vaswani et al.", "LeCun et al."],
-                "year": 2023,
-                "citations": 1420,
-                "venue": "IEEE TGRS / CVPR",
-                "tldr": f"Introduces {g.get('method') or 'modern architectural baseline'} with strong empirical validation.",
-                "doi": "10.1109/TGRS.2023.01",
-            }
+            anchor_a = None
 
         if len(anchor_papers) > 1:
             p2 = anchor_papers[1]
             authors2 = [a.get("name") if isinstance(a, dict) else str(a) for a in (p2.get("authors") or [])]
             anchor_b = {
                 "id": p2.get("id") or p2.get("s2_paper_id") or "anc_2",
-                "title": p2.get("title") or "Target Problem Stress Study",
+                "title": p2.get("title") or "Target Problem Benchmark",
                 "authors": authors2[:3],
                 "year": p2.get("year") or 2022,
                 "citations": p2.get("citation_count") or 0,
-                "venue": p2.get("venue") or "Remote Sensing of Environment",
+                "venue": p2.get("venue") or "",
                 "tldr": p2.get("tldr") or (p2.get("abstract") or "")[:220] + "...",
                 "doi": p2.get("doi") or "",
             }
         else:
-            anchor_b = {
-                "id": "anc_target",
-                "title": f"Empirical Evaluation on {g.get('dataset') or 'Target Dataset'}",
-                "authors": ["Chen et al.", "Zhang et al."],
-                "year": 2022,
-                "citations": 395,
-                "venue": "ISPRS Journal",
-                "tldr": f"Highlights persistent degradation under {g.get('limitation') or 'extreme noise conditions'}.",
-                "doi": "10.1016/j.isprsjprs.2022.05",
-            }
+            anchor_b = None
 
-        method_str = g.get("method") or "Deep Residual Graph Model"
-        dataset_str = g.get("dataset") or "Sentinel-2 Multi-Spectral Benchmark"
-        limitation_str = g.get("limitation") or "Atmospheric Noise & Cloud Attenuation"
+        method_str = g.get("method") or "Proposed Method"
+        dataset_str = g.get("dataset") or "Target Benchmark"
+        limitation_str = g.get("limitation") or "Operational Constraint"
 
         score_pct = round(float(g.get("score") or 0.85) * 100, 1)
-        uzzi_z = g.get("uzzi_z_score")
-        if uzzi_z is None:
-            uzzi_z = round(-1.2 - (g_idx * 0.18), 3)
+        raw_z = g.get("uzzi_z_score")
+        uzzi_z = round(float(raw_z), 3) if raw_z is not None else None
 
         hypothesis = (
             f"Applying {method_str} directly to {dataset_str} under {limitation_str} constraints "

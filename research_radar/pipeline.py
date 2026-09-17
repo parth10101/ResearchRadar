@@ -272,24 +272,31 @@ def run_stage2(papers: list[dict], out_dir: Path) -> dict[str, list[str]]:
     print(f"  {'-' * 66}")
 
     nlp = s2._get_nlp()
-    cleaned_texts = [s2.clean_text(f"{p.get('title', '')} {p.get('abstract', '')}") for p in papers[1:]]
+    cleaned_texts = [s2.clean_text(s2.assemble_paper_text(p)) for p in papers[1:]]
 
     # High-throughput vectorization: batch_size=512 batches C-level spaCy operations
     # and avoids Windows child-process spawn/IPC socket contention, running all 3k papers in ~34s.
     pipe_stream = nlp.pipe(cleaned_texts, batch_size=512)
 
     for p, doc in zip(papers[1:], pipe_stream):
-        toks = [
-            tok.lemma_.lower().strip()
-            for tok in doc
-            if not (tok.is_stop or tok.is_punct or tok.is_space)
-            and len(tok.lemma_) >= 3
-            and tok.lemma_.lower().strip() not in s2.DOMAIN_STOPWORDS
-        ]
+        toks = []
+        for tok in doc:
+            if tok.is_stop or tok.is_punct or tok.is_space:
+                continue
+            raw_t = tok.text.lower().strip()
+            lemma = tok.lemma_.lower().strip()
+            if raw_t in s2.SCIENTIFIC_LEMMA_OVERRIDES:
+                lemma = s2.SCIENTIFIC_LEMMA_OVERRIDES[raw_t]
+            elif lemma in s2.SCIENTIFIC_LEMMA_OVERRIDES:
+                lemma = s2.SCIENTIFIC_LEMMA_OVERRIDES[lemma]
+            if len(lemma) < 3 or lemma in s2.DOMAIN_STOPWORDS:
+                continue
+            toks.append(lemma)
+
         tokens_map[p["id"]] = toks
         verbose_reports.append({
             "token_count": len(toks),
-            "raw_word_count": len(f"{p.get('title', '')} {p.get('abstract', '')}".split()),
+            "raw_word_count": len(s2.assemble_paper_text(p).split()),
             "cleaned_word_count": len(toks),
             "id": p.get("id"),
         })
@@ -367,18 +374,18 @@ def run_stage3(papers: list[dict], out_dir: Path, model_key: str = "fast") -> No
     print(f"  {'=' * 66}")
     print(f"  Title : {sample_title}\n")  # 1. Full title of paper
 
-    # Step 1: Input Text Construction & Title Weighting
+    # Step 1: Input Text Construction & Structured Semantic Formatting
     raw_full   = s3._build_input_string(sample_paper, max_words=99999)
     raw_words  = raw_full.split()
     word_count = len(raw_words)
-    print(f"  Step 1  [Build Input String]  title(×2) + tldr + abstract + fields  ->  {word_count} words")
-    print(f"          Words: {raw_words}\n")  # 2. Display all words of title 2x + tldr + abstract + fields
+    print(f"  Step 1  [Build Input String]  Title + Summary + Abstract + Fields  ->  {word_count} words")
+    print(f"          Formatted Input: {raw_full[:200]}...\n")
 
     # Step 2: Subword Tokenization & Numerical Encoding
     info = s3.inspect_sample_transformation(sample_paper, model_key=model_key)
     print(f"  Step 2  [Subword Tokenization]  natural prose -> subword tokens & token IDs")
-    print(f"          Subword Tokens ({info['total_subwords']} total): {info['subword_tokens']}")  # 4. All tokens
-    print(f"          Vocabulary Token IDs ({len(info['token_ids'])} total): {info['token_ids']}\n")  # 4. All token IDs
+    print(f"          Subword Tokens ({info['total_subwords']} total): {info['subword_tokens'][:20]}...")
+    print(f"          Vocabulary Token IDs ({len(info['token_ids'])} total): {info['token_ids'][:20]}...\n")
 
     # Batch Encode ALL papers
     print(f"  {'-' * 66}")
@@ -390,13 +397,13 @@ def run_stage3(papers: list[dict], out_dir: Path, model_key: str = "fast") -> No
     elapsed = time.time() - t0
     print(f"  Encoded {total} papers in {elapsed:.1f}s")
 
-    # Save outputs to disk
+    # Save outputs to disk (with full scientometric diagnostics in meta.json)
     out_dir.mkdir(parents=True, exist_ok=True)
-    s3.save_embeddings(ids, embeddings, model_key=model_key, out_dir=out_dir, save_extra=False)
+    s3.save_embeddings(ids, embeddings, model_key=model_key, out_dir=out_dir, save_extra=True)
     sim_groups_path = s3.save_similarity_groups(ids, embeddings, papers, out_dir=out_dir, top_k=5)
 
     dim = embeddings.shape[1]
-    avg_norm = float(np.mean(np.linalg.norm(embeddings, axis=1)))
+    diag = s3.compute_embedding_diagnostics(embeddings)
 
     print(f"\n  {'=' * 66}")
     print(f"  STAGE 3 COMPLETE -- EMBEDDING & SIMILARITY SUMMARY")
@@ -404,10 +411,15 @@ def run_stage3(papers: list[dict], out_dir: Path, model_key: str = "fast") -> No
     print(f"  Model used              : {model_name} ({dim}-d, {model_key})")
     print(f"  Total papers embedded   : {total}")
     print(f"  Embedding matrix shape  : ({total}, {dim})")
-    print(f"  Avg L2 norm             : {avg_norm:.4f} (all vectors unit-normalized)")
+    print(f"  Avg L2 norm             : {diag.get('avg_l2_norm', 1.0):.4f} (all vectors unit-normalized)")
+    print(f"  Effective Spectral Rank : {diag.get('effective_rank', 0.0)} / {min(total, dim)} ({diag.get('effective_rank_ratio', 0.0)*100:.1f}% manifold coverage)")
+    print(f"  Mean Off-Diagonal Cosine: {diag.get('mean_off_diagonal_cosine', 0.0):.4f} (isotropy baseline)")
+    print(f"  Hypersphere Isotropy    : {diag.get('isotropy_score', 0.0):.6f}")
     print(f"  Output files written to : {out_dir}/")
     print(f"    - embeddings.npy              -- dense vector embedding matrix ({total} × {dim})")
-    print(f"    - cosine_similarity_groups.json -- pairwise cosine similarity matrix & groups")
+    print(f"    - embeddings_ids.json         -- row-to-paper ID map")
+    print(f"    - embeddings_meta.json        -- model metadata & scientometric diagnostics")
+    print(f"    - cosine_similarity_groups.json -- memory-bounded pairwise similarity matrix")
     print(f"  {'=' * 66}\n")
 
     return ids, embeddings

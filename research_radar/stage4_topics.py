@@ -544,11 +544,6 @@ def apply_htap_cluster_projection(
             d = dists[local_i]
             offset = offsets[local_i]
 
-            # Stray outlier purge: points beyond 2.5x cluster median float as gray outliers (-1)
-            if d > 2.5 * med_dist:
-                topics_arr[global_idx] = -1
-                continue
-
             # Smoothly compress points into a tight, compact spherical cluster ball
             compressed_dist = max_cluster_radius * np.tanh(d / (med_dist * 1.2))
             if d > 1e-6:
@@ -599,12 +594,12 @@ def fit_topics(
         if n_papers <= 35:
             candidate_sizes = [3, 4, 5]
         elif n_papers <= 100:
-            candidate_sizes = [3, 4, 5, 6, 8]
+            candidate_sizes = [5, 6, 8]
         elif n_papers <= 300:
-            candidate_sizes = [4, 6, 8, 10, 12, 14]
+            candidate_sizes = [8, 10, 12, 14]
         else:
-            min_c  = max(4, int(np.log2(n_papers)))           # log2(3000)=11, log2(1000)=10
-            max_c  = max(12, min(40, int(np.sqrt(n_papers) * 0.6)))  # sqrt(3000)*0.6=33, capped at 40
+            min_c  = max(8, int(np.log2(n_papers)))           # log2(3000)=11, log2(1000)=10, floored at 8
+            max_c  = max(14, min(40, int(np.sqrt(n_papers) * 0.6)))  # capped at 40
             mid_c  = (min_c + max_c) // 2
             candidate_sizes = [min_c, mid_c, max_c]
 
@@ -727,6 +722,51 @@ def fit_topics(
         target_outlier_ratio=0.14,
     )
 
+    # 3.1 Semantic Homonym Disambiguation (Statistical Centroid-to-Global Gating)
+    # Reclassifies off-domain polysemous intruders as outlier noise (-1) using statistical dispersion
+    # rather than a fixed arbitrary threshold, protecting legitimate interdisciplinary subfields.
+    c_global = np.mean(embeddings, axis=0)
+    c_global_norm = float(np.linalg.norm(c_global))
+    if c_global_norm > 1e-6:
+        c_global_u = c_global / c_global_norm
+        unique_topics = set(topics) - {-1}
+        topic_sims = {}
+        for k in unique_topics:
+            k_indices = [i for i, t in enumerate(topics) if t == k]
+            if k_indices:
+                k_centroid = np.mean(embeddings[k_indices], axis=0)
+                k_norm = float(np.linalg.norm(k_centroid))
+                if k_norm > 1e-6:
+                    topic_sims[k] = (float(np.dot(k_centroid / k_norm, c_global_u)), k_indices)
+
+        if len(topic_sims) >= 3:
+            sim_vals = [s for s, _ in topic_sims.values()]
+            mean_s = float(np.mean(sim_vals))
+            std_s = float(np.std(sim_vals))
+            # Only prune if cluster is an extreme statistical outlier (>= 2.5 std below corpus mean)
+            adaptive_thresh = max(0.08, min(0.18, mean_s - 2.5 * std_s))
+            for k, (sim, k_indices) in topic_sims.items():
+                if sim < adaptive_thresh:
+                    logger.info(f"Reclassifying statistical homonym intruder topic {k} (sim={sim:.4f} < {adaptive_thresh:.4f}) as outlier noise")
+                    for idx in k_indices:
+                        topics[idx] = -1
+        elif len(topic_sims) > 0:
+            for k, (sim, k_indices) in topic_sims.items():
+                if sim < 0.10:  # conservative floor for tiny cluster counts
+                    for idx in k_indices:
+                        topics[idx] = -1
+
+        if isinstance(noise_audit, dict):
+            noise_audit["final_outliers"] = topics.count(-1)
+
+    topics = [int(t) for t in topics]  # ensure Python int list
+
+    # Final keyword refresh based on authentic high-dimensional clusters
+    try:
+        topic_model.update_topics(documents, topics=topics)
+    except Exception as e:
+        logger.warning(f"update_topics keyword refresh warning: {e}")
+
     # 4. Extract 5D embeddings
     umap_5d = topic_model.umap_model.embedding_
 
@@ -757,23 +797,13 @@ def fit_topics(
     # Pairwise Coulomb repulsion (min_cluster_separation=3.2) ensures clean visual
     # island separation without pushing clusters to extreme corners.
     # tanh envelope clamping (max_cluster_radius=1.8) gives clusters natural breathing room.
-    # DISPLAY COORDINATES ONLY — not geometric truth.
+    # DISPLAY COORDINATES ONLY — not geometric truth. Cluster topics are preserved.
     coords_2d, _ = apply_htap_cluster_projection(
         raw_2d, topics, min_cluster_separation=3.2, max_cluster_radius=1.1
     )
-    coords_3d, topics = apply_htap_cluster_projection(
+    coords_3d, _ = apply_htap_cluster_projection(
         raw_3d, topics, min_cluster_separation=3.2, max_cluster_radius=1.1
     )
-    topics = [int(t) for t in topics]  # ensure Python int list
-
-    # A3-fix: update_topics called HERE — after HTAP has finalised all topic assignments.
-    # BERTopic's own warning says manual topic assignment should be the LAST step.
-    # Calling it earlier (inside outlier filtering) leads to inconsistent keyword state.
-    try:
-        topic_model.update_topics(documents, topics=topics)
-    except Exception as e:
-        logger.warning(f"update_topics (final keyword refresh) failed: {e}. "
-                       f"Keywords will reflect pre-filtering HDBSCAN assignments.")
 
     # 7. Extract topic information & keywords
     topic_info = topic_model.get_topic_info()
@@ -860,17 +890,16 @@ def fit_topics(
         logger.warning(f"Academic title refinement warning: {err}")
 
     # 10. Objective Quality Metrics
-    # Silhouette & DBCV: computed on 5D UMAP space (pre-display-layout) — the same
-    # space HDBSCAN used. Display coords must NOT be used here (force-directed layout
-    # artificially maximises inter-cluster distance, inflating both scores).
+    # Silhouette & DBCV: computed on original L2-normalized embeddings in metric space S^(D-1)
+    # matching Rousseeuw (1987) and Moulavi et al. (2014) where Cosine Distance is geometrically valid.
+    # Display coords must NOT be used here (force-directed layout artificially inflates scores).
     #
     # Coherence: B3-fix — use coherence_corpus (raw natural text) when available.
     # Röder et al. (2015) specify the reference corpus should be original unprocessed
     # text. Preprocessed tokens (stemmed, stopword-removed) under-count co-occurrence,
     # compressing PMI values and deflating C_v and NPMI systematically.
-    umap_5d_array = umap_5d  # shape (n_papers, 5) — same positional order as ids
-    silhouette = compute_silhouette(umap_5d_array, topics)
-    dbcv = compute_dbcv_index(umap_5d_array, topics)
+    silhouette = compute_silhouette(embeddings, topics)
+    dbcv = compute_dbcv_index(embeddings, topics)
     # Use raw natural text for coherence if provided; else fall back to documents
     _coh_docs = coherence_corpus if coherence_corpus is not None else documents
     tokenized_corpus = [doc.split() for doc in _coh_docs]

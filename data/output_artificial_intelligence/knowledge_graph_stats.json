@@ -1,0 +1,201 @@
+{
+  "total_nodes": 1677,
+  "total_edges": 2147,
+  "counts_by_type": {
+    "papers": 1000,
+    "topics": 14,
+    "methods": 635,
+    "datasets": 19,
+    "authors": 9
+  },
+  "top_methods": [
+    {
+      "name": "Diffusion Model",
+      "count": 94
+    },
+    {
+      "name": "Reinforcement Learning",
+      "count": 36
+    },
+    {
+      "name": "In This Paper,",
+      "count": 34
+    },
+    {
+      "name": "Artificial Intelligence (Ai)",
+      "count": 29
+    },
+    {
+      "name": "Blockchain",
+      "count": 22
+    },
+    {
+      "name": "Transformer",
+      "count": 20
+    },
+    {
+      "name": "This Paper Presents",
+      "count": 15
+    },
+    {
+      "name": "Clustering",
+      "count": 14
+    }
+  ],
+  "top_datasets": [
+    {
+      "name": "Covid-19",
+      "count": 22
+    },
+    {
+      "name": "PUBMED",
+      "count": 17
+    },
+    {
+      "name": "X-RAY",
+      "count": 12
+    },
+    {
+      "name": "MRI",
+      "count": 9
+    },
+    {
+      "name": "Clinical Trials",
+      "count": 7
+    },
+    {
+      "name": "Genomics",
+      "count": 4
+    },
+    {
+      "name": "Electronic Health Records",
+      "count": 3
+    },
+    {
+      "name": "Electronic Health Record",
+      "count": 3
+    }
+  ],
+  "research_gaps": [
+    {
+      "method": "Diffusion Model",
+      "dataset": "X-RAY",
+      "gap_score": 1128,
+      "method_papers_count": 94,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply Diffusion Model to X-RAY benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "Covid-19",
+      "gap_score": 792,
+      "method_papers_count": 36,
+      "dataset_papers_count": 22,
+      "opportunity": "Apply Reinforcement Learning to Covid-19 benchmark"
+    },
+    {
+      "method": "In This Paper,",
+      "dataset": "Covid-19",
+      "gap_score": 748,
+      "method_papers_count": 34,
+      "dataset_papers_count": 22,
+      "opportunity": "Apply In This Paper, to Covid-19 benchmark"
+    },
+    {
+      "method": "Diffusion Model",
+      "dataset": "Clinical Trials",
+      "gap_score": 658,
+      "method_papers_count": 94,
+      "dataset_papers_count": 7,
+      "opportunity": "Apply Diffusion Model to Clinical Trials benchmark"
+    },
+    {
+      "method": "Reinforcement Learning",
+      "dataset": "PUBMED",
+      "gap_score": 612,
+      "method_papers_count": 36,
+      "dataset_papers_count": 17,
+      "opportunity": "Apply Reinforcement Learning to PUBMED benchmark"
+    },
+    {
+      "method": "In This Paper,",
+      "dataset": "PUBMED",
+      "gap_score": 578,
+      "method_papers_count": 34,
+      "dataset_papers_count": 17,
+      "opportunity": "Apply In This Paper, to PUBMED benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Covid-19",
+      "gap_score": 440,
+      "method_papers_count": 20,
+      "dataset_papers_count": 22,
+      "opportunity": "Apply Transformer to Covid-19 benchmark"
+    },
+    {
+      "method": "In This Paper,",
+      "dataset": "X-RAY",
+      "gap_score": 408,
+      "method_papers_count": 34,
+      "dataset_papers_count": 12,
+      "opportunity": "Apply In This Paper, to X-RAY benchmark"
+    },
+    {
+      "method": "Diffusion Model",
+      "dataset": "Genomics",
+      "gap_score": 376,
+      "method_papers_count": 94,
+      "dataset_papers_count": 4,
+      "opportunity": "Apply Diffusion Model to Genomics benchmark"
+    },
+    {
+      "method": "Blockchain",
+      "dataset": "PUBMED",
+      "gap_score": 374,
+      "method_papers_count": 22,
+      "dataset_papers_count": 17,
+      "opportunity": "Apply Blockchain to PUBMED benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "PUBMED",
+      "gap_score": 340,
+      "method_papers_count": 20,
+      "dataset_papers_count": 17,
+      "opportunity": "Apply Transformer to PUBMED benchmark"
+    },
+    {
+      "method": "This Paper Presents",
+      "dataset": "Covid-19",
+      "gap_score": 330,
+      "method_papers_count": 15,
+      "dataset_papers_count": 22,
+      "opportunity": "Apply This Paper Presents to Covid-19 benchmark"
+    },
+    {
+      "method": "Clustering",
+      "dataset": "Covid-19",
+      "gap_score": 308,
+      "method_papers_count": 14,
+      "dataset_papers_count": 22,
+      "opportunity": "Apply Clustering to Covid-19 benchmark"
+    },
+    {
+      "method": "In This Paper,",
+      "dataset": "MRI",
+      "gap_score": 306,
+      "method_papers_count": 34,
+      "dataset_papers_count": 9,
+      "opportunity": "Apply In This Paper, to MRI benchmark"
+    },
+    {
+      "method": "Llm",
+      "dataset": "Covid-19",
+      "gap_score": 286,
+      "method_papers_count": 13,
+      "dataset_papers_count": 22,
+      "opportunity": "Apply Llm to Covid-19 benchmark"
+    }
+  ]
+}

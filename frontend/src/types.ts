@@ -155,14 +155,54 @@ export interface ResearchGap {
   dataset: string;
   limitation: string;
   score: number;
+  specificity_score?: number;
+  literature_tier?: string;
+  operational_hypothesis?: {
+    task: string;
+    task_plain?: string;
+    methodology: string;
+    method_plain?: string;
+    dataset: string;
+    dataset_plain?: string;
+    constraint: string;
+    constraint_plain?: string;
+    epistemic_boundary: string;
+    epistemic_plain?: string;
+    hypothesis_statement: string;
+    specificity_score: number;
+    is_admissible: boolean;
+    specificity_evaluation?: any;
+  };
   uzzi_z_score: number;
   expected_cooccur: number;
   scientific_basis?: {
     paper: string;
     doi: string;
     formula: string;
+    referee_verdict?: string;
+    specificity_rigor?: string;
+  };
+  global_verification?: {
+    is_unexplored: boolean;
+    global_hit_count: number;
+    confidence_score: number;
+    literature_tier?: string;
+    counterexamples: any[];
+    verification_urls: {
+      google_scholar: string;
+      openalex: string;
+      semantic_scholar: string;
+      exact_search_query: string;
+    };
+    verification_notes: string;
+  };
+  domain_feasibility?: {
+    is_compatible: boolean;
+    rationale: string;
   };
   description: string;
+  description_plain?: string;
+  description_rigor?: string;
   papers_involved: string[];
 }
 
@@ -190,4 +230,5 @@ export interface PipelineProgressEvent {
   timestamp?: number;
   is_terminal?: boolean;
   status?: string;
+  dataset_id?: string;
 }

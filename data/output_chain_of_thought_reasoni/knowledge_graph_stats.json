@@ -1,0 +1,47 @@
+{
+  "total_nodes": 88,
+  "total_edges": 145,
+  "counts_by_type": {
+    "papers": 60,
+    "topics": 8,
+    "methods": 18,
+    "datasets": 0,
+    "authors": 2
+  },
+  "top_methods": [
+    {
+      "name": "Llm",
+      "count": 38
+    },
+    {
+      "name": "Reinforcement Learning",
+      "count": 10
+    },
+    {
+      "name": "Large Language Model",
+      "count": 7
+    },
+    {
+      "name": "Zero-Shot",
+      "count": 7
+    },
+    {
+      "name": "Rag",
+      "count": 3
+    },
+    {
+      "name": "Retrieval-Augmented Generation",
+      "count": 2
+    },
+    {
+      "name": "To Address This",
+      "count": 2
+    },
+    {
+      "name": "To Address This,",
+      "count": 2
+    }
+  ],
+  "top_datasets": [],
+  "research_gaps": []
+}

@@ -1,11 +1,11 @@
 {
-  "total_nodes": 3086,
-  "total_edges": 14302,
+  "total_nodes": 3085,
+  "total_edges": 14258,
   "counts_by_type": {
     "papers": 3000,
     "topics": 17,
     "methods": 35,
-    "datasets": 22,
+    "datasets": 21,
     "authors": 12
   },
   "top_methods": [
@@ -23,7 +23,7 @@
     },
     {
       "name": "Gnn",
-      "count": 1905
+      "count": 1943
     },
     {
       "name": "Attention Mechanism",
@@ -43,10 +43,6 @@
     }
   ],
   "top_datasets": [
-    {
-      "name": "Covid19",
-      "count": 82
-    },
     {
       "name": "Covid-19",
       "count": 79
@@ -74,6 +70,10 @@
     {
       "name": "Clinical Trial",
       "count": 20
+    },
+    {
+      "name": "MRI",
+      "count": 18
     }
   ],
   "research_gaps": [
@@ -150,14 +150,6 @@
       "opportunity": "Apply Contrastive Learning to Electronic Health Records benchmark"
     },
     {
-      "method": "Federated Learning",
-      "dataset": "Covid19",
-      "gap_score": 3280,
-      "method_papers_count": 40,
-      "dataset_papers_count": 82,
-      "opportunity": "Apply Federated Learning to Covid19 benchmark"
-    },
-    {
       "method": "Contrastive Learning",
       "dataset": "Training Set",
       "gap_score": 3255,
@@ -196,6 +188,14 @@
       "method_papers_count": 71,
       "dataset_papers_count": 31,
       "opportunity": "Apply Clustering to Training Set benchmark"
+    },
+    {
+      "method": "Transformer",
+      "dataset": "Medmnist",
+      "gap_score": 2107,
+      "method_papers_count": 2107,
+      "dataset_papers_count": 1,
+      "opportunity": "Apply Transformer to Medmnist benchmark"
     }
   ]
 }

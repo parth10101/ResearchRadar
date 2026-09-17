@@ -32,15 +32,29 @@ def process_directory(out_dir: Path):
         return
     
     first_bracket = html.find('[', idx)
+    in_string = False
+    escape = False
     count = 0
     end_bracket = -1
     for i in range(first_bracket, len(html)):
-        if html[i] == '[': count += 1
-        elif html[i] == ']':
-            count -= 1
-            if count == 0:
-                end_bracket = i
-                break
+        c = html[i]
+        if escape:
+            escape = False
+            continue
+        if c == '\\':
+            escape = True
+            continue
+        if c == '"':
+            in_string = not in_string
+            continue
+        if not in_string:
+            if c == '[':
+                count += 1
+            elif c == ']':
+                count -= 1
+                if count == 0:
+                    end_bracket = i
+                    break
     if end_bracket == -1:
         return
         
@@ -175,5 +189,7 @@ def process_directory(out_dir: Path):
     dest.write_text(json.dumps(result, indent=2), encoding='utf-8')
     print(f"Successfully processed {out_dir.name}: {len(all_points)} 3D points, {len(clusters)} clusters, {len(gaps_3d)} 3D gap anchors.")
 
-for out_dir in Path('data').glob('output*'):
-    process_directory(out_dir)
+if __name__ == '__main__':
+    for out_dir in Path('data').glob('output*'):
+        if out_dir.is_dir():
+            process_directory(out_dir)

@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResearchRadar • Epistemic Archipelago & 3-Tier Zoom</title>
+
+  <!-- Tri-Font Typography Standard (GEMINI.md) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            canvas: '#080b11',
+            card: '#0f141f',
+            elevated: '#161e2e',
+            sheet: 'rgba(17, 24, 38, 0.94)',
+            canon: '#eab308',
+            refuted: '#f43f5e',
+            consensus: '#10b981',
+            frontier: '#38bdf8',
+            gapnexus: '#a855f7',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-void: #080b11;
+      --card-bg: #0f141f;
+      --card-elevated: #161e2e;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.16);
+      --border-highlight: rgba(255, 255, 255, 0.22);
+      --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body {
+      background-color: var(--bg-void);
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+    .specular-border {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    .macro-filament {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-linecap: round;
+      transition: stroke 0.3s, opacity 0.3s;
+    }
+    .cluster-halo {
+      cursor: pointer;
+      transition: transform 0.3s var(--spring-easing), opacity 0.3s ease;
+    }
+    .cluster-halo:hover {
+      filter: drop-shadow(0 0 16px rgba(255,255,255,0.22));
+    }
+    .gap-triad-macro {
+      cursor: pointer;
+      transition: transform 0.25s var(--spring-easing);
+    }
+    .gap-triad-macro:hover {
+      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.45));
+    }
+    .drawer-slide {
+      transition: transform 0.4s var(--spring-easing), opacity 0.4s ease;
+    }
+    /* Warp traveling canvas overlay */
+    #warp-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 28;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    /* Animated pulse ring */
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-ring-anim {
+      animation: pulseRing 3s infinite ease-in-out;
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body class="flex flex-col select-none antialiased">
+
+  <!-- =========================================================================
+       1. TOP COMMAND BAR
+       ========================================================================= -->
+  <header class="h-16 px-6 bg-[#0a0e17]/90 backdrop-blur-xl border-b border-white/8 flex items-center justify-between z-50">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="returnToLevel1()">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-500 to-purple-500 flex items-center justify-center text-black font-bold text-xs">
+          RR
+        </div>
+        <div>
+          <span class="font-serif italic text-lg text-white font-medium">ResearchRadar</span>
+          <span class="text-[10px] font-mono text-slate-400 ml-2 px-1.5 py-0.5 rounded bg-white/5 border border-white/8">STAGE 06 // EPISTEMIC ARCHIPELAGO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 3-Tier Breadcrumb State Indicator -->
+    <div class="flex items-center gap-3">
+      <nav class="flex p-1 bg-[#0f141f] border border-white/10 rounded-xl text-xs font-medium text-slate-400">
+        <button id="nav-step-1" onclick="returnToLevel1()" class="px-3.5 py-1.5 rounded-lg text-white bg-white/10 shadow-sm transition flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>1. Macro Clusters</span>
+        </button>
+        <button id="nav-step-2" class="px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-purple-400 opacity-40"></span>
+          <span>2. Cluster Drill-Down</span>
+        </button>
+        <button id="nav-step-3" class="px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-sky-400 opacity-40"></span>
+          <span>3. M×D×L Gaps</span>
+        </button>
+      </nav>
+
+      <!-- EXCLUSIVE TOP BUTTON: [⚡ Research Gaps] (Only active from Level 1) -->
+      <div class="relative group">
+        <button id="btn-top-research-gaps" onclick="triggerSciFiGapsTransition()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-sky-500/20 hover:from-purple-500/30 hover:to-sky-500/30 border border-purple-500/40 text-purple-200 font-mono text-xs font-semibold tracking-wide transition shadow-lg flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+          <span>⚡ RESEARCH GAPS (TOP 5)</span>
+        </button>
+        <div id="btn-tooltip" class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded bg-[#1c2638] text-[10px] font-mono text-slate-300 opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap border border-white/10">
+          Available only from Level 1 Macro Space
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center gap-2.5 font-mono text-xs">
+      <button id="btn-back-macro" onclick="zoomBackToMacroGaps()" class="hidden px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-white transition flex items-center gap-1.5">
+        <span>← Back to Top 5 Gaps</span>
+      </button>
+      <button id="btn-back-clusters" onclick="returnToLevel1()" class="hidden px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition flex items-center gap-1.5">
+        <span>🌐 Field Clusters</span>
+      </button>
+      <button onclick="exportTaxonomy()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/8 text-slate-300 transition">
+        📑 Export
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       2. MAIN VIEWPORT (CANVAS + WARP EFFECT + SVG)
+       ========================================================================= -->
+  <main class="relative flex-1 w-full h-[calc(100vh-64px)] overflow-hidden bg-[#080b11]">
+
+    <!-- Dynamic Level Status Pill (Top Left) -->
+    <div class="absolute top-5 left-8 z-20 pointer-events-none">
+      <div id="level-badge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0f141f]/90 backdrop-blur-md border border-white/10 text-xs font-mono text-slate-200">
+        <span id="level-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+        <span id="level-title" class="font-semibold tracking-wide">LEVEL 1: MACRO THEMATIC NEBULAE</span>
+      </div>
+      <p id="level-desc" class="text-xs text-slate-400 font-sans mt-2 max-w-[340px] leading-relaxed">
+        Full field topology. Click any cluster to focus its landmark pillars, or press <strong class="text-purple-300">[⚡ RESEARCH GAPS]</strong> to initiate neuron reorganization.
+      </p>
+    </div>
+
+    <!-- Warp Speed Travelling HUD Overlay (Appears during deep micro zoom) -->
+    <div id="warp-hud" class="absolute inset-0 pointer-events-none z-30 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+      <div class="p-5 rounded-2xl bg-[#080b11]/90 backdrop-blur-xl border border-purple-500/40 text-center space-y-2.5 shadow-2xl">
+        <div class="text-[11px] font-mono text-purple-400 tracking-widest uppercase animate-pulse flex items-center justify-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+          <span>HYPER-WARP DIVE IN PROGRESS</span>
+        </div>
+        <div id="warp-telemetry" class="text-xs font-mono text-slate-200 tabular-nums font-semibold">
+          SECTOR: MACRO → SUB-LATTICE → MID-SUB CORE → SUPER-SUB TRIAD → MICRO
+        </div>
+        <div class="w-64 h-1.5 bg-white/10 rounded-full mx-auto overflow-hidden">
+          <div id="warp-progress-bar" class="h-full bg-gradient-to-r from-sky-400 via-purple-400 to-emerald-400 w-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas for Sci-Fi Particle Reorganization Lines -->
+    <canvas id="warp-canvas"></canvas>
+
+    <!-- Central SVG Canvas -->
+    <svg id="canvas-svg" class="w-full h-full">
+      <defs>
+        <filter id="glow-purple" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="glow-emerald" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="glow-sky" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <g id="canvas-root">
+        <!-- Level 1: Inter-cluster citation filaments -->
+        <g id="filament-layer"></g>
+
+        <!-- Level 1 & Level 2: Cluster nebulae & satellite paper nodes -->
+        <g id="cluster-layer"></g>
+
+        <!-- Dynamic Sci-Fi Reorganization Particles Layer -->
+        <g id="scifi-particles-layer"></g>
+
+        <!-- Level 3 Macro & Micro: Top 5 M*D*L Gap Networks Layer -->
+        <g id="gaps-layer"></g>
+      </g>
+    </svg>
+
+    <!-- =======================================================================
+         3. SLIDE-OVER INSPECTION DRAWER (EVIDENCE & GRANT STUDIO)
+         ======================================================================= -->
+    <aside id="info-drawer" class="absolute top-0 right-0 h-full w-[460px] bg-[#0f141f]/95 backdrop-blur-2xl border-l border-white/10 p-6 z-40 transform translate-x-full drawer-slide overflow-y-auto space-y-5 specular-border">
+      <div class="flex items-center justify-between pb-3 border-b border-white/8">
+        <span id="drawer-eyebrow" class="text-xs font-mono text-purple-400 uppercase tracking-wider font-semibold">
+          M×D×L GAP DOSSIER
+        </span>
+        <button onclick="closeDrawer()" class="text-slate-400 hover:text-white text-xs font-mono px-2 py-1 rounded hover:bg-white/5">✕ ESC</button>
+      </div>
+
+      <div id="drawer-content" class="space-y-4">
+        <!-- Dynamic content injected by JavaScript -->
+      </div>
+    </aside>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-8 px-4 py-2.5 rounded-xl bg-[#1c2638] border border-white/20 text-white text-xs font-mono shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+      Copied to clipboard!
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       4. EMBEDDED COMPILED DATA & APPLICATION SCRIPT
+       ========================================================================= -->
+  <script>
+    const DATA = {"macro_clusters": [{"cluster_id": 0, "name": "Reinforcement Learning with Chain-of-Thought Rewards", "keywords": ["reasoning", "reward", "model", "training"], "color": "#38bdf8", "glow": "rgba(56, 189, 248, 0.25)", "x": 872.2, "y": 237.1, "radius": 39.3, "paper_count": 11, "pillars": [{"id": "2510.02263", "title": "RLAD: Training LLMs to Discover Abstractions for Solving Reasoning Problems", "authors": ["Yuxiao Qu", "Anikait Singh", "Yoonho Lee"], "year": 2025, "citations": 23, "venue": "arXiv.org", "tldr": "To address more effective reasoning, we introduce reasoning abstractions: concise natural language descriptions of procedural and factual knowledge that guide the model toward learning successful reasoning.", "abstract": "Reasoning requires going beyond pattern matching or memorization of solutions to identify and implement\"algorithmic procedures\"that can be used to deduce answers to hard problems. Doing so requires realizing the most relevant primitives, intermediate results, or shared procedures, and building upon them. While RL post-training on long chains of thought ultimately aims to uncover this kind of algorithmic behavior, most reasoning traces learned by large models fail to consistently capture or reuse procedures, instead drifting into verbose and degenerate exploration. To address more effective reasoning, we introduce reasoning abstractions: concise natural language descriptions of procedural and factual knowledge that guide the model toward learning successful reasoning. We train models to be capable of proposing multiple abstractions given a problem, followed by RL that incentivizes building a solution while using the information provided by these abstractions. This results in a two-player RL training paradigm, abbreviated as RLAD, that jointly trains an abstraction generator and a solution generator. This setup effectively enables structured exploration, decouples learning signals of abstraction proposal and solution generation, and improves generalization to harder problems. We also show that allocating more test-time compute to generating abstractions is more beneficial for performance than generating more solutions at large test budgets, illustrating the role of abstractions in guiding meaningful exploration.", "doi": "10.48550/arXiv.2510.02263"}, {"id": "2511.17938", "title": "SPINE: Token-Selective Test-Time Reinforcement Learning with Entropy-Band Regularization", "authors": ["Jianghao Wu", "Yasmeen George", "Jin Ye"], "year": 2025, "citations": 11, "venue": "arXiv.org", "tldr": "Thus we propose \\method, a token-selective test-time reinforcement learning framework that (i) performs distribution-aware forking-token selection to update only decision-critical branch points, and (ii) applies a robust entropy-band regularizer at those tokens to prevent premature collapse and suppress noisy drift.", "abstract": "Large language models (LLMs) and multimodal LLMs (MLL-Ms) excel at chain-of-thought reasoning but face distribution shift at test-time and a lack of verifiable supervision. Recent test-time reinforcement learning (TTRL) methods derive label-free pseudo-rewards from self-consistency voting over sampled trajectories, yet they often collapse: the majority-vote reward prevails, responses shorten, and Pass@1 declines. We trace this to uniform sequence updates in which most tokens are low-entropy followers, while a small high-entropy subset determines the reasoning branches. Thus we propose \\method, a token-selective test-time reinforcement learning framework that (i) performs distribution-aware forking-token selection to update only decision-critical branch points, and (ii) applies a robust entropy-band regularizer at those tokens to prevent premature collapse and suppress noisy drift. \\method plugs into GRPO-style objectives (optionally with a KL anchor) and requires neither labels nor reward models. Across eight benchmarks spanning multimodal VQA, text-only reasoning, \\method consistently improves Pass@1 over TTRL while avoiding response-length collapse and yielding more stable training dynamics on both LLM and MLLM backbones. These results indicate that aligning updates with chain-of-thought branch points is a simple and label-free mechanism for stable and effective test-time adaptation in reasoning models. Code will be released.", "doi": "10.48550/arXiv.2511.17938"}], "satellites": [{"id": "2507.15865", "title": "From Reasoning to Super-Intelligence: A Search-Theoretic Perspective", "year": 2025, "citations": 7, "doi": "10.48550/arXiv.2507.15865", "dx": 75.0, "dy": 0.0}, {"id": "2510.11278", "title": "ENIGMA: The Geometry of Reasoning and Alignment in Large-Language Models", "year": 2025, "citations": 2, "doi": "10.48550/arXiv.2510.11278", "dx": 37.5, "dy": 65.0}, {"id": "2510.21853", "title": "Policy Optimization Prefers The Path of Least Resistance", "year": 2025, "citations": 1, "doi": "10.48550/arXiv.2510.21853", "dx": -37.5, "dy": 65.0}, {"id": "2606.28166", "title": "Tandem Reinforcement Learning with Verifiable Rewards", "year": 2026, "citations": 0, "doi": "10.48550/arXiv.2606.28166", "dx": -75.0, "dy": 0.0}, {"id": "2602.21786", "title": "D-COT: Disciplined Chain-of-Thought Learning for Efficient Reasoning in Small Language Models", "year": 2026, "citations": 0, "doi": "10.48550/arXiv.2602.21786", "dx": -37.5, "dy": -65.0}, {"id": "2506.05850", "title": "Cross-lingual Collapse: How Language-Centric Foundation Models Shape Reasoning in Large Language Models", "year": 2025, "citations": 0, "doi": "", "dx": 37.5, "dy": -65.0}]}, {"cluster_id": 6, "name": "Calibration of GPT-4 Reasoning Behavior", "keywords": ["reasoning", "model", "gpt4", "behavior"], "color": "#a855f7", "glow": "rgba(168, 85, 247, 0.25)", "x": 969.5, "y": 434.4, "radius": 37.6, "paper_count": 8, "pillars": [{"id": "2307.09009", "title": "How is ChatGPT's behavior changing over time?", "authors": ["Lingjiao Chen", "Matei A. Zaharia", "James Y. Zou"], "year": 2023, "citations": 731, "venue": "Special Issue 5: Grappling With the Generative AI Revolution", "tldr": "GPT-3.5 and GPT-4 are the two most widely used large language model (LLM) services.", "abstract": "GPT-3.5 and GPT-4 are the two most widely used large language model (LLM) services. However, when and how these models are updated over time is opaque. Here, we evaluate the March 2023 and June 2023 versions of GPT-3.5 and GPT-4 on several diverse tasks: 1) math problems, 2) sensitive/dangerous questions, 3) opinion surveys, 4) multi-hop knowledge-intensive questions, 5) generating code, 6) US Medical License tests, and 7) visual reasoning. We find that the performance and behavior of both GPT-3.5 and GPT-4 can vary greatly over time. For example, GPT-4 (March 2023) was reasonable at identifying prime vs. composite numbers (84% accuracy) but GPT-4 (June 2023) was poor on these same questions (51% accuracy). This is partly explained by a drop in GPT-4's amenity to follow chain-of-thought prompting. Interestingly, GPT-3.5 was much better in June than in March in this task. GPT-4 became less willing to answer sensitive questions and opinion survey questions in June than in March. GPT-4 performed better at multi-hop questions in June than in March, while GPT-3.5's performance dropped on this task. Both GPT-4 and GPT-3.5 had more formatting mistakes in code generation in June than in March. We provide evidence that GPT-4's ability to follow user instructions has decreased over time, which is one common factor behind the many behavior drifts. Overall, our findings show that the behavior of the\"same\"LLM service can change substantially in a relatively short amount of time, highlighting the need for continuous monitoring of LLMs.", "doi": "10.48550/arXiv.2307.09009"}, {"id": "76f759323f58fd535fa13080709d9ef54f4ee9b4", "title": "Drift: Enhancing LLM Faithfulness in Rationale Generation via Dual-Reward Probabilistic Inference", "authors": ["Jiazheng Li", "Hanqi Yan", "Yulan He"], "year": 2025, "citations": 14, "venue": "Annual Meeting of the Association for Computational Linguistics", "tldr": "In this work, we propose a probabilistic inference paradigm that leverages task-specific and lookahead rewards to ensure that LLM-generated rationales are more faithful to model decisions and align better with input context.", "abstract": "As Large Language Models (LLMs) are increasingly applied to complex reasoning tasks, achieving both accurate task performance and faithful explanations becomes crucial. However, LLMs often generate unfaithful explanations, partly because they do not consistently adhere closely to the provided context. Existing approaches to this problem either rely on superficial calibration methods, such as decomposed Chain-of-Thought prompting, or require costly retraining to improve model faith-fulness. In this work, we propose a probabilistic inference paradigm that leverages task-specific and lookahead rewards to ensure that LLM-generated rationales are more faithful to model decisions and align better with input context. These rewards are derived from a domain-specific proposal distribution, allowing for optimized sequential Monte Carlo approximations. Our evaluations across three different reasoning tasks show that this method, which allows for controllable generation during inference, improves both accuracy and faithfulness of LLMs. This method offers a promising path towards making LLMs more reliable for reasoning tasks without sacrificing performance.", "doi": "10.18653/v1/2025.acl-long.340"}], "satellites": [{"id": "2506.06998", "title": "What makes Reasoning Models Different? Follow the Reasoning Leader for Efficient Decoding", "year": 2025, "citations": 7, "doi": "10.48550/arXiv.2506.06998", "dx": 75.0, "dy": 0.0}, {"id": "2511.06419", "title": "MONICA: Real-Time Monitoring and Calibration of Chain-of-Thought Sycophancy in Large Reasoning Models", "year": 2025, "citations": 9, "doi": "10.48550/arXiv.2511.06419", "dx": 37.5, "dy": 65.0}, {"id": "2506.03923", "title": "More or Less Wrong: A Benchmark for Directional Bias in LLM Comparative Reasoning", "year": 2025, "citations": 5, "doi": "10.48550/arXiv.2506.03923", "dx": -37.5, "dy": 65.0}, {"id": "2606.11211", "title": "Calibration Drift Under Reasoning: How Chain-of-Thought Budgets Induce Overconfidence in Large Language Models", "year": 2026, "citations": 2, "doi": "10.48550/arXiv.2606.11211", "dx": -75.0, "dy": 0.0}, {"id": "2505.18978", "title": "AI4Math: A Native Spanish Benchmark for University-Level Mathematical Reasoning in Large Language Models", "year": 2025, "citations": 1, "doi": "10.48550/arXiv.2505.18978", "dx": -37.5, "dy": -65.0}, {"id": "2608.10928", "title": "ThinkRetrieve: Retrieval-Augmented Reasoning Traces for Test-Time Scaling", "year": 2026, "citations": 0, "doi": "", "dx": 37.5, "dy": -65.0}]}, {"cluster_id": 1, "name": "Prognostic Safety Framework for Autonomous Agents", "keywords": ["framework", "safety", "agent", "prognostic"], "color": "#10b981", "glow": "rgba(16, 185, 129, 0.25)", "x": 847.3, "y": 617.3, "radius": 37.0, "paper_count": 7, "pillars": [{"id": "2510.10013", "title": "Path Drift in Large Reasoning Models:How First-Person Commitments Override Safety", "authors": ["Yuyi Huang", "Runzhe Zhan", "Lidia S.Chao"], "year": 2025, "citations": 4, "venue": "Conference on Empirical Methods in Natural Language Processing", "tldr": "Building on these insights, we introduce a three-stage Path Drift Induction Framework comprising cognitive load amplification, self-role priming, and condition chain hijacking.", "abstract": "As large language models (LLMs) are increasingly deployed for complex reasoning tasks, Long Chain-of-Thought (Long-CoT) prompting has emerged as a key paradigm for structured inference. Despite early-stage safeguards enabled by alignment techniques such as RLHF, we identify a previously underexplored vulnerability: reasoning trajectories in Long-CoT models can drift from aligned paths, resulting in content that violates safety constraints. We term this phenomenon Path Drift. Through empirical analysis, we uncover three behavioral triggers of Path Drift: (1) first-person commitments that induce goal-driven reasoning that delays refusal signals; (2) ethical evaporation, where surface-level disclaimers bypass alignment checkpoints; (3) condition chain escalation, where layered cues progressively steer models toward unsafe completions. Building on these insights, we introduce a three-stage Path Drift Induction Framework comprising cognitive load amplification, self-role priming, and condition chain hijacking. Each stage independently reduces refusal rates, while their combination further compounds the effect. To mitigate these risks, we propose a path-level defense strategy incorporating role attribution correction and metacognitive reflection (reflective safety cues). Our findings highlight the need for trajectory-level alignment oversight in long-form reasoning beyond token-level alignment.", "doi": "10.18653/v1/2025.emnlp-main.990"}, {"id": "022cfb4dfbc104e2dbb75f34497a160276e3c124", "title": "Mitigating LLM Hallucinations In Construction Safety: A Model-First Framework With Retrieval-Augmented Validation", "authors": ["Q. Phung", "Minh Hieu Nguyen", "Q. Nguyen"], "year": 2026, "citations": 0, "venue": "CIB Conferences", "tldr": "To address these challenges, we propose a conceptual framework, MFR-RAG-V (Model-First Reasoning with Retrieval-Augmented Validation), which separates problem modelling from text generation and enforces structured reasoning through three mechanisms: RAG-based constraint grounding, JSON schema enforcement, and model-based validation using an LLM-as-a-judge.", "abstract": "Urban rail construction is one of the most safety-critical engineering domains, where even minor errors can lead to catastrophic consequences. Large Language Models (LLMs) offer promising capabilities for automating safety risk extraction from accident reports; however, their deployment is critically hindered by hallucinations – outputs that are fluent yet factually incorrect or logically inconsistent. Existing prompting methods such as Chain-of-Thought rely on implicit reasoning without explicit problem representation, leading to brittleness, logical drift, and undetected constraint violations. This paper addresses key research gaps in current approaches, including the lack of constraint grounding in authoritative knowledge bases, the absence of explicit validation of reasoning consistency, and the limited ability to produce structured, machine-readable outputs. To address these challenges, we propose a conceptual framework, MFR-RAG-V (Model-First Reasoning with Retrieval-Augmented Validation), which separates problem modelling from text generation and enforces structured reasoning through three mechanisms: RAG-based constraint grounding, JSON schema enforcement, and model-based validation using an LLM-as-a-judge. Through a design-oriented evaluation, we illustrate how MFR-RAG-V is designed to provide systematic mechanisms, both preventive and detection-oriented mechanisms, for addressing factual and logical hallucinations. A conceptual comparison with existing approaches suggests that the framework offers theoretical mechanisms that support traceability, consistency, and validation. The proposed framework contributes a structured reasoning paradigm for LLM-based safety applications and provides a foundation for future empirical validation in construction safety management.", "doi": "10.7771/3067-4883.2195"}], "satellites": [{"id": "68c210b6af0f95a08b7d33818d33855716238bc1", "title": "Structured Elicitation Primitives for Reliable Multi-Agent Delegation and Recursive Planning", "year": 2025, "citations": 0, "doi": "10.32996/bjmss.2025.3.2.3", "dx": 75.0, "dy": 0.0}, {"id": "2606.21123", "title": "A Multi-Agent Audit Framework for High-Stakes Reasoning: Evaluation and Interpretability in Clinical Mental Health Screening", "year": 2026, "citations": 0, "doi": "10.48550/arXiv.2606.21123", "dx": 37.5, "dy": 65.0}, {"id": "2603.08321", "title": "CORE-Acu: Structured Reasoning Traces and Knowledge Graph Safety Verification for Acupuncture Clinical Decision Support", "year": 2026, "citations": 0, "doi": "10.48550/arXiv.2603.08321", "dx": -37.5, "dy": 65.0}, {"id": "b4d50cab544dd49f3ce69fcfb05fbd0770507b46", "title": "Agentic Data Engineering: LLM-Augmented Pipeline Generation, Self-Healing ETL, and Autonomous Repair", "year": 2026, "citations": 0, "doi": "10.63282/3050-922x.ijeret-v7i2p105", "dx": -75.0, "dy": 0.0}, {"id": "e6fe0069cb75677a21ac415f447073c4b0132b36", "title": "Health Prognostics of Rail Balise Communications With Large Language Model via Closed-Loop Perception–Adaptation–Feedback Reasoning", "year": 2025, "citations": 0, "doi": "10.1109/TIM.2025.3645899", "dx": -37.5, "dy": -65.0}]}, {"cluster_id": 2, "name": "Multilingual LLMs for Semantic Reasoning", "keywords": ["multilingual", "language", "reasoning", "semantic"], "color": "#eab308", "glow": "rgba(234, 179, 8, 0.25)", "x": 627.8, "y": 602.9, "radius": 37.0, "paper_count": 7, "pillars": [{"id": "2511.09984", "title": "Language Drift in Multilingual Retrieval-Augmented Generation: Characterization and Decoding-Time Mitigation", "authors": ["Bo Li", "Zhenghua Xu", "Rui Xie"], "year": 2025, "citations": 8, "venue": "arXiv.org", "tldr": "In this paper, we systematically study output language drift in multilingual RAG across multiple datasets, languages, and LLM backbones.", "abstract": "Multilingual Retrieval-Augmented Generation (RAG) enables large language models (LLMs) to perform knowledge-intensive tasks in multilingual settings by leveraging retrieved documents as external evidence. However, when the retrieved evidence differs in language from the user query and in-context exemplars, the model often exhibits language drift by generating responses in an unintended language. This phenomenon is especially pronounced during reasoning-intensive decoding, such as Chain-of-Thought (CoT) generation, where intermediate steps introduce further language instability. In this paper, we systematically study output language drift in multilingual RAG across multiple datasets, languages, and LLM backbones. Our controlled experiments reveal that the drift results not from comprehension failure but from decoder-level collapse, where dominant token distributions and high-frequency English patterns dominate the intended generation language. We further observe that English serves as a semantic attractor under cross-lingual conditions, emerging as both the strongest interference source and the most frequent fallback language. To mitigate this, we propose Soft Constrained Decoding (SCD), a lightweight, training-free decoding strategy that gently steers generation toward the target language by penalizing non-target-language tokens. SCD is model-agnostic and can be applied to any generation algorithm without modifying the architecture or requiring additional data. Experiments across three multilingual datasets and multiple typologically diverse languages show that SCD consistently improves language alignment and task performance, providing an effective and generalizable solution in multilingual RAG.", "doi": "10.48550/arXiv.2511.09984"}, {"id": "2605.10207", "title": "LASAR: Latent Adaptive Semantic Aligned Reasoning for Generative Recommendation", "authors": ["Yi-Wen Chen", "Fuwei Zhang", "Zehao Chen"], "year": 2026, "citations": 3, "venue": "arXiv.org", "tldr": "To address these, we propose LASAR (Latent Adaptive Semantic Aligned Reasoning), an SFT-then-RL framework.", "abstract": "Large Language Models (LLMs) have demonstrated powerful reasoning capabilities through Chain-of-Thought (CoT) in various tasks, yet the inefficiency of token-by-token generation hinders real-world deployment in latency-sensitive recommender systems. Latent reasoning has emerged as an effective paradigm in LLMs, performing multi-step inference in a continuous hidden-state space to achieve stronger reasoning at lower cost. However, this paradigm remains underexplored in mainstream generative recommendation. Achieving this reveals three key challenges: (1) the gap between prior-less Semantic ID (SID) symbols and continuous latent reasoning, as SIDs lack pre-trained semantics, hindering joint optimization; (2) representation drift due to a lack of reasoning chain supervision; and (3) the suboptimality of applying a globally fixed reasoning depth. To address these, we propose LASAR (Latent Adaptive Semantic Aligned Reasoning), an SFT-then-RL framework. First, we bridge this gap via two-stage training: Stage 1 grounds SID semantics before Stage 2 introduces latent reasoning, ensuring efficient convergence. Second, we mitigate representation drift through explicit CoT semantic alignment. Step-wise bidirectional KL divergence constrains the latent reasoning trajectory using hidden-state anchors extracted from CoT text, while a Policy Head predicts per-sample reasoning depth. Third, during the GRPO-based RL phase, terminal-only KL alignment accommodates variable-length reasoning, and REINFORCE optimizes the Policy Head to dynamically allocate steps. This nearly halves the average latent step count while simultaneously improving recommendation quality. Experiments on three real-world datasets show that LASAR achieves the best overall performance across the evaluated settings. It adds limited inference latency and is roughly 20x faster than generating explicit CoT text.", "doi": "10.48550/arXiv.2605.10207"}], "satellites": [{"id": "2504.01857", "title": "Cross-Lingual Consistency: A Novel Inference Framework for Advancing Reasoning in Large Language Models", "year": 2025, "citations": 3, "doi": "10.48550/arXiv.2504.01857", "dx": 75.0, "dy": 0.0}, {"id": "2604.09737", "title": "STaR-DRO: Stateful Tsallis Reweighting for Group-Robust Structured Prediction", "year": 2026, "citations": 2, "doi": "10.48550/arXiv.2604.09737", "dx": 37.5, "dy": 65.0}, {"id": "05a1de07d5c107bccd75ddcf1d2ee02fc1b40d96", "title": "Construction of a large language model for public demands integrating contextual knowledge reasoning and chain of thought", "year": 2026, "citations": 0, "doi": "10.1007/s40747-026-02350-z", "dx": -37.5, "dy": 65.0}, {"id": "2602.23730", "title": "Unlocking Cognitive Capabilities and Analyzing the Perception-Logic Trade-off", "year": 2026, "citations": 0, "doi": "10.48550/arXiv.2602.23730", "dx": -75.0, "dy": 0.0}, {"id": "2608.00533", "title": "Native Multilingual Chain-of-Thought Reasoning in Low-Resource Southeast Asian Languages", "year": 2026, "citations": 0, "doi": "", "dx": -37.5, "dy": -65.0}]}, {"cluster_id": 4, "name": "Multimodal Visual Chain-of-Thought Modeling", "keywords": ["reasoning", "model", "multimodal", "chain"], "color": "#f43f5e", "glow": "rgba(244, 63, 94, 0.25)", "x": 530.5, "y": 405.6, "radius": 37.0, "paper_count": 7, "pillars": [{"id": "2601.13304", "title": "CausalSpatial: A Benchmark for Object-Centric Causal Spatial Reasoning", "authors": ["Wenxin Ma", "Chenlong Wang", "Rui-Sheng Yuan"], "year": 2026, "citations": 7, "venue": "arXiv.org", "tldr": "We introduce CausalSpatial, a diagnostic benchmark evaluating whether models can anticipate consequences of object motions across four tasks: Collision, Compatibility, Occlusion, and Trajectory.", "abstract": "Humans can look at a static scene and instantly predict what happens next -- will moving this object cause a collision? We call this ability Causal Spatial Reasoning. However, current multimodal large language models (MLLMs) cannot do this, as they remain largely restricted to static spatial perception, struggling to answer\"what-if\"questions in a 3D scene. We introduce CausalSpatial, a diagnostic benchmark evaluating whether models can anticipate consequences of object motions across four tasks: Collision, Compatibility, Occlusion, and Trajectory. Results expose a severe gap: humans score 84% while GPT-5 achieves only 54%. Why do MLLMs fail? Our analysis uncovers a fundamental deficiency: models over-rely on textual chain-of-thought reasoning that drifts from visual evidence, producing fluent but spatially ungrounded hallucinations. To address this, we propose the Causal Object World model (COW), a framework that externalizes the simulation process by generating videos of hypothetical dynamics. With explicit visual cues of causality, COW enables models to ground their reasoning in physical reality rather than linguistic priors. We make the dataset and code publicly available here: https://github.com/CausalSpatial/CausalSpatial", "doi": "10.48550/arXiv.2601.13304"}, {"id": "0eb29d686e1e9cc6377fd888cb2e464ef7ddbeb6", "title": "Incorporating LLM Versus LLM Into Multimodal Chain-of-Thought for Fine-Grained Evidence Generation", "authors": ["Shuyuan Xing", "Yao He", "Hanchao Chen"], "year": 2025, "citations": 3, "venue": "IEEE Access", "tldr": "Multimodal Chain-of-Thought (MCoT) has become an effective strategy for enhancing multimodal large-language models (MLLMs) by breaking down complex tasks into sequential reasoning steps.", "abstract": "Multimodal Chain-of-Thought (MCoT) has become an effective strategy for enhancing multimodal large-language models (MLLMs) by breaking down complex tasks into sequential reasoning steps. Despite its interpretability benefits, MCoT often encounters difficulties with fine-grained semantic grounding, particularly when reasoning involves small objects, subtle attributes, or visually complex scenes that can lead to inaccuracies. Existing attempts to address these issues primarily fall into two categories: fine-tuning, which depends on large annotated datasets and costly parameter updates; and in-context learning (ICL), which achieves few-shot or zero-shot reasoning without model modification. Although ICL provides flexibility and adaptability, it is prone to semantic drift caused by an unstable prompt quality. To overcome these limitations, this study presents an entity-level evidence generation and verification framework using the ICL paradigm. This approach first produces MCoT from multimodal inputs, followed by extraction of key entities with enriched evidential descriptions. These entities were then cross-validated through adversarial checks using multiple MLLMs, and the verified evidence was integrated back into the reasoning chain. Experiments demonstrated consistent performance gains: on ScienceQA, the accuracy improved from 82.39% to 86.04%(+3.65%) with GPT-3.5, 84.96% to 89.37%(+4.41%) with Gemini; on MathVista, the accuracy increased from 43.1% to 43.6%(+0.50%) with GPT-3.5, and from 44.7% to 45.6%(+0.90%) with Gemini. These results establish new state-of-the-art baselines and confirm the robustness and generalizability of the entity-level verification for multimodal reasoning.", "doi": "10.1109/ACCESS.2025.3636927"}], "satellites": [{"id": "0b0d863e345af2ce812dc209d944adad0a175eb8", "title": "Visualizing the Chain of Thought in Large Language Models", "year": 2026, "citations": 2, "doi": "10.1109/MCG.2025.3624666", "dx": 75.0, "dy": 0.0}, {"id": "2604.07422", "title": "Multimodal Large Language Models for Multi-Subject In-Context Image Generation", "year": 2026, "citations": 2, "doi": "10.48550/arXiv.2604.07422", "dx": 37.5, "dy": 65.0}, {"id": "2606.23206", "title": "CFPO: Counterfactual Policy Optimization for Multimodal Reasoning", "year": 2026, "citations": 1, "doi": "10.48550/arXiv.2606.23206", "dx": -37.5, "dy": 65.0}, {"id": "2608.28623", "title": "Looking Again: Measuring Sycophancy in the Reasoning Chains of Multimodal Models Under Pressure", "year": 2026, "citations": 0, "doi": "", "dx": -75.0, "dy": 0.0}, {"id": "2608.17414", "title": "REChart: Reasoning-Efficient Chart Editing with Large Reasoning Models", "year": 2026, "citations": 0, "doi": "", "dx": -37.5, "dy": -65.0}]}, {"cluster_id": 3, "name": "Risk-Aware Fault Detection in LLMs", "keywords": ["reasoning", "safety", "model", "detection"], "color": "#818cf8", "glow": "rgba(129, 140, 248, 0.25)", "x": 652.7, "y": 222.7, "radius": 37.0, "paper_count": 7, "pillars": [{"id": "2501.18617", "title": "DarkMind: Latent Chain-of-Thought Backdoor in Customized LLMs", "authors": ["Zhen Guo", "Shang-Hao Shi", "Shamim Yazdani"], "year": 2025, "citations": 16, "venue": "arXiv.org", "tldr": "We present DarkMind, a novel latent reasoning level backdoor attack that targets customized LLMs by manipulating internal COT steps without altering user queries.", "abstract": "With the rapid rise of personalized AI, customized large language models (LLMs) equipped with Chain of Thought (COT) reasoning now power millions of AI agents. However, their complex reasoning processes introduce new and largely unexplored security vulnerabilities. We present DarkMind, a novel latent reasoning level backdoor attack that targets customized LLMs by manipulating internal COT steps without altering user queries. Unlike prior prompt based attacks, DarkMind activates covertly within the reasoning chain via latent triggers, enabling adversarial behaviors without modifying input prompts or requiring access to model parameters. To achieve stealth and reliability, we propose dual trigger types instant and retrospective and integrate them within a unified embedding template that governs trigger dependent activation, employ a stealth optimization algorithm to minimize semantic drift, and introduce an automated conversation starter for covert activation across domains. Comprehensive experiments on eight reasoning datasets spanning arithmetic, commonsense, and symbolic domains, using five LLMs, demonstrate that DarkMind consistently achieves high attack success rates. We further investigate defense strategies to mitigate these risks and reveal that reasoning level backdoors represent a significant yet underexplored threat, underscoring the need for robust, reasoning aware security mechanisms.", "doi": "10.48550/arXiv.2501.18617"}, {"id": "2509.24269", "title": "AdvChain: Adversarial Chain-of-Thought Tuning for Robust Safety Alignment of Large Reasoning Models", "authors": ["Zihao Zhu", "Xinyu Wu", "Gehan Hu"], "year": 2025, "citations": 5, "venue": "arXiv.org", "tldr": "To address this limitation, we propose AdvChain, an alignment paradigm that teaches models dynamic self-correction through adversarial CoT tuning.", "abstract": "Large Reasoning Models (LRMs) have demonstrated remarkable capabilities in complex problem-solving through Chain-of-Thought (CoT) reasoning. However, the multi-step nature of CoT introduces new safety challenges that extend beyond conventional language model alignment. We identify a failure mode in current safety CoT tuning methods: the \\textit{snowball effect}, where minor reasoning deviations progressively amplify throughout the thought process, leading to either harmful compliance or excessive refusal. This effect stems from models being trained to imitate perfect reasoning scripts without learning to self-correct. To address this limitation, we propose AdvChain, an alignment paradigm that teaches models dynamic self-correction through adversarial CoT tuning. Our method involves constructing a dataset containing Temptation-Correction and Hesitation-Correction samples, where models learn to recover from harmful reasoning drifts and unnecessary cautions. Extensive experiments show that AdvChain significantly enhances robustness against jailbreak attacks and CoT hijacking while substantially reducing over-refusal on benign prompts, achieving a superior safety-utility balance without compromising reasoning capabilities. Our work establishes a new direction for building more robust and reliable reasoning models.", "doi": "10.48550/arXiv.2509.24269"}], "satellites": [{"id": "16846088e21dc76ee7cf5f027f0556f678e23c35", "title": "LLM-Based Fault Detection in Connected Vehicle Time-Series Data", "year": 2025, "citations": 4, "doi": "10.1145/3716816.3727968", "dx": 75.0, "dy": 0.0}, {"id": "2511.15169", "title": "SafeRBench: Dissecting the Reasoning Safety of Large Language Models", "year": 2025, "citations": 2, "doi": "", "dx": 37.5, "dy": 65.0}, {"id": "2605.28890", "title": "Echoes within the Reasoning: Stealthy and Effective Watermarking via Chain of Thought", "year": 2026, "citations": 2, "doi": "10.48550/arXiv.2605.28890", "dx": -37.5, "dy": 65.0}, {"id": "2856e73e25de53e4a3b213422f5b80f713ae4160", "title": "Multimodal large language model-based trajectory anomaly detection in aerial systems", "year": 2026, "citations": 0, "doi": "10.1007/s00607-026-01719-9", "dx": -75.0, "dy": 0.0}, {"id": "81b3e6bd410001f9a5504cb4f30f5901920ec1df", "title": "Security Issues and Evaluation of Large-Scale Inference Models: An In-Depth Analysis Based on Long Chain-of-Thought", "year": 2026, "citations": 0, "doi": "10.1109/GAIIS69281.2026.11519354", "dx": -37.5, "dy": -65.0}]}], "macro_filaments": [], "gaps": [{"gap_id": "gap_1", "rank": 1, "title": "Unexplored Application of Multi-Modal Graph Transformers on Sentinel-2 Multi-Spectral", "method": "Multi-Modal Graph Transformers", "dataset": "Sentinel-2 Multi-Spectral", "limitation": "Atmospheric Correction & Cloud Attenuation", "breakthrough_score": 44.4, "uzzi_z_score": -1.467, "is_center_top": true, "macro_x": 750.0, "macro_y": 420.0, "role": "CENTER_TOP_GAP", "description": "Zero papers evaluate Multi-Modal Graph Transformers directly on Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints (Uzzi z = -1.467σ).", "hypothesis": "Applying Multi-Modal Graph Transformers directly to Sentinel-2 Multi-Spectral under Atmospheric Correction & Cloud Attenuation constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_2", "rank": 2, "title": "Unexplored Application of Convolutional Neural Networks (CNN) on Sentinel-1 SAR Imagery", "method": "Convolutional Neural Networks (CNN)", "dataset": "Sentinel-1 SAR Imagery", "limitation": "Forest Structure & Canopy Height", "breakthrough_score": 36.0, "uzzi_z_score": -1.116, "is_center_top": false, "macro_x": 450.0, "macro_y": 240.0, "role": "QUAD_TOP_LEFT", "description": "Zero papers evaluate Convolutional Neural Networks (CNN) directly on Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints (Uzzi z = -1.116σ).", "hypothesis": "Applying Convolutional Neural Networks (CNN) directly to Sentinel-1 SAR Imagery under Forest Structure & Canopy Height constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_3", "rank": 3, "title": "Unexplored Application of Contrastive Representation Learning on MODIS Thermal Infrared", "method": "Contrastive Representation Learning", "dataset": "MODIS Thermal Infrared", "limitation": "Sub-Pixel Cloud Masking Uncertainty", "breakthrough_score": 36.0, "uzzi_z_score": -1.116, "is_center_top": false, "macro_x": 1050.0, "macro_y": 240.0, "role": "QUAD_TOP_RIGHT", "description": "Zero papers evaluate Contrastive Representation Learning directly on MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints (Uzzi z = -1.116σ).", "hypothesis": "Applying Contrastive Representation Learning directly to MODIS Thermal Infrared under Sub-Pixel Cloud Masking Uncertainty constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_4", "rank": 4, "title": "Unexplored Application of Physics-Informed Neural Operators on Sentinel Topography Radars", "method": "Physics-Informed Neural Operators", "dataset": "Sentinel Topography Radars", "limitation": "Complex Multi-Path Signal Scattering", "breakthrough_score": 35.0, "uzzi_z_score": -1.076, "is_center_top": false, "macro_x": 450.0, "macro_y": 600.0, "role": "QUAD_BOTTOM_LEFT", "description": "Zero papers evaluate Physics-Informed Neural Operators directly on Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints (Uzzi z = -1.076σ).", "hypothesis": "Applying Physics-Informed Neural Operators directly to Sentinel Topography Radars under Complex Multi-Path Signal Scattering constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}, {"gap_id": "gap_5", "rank": 5, "title": "Unexplored Application of Vision-Language Foundation Models on Landsat Multi-Decadal Time Series", "method": "Vision-Language Foundation Models", "dataset": "Landsat Multi-Decadal Time Series", "limitation": "Sensor Calibration Drift & Resolution Mismatch", "breakthrough_score": 30.9, "uzzi_z_score": -0.924, "is_center_top": false, "macro_x": 1050.0, "macro_y": 600.0, "role": "QUAD_BOTTOM_RIGHT", "description": "Zero papers evaluate Vision-Language Foundation Models directly on Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints (Uzzi z = -0.924σ).", "hypothesis": "Applying Vision-Language Foundation Models directly to Landsat Multi-Decadal Time Series under Sensor Calibration Drift & Resolution Mismatch constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.", "anchor_a": null, "anchor_b": null, "scientific_basis": {"paper": "Uzzi et al., Science 2013", "doi": "10.1126/science.1240474", "formula": "z = (C_obs - mu_null) / sigma_null"}}], "meta": {"total_papers": 60, "compiled_at": "2026-09-17 00:30:27", "execution_time_sec": 0.001}};
+
+    // Viewport Coordinates & D3 Zoom Setup
+    const width = window.innerWidth;
+    const height = window.innerHeight - 64;
+    const drawerWidth = 460;
+    const svg = d3.select("#canvas-svg");
+    const rootG = d3.select("#canvas-root");
+    const filamentLayer = d3.select("#filament-layer");
+    const clusterLayer = d3.select("#cluster-layer");
+    const particleLayer = d3.select("#scifi-particles-layer");
+    const gapsLayer = d3.select("#gaps-layer");
+
+    // Warp Canvas Setup
+    const warpCanvas = document.getElementById("warp-canvas");
+    const warpCtx = warpCanvas.getContext("2d");
+    warpCanvas.width = width;
+    warpCanvas.height = height;
+
+    const zoom = d3.zoom().scaleExtent([0.4, 4.0]).on("zoom", (event) => {
+      rootG.attr("transform", event.transform);
+    });
+    svg.call(zoom);
+
+    // Initial center transform with ample margins
+    const initialTransform = d3.zoomIdentity.translate((width / 2) - 750, (height / 2) - 420);
+    svg.call(zoom.transform, initialTransform);
+
+    // State Variables
+    let currentState = 'LEVEL_1_CLUSTERS';
+    let selectedCluster = null;
+    let selectedGap = null;
+
+    // ── 1. RENDER LEVEL 1 & LEVEL 2 CLUSTERS ─────────────────────────────────
+    function renderClusters() {
+      filamentLayer.selectAll(".macro-filament")
+        .data(DATA.macro_filaments)
+        .enter()
+        .append("line")
+        .attr("class", "macro-filament")
+        .attr("x1", d => d.x1).attr("y1", d => d.y1)
+        .attr("x2", d => d.x2).attr("y2", d => d.y2)
+        .attr("stroke-width", d => d.width);
+
+      const cGroups = clusterLayer.selectAll(".cluster-halo")
+        .data(DATA.macro_clusters)
+        .enter()
+        .append("g")
+        .attr("class", "cluster-halo")
+        .attr("id", d => `cluster-g-${d.cluster_id}`)
+        .attr("transform", d => `translate(${d.x}, ${d.y})`)
+        .on("click", (event, d) => handleClusterClick(d));
+
+      cGroups.append("circle")
+        .attr("r", d => d.radius + 18)
+        .attr("fill", d => d.color)
+        .attr("opacity", 0.08);
+
+      cGroups.append("circle")
+        .attr("r", d => d.radius)
+        .attr("fill", "#0f141f")
+        .attr("stroke", d => d.color)
+        .attr("stroke-width", 2);
+
+      cGroups.append("text")
+        .attr("class", "cluster-main-label")
+        .attr("dy", "-0.2em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'Instrument Serif', Georgia, serif")
+        .attr("font-size", "15px")
+        .attr("fill", "#ffffff")
+        .text(d => d.name.length > 24 ? d.name.slice(0, 22) + "..." : d.name);
+
+      cGroups.append("text")
+        .attr("class", "cluster-count-label")
+        .attr("dy", "1.3em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono', monospace")
+        .attr("font-size", "10px")
+        .attr("fill", "#94a3b8")
+        .text(d => `${d.paper_count} papers`);
+
+      // Add Level 2 Pillar & Satellite sub-groups (hidden initially)
+      cGroups.each(function(c) {
+        const g = d3.select(this);
+        const l2Group = g.append("g")
+          .attr("class", "level2-constellation")
+          .attr("opacity", 0)
+          .attr("pointer-events", "none");
+
+        if (c.pillars && c.pillars.length >= 2) {
+          l2Group.append("line")
+            .attr("x1", -38).attr("y1", 0)
+            .attr("x2", 38).attr("y2", 0)
+            .attr("stroke", c.color)
+            .attr("stroke-width", 2.5)
+            .attr("stroke-dasharray", "4,2");
+
+          const p1 = l2Group.append("g").attr("transform", "translate(-38, 0)");
+          p1.append("circle").attr("r", 14).attr("fill", "#161e2e").attr("stroke", c.color).attr("stroke-width", 2);
+          p1.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#fff").text("P1");
+
+          const p2 = l2Group.append("g").attr("transform", "translate(38, 0)");
+          p2.append("circle").attr("r", 14).attr("fill", "#161e2e").attr("stroke", c.color).attr("stroke-width", 2);
+          p2.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#fff").text("P2");
+        }
+
+        (c.satellites || []).forEach(sat => {
+          l2Group.append("line")
+            .attr("x1", 0).attr("y1", 0)
+            .attr("x2", sat.dx).attr("y2", sat.dy)
+            .attr("stroke", "rgba(255,255,255,0.15)")
+            .attr("stroke-width", 1);
+
+          l2Group.append("circle")
+            .attr("cx", sat.dx).attr("cy", sat.dy)
+            .attr("r", 5)
+            .attr("fill", c.color)
+            .attr("opacity", 0.85);
+        });
+      });
+    }
+
+    // ── 2. RENDER LEVEL 3 TOP 5 M×D×L GAPS (MACRO) ───────────────────────────
+    function renderGapsMacro() {
+      gapsLayer.selectAll("*").remove();
+
+      DATA.gaps.forEach(gap => {
+        const gapG = gapsLayer.append("g")
+          .attr("class", "gap-triad-macro")
+          .attr("id", `gap-macro-${gap.gap_id}`)
+          .attr("transform", `translate(${gap.macro_x}, ${gap.macro_y}) scale(0)`)
+          .attr("opacity", 0)
+          .on("click", () => zoomIntoGapMicro(gap));
+
+        gapG.append("circle")
+          .attr("r", gap.is_center_top ? 74 : 56)
+          .attr("fill", "none")
+          .attr("stroke", "#a855f7")
+          .attr("stroke-width", gap.is_center_top ? 2 : 1.5)
+          .attr("stroke-dasharray", "5,3")
+          .attr("class", "pulse-ring-anim");
+
+        const boxSize = gap.is_center_top ? 50 : 40;
+        gapG.append("rect")
+          .attr("x", -boxSize / 2).attr("y", -boxSize / 2)
+          .attr("width", boxSize).attr("height", boxSize)
+          .attr("rx", 8)
+          .attr("fill", "#1c1429")
+          .attr("stroke", gap.is_center_top ? "#c084fc" : "#a855f7")
+          .attr("stroke-width", gap.is_center_top ? 2.5 : 1.8);
+
+        gapG.append("text")
+          .attr("dy", "-0.1em")
+          .attr("text-anchor", "middle")
+          .attr("font-family", "'JetBrains Mono', monospace")
+          .attr("font-size", gap.is_center_top ? "13px" : "11px")
+          .attr("font-weight", "700")
+          .attr("fill", "#f3e8ff")
+          .text(`#${gap.rank}`);
+
+        gapG.append("text")
+          .attr("dy", "1.25em")
+          .attr("text-anchor", "middle")
+          .attr("font-family", "'JetBrains Mono', monospace")
+          .attr("font-size", "9px")
+          .attr("fill", "#c084fc")
+          .text(`${Math.round(gap.breakthrough_score)}%`);
+
+        const mOff = { x: -65, y: 48 };
+        const dOff = { x: 72, y: -48 };
+        const lOff = { x: 0, y: 68 };
+
+        gapG.append("line").attr("x1", 0).attr("y1", 0).attr("x2", mOff.x).attr("y2", mOff.y).attr("stroke", "#10b981").attr("stroke-width", 1.8);
+        gapG.append("line").attr("x1", 0).attr("y1", 0).attr("x2", dOff.x).attr("y2", dOff.y).attr("stroke", "#38bdf8").attr("stroke-width", 1.8);
+        gapG.append("line").attr("x1", 0).attr("y1", 0).attr("x2", lOff.x).attr("y2", lOff.y).attr("stroke", "#f43f5e").attr("stroke-width", 1.8);
+
+        const dotM = gapG.append("g").attr("transform", `translate(${mOff.x}, ${mOff.y})`);
+        dotM.append("circle").attr("r", 9).attr("fill", "#064e3b").attr("stroke", "#10b981").attr("stroke-width", 2);
+        dotM.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("font-weight", "bold").attr("fill", "#ecfdf5").text("M");
+
+        const dotD = gapG.append("g").attr("transform", `translate(${dOff.x}, ${dOff.y})`);
+        dotD.append("circle").attr("r", 9).attr("fill", "#0c4a6e").attr("stroke", "#38bdf8").attr("stroke-width", 2);
+        dotD.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("font-weight", "bold").attr("fill", "#f0f9ff").text("D");
+
+        const dotL = gapG.append("g").attr("transform", `translate(${lOff.x}, ${lOff.y})`);
+        dotL.append("circle").attr("r", 9).attr("fill", "#881337").attr("stroke", "#f43f5e").attr("stroke-width", 2);
+        dotL.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("font-weight", "bold").attr("fill", "#fff1f2").text("L");
+
+        gapG.append("text")
+          .attr("y", boxSize / 2 + 38)
+          .attr("text-anchor", "middle")
+          .attr("font-family", "'Plus Jakarta Sans', sans-serif")
+          .attr("font-size", "10.5px")
+          .attr("font-weight", "600")
+          .attr("fill", "#e2e8f0")
+          .text(gap.is_center_top ? `★ TOP GAP 1: ${gap.method.slice(0, 18)}` : `${gap.method.slice(0, 16)} ↔ ${gap.dataset.slice(0, 12)}`);
+      });
+    }
+
+    // ── 3. SCI-FI NEURON/ELECTRON REORGANIZATION TRANSITION ───────────────────
+    function triggerSciFiGapsTransition() {
+      if (currentState !== 'LEVEL_1_CLUSTERS') return;
+      currentState = 'LEVEL_3_GAPS_MACRO';
+      closeDrawer();
+
+      const topBtn = document.getElementById("btn-top-research-gaps");
+      topBtn.classList.add("opacity-40", "cursor-not-allowed");
+      document.getElementById("btn-back-clusters").classList.remove("hidden");
+
+      document.getElementById("nav-step-1").className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2";
+      document.getElementById("nav-step-3").className = "px-3.5 py-1.5 rounded-lg text-white bg-purple-500/20 border border-purple-500/40 shadow-sm transition flex items-center gap-2";
+      document.getElementById("nav-step-3").querySelector("span").className = "w-2 h-2 rounded-full bg-purple-400";
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-purple-400";
+      title.innerText = "LEVEL 3: TOP 5 RESEARCH GAPS (MACRO NEURAL SYNAPSE)";
+      desc.innerText = "Cluster nebulae reorganized into top 5 M×D×L void bridges. Top Gap #1 is centered. Click any 3-dot triad to execute deep traveling warp zoom.";
+
+      renderSciFiParticleStream(() => {
+        renderGapsMacro();
+
+        gsap.to(".gap-triad-macro", {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "back.out(1.6)",
+        });
+
+        gsap.to(".cluster-halo", { opacity: 0, scale: 0.8, duration: 0.6, pointerEvents: "none" });
+        gsap.to(".macro-filament", { opacity: 0, duration: 0.5 });
+      });
+    }
+
+    function renderSciFiParticleStream(onComplete) {
+      particleLayer.selectAll("*").remove();
+      const particles = [];
+      const targets = DATA.gaps.map(g => ({ x: g.macro_x, y: g.macro_y }));
+
+      DATA.macro_clusters.forEach(c => {
+        for (let i = 0; i < 14; i++) {
+          const target = targets[Math.floor(Math.random() * targets.length)];
+          particles.push({
+            startX: c.x + (Math.random() - 0.5) * 50,
+            startY: c.y + (Math.random() - 0.5) * 50,
+            endX: target.x + (Math.random() - 0.5) * 30,
+            endY: target.y + (Math.random() - 0.5) * 30,
+            color: Math.random() > 0.5 ? "#38bdf8" : "#a855f7",
+            radius: Math.random() * 2.5 + 1.5,
+          });
+        }
+      });
+
+      const pNodes = particleLayer.selectAll(".scifi-particle")
+        .data(particles)
+        .enter()
+        .append("circle")
+        .attr("class", "scifi-particle")
+        .attr("cx", d => d.startX)
+        .attr("cy", d => d.startY)
+        .attr("r", d => d.radius)
+        .attr("fill", d => d.color)
+        .attr("filter", "url(#glow-purple)")
+        .attr("opacity", 0.9);
+
+      pNodes.each(function(d, i) {
+        gsap.to(this, {
+          cx: d.endX,
+          cy: d.endY,
+          opacity: 0,
+          scale: 1.8,
+          duration: 0.75 + Math.random() * 0.35,
+          ease: "power3.inOut",
+          onComplete: () => {
+            if (i === particles.length - 1 && onComplete) {
+              particleLayer.selectAll("*").remove();
+              onComplete();
+            }
+          }
+        });
+      });
+    }
+
+    // ── 4. DEEP TRAVELING WARP ZOOM TO LEVEL 3 MICRO (ISOLATED M×D×L) ──────────
+    function zoomIntoGapMicro(gap) {
+      currentState = 'LEVEL_3_GAP_MICRO';
+      selectedGap = gap;
+
+      document.getElementById("btn-back-macro").classList.remove("hidden");
+      document.getElementById("btn-back-clusters").classList.remove("hidden");
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-sky-400";
+      title.innerText = `LEVEL 3 MICRO: GAP #${gap.rank} // ${gap.method.slice(0, 24)} ↔ ${gap.dataset.slice(0, 20)}`;
+      desc.innerText = "Isolated M×D×L triad constellation. All background entities eliminated. Inspect evidence, anchor papers, and synthesize grant aims.";
+
+      DATA.gaps.forEach(otherGap => {
+        if (otherGap.gap_id !== gap.gap_id) {
+          gsap.to(`#gap-macro-${otherGap.gap_id}`, {
+            opacity: 0,
+            scale: 0.05,
+            duration: 0.45,
+            ease: "power2.in"
+          });
+        }
+      });
+
+      playWarpSpeedEffect();
+
+      // Ergonomic offset: center within the available space to the left of the 460px drawer
+      const targetScale = 1.45;
+      const targetX = ((width - drawerWidth) / 2) - 35 - gap.macro_x * targetScale;
+      const targetY = (height / 2) - gap.macro_y * targetScale;
+
+      svg.transition()
+        .duration(1100)
+        .ease(d3.easeCubicInOut)
+        .call(zoom.transform, d3.zoomIdentity.translate(targetX, targetY).scale(targetScale))
+        .on("end", () => {
+          renderMicroIsolatedTriad(gap);
+          openGapDrawer(gap);
+        });
+    }
+
+    function playWarpSpeedEffect() {
+      const warpHud = document.getElementById("warp-hud");
+      const warpBar = document.getElementById("warp-progress-bar");
+      const telemetry = document.getElementById("warp-telemetry");
+      warpCanvas.style.opacity = "1";
+      warpHud.classList.remove("opacity-0");
+
+      const stages = [
+        "SECTOR: MACRO LEVEL (TOP 5 GAPS OVERVIEW)",
+        "DEPTH 600m: ENTERING SUB-NETWORK LATTICE 4B...",
+        "DEPTH 350m: TRAVERSING MID-SUB SYNAPSE CORRIDOR...",
+        "DEPTH 120m: LOCKING ONTO SUPER-SUB M×D×L NUCLEUS...",
+        "DEPTH 0m: MICRO ISOLATION RECEPTOR REACHED."
+      ];
+
+      stages.forEach((st, idx) => {
+        setTimeout(() => {
+          telemetry.innerText = st;
+        }, idx * 210);
+      });
+
+      gsap.fromTo(warpBar, { width: "0%" }, { width: "100%", duration: 1.05, ease: "power2.inOut" });
+
+      const lines = [];
+      const cx = width / 2;
+      const cy = height / 2;
+      for (let i = 0; i < 120; i++) {
+        const ang = Math.random() * 2 * Math.PI;
+        lines.push({
+          ang: ang,
+          dist: Math.random() * 80 + 10,
+          speed: Math.random() * 18 + 12,
+          length: Math.random() * 60 + 20,
+          color: Math.random() > 0.5 ? "rgba(56, 189, 248, 0.7)" : "rgba(168, 85, 247, 0.7)"
+        });
+      }
+
+      let animId;
+      const startTime = performance.now();
+
+      function drawWarp(now) {
+        const elapsed = now - startTime;
+        warpCtx.clearRect(0, 0, width, height);
+
+        lines.forEach(l => {
+          l.dist += l.speed;
+          const x1 = cx + Math.cos(l.ang) * l.dist;
+          const y1 = cy + Math.sin(l.ang) * l.dist;
+          const x2 = cx + Math.cos(l.ang) * (l.dist + l.length);
+          const y2 = cy + Math.sin(l.ang) * (l.dist + l.length);
+
+          warpCtx.beginPath();
+          warpCtx.moveTo(x1, y1);
+          warpCtx.lineTo(x2, y2);
+          warpCtx.strokeStyle = l.color;
+          warpCtx.lineWidth = 1.5;
+          warpCtx.stroke();
+        });
+
+        if (elapsed < 1050) {
+          animId = requestAnimationFrame(drawWarp);
+        } else {
+          warpCanvas.style.opacity = "0";
+          warpHud.classList.add("opacity-0");
+          warpCtx.clearRect(0, 0, width, height);
+        }
+      }
+      animId = requestAnimationFrame(drawWarp);
+    }
+
+    // ── 5. RENDER THE HIGH-DEFINITION ISOLATED MICRO TRIAD ────────────────────
+    function renderMicroIsolatedTriad(gap) {
+      const g = d3.select(`#gap-macro-${gap.gap_id}`);
+      g.selectAll("*").remove();
+
+      g.append("circle")
+        .attr("r", 150)
+        .attr("fill", "url(#glow-purple)")
+        .attr("opacity", 0.08);
+
+      const core = g.append("g").attr("class", "micro-nexus-core");
+      core.append("rect")
+        .attr("x", -44).attr("y", -44)
+        .attr("width", 88).attr("height", 88)
+        .attr("rx", 14)
+        .attr("fill", "#140e20")
+        .attr("stroke", "#c084fc")
+        .attr("stroke-width", 2.5)
+        .attr("class", "specular-border");
+
+      core.append("text")
+        .attr("dy", "-0.3em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono'")
+        .attr("font-size", "11px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#c084fc")
+        .text(`GAP #${gap.rank}`);
+
+      core.append("text")
+        .attr("dy", "1.1em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono'")
+        .attr("font-size", "16px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#ffffff")
+        .text(`${Math.round(gap.breakthrough_score)}%`);
+
+      core.append("text")
+        .attr("dy", "2.6em")
+        .attr("text-anchor", "middle")
+        .attr("font-family", "'JetBrains Mono'")
+        .attr("font-size", "9.5px")
+        .attr("fill", "#a855f7")
+        .text(`z = ${gap.uzzi_z_score}σ`);
+
+      const mPos = { x: -130, y: 90 };
+      const dPos = { x: 135, y: -90 };
+      const lPos = { x: 0, y: 130 };
+
+      g.append("line").attr("x1", 0).attr("y1", 0).attr("x2", mPos.x).attr("y2", mPos.y).attr("stroke", "#10b981").attr("stroke-width", 2.5).attr("stroke-dasharray", "4,2");
+      g.append("line").attr("x1", 0).attr("y1", 0).attr("x2", dPos.x).attr("y2", dPos.y).attr("stroke", "#38bdf8").attr("stroke-width", 2.5).attr("stroke-dasharray", "4,2");
+      g.append("line").attr("x1", 0).attr("y1", 0).attr("x2", lPos.x).attr("y2", lPos.y).attr("stroke", "#f43f5e").attr("stroke-width", 2.5).attr("stroke-dasharray", "4,2");
+
+      const gM = g.append("g").attr("transform", `translate(${mPos.x}, ${mPos.y})`);
+      gM.append("circle").attr("r", 26).attr("fill", "#064e3b").attr("stroke", "#10b981").attr("stroke-width", 2.5);
+      gM.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "14px").attr("font-weight", "bold").attr("fill", "#ffffff").text("M");
+      gM.append("text").attr("y", 38).attr("text-anchor", "middle").attr("font-family", "'Plus Jakarta Sans'").attr("font-size", "11px").attr("font-weight", "600").attr("fill", "#34d399").text("METHOD TECHNIQUE");
+      gM.append("text").attr("y", 50).attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#94a3b8").text(gap.method.length > 22 ? gap.method.slice(0, 20) + "..." : gap.method);
+
+      const gD = g.append("g").attr("transform", `translate(${dPos.x}, ${dPos.y})`);
+      gD.append("circle").attr("r", 26).attr("fill", "#0c4a6e").attr("stroke", "#38bdf8").attr("stroke-width", 2.5);
+      gD.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "14px").attr("font-weight", "bold").attr("fill", "#ffffff").text("D");
+      gD.append("text").attr("y", -34).attr("text-anchor", "middle").attr("font-family", "'Plus Jakarta Sans'").attr("font-size", "11px").attr("font-weight", "600").attr("fill", "#38bdf8").text("TARGET DATASET");
+      gD.append("text").attr("y", -46).attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#94a3b8").text(gap.dataset.length > 22 ? gap.dataset.slice(0, 20) + "..." : gap.dataset);
+
+      const gL = g.append("g").attr("transform", `translate(${lPos.x}, ${lPos.y})`);
+      gL.append("circle").attr("r", 26).attr("fill", "#881337").attr("stroke", "#f43f5e").attr("stroke-width", 2.5);
+      gL.append("text").attr("dy", "0.35em").attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "14px").attr("font-weight", "bold").attr("fill", "#ffffff").text("L");
+      gL.append("text").attr("y", 38).attr("text-anchor", "middle").attr("font-family", "'Plus Jakarta Sans'").attr("font-size", "11px").attr("font-weight", "600").attr("fill", "#fb7185").text("EMPIRICAL BOTTLENECK");
+      gL.append("text").attr("y", 50).attr("text-anchor", "middle").attr("font-family", "'JetBrains Mono'").attr("font-size", "9px").attr("fill", "#94a3b8").text(gap.limitation.length > 22 ? gap.limitation.slice(0, 20) + "..." : gap.limitation);
+    }
+
+    // ── 6. REVERSE NAVIGATION: BACK TO TOP 5 MACRO ───────────────────────────
+    function zoomBackToMacroGaps() {
+      currentState = 'LEVEL_3_GAPS_MACRO';
+      closeDrawer();
+      document.getElementById("btn-back-macro").classList.add("hidden");
+
+      svg.transition()
+        .duration(800)
+        .ease(d3.easeCubicOut)
+        .call(zoom.transform, initialTransform);
+
+      renderGapsMacro();
+      gsap.to(".gap-triad-macro", { opacity: 1, scale: 1, duration: 0.6, stagger: 0.05 });
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-purple-400";
+      title.innerText = "LEVEL 3: TOP 5 RESEARCH GAPS (MACRO NEURAL SYNAPSE)";
+      desc.innerText = "Top 5 M×D×L void bridges in macro space. Top Gap #1 is centered. Click any 3-dot triad to execute deep traveling warp zoom.";
+    }
+
+    // ── 7. RETURN TO LEVEL 1 (ALL CLUSTERS) ───────────────────────────────────
+    function returnToLevel1() {
+      currentState = 'LEVEL_1_CLUSTERS';
+      closeDrawer();
+
+      document.getElementById("btn-back-macro").classList.add("hidden");
+      document.getElementById("btn-back-clusters").classList.add("hidden");
+      const topBtn = document.getElementById("btn-top-research-gaps");
+      topBtn.classList.remove("opacity-40", "cursor-not-allowed");
+
+      document.getElementById("nav-step-1").className = "px-3.5 py-1.5 rounded-lg text-white bg-white/10 shadow-sm transition flex items-center gap-2";
+      document.getElementById("nav-step-2").className = "px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2";
+      document.getElementById("nav-step-3").className = "px-3.5 py-1.5 rounded-lg text-slate-500 cursor-default transition flex items-center gap-2";
+      document.getElementById("nav-step-3").querySelector("span").className = "w-2 h-2 rounded-full bg-purple-400 opacity-40";
+
+      svg.transition()
+        .duration(800)
+        .ease(d3.easeCubicOut)
+        .call(zoom.transform, initialTransform);
+
+      gsap.to(".cluster-halo", { opacity: 1, scale: 1, duration: 0.6, pointerEvents: "auto" });
+      gsap.to(".macro-filament", { opacity: 0.3, duration: 0.6 });
+      gsap.to(".level2-constellation", { opacity: 0, duration: 0.3 });
+      gsap.to(".cluster-main-label, .cluster-count-label", { opacity: 1, duration: 0.3 });
+
+      gapsLayer.selectAll("*").remove();
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
+      title.innerText = "LEVEL 1: MACRO THEMATIC NEBULAE";
+      desc.innerText = "Full field topology. Click any cluster to focus its landmark pillars, or press [⚡ RESEARCH GAPS] to initiate neuron reorganization.";
+    }
+
+    // ── 8. LEVEL 2: CLUSTER DRILL-DOWN (SKETCH 1 FOCUS) ──────────────────────
+    function handleClusterClick(cluster) {
+      if (currentState !== 'LEVEL_1_CLUSTERS') return;
+      currentState = 'LEVEL_2_CLUSTER_FOCUS';
+      selectedCluster = cluster;
+
+      const topBtn = document.getElementById("btn-top-research-gaps");
+      topBtn.classList.add("opacity-40", "cursor-not-allowed");
+      document.getElementById("btn-back-clusters").classList.remove("hidden");
+
+      document.getElementById("nav-step-1").className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2";
+      document.getElementById("nav-step-2").className = "px-3.5 py-1.5 rounded-lg text-white bg-emerald-500/20 border border-emerald-500/40 shadow-sm transition flex items-center gap-2";
+      document.getElementById("nav-step-2").querySelector("span").className = "w-2 h-2 rounded-full bg-emerald-400";
+
+      const dot = document.getElementById("level-dot");
+      const title = document.getElementById("level-title");
+      const desc = document.getElementById("level-desc");
+      dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400";
+      title.innerText = `LEVEL 2 FOCUS: ${cluster.name.toUpperCase()}`;
+      desc.innerText = "Central landmark pillars (P1, P2) connected by core spine, with satellite literature nodes radiating outward.";
+
+      const targetScale = 2.2;
+      const targetX = ((width - drawerWidth) / 2) - cluster.x * targetScale;
+      const targetY = (height / 2) - cluster.y * targetScale;
+
+      svg.transition()
+        .duration(850)
+        .ease(d3.easeCubicOut)
+        .call(zoom.transform, d3.zoomIdentity.translate(targetX, targetY).scale(targetScale));
+
+      DATA.macro_clusters.forEach(c => {
+        if (c.cluster_id !== cluster.cluster_id) {
+          gsap.to(`#cluster-g-${c.cluster_id}`, { opacity: 0.08, duration: 0.5 });
+        } else {
+          gsap.to(`#cluster-g-${c.cluster_id} .cluster-main-label`, { opacity: 0, duration: 0.3 });
+          gsap.to(`#cluster-g-${c.cluster_id} .cluster-count-label`, { opacity: 0, duration: 0.3 });
+          gsap.to(`#cluster-g-${c.cluster_id} .level2-constellation`, { opacity: 1, duration: 0.5 });
+        }
+      });
+      gsap.to(".macro-filament", { opacity: 0.04, duration: 0.4 });
+
+      openClusterDrawer(cluster);
+    }
+
+    // ── 9. DRAWERS: EVIDENCE & GRANT SYNTHESIS ────────────────────────────────
+    function openGapDrawer(gap) {
+      const drawer = document.getElementById("info-drawer");
+      const content = document.getElementById("drawer-content");
+      document.getElementById("drawer-eyebrow").innerText = `M×D×L GAP #${gap.rank} // VERIFIED EVIDENCE`;
+
+      const p1 = gap.anchor_a || {};
+      const p2 = gap.anchor_b || {};
+
+      content.innerHTML = `
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 text-purple-300 font-mono text-[11px] font-bold">
+              GAP #${gap.rank}
+            </span>
+            <span class="px-2 py-0.5 rounded bg-sky-500/15 border border-sky-500/30 text-sky-300 font-mono text-[11px]">
+              Uzzi z = ${gap.uzzi_z_score}σ
+            </span>
+          </div>
+          <h3 class="text-2xl font-serif text-white font-normal leading-snug pt-1">${gap.title}</h3>
+          <p class="text-xs text-slate-400 font-sans leading-relaxed pt-1">${gap.description}</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 pt-1 text-center font-mono">
+          <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/25">
+            <div class="text-[9px] text-emerald-400 font-bold uppercase">METHOD (M)</div>
+            <div class="text-[10px] text-white font-medium truncate mt-0.5" title="${gap.method}">${gap.method}</div>
+          </div>
+          <div class="p-2 rounded-lg bg-sky-500/10 border border-sky-500/25">
+            <div class="text-[9px] text-sky-400 font-bold uppercase">DATASET (D)</div>
+            <div class="text-[10px] text-white font-medium truncate mt-0.5" title="${gap.dataset}">${gap.dataset}</div>
+          </div>
+          <div class="p-2 rounded-lg bg-rose-500/10 border border-rose-500/25">
+            <div class="text-[9px] text-rose-400 font-bold uppercase">LIMIT (L)</div>
+            <div class="text-[10px] text-white font-medium truncate mt-0.5" title="${gap.limitation}">${gap.limitation}</div>
+          </div>
+        </div>
+
+        <div class="space-y-2.5 pt-2">
+          <div class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Literature Proof Spine</div>
+
+          <div class="p-3 rounded-xl bg-[#080b11] border border-emerald-500/25 space-y-1">
+            <div class="flex items-center justify-between text-[10px] font-mono">
+              <span class="text-emerald-400 font-bold uppercase">ANCHOR 1: TECHNIQUE PROVIDER</span>
+              <span class="text-slate-400 tabular-nums">${p1.year || 2023}</span>
+            </div>
+            <h4 class="font-serif text-base text-white leading-snug">${p1.title || "Method Paper"}</h4>
+            <p class="text-[11px] text-slate-400 font-sans">${(p1.authors || []).join(", ")} • ${(p1.citations || 0).toLocaleString()} citations</p>
+            <p class="text-xs text-slate-300 font-sans leading-relaxed pt-1">${p1.tldr || p1.abstract || ""}</p>
+            <div class="pt-1.5 flex items-center justify-between text-[11px] font-mono">
+              ${p1.doi ? `<a href="https://doi.org/${p1.doi}" target="_blank" class="text-emerald-400 hover:underline">📄 DOI / PDF ↗</a>` : '<span class="text-slate-500">Open Access</span>'}
+              <button onclick="copyBibtex('${p1.title}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-slate-300">Copy BibTeX</button>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-[#080b11] border border-sky-500/25 space-y-1">
+            <div class="flex items-center justify-between text-[10px] font-mono">
+              <span class="text-sky-400 font-bold uppercase">ANCHOR 2: TARGET BENCHMARK</span>
+              <span class="text-slate-400 tabular-nums">${p2.year || 2022}</span>
+            </div>
+            <h4 class="font-serif text-base text-white leading-snug">${p2.title || "Target Paper"}</h4>
+            <p class="text-[11px] text-slate-400 font-sans">${(p2.authors || []).join(", ")} • ${(p2.citations || 0).toLocaleString()} citations</p>
+            <p class="text-xs text-slate-300 font-sans leading-relaxed pt-1">${p2.tldr || p2.abstract || ""}</p>
+            <div class="pt-1.5 flex items-center justify-between text-[11px] font-mono">
+              ${p2.doi ? `<a href="https://doi.org/${p2.doi}" target="_blank" class="text-sky-400 hover:underline">📄 DOI / PDF ↗</a>` : '<span class="text-slate-500">Open Access</span>'}
+              <button onclick="copyBibtex('${p2.title}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-slate-300">Copy BibTeX</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-white/8 space-y-2 font-mono text-xs">
+          <button onclick="copyLitReviewSynthesis()" class="w-full py-2.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/35 text-purple-200 font-semibold transition flex items-center justify-center gap-2">
+            <span>📋 Copy Lit Review Synthesis</span>
+          </button>
+          <button onclick="copyGrantHypothesis()" class="w-full py-2.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/35 text-sky-200 font-semibold transition flex items-center justify-center gap-2">
+            <span>⚡ Draft Grant Proposal Section (H₁)</span>
+          </button>
+        </div>
+      `;
+
+      drawer.classList.remove("translate-x-full");
+    }
+
+    function openClusterDrawer(cluster) {
+      const drawer = document.getElementById("info-drawer");
+      const content = document.getElementById("drawer-content");
+      document.getElementById("drawer-eyebrow").innerText = "CLUSTER DOSSIER";
+
+      let pillarsHtml = (cluster.pillars || []).map((p, idx) => `
+        <div class="p-3.5 rounded-xl bg-[#080b11] border border-white/8 space-y-1">
+          <div class="flex items-center justify-between text-[11px] font-mono">
+            <span class="text-amber-400 font-bold">LANDMARK PILLAR ${idx + 1}</span>
+            <span class="text-slate-400 tabular-nums">${p.year}</span>
+          </div>
+          <h4 class="font-serif text-base text-white leading-snug">${p.title}</h4>
+          <p class="text-[11px] text-slate-400 font-sans">${p.authors.join(", ")} • ${p.citations.toLocaleString()} citations</p>
+          <p class="text-xs text-slate-300 font-sans leading-relaxed pt-1">${p.tldr}</p>
+        </div>
+      `).join("");
+
+      content.innerHTML = `
+        <div>
+          <span class="text-[11px] font-mono text-emerald-400 uppercase font-bold tracking-wider">DOMAIN CLUSTER FOCUS</span>
+          <h3 class="text-2xl font-serif text-white font-normal mt-1">${cluster.name}</h3>
+          <p class="text-xs text-slate-400 font-mono mt-1">${cluster.paper_count} peer-reviewed papers in corpus</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Seminal Landmark Pillars</div>
+          <div class="space-y-2 mt-2">${pillarsHtml}</div>
+        </div>
+
+        <div class="pt-4 border-t border-white/8">
+          <button onclick="returnToLevel1()" class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 font-mono text-xs font-semibold transition">
+            ← Return to Field Clusters
+          </button>
+        </div>
+      `;
+
+      drawer.classList.remove("translate-x-full");
+    }
+
+    function closeDrawer() {
+      document.getElementById("info-drawer").classList.add("translate-x-full");
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.remove("opacity-0");
+      setTimeout(() => t.classList.add("opacity-0"), 2200);
+    }
+
+    function copyLitReviewSynthesis() {
+      const gap = selectedGap || DATA.gaps[0];
+      const text = `A critical research void in recent literature lies at the intersection of ${gap.method} and ${gap.dataset}. While prior work demonstrated strong performance in standalone benchmarks, zero studies have integrated ${gap.method} under ${gap.limitation} constraints (Uzzi et al. z = ${gap.uzzi_z_score}σ). Reconciling these findings offers immediate breakthrough potential.`;
+      navigator.clipboard.writeText(text).then(() => showToast("Lit review synthesis copied!"));
+    }
+
+    function copyGrantHypothesis() {
+      const gap = selectedGap || DATA.gaps[0];
+      const text = `[NSF / NIH Research Proposal Section - Specific Aims]\nProject Title: Bridging ${gap.method} to ${gap.dataset}\n\nCentral Hypothesis (H1):\n${gap.hypothesis}\n\nEmpirical Rationale:\nUzzi Novelty standing z = ${gap.uzzi_z_score}σ demonstrates an atypical, high-impact combination with proven feasibility across literature anchors.`;
+      navigator.clipboard.writeText(text).then(() => showToast("Grant proposal section copied!"));
+    }
+
+    function copyBibtex(title) {
+      const bib = `@article{ref_${Math.floor(Math.random()*9000+1000)},\n  title={${title}},\n  year={2023},\n  journal={Peer-Reviewed Proceedings}\n}`;
+      navigator.clipboard.writeText(bib).then(() => showToast("BibTeX citation copied!"));
+    }
+
+    function exportTaxonomy() {
+      const lines = ["# ResearchRadar Epistemic Field Taxonomy", ""];
+      DATA.macro_clusters.forEach(c => {
+        lines.push(`## ${c.name} (${c.paper_count} papers)`);
+        lines.push(`- Key Methodologies: ${c.keywords.join(", ")}`);
+        lines.push("");
+      });
+      navigator.clipboard.writeText(lines.join("\n")).then(() => showToast("Corpus taxonomy copied!"));
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeDrawer();
+        if (currentState === 'LEVEL_3_GAP_MICRO') zoomBackToMacroGaps();
+        else if (currentState === 'LEVEL_2_CLUSTER_FOCUS' || currentState === 'LEVEL_3_GAPS_MACRO') returnToLevel1();
+      }
+      if (e.key === "1") returnToLevel1();
+      if (e.key === "3" && currentState === 'LEVEL_1_CLUSTERS') triggerSciFiGapsTransition();
+    });
+
+    renderClusters();
+  </script>
+</body>
+</html>

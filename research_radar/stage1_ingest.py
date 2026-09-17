@@ -54,31 +54,78 @@ def _stable_id(title: str) -> str:
 
 
 def is_english_paper(title: str | None, abstract: str | None = None) -> bool:
-    """Zero-dependency language validator to ensure clean academic processing."""
-    text = f"{title or ''} {abstract or ''}".strip()
-    if not text:
+    """
+    Scientometrically rigorous, zero-dependency academic language validator:
+    1. Math-Aware: Strips LaTeX formulas ($...$, \alpha, etc.) and Unicode mathematical
+       notation before evaluating character distributions, preventing the accidental
+       rejection of theoretical/mathematical literature.
+    2. Global-Scholar Tolerant: Normalizes accented Latin characters (e.g. Poincaré, Schrödinger,
+       Universidade de São Paulo, van der Waals) so international citations and affiliations
+       are not penalized.
+    3. English Function Word Ratio: Measures the presence of foundational English function
+       words rather than relying on brittle foreign-word exclusion counts.
+    """
+    raw_text = f"{title or ''} {abstract or ''}".strip()
+    if not raw_text:
         return True
-    non_ascii = [ch for ch in text if ord(ch) > 127]
-    if len(non_ascii) / max(1, len(text)) > 0.12:
+
+    # 1. Strip LaTeX formulas ($...$ or $$...$$) and LaTeX commands (\command{...})
+    text = re.sub(r"\$\$[^\$]+\$\$", " ", raw_text)
+    text = re.sub(r"\$[^\$]+\$", " ", text)
+    text = re.sub(r"\\[a-zA-Z]+(?:\{[^\}]*\})*", " ", text)
+
+    # 2. Strip Unicode mathematical operators, Greek letters, and technical symbols
+    # Greek & Coptic (\u0370-\u03FF), Letterlike (\u2100-\u214F), Arrows (\u2190-\u21FF),
+    # Mathematical Operators (\u2200-\u22FF, \u2A00-\u2AFF), Misc Math (\u27C0-\u27EF, \u2980-\u29FF)
+    math_pattern = r"[\u0370-\u03FF\u2070-\u209F\u2100-\u214F\u2190-\u21FF\u2200-\u22FF\u27C0-\u27EF\u2980-\u29FF\u2A00-\u2AFF]"
+    text = re.sub(math_pattern, " ", text)
+
+    # 3. Check for non-Latin scripts (CJK, Cyrillic, Arabic, Devanagari)
+    non_latin_chars = re.findall(r"[\u0400-\u04FF\u0600-\u06FF\u0900-\u097F\u4E00-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]", text)
+    if len(non_latin_chars) / max(1, len(text.replace(" ", ""))) > 0.25:
         return False
-    lower = f" {text.lower()} "
-    foreign_markers = [
-        " de ", " da ", " do ", " das ", " dos ", " em ", " na ", " no ",
-        " para ", " com ", " um ", " uma ", " sobre ", " pela ",
-        " pelo ", "ção ", "ções ", " und ", " der ", " die ",
-        " des ", " les ", " une ", " pour ", " avec "
-    ]
-    foreign_hits = sum(1 for m in foreign_markers if m in lower)
-    return foreign_hits < 3
+
+    # 4. Extract words for lexical analysis
+    words = re.findall(r"\b[a-zA-Z]{2,}\b", text.lower())
+    if len(words) < 6:
+        # Short titles/abstracts in Latin script pass safely
+        return True
+
+    english_stopwords = {
+        "the", "of", "and", "in", "to", "a", "is", "that", "for", "it", "as", "was",
+        "with", "on", "by", "at", "from", "this", "be", "are", "an", "we", "which",
+        "or", "have", "can", "has", "not", "its", "our", "their", "paper", "propose",
+        "presents", "study", "results", "using", "method", "approach", "model", "analysis",
+        "based", "between", "each", "both", "such", "through", "more", "also", "into"
+    }
+    foreign_markers = {
+        "und", "der", "die", "das", "des", "dem", "den", "nicht", "eine", "einer", "einem",
+        "para", "com", "uma", "sobre", "pela", "pelo", "sao", "artigo", "este", "esta",
+        "pour", "avec", "dans", "cette", "sur", "une", "des", "les", "du", "qui"
+    }
+
+    en_hits = sum(1 for w in words if w in english_stopwords)
+    foreign_hits = sum(1 for w in foreign_markers if w in words)
+
+    # If the text has substantial length but ZERO English function words, it is non-English
+    if len(words) >= 12 and en_hits == 0:
+        return False
+
+    # If foreign grammatical markers strongly outnumber English function words
+    if foreign_hits >= 3 and foreign_hits > en_hits:
+        return False
+
+    return True
 
 
 def _generate_fallback_tldr(abstract: str, title: str = "") -> str:
     """
     Generate an extractive 1-sentence TLDR summary when an AI-generated TLDR is unavailable.
-    Guarantees that every ingested paper has a meaningful, non-null summary.
+    Guarantees that no synthetic boilerplate is injected to avoid contaminating downstream
+    SPECTER/SciBERT embedding manifolds.
     """
     if not abstract:
-        return f"This paper investigates {title.strip().lower().rstrip('.')}." if title else "Paper summary unavailable."
+        return title.strip() if title else ""
 
     # Clean and split into sentences
     sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", abstract.strip()) if s.strip()]
@@ -99,7 +146,7 @@ def _generate_fallback_tldr(abstract: str, title: str = "") -> str:
         if len(s.split()) >= 6:
             return s.rstrip(".") + "."
 
-    return (sentences[0].rstrip(".") + ".") if sentences else (title or "Paper summary.")
+    return (sentences[0].rstrip(".") + ".") if sentences else (title or "")
 
 
 def _extract_year(raw: dict) -> int | None:
@@ -225,13 +272,13 @@ DEFAULT_S2_API_KEY = None
 def _get_s2_headers() -> dict[str, str]:
     _load_env_file()
     key = os.environ.get("S2_API_KEY")
-    if not key:
-        raise RuntimeError("S2_API_KEY not set. Add it to .env — never hardcode it.")
-    return {
+    headers = {
         "User-Agent": "ResearchRadar-Academic/3.0 (S2-Ingest)",
         "Accept": "application/json",
-        "x-api-key": key,
     }
+    if key:
+        headers["x-api-key"] = key
+    return headers
 
 
 # ---------------------------------------------------------------------------
@@ -397,37 +444,43 @@ def _s2_paper_to_schema(raw: dict) -> dict:
     venue_name = (raw.get("venue") or venue_obj.get("name") or "").strip() or None
     title_str  = (raw.get("title") or "").strip().replace("\n", " ") or None
 
-    # Canonical ID: prefer arXiv format for interoperability, fall back to S2 ID
-    canonical_id = arx_id if arx_id else (s2_id[:12] if s2_id else None)
+    # Canonical ID: prefer arXiv format for interoperability, fall back to full S2 ID, then DOI, then stable hash
+    canonical_id = arx_id if arx_id else (s2_id if s2_id else (doi if doi else (_stable_id(title_str) if title_str else None)))
 
     # Purifier Check: Reject Books, Textbooks, Monographs, Handbooks
+    # Scientometric Principle: Do not filter by publisher name (e.g. Wiley and Cambridge publish premier journals).
+    # Filter strictly on S2 publicationTypes and non-paper keywords.
     pub_types = [str(t).lower() for t in (raw.get("publicationTypes") or [])]
-    if any(bt in pub_types for bt in ["book", "bookchapter", "editorial", "other", "collection"]):
+    is_article = any(at in pub_types for at in ["journalarticle", "conference", "review", "preprint"])
+    if not is_article and any(bt in pub_types for bt in ["book", "bookchapter", "editorial", "other", "collection"]):
         return {}
-    if venue_name and any(bp in venue_name.lower() for bp in ["oreilly", "o'reilly", "springer book", "mit press", "cambridge", "crc press", "routledge", "wiley", "academic press"]):
-        return {}
+    if not is_article and venue_name:
+        venue_lower = venue_name.lower()
+        if any(bp in venue_lower for bp in ["oreilly", "o'reilly", "springer book series", "crc press handbook"]):
+            return {}
     title_lower = (title_str or "").lower()
-    book_title_keywords = [
-        "mastering ", "blueprint for", "handbook", "monograph", "guide to", 
-        "textbook", "introduction to", "companion to", "edition", "series on", "volume "
-    ]
-    if any(kw in title_lower for kw in book_title_keywords):
-        return {}
+    if not is_article:
+        book_title_keywords = [
+            "mastering bitcoin", "blueprint for", "handbook of", "monograph series",
+            "textbook on", "series on volume", "edition volume"
+        ]
+        if any(kw in title_lower for kw in book_title_keywords):
+            return {}
 
     # English Language Gate: Reject non-English papers from contaminating academic pipelines
     if not is_english_paper(title_str, raw.get("abstract")):
         return {}
 
-    # TLDR: extract text with automatic extractive fallback
+    # TLDR: extract text with automatic extractive fallback (zero synthetic boilerplate)
     tldr_obj  = raw.get("tldr") or {}
     tldr_text = (tldr_obj.get("text") or "").strip() if isinstance(tldr_obj, dict) else ""
 
-    # Abstract with TLDR fallback if publisher restricted abstract
+    # Abstract: preserve authentic abstract; never inject synthetic filler that smears vector spaces
     raw_abs = (raw.get("abstract") or "").strip().replace("\n", " ")
-    abstract_text = raw_abs if raw_abs else tldr_text
+    abstract_text = raw_abs if raw_abs else (tldr_text if tldr_text else "")
 
-    # If TLDR text was missing, synthesize from abstract + title
-    final_tldr = tldr_text if tldr_text else _generate_fallback_tldr(abstract_text, title_str or "")
+    # If TLDR text was missing, synthesize extractively from abstract or title
+    final_tldr = tldr_text if tldr_text else _generate_fallback_tldr(raw_abs, title_str or "")
 
     # Publication Year (with publicationDate fallback)
     pub_year = _extract_year(raw)

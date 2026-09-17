@@ -2,20 +2,20 @@
   "macro_clusters": [
     {
       "cluster_id": 0,
-      "name": "Molecular Graph Neural Property Prediction",
+      "name": "Molecular Property Prediction via Representation Models",
       "keywords": [
         "molecular",
         "property",
-        "molecule",
+        "prediction",
         "model"
       ],
       "color": "#38bdf8",
       "glow": "rgba(56, 189, 248, 0.25)",
-      "x": 965.0,
-      "y": 430.0,
-      "radius": 99.1,
-      "paper_count": 522,
-      "top_papers": [
+      "x": 872.2,
+      "y": 237.1,
+      "radius": 99.4,
+      "paper_count": 441,
+      "pillars": [
         {
           "id": "1704.01212",
           "title": "Neural Message Passing for Quantum Chemistry",
@@ -26,7 +26,6 @@
           ],
           "year": 2017,
           "citations": 9445,
-          "influential_citations": 881,
           "venue": "International Conference on Machine Learning",
           "tldr": "In this paper, we reformulate existing models into a single common framework we call Message Passing Neural Networks (MPNNs) and explore additional novel variations within this framework.",
           "abstract": "Supervised learning on molecules has incredible potential to be useful in chemistry, drug discovery, and materials science. Luckily, several promising and closely related neural network models invariant to molecular symmetries have already been described in the literature. These models learn a message passing algorithm and aggregation procedure to compute a function of their entire input graph. At this point, the next step is to find a particularly effective variant of this general approach and apply it to chemical prediction benchmarks until we either solve them or reach the limits of the approach. In this paper, we reformulate existing models into a single common framework we call Message Passing Neural Networks (MPNNs) and explore additional novel variations within this framework. Using MPNNs we demonstrate state of the art results on an important molecular property prediction benchmark; these results are strong enough that we believe future work should focus on datasets with larger molecules or more accurate ground truth labels.",
@@ -42,174 +41,85 @@
           ],
           "year": 2020,
           "citations": 1026,
-          "influential_citations": 66,
           "venue": "Journal of Medicinal Chemistry",
           "tldr": "Here, we introduce a new graph neural network architecture called Attentive FP for molecular representation that uses a graph attention mechanism to learn from relevant drug discovery datasets.",
           "abstract": "Hunting for chemicals with favourable pharmacological, toxicological and pharmacokinetic properties remains a formidable challenge for drug discovery. Deep learning provides us with powerful tools to build predictive models that are appropriate for the rising amounts of data, but the gap between what these neural networks learn and what human beings can comprehend is growing. Moreover, this gap may induce distrust and restrict deep learning applications in practice. Here, we introduce a new graph neural network architecture called Attentive FP for molecular representation that uses a graph attention mechanism to learn from relevant drug discovery datasets. We demonstrate that Attentive FP achieves state-of-the-art predictive performances on a variety of datasets and that what it learns is interpretable. The feature visualization for Attentive FP suggests that it automatically learns non-local intramolecular interactions from specified tasks, which can help us gain chemical insights directly from data beyond human perception.",
           "doi": "10.1021/acs.jmedchem.9b00959"
-        },
+        }
+      ],
+      "satellites": [
         {
           "id": "2102.03150",
           "title": "Equivariant message passing for the prediction of tensorial properties and molecular spectra",
-          "authors": [
-            "Kristof T. Schütt",
-            "Oliver T. Unke",
-            "M. Gastegger"
-          ],
           "year": 2021,
           "citations": 843,
-          "influential_citations": 107,
-          "venue": "International Conference on Machine Learning",
-          "tldr": "On this basis, we propose the polarizable atom interaction neural network (PaiNN) and improve on common molecule benchmarks over previous networks, while reducing model size and inference time.",
-          "abstract": "Message passing neural networks have become a method of choice for learning on graphs, in particular the prediction of chemical properties and the acceleration of molecular dynamics studies. While they readily scale to large training data sets, previous approaches have proven to be less data efficient than kernel methods. We identify limitations of invariant representations as a major reason and extend the message passing formulation to rotationally equivariant representations. On this basis, we propose the polarizable atom interaction neural network (PaiNN) and improve on common molecule benchmarks over previous networks, while reducing model size and inference time. We leverage the equivariant atomwise representations obtained by PaiNN for the prediction of tensorial properties. Finally, we apply this to the simulation of molecular spectra, achieving speedups of 4-5 orders of magnitude compared to the electronic structure reference.",
-          "doi": ""
+          "doi": "",
+          "dx": 75.0,
+          "dy": 0.0
         },
         {
           "id": "3d0e01922b2b",
           "title": "Topological Indices and Related Descriptors in QSAR and QSPR",
-          "authors": [
-            "J. Devillers",
-            "A. Balaban"
-          ],
           "year": 2003,
           "citations": 1064,
-          "influential_citations": 23,
-          "venue": "Peer-Reviewed Venue",
-          "tldr": "There are several different broad approaches to making correlations between chemical structure and some desired property or bioactivity (either of which is here spoken of simply as the “activity”).",
-          "abstract": "There are several different broad approaches to making correlations between chemical structure and some desired property or bioactivity (either of which is here spoken of simply as the “activity”). The relevance of such approaches to quantitative-structure -activity-relationships (QSAR) has now achieved widespread use, perhaps most especially in evaluating bioactivities (e.g., for drug development). One general approach to QSAR seeks to correlate a desired activity with another reference property (e.g., the octanol -water partition coefficient) which is more easily measured; a second general approach seeks to correlate a desired activity to quantum-chemically computed descriptors; and a third general approach seeks to correlate a desired activity with various “topological indices” (which in the mathematical graph-theory literature are usually referred to as “graph invariants”). Especially the first two approaches seem often to have been imagined to associate to a surmised mechanism giving rise to the desired activity, though for bioactivities mechanistic details are in practice often wanting. The present book is dedicated to the third sometimes somewhat controversial but now increasingly successful topological-index approach sindeed the book is focused not only on QSAR but also on quantitative structureproperty relations (QSPR) for other properties. The book consists of 17 chapters by several different leading practitioners in the field. There is a rational plan, with evident coordination between chapters, sometimes engendered by the participation of one of the editors. These chapters might be somewhat approximately divided into four categories: the first consisting of two or three introductory chapters; the second category consisting of six or so chapters presenting a diversity of topological indices; the third consisting of five or so chapters using particular chemical philosophies for the selection of the topological indices to be used; and the fourth consisting of three chapters attending to a few further computational problems and related strategies. The first introductory category includes chapters by Devillers, by Balaban and O. Ivanciuc, and by O. Ivanciuc and Balaban (though the last of these chapters could be included in the next category). Devillers gives some general history of QSAR relating to the other broad approaches not detailed in the present book and makes some related philosophical remarks. Balaban and Ivanciuc present a history focusing on the introductions of various topological indices. The third of these chapters presents a general review of chemical graph-theoretic rudiments, with nice illustrative examples. Multilinear regression analysis is a presumed prerequisite throughout the present book (much as it is also similarly utilized for other broad QSAR approaches outside the scope of the present book). The second set of chapters presenting a great variety of graph invariants includes chapters by O. Ivanciuc, T. Ivanciuc, and Balaban, by O. and T. Ivanciuc, by S. Nikolic ́, N. Trinajstić, and Z. Mihalić, by L. H. Hall and L. B. Kier, and by D. Bonchev (though the last chapter could be placed in the next category instead). Here the graph invariants may often be viewed as obtained in some manner from various graphtheoretic matrices, such as the adjacency, Laplacian, shortest-path distance, Szeged, path, or detour matrices as well as matrices derived therefrom by inverting the elements or “complementing” them or raising them to a power. Particularly in the first chapter of the present set of chapters, attention is directed to the incorporation of heteroatom and bond-weighting aspects of molecular graphs into the design of the topological indices, though such considerations appear in passing in other chapters of this set too, and in the subsequent categories of chapters such considerations are generally explicitly developed or already presumed. The third set of more tightly application-focused chapters are by E. Estrada, by Kier and Hall, by Hall and Kier, by S. C. Basak, by Devillers, and by J. E. Dubois, J. P. Doucet, A. Panaye, and B. T. Fan (though here the first two of these chapters could also be placed in the previous category). Often the topological indices in a chapter here become much restricted in comparison with the possibilities enunciated in the previous set of chapters, but the oft-major point then is that the topological indices are rationally selected within the chemical philosophical approach of the authors. For instance, Kier and Hall focus on their set of “kappa” indices for encoding global shape and flexibility information and their “electrotopological” indices for encoding mean local structural information (including electronegativity characteristics for the various atoms). And Dubois et al . focus on their ordering of substructural features to describe activities which are viewable to be determined by a local region as perturbed by the surrounding environment within the molecule. Basak also describes a method of average neighborhood analysis, using information-theory-related graph invariants. The fourth and final category of chapters concerned with miscellaneous additional problems and related computational strategies are by Basak, B. D. Gute, and G. D. Grunwald, by O. Ivanciuc, and by O. Ivanciuc and Devillers. The chapter by Basak incorporates a variety of extra-graph-theoretic (quantum-chemical or property) information in fitting for an activity. (There are a couple of other earlier chapters which also mention in passing the idea that various pieces of geometric information can be incorporated in indices otherwise resembling standard purely graph-theoretic topological indices.) The chapter by Ivanciuc concerns the use of neural networks to aid in identifying (especially nonlinear) correlations between activity and topological indices. The final chapter is an overview mentioning several available software packages. Overall this∼800-page book provides a reasonably comprehensive and fair presentation of the current field of use of topological indices for QSAR and QSPR. Throughout the book (in virtually every chapter) a variety of illustrative examples are developed, and resultant fits are noted. The book is certainly of value for anyone interested in QSAR and QSPR, regardless of whether the researcher is a practitioner of the topological-index approach or of one of the other oft-used approaches to predict activities. D. J. Klein Texas A&M Uni Versity/Gal Veston",
-          "doi": ""
+          "doi": "",
+          "dx": 37.5,
+          "dy": 65.0
         },
         {
           "id": "1611.03199",
           "title": "Low Data Drug Discovery with One-Shot Learning",
-          "authors": [
-            "Altae-Tran Han",
-            "Bharath Ramsundar",
-            "Aneesh S. Pappu"
-          ],
           "year": 2016,
           "citations": 786,
-          "influential_citations": 40,
-          "venue": "ACS Central Science",
-          "tldr": "We introduce a new architecture, the iterative refinement long short-term memory, that, when combined with graph convolutional neural networks, significantly improves learning of meaningful distance metrics over small-molecules.",
-          "abstract": "Recent advances in machine learning have made significant contributions to drug discovery. Deep neural networks in particular have been demonstrated to provide significant boosts in predictive power when inferring the properties and activities of small-molecule compounds (Ma, J. et al. J. Chem. Inf. Model.2015, 55, 263–2742563532410.1021/ci500747n). However, the applicability of these techniques has been limited by the requirement for large amounts of training data. In this work, we demonstrate how one-shot learning can be used to significantly lower the amounts of data required to make meaningful predictions in drug discovery applications. We introduce a new architecture, the iterative refinement long short-term memory, that, when combined with graph convolutional neural networks, significantly improves learning of meaningful distance metrics over small-molecules. We open source all models introduced in this work as part of DeepChem, an open-source framework for deep-learning in drug discovery (Ramsundar, B. deepchem.io. https://github.com/deepchem/deepchem, 2016).",
-          "doi": "10.1021/acscentsci.6b00367"
+          "doi": "10.1021/acscentsci.6b00367",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "2106.09553",
+          "title": "Large-scale chemical language representations capture molecular structure and properties",
+          "year": 2021,
+          "citations": 654,
+          "doi": "10.1038/s42256-022-00580-7",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "08257eb1faa1",
+          "title": "Could graph neural networks learn better molecular representation for drug discovery? A comparison study of descriptor-based and graph-based models",
+          "year": 2020,
+          "citations": 644,
+          "doi": "10.1186/s13321-020-00479-8",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "b3e025049142",
+          "title": "Deep architectures and deep learning in chemoinformatics: the prediction of aqueous solubility for drug-like molecules",
+          "year": 2013,
+          "citations": 509,
+          "doi": "10.1021/ci400187y",
+          "dx": 37.5,
+          "dy": -65.0
         }
       ]
     },
     {
       "cluster_id": 1,
-      "name": "Protein Pocket Affinity Modeling",
-      "keywords": [
-        "protein",
-        "bind",
-        "ligand",
-        "affinity"
-      ],
-      "color": "#a855f7",
-      "glow": "rgba(168, 85, 247, 0.25)",
-      "x": 857.5,
-      "y": 616.2,
-      "radius": 81.1,
-      "paper_count": 297,
-      "top_papers": [
-        {
-          "id": "65895f31c6d7",
-          "title": "Predicting Drug-Target Interaction Using a Novel Graph Neural Network with 3D Structure-Embedded Graph Representation",
-          "authors": [
-            "Jaechang Lim",
-            "Seongok Ryu",
-            "Kyubyong Park"
-          ],
-          "year": 2019,
-          "citations": 372,
-          "influential_citations": 16,
-          "venue": "Journal of Chemical Information and Modeling",
-          "tldr": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network.",
-          "abstract": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network. We introduce a distance-aware graph attention algorithm to differentiate various types of intermolecular interactions. Furthermore, we extract the graph feature of intermolecular interactions directly from the 3D structural information on the protein-ligand binding pose. Thus, the model can learn key features for accurate predictions of drug-target interaction rather than just memorize certain patterns of ligand molecules. As a result, our model shows better performance than docking and other deep learning methods for both virtual screening (AUROC of 0.968 for the DUD-E test set) and pose prediction (AUROC of 0.935 for the PDBbind test set). In addition, it can reproduce the natural population distribution of active molecules and inactive molecules.",
-          "doi": "10.1021/acs.jcim.9b00387"
-        },
-        {
-          "id": "9504619d6192",
-          "title": "Graph Convolutional Neural Networks for Predicting Drug-Target Interactions",
-          "authors": [
-            "Wen Torng",
-            "R. Altman"
-          ],
-          "year": 2018,
-          "citations": 323,
-          "influential_citations": 13,
-          "venue": "bioRxiv",
-          "tldr": "In this paper, we propose a two-staged graph-convolutional (Graph-CNN) framework for predicting protein-ligand interactions.",
-          "abstract": "Accurate determination of target-ligand interactions is crucial in the drug discovery process. In this paper, we propose a two-staged graph-convolutional (Graph-CNN) framework for predicting protein-ligand interactions. We first describe an unsupervised graph-autoencoder to learn fixed-size representations of protein pockets. Two Graph-CNNs are then trained to automatically extract features from pocket graphs and 2D molecular graphs, respectively. We demonstrate that graph-autoencoders can learn meaningful fixed-size representation for protein pockets of varying sizes and the Graph-CNN framework can effectively capture protein-ligand binding interactions without relying on target-ligand co-complexes. Across several metrics, Graph-CNNs achieved better or comparable performance to 3DCNN ligand-scoring, AutoDock Vina, RF-Score, and NNScore on common virtual screening benchmark datasets. Visualization of key pocket residues and ligand atoms contributing to the classification decisions confirms that our networks recognize meaningful interactions between pockets and ligands. Availability and Implementation Contact: rbaltman@stanford.edu Supplementary information:",
-          "doi": "10.1101/473074"
-        },
-        {
-          "id": "b886797dc34c",
-          "title": "TANKBind: Trigonometry-Aware Neural NetworKs for Drug-Protein Binding Structure Prediction",
-          "authors": [
-            "Wei Lu",
-            "Qifeng Wu",
-            "Jixian Zhang"
-          ],
-          "year": 2022,
-          "citations": 251,
-          "influential_citations": 35,
-          "venue": "bioRxiv",
-          "tldr": "In this paper, we propose Trigonometry-Aware Neural networKs for binding structure prediction, TANKBind, that builds trigonometry constraint as a vigorous inductive bias into the model and explicitly attends to all possible binding sites for each protein by segmenting the whole protein into functional blocks.",
-          "abstract": "Illuminating interactions between proteins and small drug molecules is a longstanding challenge in the field of drug discovery. Despite the importance of understanding these interactions, most previous works are limited by hand-designed scoring functions and insufficient conformation sampling. The recently-proposed graph neural network-based methods provides alternatives to predict protein-ligand complex conformation in a one-shot manner. However, these methods neglect the geometric constraints of the complex structure and weaken the role of local functional regions. As a result, they might produce unreasonable conformations for challenging targets and generalize poorly to novel proteins. In this paper, we propose Trigonometry-Aware Neural networKs for binding structure prediction, TANKBind, that builds trigonometry constraint as a vigorous inductive bias into the model and explicitly attends to all possible binding sites for each protein by segmenting the whole protein into functional blocks. We construct novel contrastive losses with local region negative sampling to jointly optimize the binding interaction and affinity. Extensive experiments show substantial performance gains in comparison to state-of-the-art physics-based and deep learning-based methods on commonly-used benchmark datasets for both binding structure and affinity predictions with variant settings.",
-          "doi": "10.1101/2022.06.06.495043"
-        },
-        {
-          "id": "2005.07704",
-          "title": "Improved Protein-ligand Binding Affinity Prediction with Structure-Based Deep Fusion Inference",
-          "authors": [
-            "Derek Jones",
-            "Hyojin Kim",
-            "Xiaohua Zhang"
-          ],
-          "year": 2020,
-          "citations": 233,
-          "influential_citations": 11,
-          "venue": "Journal of Chemical Information and Modeling",
-          "tldr": "We present fusion models that combine features and inference from complementary representations to improve binding affinity prediction.",
-          "abstract": "Predicting accurate protein-ligand binding affinities is an important task in drug discovery but remains a challenge even with computationally expensive biophysics-based energy scoring methods and state-of-the-art deep learning approaches. Despite the recent advances in the application of deep convolutional and graph neural network-based approaches, it remains unclear what the relative advantages of each approach are and how they compare with physics-based methodologies that have found more mainstream success in virtual screening pipelines. We present fusion models that combine features and inference from complementary representations to improve binding affinity prediction. This, to our knowledge, is the first comprehensive study that uses a common series of evaluations to directly compare the performance of three-dimensional (3D)-convolutional neural networks (3D-CNNs), spatial graph neural networks (SG-CNNs), and their fusion. We use temporal and structure-based splits to assess performance on novel protein targets. To test the practical applicability of our models, we examine their performance in cases that assume that the crystal structure is not available. In these cases, binding free energies are predicted using docking pose coordinates as the inputs to each model. In addition, we compare these deep learning approaches to predictions based on docking scores and molecular mechanic/generalized Born surface area (MM/GBSA) calculations. Our results show that the fusion models make more accurate predictions than their constituent neural network models as well as docking scoring and MM/GBSA rescoring, with the benefit of greater computational efficiency than the MM/GBSA method. Finally, we provide the code to reproduce our results and the parameter files of the trained models used in this work. The software is available as open source at https://github.com/llnl/fast. Model parameter files are available at ftp://gdo-bioinformatics.ucllnl.org/fast/pdbbind2016_model_checkpoints/.",
-          "doi": "10.1021/acs.jcim.0c01306"
-        },
-        {
-          "id": "2204.09410",
-          "title": "Generating 3D Molecules for Target Protein Binding",
-          "authors": [
-            "Meng Liu",
-            "Youzhi Luo",
-            "Kanji Uchino"
-          ],
-          "year": 2022,
-          "citations": 191,
-          "influential_citations": 22,
-          "venue": "International Conference on Machine Learning",
-          "tldr": "To tackle this problem using machine learning methods, here we propose a novel and effective framework, known as GraphBP, to generate 3D molecules that bind to given proteins by placing atoms of specific types and locations to the given binding site one by one.",
-          "abstract": "A fundamental problem in drug discovery is to design molecules that bind to specific proteins. To tackle this problem using machine learning methods, here we propose a novel and effective framework, known as GraphBP, to generate 3D molecules that bind to given proteins by placing atoms of specific types and locations to the given binding site one by one. In particular, at each step, we first employ a 3D graph neural network to obtain geometry-aware and chemically informative representations from the intermediate contextual information. Such context includes the given binding site and atoms placed in the previous steps. Second, to preserve the desirable equivariance property, we select a local reference atom according to the designed auxiliary classifiers and then construct a local spherical coordinate system. Finally, to place a new atom, we generate its atom type and relative location w.r.t. the constructed local coordinate system via a flow model. We also consider generating the variables of interest sequentially to capture the underlying dependencies among them. Experiments demonstrate that our GraphBP is effective to generate 3D molecules with binding ability to target protein binding sites. Our implementation is available at https://github.com/divelab/GraphBP.",
-          "doi": "10.48550/arXiv.2204.09410"
-        }
-      ]
-    },
-    {
-      "cluster_id": 2,
-      "name": "Graph Neural Augmentation for Anomaly Detection",
+      "name": "Graph Neural Network Image Representation",
       "keywords": [
         "graph",
         "gnn",
         "node",
-        "model"
+        "network"
       ],
-      "color": "#10b981",
-      "glow": "rgba(16, 185, 129, 0.25)",
-      "x": 642.5,
-      "y": 616.2,
-      "radius": 76.4,
-      "paper_count": 248,
-      "top_papers": [
+      "color": "#a855f7",
+      "glow": "rgba(168, 85, 247, 0.25)",
+      "x": 969.5,
+      "y": 434.4,
+      "radius": 82.8,
+      "paper_count": 260,
+      "pillars": [
         {
           "id": "1709.05584",
           "title": "Representation Learning on Graphs: Methods and Applications",
@@ -220,7 +130,6 @@
           ],
           "year": 2017,
           "citations": 2177,
-          "influential_citations": 189,
           "venue": "IEEE Data Engineering Bulletin",
           "tldr": "In doing so, we develop a unified framework to describe these recent approaches, and we highlight a number of important applications and directions for future work.",
           "abstract": "Machine learning on graphs is an important and ubiquitous task with applications ranging from drug design to friendship recommendation in social networks. The primary challenge in this domain is finding a way to represent, or encode, graph structure so that it can be easily exploited by machine learning models. Traditionally, machine learning approaches relied on user-defined heuristics to extract features encoding structural information about a graph (e.g., degree statistics or kernel functions). However, recent years have seen a surge in approaches that automatically learn to encode graph structure into low-dimensional embeddings, using techniques based on deep learning and nonlinear dimensionality reduction. Here we provide a conceptual review of key advancements in this area of representation learning on graphs, including matrix factorization-based methods, random-walk based algorithms, and graph neural networks. We review methods to embed individual nodes as well as approaches to embed entire (sub)graphs. In doing so, we develop a unified framework to describe these recent approaches, and we highlight a number of important applications and directions for future work.",
@@ -236,173 +145,189 @@
           ],
           "year": 2019,
           "citations": 1241,
-          "influential_citations": 224,
           "venue": "Neural Information Processing Systems",
           "tldr": "Inspired by the work on manually-defined patterns of vulnerabilities from various code representation graphs and the recent advance on graph neural networks, we propose Devign, a general graph neural network based model for graph-level classification through learning on a rich set of code semantic representations.",
           "abstract": "Vulnerability identification is crucial to protect the software systems from attacks for cyber security. It is especially important to localize the vulnerable functions among the source code to facilitate the fix. However, it is a challenging and tedious process, and also requires specialized security expertise. Inspired by the work on manually-defined patterns of vulnerabilities from various code representation graphs and the recent advance on graph neural networks, we propose Devign, a general graph neural network based model for graph-level classification through learning on a rich set of code semantic representations. It includes a novel Conv module to efficiently extract useful features in the learned rich node representations for graph-level classification. The model is trained over manually labeled datasets built on 4 diversified large-scale open-source C projects that incorporate high complexity and variety of real source code instead of synthesis code used in previous works. The results of the extensive evaluation on the datasets demonstrate that Devign outperforms the state of the arts significantly with an average of 10.51% higher accuracy and 8.68% F1 score, increases averagely 4.66% accuracy and 6.37% F1 by the Conv module.",
           "doi": ""
-        },
-        {
-          "id": "1910.11858",
-          "title": "BANANAS: Bayesian Optimization with Neural Architectures for Neural Architecture Search",
-          "authors": [
-            "Colin White",
-            "Willie Neiswanger",
-            "Yash Savani"
-          ],
-          "year": 2019,
-          "citations": 424,
-          "influential_citations": 56,
-          "venue": "AAAI Conference on Artificial Intelligence",
-          "tldr": "Using all of our analyses, we develop a final algorithm called BANANAS, which achieves state-of-the-art performance on NAS search spaces.",
-          "abstract": "Over the past half-decade, many methods have been considered for neural architecture search (NAS). Bayesian optimization (BO), which has long had success in hyperparameter optimization, has recently emerged as a very promising strategy for NAS when it is coupled with a neural predictor. Recent work has proposed different instantiations of this framework, for example, using Bayesian neural networks or graph convolutional networks as the predictive model within BO. However, the analyses in these papers often focus on the full-fledged NAS algorithm, so it is difficult to tell which individual components of the framework lead to the best performance.  In this work, we give a thorough analysis of the \"BO + neural predictor framework\" by identifying five main components: the architecture encoding, neural predictor, uncertainty calibration method, acquisition function, and acquisition function optimization. We test several different methods for each component and also develop a novel path-based encoding scheme for neural architectures, which we show theoretically and empirically scales better than other encodings. Using all of our analyses, we develop a final algorithm called BANANAS, which achieves state-of-the-art performance on NAS search spaces. We adhere to the NAS research checklist (Lindauer and Hutter 2019) to facilitate best practices, and our code is available at https://github.com/naszilla/naszilla.",
-          "doi": "10.1609/aaai.v35i12.17233"
-        },
+        }
+      ],
+      "satellites": [
         {
           "id": "19fd00f8540a",
           "title": "Graph Neural Networks and Their Current Applications in Bioinformatics",
-          "authors": [
-            "Xiao-Meng Zhang",
-            "Li Liang",
-            "Lin Liu"
-          ],
           "year": 2021,
           "citations": 476,
-          "influential_citations": 8,
-          "venue": "Frontiers in Genetics",
-          "tldr": "Graph neural networks (GNNs), as a branch of deep learning in non-Euclidean space, perform particularly well in various tasks that process graph structure data.",
-          "abstract": "Graph neural networks (GNNs), as a branch of deep learning in non-Euclidean space, perform particularly well in various tasks that process graph structure data. With the rapid accumulation of biological network data, GNNs have also become an important tool in bioinformatics. In this research, a systematic survey of GNNs and their advances in bioinformatics is presented from multiple perspectives. We first introduce some commonly used GNN models and their basic principles. Then, three representative tasks are proposed based on the three levels of structural information that can be learned by GNNs: node classification, link prediction, and graph generation. Meanwhile, according to the specific applications for various omics data, we categorize and discuss the related studies in three aspects: disease prediction, drug discovery, and biomedical imaging. Based on the analysis, we provide an outlook on the shortcomings of current studies and point out their developing prospect. Although GNNs have achieved excellent results in many biological tasks at present, they still face challenges in terms of low-quality data processing, methodology, and interpretability and have a long road ahead. We believe that GNNs are potentially an excellent method that solves various biological problems in bioinformatics research.",
-          "doi": "10.3389/fgene.2021.690049"
+          "doi": "10.3389/fgene.2021.690049",
+          "dx": 75.0,
+          "dy": 0.0
         },
         {
           "id": "2301.08210",
           "title": "Everything is Connected: Graph Neural Networks",
-          "authors": [
-            "Petar Velickovic"
-          ],
           "year": 2023,
           "citations": 306,
-          "influential_citations": 4,
-          "venue": "Current Opinion in Structural Biology",
-          "tldr": "In many ways, graphs are the main modality of data we receive from nature.",
-          "abstract": "In many ways, graphs are the main modality of data we receive from nature. This is due to the fact that most of the patterns we see, both in natural and artificial systems, are elegantly representable using the language of graph structures. Prominent examples include molecules (represented as graphs of atoms and bonds), social networks and transportation networks. This potential has already been seen by key scientific and industrial groups, with already-impacted application areas including traffic forecasting, drug discovery, social network analysis and recommender systems. Further, some of the most successful domains of application for machine learning in previous years-images, text and speech processing-can be seen as special cases of graph representation learning, and consequently there has been significant exchange of information between these areas. The main aim of this short survey is to enable the reader to assimilate the key concepts in the area, and position graph representation learning in a proper context with related fields.",
-          "doi": "10.1016/j.sbi.2023.102538"
-        }
-      ]
-    },
-    {
-      "cluster_id": 5,
-      "name": "Drug Interaction Prediction via Knowledge Graphs",
-      "keywords": [
-        "drug",
-        "interaction",
-        "ddi",
-        "dti"
-      ],
-      "color": "#eab308",
-      "glow": "rgba(234, 179, 8, 0.25)",
-      "x": 535.0,
-      "y": 430.0,
-      "radius": 72.6,
-      "paper_count": 212,
-      "top_papers": [
-        {
-          "id": "9d6b11c83032",
-          "title": "NeoDTI: Neural integration of neighbor information from a heterogeneous network for discovering new drug-target interactions",
-          "authors": [
-            "Fangping Wan",
-            "Lixiang Hong",
-            "An Xiao"
-          ],
-          "year": 2018,
-          "citations": 337,
-          "influential_citations": 27,
-          "venue": "bioRxiv",
-          "tldr": "Results Inspired by recent advance of information passing and aggregation techniques that generalize the convolution neural networks (CNNs) to mine large-scale graph data and greatly improve the performance of many network-related prediction tasks, we develop a new nonlinear end-to-end learning model, called NeoDTI, that integrates diverse information from heterogeneous network data and automatically learns topology-preserving representations of drugs and targets to facilitate DTI prediction.",
-          "abstract": "Motivation Accurately predicting drug-target interactions (DTIs) in silico can guide the drug discovery process and thus facilitate drug development. Computational approaches for DTI prediction that adopt the systems biology perspective generally exploit the rationale that the properties of drugs and targets can be characterized by their functional roles in biological networks. Results Inspired by recent advance of information passing and aggregation techniques that generalize the convolution neural networks (CNNs) to mine large-scale graph data and greatly improve the performance of many network-related prediction tasks, we develop a new nonlinear end-to-end learning model, called NeoDTI, that integrates diverse information from heterogeneous network data and automatically learns topology-preserving representations of drugs and targets to facilitate DTI prediction. The substantial prediction performance improvement over other state-of-the-art DTI prediction methods as well as several novel predicted DTIs with evidence supports from previous studies have demonstrated the superior predictive power of NeoDTI. In addition, NeoDTI is robust against a wide range of choices of hyperparameters and is ready to integrate more drug and target related information (e.g., compound-protein binding affinity data). All these results suggest that NeoDTI can offer a powerful and robust tool for drug development and drug repositioning. Availability and implementation The source code and data used in NeoDTI are available at: https://github.com/FangpingWan/NeoDTI. Contact zengjy321@tsinghua.edu.cn Supplementary information Supplementary data are available at Bioinformatics online.",
-          "doi": "10.1093/bioinformatics/bty543"
+          "doi": "10.1016/j.sbi.2023.102538",
+          "dx": 37.5,
+          "dy": 65.0
         },
         {
-          "id": "affe69e82ffb",
-          "title": "Identifying drug-target interactions based on graph convolutional network and deep neural network",
-          "authors": [
-            "Tianyi Zhao",
-            "Yang Hu",
-            "Linda R. Valsdottir"
-          ],
-          "year": 2020,
-          "citations": 283,
-          "influential_citations": 11,
-          "venue": "Briefings Bioinform.",
-          "tldr": "Identification of new drug-target interactions (DTIs) is an important but a time-consuming and costly step in drug discovery.",
-          "abstract": "Identification of new drug-target interactions (DTIs) is an important but a time-consuming and costly step in drug discovery. In recent years, to mitigate these drawbacks, researchers have sought to identify DTIs using computational approaches. However, most existing methods construct drug networks and target networks separately, and then predict novel DTIs based on known associations between the drugs and targets without accounting for associations between drug-protein pairs (DPPs). To incorporate the associations between DPPs into DTI modeling, we built a DPP network based on multiple drugs and proteins in which DPPs are the nodes and the associations between DPPs are the edges of the network. We then propose a novel learning-based framework, 'graph convolutional network (GCN)-DTI', for DTI identification. The model first uses a graph convolutional network to learn the features for each DPP. Second, using the feature representation as an input, it uses a deep neural network to predict the final label. The results of our analysis show that the proposed framework outperforms some state-of-the-art approaches by a large margin.",
-          "doi": "10.1093/bib/bbaa044"
-        },
-        {
-          "id": "c980c5ab5944",
-          "title": "DPDDI: a deep predictor for drug-drug interactions",
-          "authors": [
-            "Yue-Hua Feng",
-            "Shaowu Zhang",
-            "Jian-Yu Shi"
-          ],
-          "year": 2020,
-          "citations": 174,
-          "influential_citations": 5,
-          "venue": "BMC Bioinformatics",
-          "tldr": "In this work, we presented a novel method (namely DPDDI) to predict DDIs by extracting the network structure features of drugs from DDI network with graph convolution network (GCN), and the deep neural network (DNN) model as a predictor.",
-          "abstract": "The treatment of complex diseases by taking multiple drugs becomes increasingly popular. However, drug-drug interactions (DDIs) may give rise to the risk of unanticipated adverse effects and even unknown toxicity. DDI detection in the wet lab is expensive and time-consuming. Thus, it is highly desired to develop the computational methods for predicting DDIs. Generally, most of the existing computational methods predict DDIs by extracting the chemical and biological features of drugs from diverse drug-related properties, however some drug properties are costly to obtain and not available in many cases. In this work, we presented a novel method (namely DPDDI) to predict DDIs by extracting the network structure features of drugs from DDI network with graph convolution network (GCN), and the deep neural network (DNN) model as a predictor. GCN learns the low-dimensional feature representations of drugs by capturing the topological relationship of drugs in DDI network. DNN predictor concatenates the latent feature vectors of any two drugs as the feature vector of the corresponding drug pairs to train a DNN for predicting the potential drug-drug interactions. Experiment results show that, the newly proposed DPDDI method outperforms four other state-of-the-art methods; the GCN-derived latent features include more DDI information than other features derived from chemical, biological or anatomical properties of drugs; and the concatenation feature aggregation operator is better than two other feature aggregation operators (i.e., inner product and summation). The results in case studies confirm that DPDDI achieves reasonable performance in predicting new DDIs. We proposed an effective and robust method DPDDI to predict the potential DDIs by utilizing the DDI network information without considering the drug properties (i.e., drug chemical and biological properties). The method should also be useful in other DDI-related scenarios, such as the detection of unexpected side effects, and the guidance of drug combination.",
-          "doi": "10.1186/s12859-020-03724-x"
-        },
-        {
-          "id": "b6322fb73918",
-          "title": "Drug-Drug Interaction Predicting by Neural Network Using Integrated Similarity",
-          "authors": [
-            "Narjes Rohani",
-            "C. Eslahchi"
-          ],
-          "year": 2019,
-          "citations": 157,
-          "influential_citations": 10,
-          "venue": "Scientific Reports",
-          "tldr": "We proposed \"NDD: Neural network-based method for drug-drug interaction prediction\" for predicting unknown DDIs using various information about drugs.",
-          "abstract": "Drug-Drug Interaction (DDI) prediction is one of the most critical issues in drug development and health. Proposing appropriate computational methods for predicting unknown DDI with high precision is challenging. We proposed \"NDD: Neural network-based method for drug-drug interaction prediction\" for predicting unknown DDIs using various information about drugs. Multiple drug similarities based on drug substructure, target, side effect, off-label side effect, pathway, transporter, and indication data are calculated. At first, NDD uses a heuristic similarity selection process and then integrates the selected similarities with a nonlinear similarity fusion method to achieve high-level features. Afterward, it uses a neural network for interaction prediction. The similarity selection and similarity integration parts of NDD have been proposed in previous studies of other problems. Our novelty is to combine these parts with new neural network architecture and apply these approaches in the context of DDI prediction. We compared NDD with six machine learning classifiers and six state-of-the-art graph-based methods on three benchmark datasets. NDD achieved superior performance in cross-validation with AUPR ranging from 0.830 to 0.947, AUC from 0.954 to 0.994 and F-measure from 0.772 to 0.902. Moreover, cumulative evidence in case studies on numerous drug pairs, further confirm the ability of NDD to predict unknown DDIs. The evaluations corroborate that NDD is an efficient method for predicting unknown DDIs. The data and implementation of NDD are available at https://github.com/nrohani/NDD.",
-          "doi": "10.1038/s41598-019-50121-3"
-        },
-        {
-          "id": "e30864266cec",
-          "title": "Graph neural network approaches for drug-target interactions.",
-          "authors": [
-            "Zehong Zhang",
-            "Lifan Chen",
-            "Feisheng Zhong"
-          ],
+          "id": "2205.07424",
+          "title": "Trustworthy Graph Neural Networks: Aspects, Methods, and Trends",
           "year": 2022,
-          "citations": 168,
-          "influential_citations": 3,
-          "venue": "Current Opinion in Structural Biology",
-          "tldr": "Developing new drugs remains prohibitively expensive, time-consuming, and often involves safety issues.",
-          "abstract": "Developing new drugs remains prohibitively expensive, time-consuming, and often involves safety issues. Accurate prediction of drug-target interactions (DTIs) can guide the drug discovery process and thus facilitate drug development. Non-Euclidian data such as drug-like molecule structures, key pocket residue structures, and protein interaction networks can be represented effectively using graphs. Therefore, the emerging graph neural network has been rapidly applied to predict DTIs, and proved effective in finding repositioning drugs and accelerating drug discovery. In this review, we provide a brief overview of deep neural networks used in DTI models. Then, we summarize the database required for DTI prediction, followed by a comprehensive introduction of applications of graph neural networks for DTI prediction. We also highlight current challenges and future directions to guide the further development of this field.",
-          "doi": "10.1016/j.sbi.2021.102327"
+          "citations": 189,
+          "doi": "10.1109/JPROC.2024.3369017",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "2210.03561",
+          "title": "Empowering Graph Representation Learning with Test-Time Graph Transformation",
+          "year": 2022,
+          "citations": 104,
+          "doi": "10.48550/arXiv.2210.03561",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "1709.03741",
+          "title": "Learning Graph-Level Representation for Drug Discovery",
+          "year": 2017,
+          "citations": 125,
+          "doi": "",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "1603.02844",
+          "title": "Fast Training of Triplet-Based Deep Binary Embedding Networks",
+          "year": 2016,
+          "citations": 118,
+          "doi": "10.1109/CVPR.2016.641",
+          "dx": 37.5,
+          "dy": -65.0
         }
       ]
     },
     {
       "cluster_id": 3,
-      "name": "Cancer Gene Interaction Mapping",
+      "name": "Protein Ligand Affinity Modeling",
+      "keywords": [
+        "protein",
+        "bind",
+        "ligand",
+        "affinity"
+      ],
+      "color": "#10b981",
+      "glow": "rgba(16, 185, 129, 0.25)",
+      "x": 847.3,
+      "y": 617.3,
+      "radius": 81.7,
+      "paper_count": 249,
+      "pillars": [
+        {
+          "id": "65895f31c6d7",
+          "title": "Predicting Drug-Target Interaction Using a Novel Graph Neural Network with 3D Structure-Embedded Graph Representation",
+          "authors": [
+            "Jaechang Lim",
+            "Seongok Ryu",
+            "Kyubyong Park"
+          ],
+          "year": 2019,
+          "citations": 372,
+          "venue": "Journal of Chemical Information and Modeling",
+          "tldr": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network.",
+          "abstract": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network. We introduce a distance-aware graph attention algorithm to differentiate various types of intermolecular interactions. Furthermore, we extract the graph feature of intermolecular interactions directly from the 3D structural information on the protein-ligand binding pose. Thus, the model can learn key features for accurate predictions of drug-target interaction rather than just memorize certain patterns of ligand molecules. As a result, our model shows better performance than docking and other deep learning methods for both virtual screening (AUROC of 0.968 for the DUD-E test set) and pose prediction (AUROC of 0.935 for the PDBbind test set). In addition, it can reproduce the natural population distribution of active molecules and inactive molecules.",
+          "doi": "10.1021/acs.jcim.9b00387"
+        },
+        {
+          "id": "b886797dc34c",
+          "title": "TANKBind: Trigonometry-Aware Neural NetworKs for Drug-Protein Binding Structure Prediction",
+          "authors": [
+            "Wei Lu",
+            "Qifeng Wu",
+            "Jixian Zhang"
+          ],
+          "year": 2022,
+          "citations": 251,
+          "venue": "bioRxiv",
+          "tldr": "In this paper, we propose Trigonometry-Aware Neural networKs for binding structure prediction, TANKBind, that builds trigonometry constraint as a vigorous inductive bias into the model and explicitly attends to all possible binding sites for each protein by segmenting the whole protein into functional blocks.",
+          "abstract": "Illuminating interactions between proteins and small drug molecules is a longstanding challenge in the field of drug discovery. Despite the importance of understanding these interactions, most previous works are limited by hand-designed scoring functions and insufficient conformation sampling. The recently-proposed graph neural network-based methods provides alternatives to predict protein-ligand complex conformation in a one-shot manner. However, these methods neglect the geometric constraints of the complex structure and weaken the role of local functional regions. As a result, they might produce unreasonable conformations for challenging targets and generalize poorly to novel proteins. In this paper, we propose Trigonometry-Aware Neural networKs for binding structure prediction, TANKBind, that builds trigonometry constraint as a vigorous inductive bias into the model and explicitly attends to all possible binding sites for each protein by segmenting the whole protein into functional blocks. We construct novel contrastive losses with local region negative sampling to jointly optimize the binding interaction and affinity. Extensive experiments show substantial performance gains in comparison to state-of-the-art physics-based and deep learning-based methods on commonly-used benchmark datasets for both binding structure and affinity predictions with variant settings.",
+          "doi": "10.1101/2022.06.06.495043"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "2005.07704",
+          "title": "Improved Protein-ligand Binding Affinity Prediction with Structure-Based Deep Fusion Inference",
+          "year": 2020,
+          "citations": 233,
+          "doi": "10.1021/acs.jcim.0c01306",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "056e2a7b4164",
+          "title": "On the Frustration to Predict Binding Affinities from Protein-Ligand Structures with Deep Neural Networks.",
+          "year": 2022,
+          "citations": 166,
+          "doi": "10.1021/acs.jmedchem.2c00487",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "242cdff1b7bd",
+          "title": "PLANET: A Multi-Objective Graph Neural Network Model for Protein–Ligand Binding Affinity Prediction",
+          "year": 2023,
+          "citations": 127,
+          "doi": "10.1101/2023.02.01.526585",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "09e85279b10e",
+          "title": "Geometric Interaction Graph Neural Network for Predicting Protein-Ligand Binding Affinities from 3D Structures (GIGN).",
+          "year": 2023,
+          "citations": 118,
+          "doi": "10.1021/acs.jpclett.2c03906",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "5abed66334c3",
+          "title": "Practical High-Quality Electrostatic Potential Surfaces for Drug Discovery Using a Graph-Convolutional Deep Neural Network.",
+          "year": 2019,
+          "citations": 137,
+          "doi": "10.1021/acs.jmedchem.9b01129",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "00dab6a0c580",
+          "title": "Predicting locations of cryptic pockets from single protein structures using the PocketMiner graph neural network",
+          "year": 2023,
+          "citations": 118,
+          "doi": "10.1038/s41467-023-36699-3",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "Cancer Gene Response Modeling",
       "keywords": [
         "cancer",
         "gene",
         "cell",
         "drug"
       ],
-      "color": "#f43f5e",
-      "glow": "rgba(244, 63, 94, 0.25)",
-      "x": 642.5,
-      "y": 243.8,
-      "radius": 69.6,
-      "paper_count": 186,
-      "top_papers": [
+      "color": "#eab308",
+      "glow": "rgba(234, 179, 8, 0.25)",
+      "x": 627.8,
+      "y": 602.9,
+      "radius": 80.7,
+      "paper_count": 240,
+      "pillars": [
         {
           "id": "2107.02467",
           "title": "DeepDDS: deep graph neural network with attention mechanism to predict synergistic drug combinations",
@@ -413,7 +338,6 @@
           ],
           "year": 2021,
           "citations": 254,
-          "influential_citations": 24,
           "venue": "bioRxiv",
           "tldr": "Results In this paper, we proposed a deep learning model based on graph neural networks and attention mechanism to identify drug combinations that can effectively inhibit the viability of specific cancer cells.",
           "abstract": "Motivation Drug combination therapy has become a increasingly promising method in the treatment of cancer. However, the number of possible drug combinations is so huge that it is hard to screen synergistic drug combinations through wet-lab experiments. Therefore, computational screening has become an important way to prioritize drug combinations. Graph neural network have recently shown remarkable performance in the prediction of compound-protein interactions, but it has not been applied to the screening of drug combinations. Results In this paper, we proposed a deep learning model based on graph neural networks and attention mechanism to identify drug combinations that can effectively inhibit the viability of specific cancer cells. The feature embeddings of drug molecule structure and gene expression profiles were taken as input to multi-layer feedforward neural network to identify the synergistic drug combinations. We compared DeepDDS with classical machine learning methods and other deep learning-based methods on benchmark data set, and the leave-one-out experimental results showed that DeepDDS achieved better performance than competitive methods. Also, on an independent test set released by well-known pharmaceutical enterprise AstraZeneca, DeepDDS was superior to competitive methods by more than 16% predictive precision. Furthermore, we explored the interpretability of the graph attention network, and found the correlation matrix of atomic features revealed important chemical substructures of drugs. We believed that DeepDDS is an effective tool that prioritized synergistic drug combinations for further wet-lab experiment validation. Availability and implementation Source code and data are available at https://github.com/Sinwang404/DeepDDS/tree/master",
@@ -429,78 +353,85 @@
           ],
           "year": 2020,
           "citations": 169,
-          "influential_citations": 15,
           "venue": "bioRxiv",
           "tldr": "Methods In this study, we propose a novel method, GraphDRP, based on graph convolutional network for the problem.",
           "abstract": "Background Drug response prediction is an important problem in computational personalized medicine. Many machine-learning-based methods, especially deep learning-based ones, have been proposed for this task. However, these methods often represent the drugs as strings, which are not a natural way to depict molecules. Also, interpretation (e.g., what are the mutation or copy number aberration contributing to the drug response) has not been considered thoroughly. Methods In this study, we propose a novel method, GraphDRP, based on graph convolutional network for the problem. In GraphDRP, drugs were represented in molecular graphs directly capturing the bonds among atoms, meanwhile cell lines were depicted as binary vectors of genomic aberrations. Representative features of drugs and cell lines were learned by convolution layers, then combined to represent for each drug-cell line pair. Finally, the response value of each drug-cell line pair was predicted by a fully-connected neural network. Four variants of graph convolutional networks were used for learning the features of drugs. Results We found that GraphDRP outperforms tCNNS in all performance measures for all experiments. Also, through saliency maps of the resulting GraphDRP models, we discovered the contribution of the genomic aberrations to the responses. Conclusion Representing drugs as graphs can improve the performance of drug response prediction. Availability of data and materials Data and source code can be downloaded at https://github.com/hauldhut/GraphDRP.",
           "doi": "10.1109/TCBB.2021.3060430"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "2004.14949",
+          "title": "SkipGNN: predicting molecular interactions with skip-graph networks",
+          "year": 2020,
+          "citations": 150,
+          "doi": "10.1038/s41598-020-77766-9",
+          "dx": 75.0,
+          "dy": 0.0
         },
         {
           "id": "49a4e339182b",
           "title": "Explaining decisions of graph convolutional neural networks: patient-specific molecular subnetworks responsible for metastasis prediction in breast cancer",
-          "authors": [
-            "Hryhorii Chereda",
-            "A. Bleckmann",
-            "Kerstin Menck"
-          ],
           "year": 2020,
           "citations": 112,
-          "influential_citations": 6,
-          "venue": "Genome Medicine",
-          "tldr": "We present Graph Layer-wise Relevance Propagation (GLRP) as a new method to explain the decisions made by Graph-CNNs.",
-          "abstract": "Contemporary deep learning approaches show cutting-edge performance in a variety of complex prediction tasks. Nonetheless, the application of deep learning in healthcare remains limited since deep learning methods are often considered as non-interpretable black-box models. However, the machine learning community made recent elaborations on interpretability methods explaining data point-specific decisions of deep learning techniques. We believe that such explanations can assist the need in personalized precision medicine decisions via explaining patient-specific predictions. Layer-wise Relevance Propagation (LRP) is a technique to explain decisions of deep learning methods. It is widely used to interpret Convolutional Neural Networks (CNNs) applied on image data. Recently, CNNs started to extend towards non-Euclidean domains like graphs. Molecular networks are commonly represented as graphs detailing interactions between molecules. Gene expression data can be assigned to the vertices of these graphs. In other words, gene expression data can be structured by utilizing molecular network information as prior knowledge. Graph-CNNs can be applied to structured gene expression data, for example, to predict metastatic events in breast cancer. Therefore, there is a need for explanations showing which part of a molecular network is relevant for predicting an event, e.g., distant metastasis in cancer, for each individual patient. We extended the procedure of LRP to make it available for Graph-CNN and tested its applicability on a large breast cancer dataset. We present Graph Layer-wise Relevance Propagation (GLRP) as a new method to explain the decisions made by Graph-CNNs. We demonstrate a sanity check of the developed GLRP on a hand-written digits dataset and then apply the method on gene expression data. We show that GLRP provides patient-specific molecular subnetworks that largely agree with clinical knowledge and identify common as well as novel, and potentially druggable, drivers of tumor progression. The developed method could be potentially highly useful on interpreting classification results in the context of different omics data and prior knowledge molecular networks on the individual patient level, as for example in precision medicine approaches or a molecular tumor board.",
-          "doi": "10.1186/s13073-021-00845-7"
+          "doi": "10.1186/s13073-021-00845-7",
+          "dx": 37.5,
+          "dy": 65.0
         },
         {
           "id": "843c20be9526",
           "title": "Predicting Drug Response Based on Multi-Omics Fusion and Graph Convolution",
-          "authors": [
-            "Wei Peng",
-            "Tielin Chen",
-            "Wei Dai"
-          ],
           "year": 2021,
           "citations": 88,
-          "influential_citations": 6,
-          "venue": "IEEE journal of biomedical and health informatics",
-          "tldr": "Hence, we propose an end-to-end algorithm, namely MOFGCN, to predict drug response in cell lines based on Multi-Omics Fusion and Graph Convolution Network.",
-          "abstract": "Different cancer patients may respond differently to cancer treatment due to the heterogeneity of cancer. It is an urgent task to develop an efficient computational method to identify drug responses in different cell lines, which guides us to design personalized therapy for an individual patient. Hence, we propose an end-to-end algorithm, namely MOFGCN, to predict drug response in cell lines based on Multi-Omics Fusion and Graph Convolution Network. MOFGCN first fuses multiple omics data to calculate the cell line similarity and then constructs a heterogeneous network by combining the cell line similarity, drug similarity, and the known cell line-drug associations. Secondly, it learns the latent features for cancer cell lines and drugs by performing graph convolution operations on the heterogeneous network. Finally, MOFGCN applies the linear correlation coefficient to reconstruct the cancer cell line-drug correlation matrix to predict drug sensitivity. To our knowledge, this is the first attempt to combine graph convolutional neural network and linear correlation coefficient for this significant task. We performed extensive evaluation experiments on the Genomics of Drug Sensitivity in Cancer (GDSC) and Cancer Cell Line Encyclopedia (CCLE) databases to validate MOFGCN’s performance. The experimental results show that MOFGCN is superior to the state-of-the-art algorithms in predicting missing drug responses. It also leads to higher performance in predicting drug responses for new cell lines, new drugs, and targeted drugs.",
-          "doi": "10.1109/JBHI.2021.3102186"
+          "doi": "10.1109/JBHI.2021.3102186",
+          "dx": -37.5,
+          "dy": 65.0
         },
         {
           "id": "8c1f24cb8519",
           "title": "TGSA: protein-protein association-based twin graph neural networks for drug response prediction with similarity augmentation",
-          "authors": [
-            "Yiheng Zhu",
-            "Zhenqiu Ouyang",
-            "Wenbo Chen"
-          ],
           "year": 2021,
           "citations": 66,
-          "influential_citations": 9,
-          "venue": "Bioinform.",
-          "tldr": "RESULTS We propose a novel DRP framework, called TGSA, to make better use of prior domain knowledge.",
-          "abstract": "MOTIVATION Drug response prediction (DRP) plays an important role in precision medicine (e.g., for cancer analysis and treatment). Recent advances in deep learning algorithms make it possible to predict drug responses accurately based on genetic profiles. However, existing methods ignore the potential relationships among genes. In addition, similarity among cell lines/drugs was rarely considered explicitly.   RESULTS We propose a novel DRP framework, called TGSA, to make better use of prior domain knowledge. TGSA consists of Twin Graph neural networks for Drug Response Prediction (TGDRP) and a Similarity Augmentation (SA) module to fuse fine-grained and coarse-grained information. Specifically, TGDRP abstracts cell lines as graphs based on STRING protein-protein association networks and employs Graph Neural Networks (GNNs) for representation learning. SA views DRP as an edge regression problem on a heterogeneous graph and utilizes GNNs to smooth the representations of similar cell lines/drugs. Besides, we introduce an auxiliary pre-training strategy to remedy the identified limitations of scarce data and poor out-of-distribution generalization. Extensive experiments on the GDSC2 dataset demonstrate that our TGSA consistently outperforms all the state-of-the-art baselines under various experimental settings. We further evaluate the effectiveness and contributions of each component of TGSA via ablation experiments. The promising performance of TGSA shows enormous potential for clinical applications in precision medicine.   AVAILABILITY The source code is available at https://github.com/violet-sto/TGSA.   SUPPLEMENTARY INFORMATION Supplementary data are available at Bioinformatics online.",
-          "doi": "10.1093/bioinformatics/btab650"
+          "doi": "10.1093/bioinformatics/btab650",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "4fe18a7426ab",
+          "title": "Network-based multi-omics integrative analysis methods in drug discovery: a systematic review",
+          "year": 2025,
+          "citations": 89,
+          "doi": "10.1186/s13040-025-00442-z",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "ce962d520250",
+          "title": "KG4SL: knowledge graph neural network for synthetic lethality prediction in human cancers",
+          "year": 2021,
+          "citations": 75,
+          "doi": "10.1093/bioinformatics/btab271",
+          "dx": 37.5,
+          "dy": -65.0
         }
       ]
     },
     {
       "cluster_id": 4,
-      "name": "Drug–Target Affinity Prediction Networks",
+      "name": "Protein Target Interaction Prediction",
       "keywords": [
+        "protein",
         "target",
-        "dta",
         "drug",
-        "protein"
+        "dta"
       ],
-      "color": "#818cf8",
-      "glow": "rgba(129, 140, 248, 0.25)",
-      "x": 857.5,
-      "y": 243.8,
-      "radius": 69.5,
-      "paper_count": 185,
-      "top_papers": [
+      "color": "#f43f5e",
+      "glow": "rgba(244, 63, 94, 0.25)",
+      "x": 530.5,
+      "y": 405.6,
+      "radius": 80.1,
+      "paper_count": 235,
+      "pillars": [
         {
           "id": "89e05f63114a",
           "title": "Compound‐protein interaction prediction with end‐to‐end learning of neural networks for graphs and sequences",
@@ -511,7 +442,6 @@
           ],
           "year": 2018,
           "citations": 633,
-          "influential_citations": 48,
           "venue": "Bioinform.",
           "tldr": "Motivation: In bioinformatics, machine learning‐based methods that predict the compound‐protein interactions (CPIs) play an important role in the virtual screening for drug discovery.",
           "abstract": "Motivation: In bioinformatics, machine learning‐based methods that predict the compound‐protein interactions (CPIs) play an important role in the virtual screening for drug discovery. Recently, end‐to‐end representation learning for discrete symbolic data (e.g. words in natural language processing) using deep neural networks has demonstrated excellent performance on various difficult problems. For the CPI problem, data are provided as discrete symbolic data, i.e. compounds are represented as graphs where the vertices are atoms, the edges are chemical bonds, and proteins are sequences in which the characters are amino acids. In this study, we investigate the use of end‐to‐end representation learning for compounds and proteins, integrate the representations, and develop a new CPI prediction approach by combining a graph neural network (GNN) for compounds and a convolutional neural network (CNN) for proteins. Results: Our experiments using three CPI datasets demonstrated that the proposed end‐to‐end approach achieves competitive or higher performance as compared to various existing CPI prediction methods. In addition, the proposed approach significantly outperformed existing methods on an unbalanced dataset. This suggests that data‐driven representations of compounds and proteins obtained by end‐to‐end GNNs and CNNs are more robust than traditional chemical and biological features obtained from databases. Although analyzing deep learning models is difficult due to their black‐box nature, we address this issue using a neural attention mechanism, which allows us to consider which subsequences in a protein are more important for a drug compound when predicting its interaction. The neural attention mechanism also provides effective visualization, which makes it easier to analyze a model even when modeling is performed using real‐valued representations instead of discrete features. Availability and implementation: https://github.com/masashitsubaki Supplementary information: Supplementary data are available at Bioinformatics online.",
@@ -527,59 +457,170 @@
           ],
           "year": 2020,
           "citations": 278,
-          "influential_citations": 26,
           "venue": "RSC Advances",
           "tldr": "In this paper, utilizing the structural information of molecules and proteins, two graphs of drug molecules and proteins are built up respectively.",
           "abstract": "Computer-aided drug design uses high-performance computers to simulate the tasks in drug design, which is a promising research area. Drug–target affinity (DTA) prediction is the most important step of computer-aided drug design, which could speed up drug development and reduce resource consumption. With the development of deep learning, the introduction of deep learning to DTA prediction and improving the accuracy have become a focus of research. In this paper, utilizing the structural information of molecules and proteins, two graphs of drug molecules and proteins are built up respectively. Graph neural networks are introduced to obtain their representations, and a method called DGraphDTA is proposed for DTA prediction. Specifically, the protein graph is constructed based on the contact map output from the prediction method, which could predict the structural characteristics of the protein according to its sequence. It can be seen from the test of various metrics on benchmark datasets that the method proposed in this paper has strong robustness and generalizability.",
           "doi": "10.1039/d0ra02297g"
-        },
+        }
+      ],
+      "satellites": [
         {
           "id": "92acd8ace197",
           "title": "MGraphDTA: deep multiscale graph neural network for explainable drug–target binding affinity prediction",
-          "authors": [
-            "Ziduo Yang",
-            "Weihe Zhong",
-            "Lu Zhao"
-          ],
           "year": 2022,
           "citations": 241,
-          "influential_citations": 18,
-          "venue": "Chemical Science",
-          "tldr": "In this study, we proposed a deep multiscale graph neural network based on chemical intuition for DTA prediction (MGraphDTA).",
-          "abstract": "Predicting drug–target affinity (DTA) is beneficial for accelerating drug discovery. Graph neural networks (GNNs) have been widely used in DTA prediction. However, existing shallow GNNs are insufficient to capture the global structure of compounds. Besides, the interpretability of the graph-based DTA models highly relies on the graph attention mechanism, which can not reveal the global relationship between each atom of a molecule. In this study, we proposed a deep multiscale graph neural network based on chemical intuition for DTA prediction (MGraphDTA). We introduced a dense connection into the GNN and built a super-deep GNN with 27 graph convolutional layers to capture the local and global structure of the compound simultaneously. We also developed a novel visual explanation method, gradient-weighted affinity activation mapping (Grad-AAM), to analyze a deep learning model from the chemical perspective. We evaluated our approach using seven benchmark datasets and compared the proposed method to the state-of-the-art deep learning (DL) models. MGraphDTA outperforms other DL-based approaches significantly on various datasets. Moreover, we show that Grad-AAM creates explanations that are consistent with pharmacologists, which may help us gain chemical insights directly from data beyond human perception. These advantages demonstrate that the proposed method improves the generalization and interpretation capability of DTA prediction modeling.",
-          "doi": "10.1039/d1sc05180f"
+          "doi": "10.1039/d1sc05180f",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "e3b2297eba7e",
+          "title": "DeepRank-GNN: a graph neural network framework to learn patterns in protein–protein interfaces",
+          "year": 2021,
+          "citations": 189,
+          "doi": "10.1093/bioinformatics/btac759",
+          "dx": 37.5,
+          "dy": 65.0
         },
         {
           "id": "1807.09741",
           "title": "PADME: A Deep Learning-based Framework for Drug-Target Interaction Prediction",
-          "authors": [
-            "Qingyuan Feng",
-            "Evgenia V. Dueva",
-            "A. Cherkasov"
-          ],
           "year": 2018,
           "citations": 105,
-          "influential_citations": 10,
-          "venue": "arXiv.org",
-          "tldr": "In silico drug-target interaction (DTI) prediction is an important and challenging problem in biomedical research with a huge potential benefit to the pharmaceutical industry and patients.",
-          "abstract": "In silico drug-target interaction (DTI) prediction is an important and challenging problem in biomedical research with a huge potential benefit to the pharmaceutical industry and patients. Most existing methods for DTI prediction including deep learning models generally have binary endpoints, which could be an oversimplification of the problem, and those methods are typically unable to handle cold-target problems, i.e., problems involving target protein that never appeared in the training set. Towards this, we contrived PADME (Protein And Drug Molecule interaction prEdiction), a framework based on Deep Neural Networks, to predict real-valued interaction strength between compounds and proteins without requiring feature engineering. PADME takes both compound and protein information as inputs, so it is capable of solving cold-target (and cold-drug) problems. To our knowledge, we are the first to combine Molecular Graph Convolution (MGC) for compound featurization with protein descriptors for DTI prediction. We used multiple cross-validation split schemes and evaluation metrics to measure the performance of PADME on multiple datasets, including the ToxCast dataset, and PADME consistently dominates baseline methods. The results of a case study, which predicts the binding affinity between various compounds and androgen receptor (AR), suggest PADME's potential in drug development. The scalability of PADME is another advantage in the age of Big Data.",
-          "doi": ""
+          "doi": "",
+          "dx": -37.5,
+          "dy": 65.0
         },
         {
           "id": "3eac0e98402a",
           "title": "AttentionDTA: Drug–Target Binding Affinity Prediction by Sequence-Based Deep Learning With Attention Mechanism",
-          "authors": [
-            "Qichang Zhao",
-            "Guihua Duan",
-            "Mengyun Yang"
-          ],
           "year": 2022,
           "citations": 88,
-          "influential_citations": 5,
-          "venue": "IEEE/ACM Transactions on Computational Biology & Bioinformatics",
-          "tldr": "In this study, we proposed a deep learning-based model, named AttentionDTA, which uses attention mechanism to predict DTAs.",
-          "abstract": "The identification of drug–target relations (DTRs) is substantial in drug development. A large number of methods treat DTRs as drug-target interactions (DTIs), a binary classification problem. The main drawback of these methods are the lack of reliable negative samples and the absence of many important aspects of DTR, including their dose dependence and quantitative affinities. With increasing number of publications of drug–protein binding affinity data recently, DTRs prediction can be viewed as a regression problem of drug–target affinities (DTAs) which reflects how tightly the drug binds to the target and can present more detailed and specific information than DTIs. The growth of affinity data enables the use of deep learning architectures, which have been shown to be among the state-of-the-art methods in binding affinity prediction. Although relatively effective, due to the black-box nature of deep learning, these models are less biologically interpretable. In this study, we proposed a deep learning-based model, named AttentionDTA, which uses attention mechanism to predict DTAs. Different from the models using 3D structures of drug–target complexes or graph representation of drugs and proteins, the novelty of our work is to use attention mechanism to focus on key subsequences which are important in drug and protein sequences when predicting its affinity. We use two separate one-dimensional Convolution Neural Networks (1D-CNNs) to extract the semantic information of drug’s SMILES string and protein’s amino acid sequence. Furthermore, a two-side multi-head attention mechanism is developed and embedded to our model to explore the relationship between drug features and protein features. We evaluate our model on three established DTA benchmark datasets, Davis, Metz, and KIBA. AttentionDTA outperforms the state-of-the-art deep learning methods under different evaluation metrics. The results show that the attention-based model can effectively extract protein features related to drug information and drug features related to protein information to better predict drug target affinities. It is worth mentioning that we test our model on IC50 dataset, which provides the binding sites between drugs and proteins, to evaluate the ability of our model to locate binding sites. Finally, we visualize the attention weight to demonstrate the biological significance of the model. The source code of AttentionDTA can be downloaded from https://github.com/zhaoqichang/AttentionDTA_TCBB.",
-          "doi": "10.1109/TCBB.2022.3170365"
+          "doi": "10.1109/TCBB.2022.3170365",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "cdf74ad92aa3",
+          "title": "A survey of drug-target interaction and affinity prediction methods via graph neural networks",
+          "year": 2023,
+          "citations": 90,
+          "doi": "10.1016/j.compbiomed.2023.107136",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "2003.13902",
+          "title": "DeepGS: Deep Representation Learning of Graphs and Sequences for Drug-Target Binding Affinity Prediction",
+          "year": 2020,
+          "citations": 72,
+          "doi": "10.3233/FAIA200232",
+          "dx": 37.5,
+          "dy": -65.0
+        }
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "name": "Drug Interaction Prediction via Graphs",
+      "keywords": [
+        "drug",
+        "ddi",
+        "interaction",
+        "prediction"
+      ],
+      "color": "#818cf8",
+      "glow": "rgba(129, 140, 248, 0.25)",
+      "x": 652.7,
+      "y": 222.7,
+      "radius": 76.6,
+      "paper_count": 204,
+      "pillars": [
+        {
+          "id": "9d6b11c83032",
+          "title": "NeoDTI: Neural integration of neighbor information from a heterogeneous network for discovering new drug-target interactions",
+          "authors": [
+            "Fangping Wan",
+            "Lixiang Hong",
+            "An Xiao"
+          ],
+          "year": 2018,
+          "citations": 337,
+          "venue": "bioRxiv",
+          "tldr": "Results Inspired by recent advance of information passing and aggregation techniques that generalize the convolution neural networks (CNNs) to mine large-scale graph data and greatly improve the performance of many network-related prediction tasks, we develop a new nonlinear end-to-end learning model, called NeoDTI, that integrates diverse information from heterogeneous network data and automatically learns topology-preserving representations of drugs and targets to facilitate DTI prediction.",
+          "abstract": "Motivation Accurately predicting drug-target interactions (DTIs) in silico can guide the drug discovery process and thus facilitate drug development. Computational approaches for DTI prediction that adopt the systems biology perspective generally exploit the rationale that the properties of drugs and targets can be characterized by their functional roles in biological networks. Results Inspired by recent advance of information passing and aggregation techniques that generalize the convolution neural networks (CNNs) to mine large-scale graph data and greatly improve the performance of many network-related prediction tasks, we develop a new nonlinear end-to-end learning model, called NeoDTI, that integrates diverse information from heterogeneous network data and automatically learns topology-preserving representations of drugs and targets to facilitate DTI prediction. The substantial prediction performance improvement over other state-of-the-art DTI prediction methods as well as several novel predicted DTIs with evidence supports from previous studies have demonstrated the superior predictive power of NeoDTI. In addition, NeoDTI is robust against a wide range of choices of hyperparameters and is ready to integrate more drug and target related information (e.g., compound-protein binding affinity data). All these results suggest that NeoDTI can offer a powerful and robust tool for drug development and drug repositioning. Availability and implementation The source code and data used in NeoDTI are available at: https://github.com/FangpingWan/NeoDTI. Contact zengjy321@tsinghua.edu.cn Supplementary information Supplementary data are available at Bioinformatics online.",
+          "doi": "10.1093/bioinformatics/bty543"
+        },
+        {
+          "id": "affe69e82ffb",
+          "title": "Identifying drug-target interactions based on graph convolutional network and deep neural network",
+          "authors": [
+            "Tianyi Zhao",
+            "Yang Hu",
+            "Linda R. Valsdottir"
+          ],
+          "year": 2020,
+          "citations": 283,
+          "venue": "Briefings Bioinform.",
+          "tldr": "Identification of new drug-target interactions (DTIs) is an important but a time-consuming and costly step in drug discovery.",
+          "abstract": "Identification of new drug-target interactions (DTIs) is an important but a time-consuming and costly step in drug discovery. In recent years, to mitigate these drawbacks, researchers have sought to identify DTIs using computational approaches. However, most existing methods construct drug networks and target networks separately, and then predict novel DTIs based on known associations between the drugs and targets without accounting for associations between drug-protein pairs (DPPs). To incorporate the associations between DPPs into DTI modeling, we built a DPP network based on multiple drugs and proteins in which DPPs are the nodes and the associations between DPPs are the edges of the network. We then propose a novel learning-based framework, 'graph convolutional network (GCN)-DTI', for DTI identification. The model first uses a graph convolutional network to learn the features for each DPP. Second, using the feature representation as an input, it uses a deep neural network to predict the final label. The results of our analysis show that the proposed framework outperforms some state-of-the-art approaches by a large margin.",
+          "doi": "10.1093/bib/bbaa044"
+        }
+      ],
+      "satellites": [
+        {
+          "id": "c980c5ab5944",
+          "title": "DPDDI: a deep predictor for drug-drug interactions",
+          "year": 2020,
+          "citations": 174,
+          "doi": "10.1186/s12859-020-03724-x",
+          "dx": 75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "b6322fb73918",
+          "title": "Drug-Drug Interaction Predicting by Neural Network Using Integrated Similarity",
+          "year": 2019,
+          "citations": 157,
+          "doi": "10.1038/s41598-019-50121-3",
+          "dx": 37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "e30864266cec",
+          "title": "Graph neural network approaches for drug-target interactions.",
+          "year": 2022,
+          "citations": 168,
+          "doi": "10.1016/j.sbi.2021.102327",
+          "dx": -37.5,
+          "dy": 65.0
+        },
+        {
+          "id": "f45035156b2f",
+          "title": "DTI-CDF: a cascade deep forest model towards the prediction of drug-target interactions based on hybrid features",
+          "year": 2019,
+          "citations": 167,
+          "doi": "10.1093/bib/bbz152",
+          "dx": -75.0,
+          "dy": 0.0
+        },
+        {
+          "id": "b010e0a70435",
+          "title": "Learning size-adaptive molecular substructures for explainable drug–drug interaction prediction by substructure-aware graph neural network",
+          "year": 2022,
+          "citations": 98,
+          "doi": "10.1039/d2sc02023h",
+          "dx": -37.5,
+          "dy": -65.0
+        },
+        {
+          "id": "7e1d701b59ad",
+          "title": "Enhancing Drug-Drug Interaction Prediction Using Deep Attention Neural Networks",
+          "year": 2021,
+          "citations": 98,
+          "doi": "10.1109/TCBB.2022.3172421",
+          "dx": 37.5,
+          "dy": -65.0
         }
       ]
     }
@@ -587,339 +628,395 @@
   "macro_filaments": [
     {
       "source_id": 0,
-      "target_id": 1,
-      "x1": 965.0,
-      "y1": 430.0,
-      "x2": 857.5,
-      "y2": 616.2,
-      "volume": 1091,
-      "width": 4.0
-    },
-    {
-      "source_id": 0,
       "target_id": 3,
-      "x1": 965.0,
-      "y1": 430.0,
-      "x2": 642.5,
-      "y2": 243.8,
-      "volume": 638,
-      "width": 2.3
-    },
-    {
-      "source_id": 0,
-      "target_id": 5,
-      "x1": 965.0,
-      "y1": 430.0,
-      "x2": 535.0,
-      "y2": 430.0,
-      "volume": 528,
-      "width": 1.9
-    },
-    {
-      "source_id": 1,
-      "target_id": 3,
-      "x1": 857.5,
-      "y1": 616.2,
-      "x2": 642.5,
-      "y2": 243.8,
-      "volume": 386,
-      "width": 1.4
-    },
-    {
-      "source_id": 1,
-      "target_id": 5,
-      "x1": 857.5,
-      "y1": 616.2,
-      "x2": 535.0,
-      "y2": 430.0,
-      "volume": 325,
-      "width": 1.2
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 847.3,
+      "y2": 617.3,
+      "volume": 846,
+      "width": 3.8
     },
     {
       "source_id": 3,
-      "target_id": 5,
-      "x1": 642.5,
-      "y1": 243.8,
-      "x2": 535.0,
-      "y2": 430.0,
-      "volume": 238,
-      "width": 1.2
+      "target_id": 6,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 550,
+      "width": 2.5
+    },
+    {
+      "source_id": 2,
+      "target_id": 3,
+      "x1": 627.8,
+      "y1": 602.9,
+      "x2": 847.3,
+      "y2": 617.3,
+      "volume": 433,
+      "width": 1.9
+    },
+    {
+      "source_id": 0,
+      "target_id": 6,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 831,
+      "width": 3.7
     },
     {
       "source_id": 0,
       "target_id": 2,
-      "x1": 965.0,
-      "y1": 430.0,
-      "x2": 642.5,
-      "y2": 616.2,
-      "volume": 447,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 600,
+      "width": 2.7
+    },
+    {
+      "source_id": 2,
+      "target_id": 6,
+      "x1": 627.8,
+      "y1": 602.9,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 540,
+      "width": 2.4
+    },
+    {
+      "source_id": 1,
+      "target_id": 3,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 847.3,
+      "y2": 617.3,
+      "volume": 260,
+      "width": 1.2
+    },
+    {
+      "source_id": 0,
+      "target_id": 1,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 969.5,
+      "y2": 434.4,
+      "volume": 361,
       "width": 1.6
     },
     {
       "source_id": 1,
-      "target_id": 2,
-      "x1": 857.5,
-      "y1": 616.2,
-      "x2": 642.5,
-      "y2": 616.2,
-      "volume": 248,
-      "width": 1.2
-    },
-    {
-      "source_id": 2,
-      "target_id": 3,
-      "x1": 642.5,
-      "y1": 616.2,
-      "x2": 642.5,
-      "y2": 243.8,
-      "volume": 346,
-      "width": 1.3
-    },
-    {
-      "source_id": 0,
-      "target_id": 4,
-      "x1": 965.0,
-      "y1": 430.0,
-      "x2": 857.5,
-      "y2": 243.8,
-      "volume": 358,
-      "width": 1.3
+      "target_id": 6,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 483,
+      "width": 2.2
     },
     {
       "source_id": 1,
-      "target_id": 4,
-      "x1": 857.5,
-      "y1": 616.2,
-      "x2": 857.5,
-      "y2": 243.8,
-      "volume": 185,
-      "width": 1.2
-    },
-    {
-      "source_id": 2,
-      "target_id": 5,
-      "x1": 642.5,
-      "y1": 616.2,
-      "x2": 535.0,
-      "y2": 430.0,
-      "volume": 221,
-      "width": 1.2
+      "target_id": 2,
+      "x1": 969.5,
+      "y1": 434.4,
+      "x2": 627.8,
+      "y2": 602.9,
+      "volume": 521,
+      "width": 2.3
     },
     {
       "source_id": 3,
       "target_id": 4,
-      "x1": 642.5,
-      "y1": 243.8,
-      "x2": 857.5,
-      "y2": 243.8,
-      "volume": 95,
+      "x1": 847.3,
+      "y1": 617.3,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 235,
       "width": 1.2
     },
     {
+      "source_id": 0,
+      "target_id": 4,
+      "x1": 872.2,
+      "y1": 237.1,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 404,
+      "width": 1.8
+    },
+    {
       "source_id": 4,
-      "target_id": 5,
-      "x1": 857.5,
-      "y1": 243.8,
-      "x2": 535.0,
-      "y2": 430.0,
-      "volume": 41,
+      "target_id": 6,
+      "x1": 530.5,
+      "y1": 405.6,
+      "x2": 652.7,
+      "y2": 222.7,
+      "volume": 288,
+      "width": 1.3
+    },
+    {
+      "source_id": 2,
+      "target_id": 4,
+      "x1": 627.8,
+      "y1": 602.9,
+      "x2": 530.5,
+      "y2": 405.6,
+      "volume": 127,
       "width": 1.2
     }
   ],
   "gaps": [
     {
       "gap_id": "gap_1",
-      "gap_index": 1,
+      "rank": 1,
       "title": "Unexplored Application of Graph Convolutional Networks on Protein Ligand",
-      "gap_type": "Unexplored Method-Dataset Combination",
-      "cluster_a_name": "Molecular Graph Neural Property Prediction",
-      "cluster_b_name": "Protein Pocket Affinity Modeling",
-      "cluster_a_id": 0,
-      "cluster_b_id": 1,
-      "color_a": "#38bdf8",
-      "color_b": "#a855f7",
-      "x": 911.2,
-      "y": 523.1,
-      "x1": 965.0,
-      "y1": 430.0,
-      "x2": 857.5,
-      "y2": 616.2,
-      "breakthrough_score": 95.0,
-      "opportunity_summary": "While Graph Convolutional Networks and Protein Ligand are prominent in current literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Protein Ligand under Adversarial Data-Poisoning Attacks constraints.",
-      "hypothesis": "Applying Graph Convolutional Networks directly to Protein Ligand under Adversarial Data-Poisoning Attacks constraints will bridge the disconnected representations between 'Molecular Graph Neural Property Prediction' and 'Protein Pocket Affinity Modeling', yielding statistically significant improvements in predictive reliability and out-of-distribution generalizability.",
-      "anchor_a": {
-        "id": "1704.01212",
-        "title": "Neural Message Passing for Quantum Chemistry",
-        "authors": [
-          "J. Gilmer",
-          "S. Schoenholz",
-          "Patrick F. Riley"
-        ],
-        "year": 2017,
-        "citations": 9445,
-        "influential_citations": 881,
-        "venue": "International Conference on Machine Learning",
-        "tldr": "In this paper, we reformulate existing models into a single common framework we call Message Passing Neural Networks (MPNNs) and explore additional novel variations within this framework.",
-        "abstract": "Supervised learning on molecules has incredible potential to be useful in chemistry, drug discovery, and materials science. Luckily, several promising and closely related neural network models invariant to molecular symmetries have already been described in the literature. These models learn a message passing algorithm and aggregation procedure to compute a function of their entire input graph. At this point, the next step is to find a particularly effective variant of this general approach and apply it to chemical prediction benchmarks until we either solve them or reach the limits of the approach. In this paper, we reformulate existing models into a single common framework we call Message Passing Neural Networks (MPNNs) and explore additional novel variations within this framework. Using MPNNs we demonstrate state of the art results on an important molecular property prediction benchmark; these results are strong enough that we believe future work should focus on datasets with larger molecules or more accurate ground truth labels.",
-        "doi": ""
-      },
-      "anchor_b": {
-        "id": "65895f31c6d7",
-        "title": "Predicting Drug-Target Interaction Using a Novel Graph Neural Network with 3D Structure-Embedded Graph Representation",
-        "authors": [
-          "Jaechang Lim",
-          "Seongok Ryu",
-          "Kyubyong Park"
-        ],
-        "year": 2019,
-        "citations": 372,
-        "influential_citations": 16,
-        "venue": "Journal of Chemical Information and Modeling",
-        "tldr": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network.",
-        "abstract": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network. We introduce a distance-aware graph attention algorithm to differentiate various types of intermolecular interactions. Furthermore, we extract the graph feature of intermolecular interactions directly from the 3D structural information on the protein-ligand binding pose. Thus, the model can learn key features for accurate predictions of drug-target interaction rather than just memorize certain patterns of ligand molecules. As a result, our model shows better performance than docking and other deep learning methods for both virtual screening (AUROC of 0.968 for the DUD-E test set) and pose prediction (AUROC of 0.935 for the PDBbind test set). In addition, it can reproduce the natural population distribution of active molecules and inactive molecules.",
-        "doi": "10.1021/acs.jcim.9b00387"
-      },
       "method": "Graph Convolutional Networks",
       "dataset": "Protein Ligand",
       "limitation": "Adversarial Data-Poisoning Attacks",
-      "risk_profile": "Safe PhD Topic",
+      "breakthrough_score": 53.0,
+      "uzzi_z_score": -1.89,
+      "is_center_top": true,
+      "macro_x": 750.0,
+      "macro_y": 420.0,
+      "role": "CENTER_TOP_GAP",
+      "description": "While Graph Convolutional Networks (n=125) and Protein Ligand (n=80) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Protein Ligand under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.89σ).",
+      "hypothesis": "Applying Graph Convolutional Networks directly to Protein Ligand under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "02d13e1de6f0",
+        "title": "Predict lncRNA-drug associations based on graph neural network",
+        "authors": [
+          "Peng Xu",
+          "Chuchu Li",
+          "Jiaqi Yuan"
+        ],
+        "year": 2024,
+        "citations": 30,
+        "venue": "Frontiers in Genetics",
+        "tldr": "LncRNAs are an essential type of non-coding RNAs, which have been reported to be involved in various human pathological conditions.",
+        "doi": "10.3389/fgene.2024.1388015"
+      },
+      "anchor_b": {
+        "id": "04bc3e31d428",
+        "title": "DENVIS: scalable and high-throughput virtual screening using graph neural networks with atomic and surface protein pocket features",
+        "authors": [
+          "Agamemnon Krasoulis",
+          "N. Antonopoulos",
+          "Vassilis Pitsikalis"
+        ],
+        "year": 2022,
+        "citations": 25,
+        "venue": "bioRxiv",
+        "tldr": "We introduce deep neural virtual screening (DENVIS), an end-to-end pipeline for virtual screening using graph neural networks (GNNs).",
+        "doi": "10.1101/2022.03.17.484710"
+      },
       "scientific_basis": {
         "paper": "Uzzi et al., Science 2013",
         "doi": "10.1126/science.1240474",
         "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
-      },
-      "uzzi_z_score": null
+      }
     },
     {
       "gap_id": "gap_2",
-      "gap_index": 2,
+      "rank": 2,
       "title": "Unexplored Application of Graph Convolutional on Prediction Molecular",
-      "gap_type": "Unexplored Method-Dataset Combination",
-      "cluster_a_name": "Protein Pocket Affinity Modeling",
-      "cluster_b_name": "Graph Neural Augmentation for Anomaly Detection",
-      "cluster_a_id": 1,
-      "cluster_b_id": 2,
-      "color_a": "#a855f7",
-      "color_b": "#10b981",
-      "x": 750.0,
-      "y": 616.2,
-      "x1": 857.5,
-      "y1": 616.2,
-      "x2": 642.5,
-      "y2": 616.2,
-      "breakthrough_score": 89.3,
-      "opportunity_summary": "While Graph Convolutional and Prediction Molecular are prominent in current literature, zero papers in the corpus have evaluated Graph Convolutional directly on Prediction Molecular under Adversarial Data-Poisoning Attacks constraints.",
-      "hypothesis": "Applying Graph Convolutional directly to Prediction Molecular under Adversarial Data-Poisoning Attacks constraints will bridge the disconnected representations between 'Protein Pocket Affinity Modeling' and 'Graph Neural Augmentation for Anomaly Detection', yielding statistically significant improvements in predictive reliability and out-of-distribution generalizability.",
-      "anchor_a": {
-        "id": "65895f31c6d7",
-        "title": "Predicting Drug-Target Interaction Using a Novel Graph Neural Network with 3D Structure-Embedded Graph Representation",
-        "authors": [
-          "Jaechang Lim",
-          "Seongok Ryu",
-          "Kyubyong Park"
-        ],
-        "year": 2019,
-        "citations": 372,
-        "influential_citations": 16,
-        "venue": "Journal of Chemical Information and Modeling",
-        "tldr": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network.",
-        "abstract": "We propose a novel deep learning approach for predicting drug-target interaction using a graph neural network. We introduce a distance-aware graph attention algorithm to differentiate various types of intermolecular interactions. Furthermore, we extract the graph feature of intermolecular interactions directly from the 3D structural information on the protein-ligand binding pose. Thus, the model can learn key features for accurate predictions of drug-target interaction rather than just memorize certain patterns of ligand molecules. As a result, our model shows better performance than docking and other deep learning methods for both virtual screening (AUROC of 0.968 for the DUD-E test set) and pose prediction (AUROC of 0.935 for the PDBbind test set). In addition, it can reproduce the natural population distribution of active molecules and inactive molecules.",
-        "doi": "10.1021/acs.jcim.9b00387"
-      },
-      "anchor_b": {
-        "id": "1709.05584",
-        "title": "Representation Learning on Graphs: Methods and Applications",
-        "authors": [
-          "William L. Hamilton",
-          "Rex Ying",
-          "J. Leskovec"
-        ],
-        "year": 2017,
-        "citations": 2177,
-        "influential_citations": 189,
-        "venue": "IEEE Data Engineering Bulletin",
-        "tldr": "In doing so, we develop a unified framework to describe these recent approaches, and we highlight a number of important applications and directions for future work.",
-        "abstract": "Machine learning on graphs is an important and ubiquitous task with applications ranging from drug design to friendship recommendation in social networks. The primary challenge in this domain is finding a way to represent, or encode, graph structure so that it can be easily exploited by machine learning models. Traditionally, machine learning approaches relied on user-defined heuristics to extract features encoding structural information about a graph (e.g., degree statistics or kernel functions). However, recent years have seen a surge in approaches that automatically learn to encode graph structure into low-dimensional embeddings, using techniques based on deep learning and nonlinear dimensionality reduction. Here we provide a conceptual review of key advancements in this area of representation learning on graphs, including matrix factorization-based methods, random-walk based algorithms, and graph neural networks. We review methods to embed individual nodes as well as approaches to embed entire (sub)graphs. In doing so, we develop a unified framework to describe these recent approaches, and we highlight a number of important applications and directions for future work.",
-        "doi": ""
-      },
       "method": "Graph Convolutional",
       "dataset": "Prediction Molecular",
       "limitation": "Adversarial Data-Poisoning Attacks",
-      "risk_profile": "Safe PhD Topic",
+      "breakthrough_score": 52.1,
+      "uzzi_z_score": -1.84,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_LEFT",
+      "description": "While Graph Convolutional (n=171) and Prediction Molecular (n=55) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional directly on Prediction Molecular under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.84σ).",
+      "hypothesis": "Applying Graph Convolutional directly to Prediction Molecular under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "0317b16c2558",
+        "title": "Prediction of multiple types of drug interactions based on multi-scale fusion and dual-view fusion",
+        "authors": [
+          "Dawei Pan",
+          "Ping Lu",
+          "Yunbing Wu"
+        ],
+        "year": 2024,
+        "citations": 6,
+        "venue": "Frontiers in Pharmacology",
+        "tldr": "To address these limitations, we propose a multi-scale dual-view fusion (MSDF) method for DDI prediction.",
+        "doi": "10.3389/fphar.2024.1354540"
+      },
+      "anchor_b": {
+        "id": "01e40dc84348",
+        "title": "Performance and robustness of small molecule retention time prediction with molecular graph neural networks in industrial drug discovery campaigns",
+        "authors": [
+          "Daniel Vik",
+          "David Pii",
+          "Chirag Mudaliar"
+        ],
+        "year": 2024,
+        "citations": 8,
+        "venue": "Scientific Reports",
+        "tldr": "This study explores how machine-learning can be used to predict chromatographic retention times (RT) for the analysis of small molecules, with the objective of identifying a machine-learning framework with the robustness required to support a chemical synthesis production platform.",
+        "doi": "10.1038/s41598-024-59620-4"
+      },
       "scientific_basis": {
         "paper": "Uzzi et al., Science 2013",
         "doi": "10.1126/science.1240474",
         "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
-      },
-      "uzzi_z_score": null
+      }
     },
     {
       "gap_id": "gap_3",
-      "gap_index": 3,
-      "title": "Unexplored Application of Graph Convolutional Networks on Molecular Structures",
-      "gap_type": "Unexplored Method-Dataset Combination",
-      "cluster_a_name": "Graph Neural Augmentation for Anomaly Detection",
-      "cluster_b_name": "Drug Interaction Prediction via Knowledge Graphs",
-      "cluster_a_id": 2,
-      "cluster_b_id": 5,
-      "color_a": "#10b981",
-      "color_b": "#eab308",
-      "x": 588.8,
-      "y": 523.1,
-      "x1": 642.5,
-      "y1": 616.2,
-      "x2": 535.0,
-      "y2": 430.0,
-      "breakthrough_score": 85.5,
-      "opportunity_summary": "While Graph Convolutional Networks and Molecular Structures are prominent in current literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Molecular Structures under Adversarial Data-Poisoning Attacks constraints.",
-      "hypothesis": "Applying Graph Convolutional Networks directly to Molecular Structures under Adversarial Data-Poisoning Attacks constraints will bridge the disconnected representations between 'Graph Neural Augmentation for Anomaly Detection' and 'Drug Interaction Prediction via Knowledge Graphs', yielding statistically significant improvements in predictive reliability and out-of-distribution generalizability.",
+      "rank": 3,
+      "title": "Unexplored Application of Graph Convolutional Network on Molecular Representation",
+      "method": "Graph Convolutional Network",
+      "dataset": "Molecular Representation",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 51.2,
+      "uzzi_z_score": -1.792,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 240.0,
+      "role": "QUAD_TOP_RIGHT",
+      "description": "While Graph Convolutional Network (n=152) and Molecular Representation (n=59) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Network directly on Molecular Representation under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.79σ).",
+      "hypothesis": "Applying Graph Convolutional Network directly to Molecular Representation under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
       "anchor_a": {
-        "id": "1709.05584",
-        "title": "Representation Learning on Graphs: Methods and Applications",
+        "id": "0221911d570f",
+        "title": "Employing Molecular Conformations for Ligand-Based Virtual Screening with Equivariant Graph Neural Network and Deep Multiple Instance Learning",
         "authors": [
-          "William L. Hamilton",
-          "Rex Ying",
-          "J. Leskovec"
+          "Yaowen Gu",
+          "Jiao Li",
+          "Hongyu Kang"
         ],
-        "year": 2017,
-        "citations": 2177,
-        "influential_citations": 189,
-        "venue": "IEEE Data Engineering Bulletin",
-        "tldr": "In doing so, we develop a unified framework to describe these recent approaches, and we highlight a number of important applications and directions for future work.",
-        "abstract": "Machine learning on graphs is an important and ubiquitous task with applications ranging from drug design to friendship recommendation in social networks. The primary challenge in this domain is finding a way to represent, or encode, graph structure so that it can be easily exploited by machine learning models. Traditionally, machine learning approaches relied on user-defined heuristics to extract features encoding structural information about a graph (e.g., degree statistics or kernel functions). However, recent years have seen a surge in approaches that automatically learn to encode graph structure into low-dimensional embeddings, using techniques based on deep learning and nonlinear dimensionality reduction. Here we provide a conceptual review of key advancements in this area of representation learning on graphs, including matrix factorization-based methods, random-walk based algorithms, and graph neural networks. We review methods to embed individual nodes as well as approaches to embed entire (sub)graphs. In doing so, we develop a unified framework to describe these recent approaches, and we highlight a number of important applications and directions for future work.",
-        "doi": ""
+        "year": 2023,
+        "citations": 15,
+        "venue": "Molecules",
+        "tldr": "To address these issues, we introduce a novel end-to-end deep learning architecture trained from molecular conformers for LBVS.",
+        "doi": "10.3390/molecules28165982"
       },
       "anchor_b": {
-        "id": "9d6b11c83032",
-        "title": "NeoDTI: Neural integration of neighbor information from a heterogeneous network for discovering new drug-target interactions",
+        "id": "00f03b6c9d17",
+        "title": "Multimodal pre-training models of molecular representation for drug discovery",
         "authors": [
-          "Fangping Wan",
-          "Lixiang Hong",
-          "An Xiao"
+          "Xiaoqi Wang",
+          "Chuan-Ju Wang",
+          "Boya Ji"
         ],
-        "year": 2018,
-        "citations": 337,
-        "influential_citations": 27,
-        "venue": "bioRxiv",
-        "tldr": "Results Inspired by recent advance of information passing and aggregation techniques that generalize the convolution neural networks (CNNs) to mine large-scale graph data and greatly improve the performance of many network-related prediction tasks, we develop a new nonlinear end-to-end learning model, called NeoDTI, that integrates diverse information from heterogeneous network data and automatically learns topology-preserving representations of drugs and targets to facilitate DTI prediction.",
-        "abstract": "Motivation Accurately predicting drug-target interactions (DTIs) in silico can guide the drug discovery process and thus facilitate drug development. Computational approaches for DTI prediction that adopt the systems biology perspective generally exploit the rationale that the properties of drugs and targets can be characterized by their functional roles in biological networks. Results Inspired by recent advance of information passing and aggregation techniques that generalize the convolution neural networks (CNNs) to mine large-scale graph data and greatly improve the performance of many network-related prediction tasks, we develop a new nonlinear end-to-end learning model, called NeoDTI, that integrates diverse information from heterogeneous network data and automatically learns topology-preserving representations of drugs and targets to facilitate DTI prediction. The substantial prediction performance improvement over other state-of-the-art DTI prediction methods as well as several novel predicted DTIs with evidence supports from previous studies have demonstrated the superior predictive power of NeoDTI. In addition, NeoDTI is robust against a wide range of choices of hyperparameters and is ready to integrate more drug and target related information (e.g., compound-protein binding affinity data). All these results suggest that NeoDTI can offer a powerful and robust tool for drug development and drug repositioning. Availability and implementation The source code and data used in NeoDTI are available at: https://github.com/FangpingWan/NeoDTI. Contact zengjy321@tsinghua.edu.cn Supplementary information Supplementary data are available at Bioinformatics online.",
-        "doi": "10.1093/bioinformatics/bty543"
+        "year": 2025,
+        "citations": 15,
+        "venue": "National Science Review",
+        "tldr": "ABSTRACT With the great success of large language models in natural language processing, self-supervised pre-training models have emerged as an important technique in drug discovery.",
+        "doi": "10.1093/nsr/nwaf495"
       },
-      "method": "Graph Convolutional Networks",
-      "dataset": "Molecular Structures",
-      "limitation": "Adversarial Data-Poisoning Attacks",
-      "risk_profile": "Safe PhD Topic",
       "scientific_basis": {
         "paper": "Uzzi et al., Science 2013",
         "doi": "10.1126/science.1240474",
         "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
+    },
+    {
+      "gap_id": "gap_4",
+      "rank": 4,
+      "title": "Unexplored Application of Graph Convolutional Networks on Molecular Structures",
+      "method": "Graph Convolutional Networks",
+      "dataset": "Molecular Structures",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 51.1,
+      "uzzi_z_score": -1.791,
+      "is_center_top": false,
+      "macro_x": 450.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_LEFT",
+      "description": "While Graph Convolutional Networks (n=125) and Molecular Structures (n=72) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Networks directly on Molecular Structures under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.79σ).",
+      "hypothesis": "Applying Graph Convolutional Networks directly to Molecular Structures under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "02d13e1de6f0",
+        "title": "Predict lncRNA-drug associations based on graph neural network",
+        "authors": [
+          "Peng Xu",
+          "Chuchu Li",
+          "Jiaqi Yuan"
+        ],
+        "year": 2024,
+        "citations": 30,
+        "venue": "Frontiers in Genetics",
+        "tldr": "LncRNAs are an essential type of non-coding RNAs, which have been reported to be involved in various human pathological conditions.",
+        "doi": "10.3389/fgene.2024.1388015"
       },
-      "uzzi_z_score": null
+      "anchor_b": {
+        "id": "2104.08474",
+        "title": "Structure-based de novo drug design using 3D deep generative models",
+        "authors": [
+          "Yibo Li",
+          "Jianfeng Pei",
+          "L. Lai"
+        ],
+        "year": 2021,
+        "citations": 151,
+        "venue": "Chemical Science",
+        "tldr": "In this work, we introduce DeepLigBuilder, a novel deep learning-based method for de novo drug design that generates 3D molecular structures in the binding sites of target proteins.",
+        "doi": "10.1039/D1SC04444C"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
+    },
+    {
+      "gap_id": "gap_5",
+      "rank": 5,
+      "title": "Unexplored Application of Graph Convolutional Network on Prediction Molecular",
+      "method": "Graph Convolutional Network",
+      "dataset": "Prediction Molecular",
+      "limitation": "Adversarial Data-Poisoning Attacks",
+      "breakthrough_score": 49.9,
+      "uzzi_z_score": -1.729,
+      "is_center_top": false,
+      "macro_x": 1050.0,
+      "macro_y": 600.0,
+      "role": "QUAD_BOTTOM_RIGHT",
+      "description": "While Graph Convolutional Network (n=152) and Prediction Molecular (n=55) are prominent in literature, zero papers in the corpus have evaluated Graph Convolutional Network directly on Prediction Molecular under Adversarial Data-Poisoning Attacks constraints (Uzzi z = -1.73σ).",
+      "hypothesis": "Applying Graph Convolutional Network directly to Prediction Molecular under Adversarial Data-Poisoning Attacks constraints will overcome the structural representation disconnect, achieving statistically significant error reduction over traditional baseline heuristics.",
+      "anchor_a": {
+        "id": "0221911d570f",
+        "title": "Employing Molecular Conformations for Ligand-Based Virtual Screening with Equivariant Graph Neural Network and Deep Multiple Instance Learning",
+        "authors": [
+          "Yaowen Gu",
+          "Jiao Li",
+          "Hongyu Kang"
+        ],
+        "year": 2023,
+        "citations": 15,
+        "venue": "Molecules",
+        "tldr": "To address these issues, we introduce a novel end-to-end deep learning architecture trained from molecular conformers for LBVS.",
+        "doi": "10.3390/molecules28165982"
+      },
+      "anchor_b": {
+        "id": "01e40dc84348",
+        "title": "Performance and robustness of small molecule retention time prediction with molecular graph neural networks in industrial drug discovery campaigns",
+        "authors": [
+          "Daniel Vik",
+          "David Pii",
+          "Chirag Mudaliar"
+        ],
+        "year": 2024,
+        "citations": 8,
+        "venue": "Scientific Reports",
+        "tldr": "This study explores how machine-learning can be used to predict chromatographic retention times (RT) for the analysis of small molecules, with the objective of identifying a machine-learning framework with the robustness required to support a chemical synthesis production platform.",
+        "doi": "10.1038/s41598-024-59620-4"
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)"
+      }
     }
   ],
   "meta": {
     "total_papers": 3000,
-    "compiled_at": "2026-09-07 14:10:32",
-    "execution_time_sec": 0.008
+    "compiled_at": "2026-09-15 12:44:57",
+    "execution_time_sec": 0.012
   }
 }

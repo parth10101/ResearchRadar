@@ -1,0 +1,678 @@
+{
+  "n_topics": 8,
+  "n_noise": 0,
+  "paper_to_topic": {
+    "022cfb4dfbc104e2dbb75f34497a160276e3c124": 1,
+    "05a1de07d5c107bccd75ddcf1d2ee02fc1b40d96": 2,
+    "0b0d863e345af2ce812dc209d944adad0a175eb8": 4,
+    "0eb29d686e1e9cc6377fd888cb2e464ef7ddbeb6": 4,
+    "16846088e21dc76ee7cf5f027f0556f678e23c35": 3,
+    "2501.16783": 5,
+    "2856e73e25de53e4a3b213422f5b80f713ae4160": 3,
+    "2606.28166": 0,
+    "2606.11211": 6,
+    "2603.25942": 7,
+    "2511.09984": 2,
+    "2510.06077": 7,
+    "2511.17938": 0,
+    "2606.23206": 4,
+    "2510.11278": 0,
+    "2505.13081": 5,
+    "2602.21786": 0,
+    "5881e53178afcf627e0e8b0225b93be8934596dc": 5,
+    "2604.07422": 4,
+    "2511.15169": 3,
+    "2608.29174": 5,
+    "2506.05850": 0,
+    "2501.18617": 3,
+    "68c210b6af0f95a08b7d33818d33855716238bc1": 1,
+    "2510.13928": 5,
+    "2510.02263": 0,
+    "76f759323f58fd535fa13080709d9ef54f4ee9b4": 6,
+    "2506.03923": 6,
+    "81b3e6bd410001f9a5504cb4f30f5901920ec1df": 3,
+    "2510.21853": 0,
+    "2606.21123": 1,
+    "2604.09737": 2,
+    "2507.15865": 0,
+    "2608.28623": 4,
+    "2505.18978": 6,
+    "2603.08321": 1,
+    "2509.24269": 3,
+    "2602.23730": 2,
+    "2510.10013": 1,
+    "2602.12506": 7,
+    "b4d50cab544dd49f3ce69fcfb05fbd0770507b46": 1,
+    "2508.04227": 7,
+    "bf25a842af4e271f833d7ab0385f62eefbbe5f4a": 5,
+    "2601.13304": 4,
+    "c79bb0b3e84e5ded60d208fcfa24c75623d4aae6": 0,
+    "2605.10207": 2,
+    "d2dedc14019ca8f3c5ef7e6ccb59cad41948e7c3": 5,
+    "2605.28890": 3,
+    "2307.09009": 6,
+    "e6fe0069cb75677a21ac415f447073c4b0132b36": 1,
+    "2608.00533": 2,
+    "2608.14003": 0,
+    "2504.01857": 2,
+    "2603.16256": 7,
+    "2511.06419": 6,
+    "2608.10928": 6,
+    "2608.17414": 4,
+    "2608.18627": 7,
+    "a4fc074ce17e397ba683856d22260a41424eed64": 0,
+    "2506.06998": 6
+  },
+  "clusters": {
+    "1": [
+      "022cfb4dfbc104e2dbb75f34497a160276e3c124",
+      "68c210b6af0f95a08b7d33818d33855716238bc1",
+      "2606.21123",
+      "2603.08321",
+      "2510.10013",
+      "b4d50cab544dd49f3ce69fcfb05fbd0770507b46",
+      "e6fe0069cb75677a21ac415f447073c4b0132b36"
+    ],
+    "2": [
+      "05a1de07d5c107bccd75ddcf1d2ee02fc1b40d96",
+      "2511.09984",
+      "2604.09737",
+      "2602.23730",
+      "2605.10207",
+      "2608.00533",
+      "2504.01857"
+    ],
+    "4": [
+      "0b0d863e345af2ce812dc209d944adad0a175eb8",
+      "0eb29d686e1e9cc6377fd888cb2e464ef7ddbeb6",
+      "2606.23206",
+      "2604.07422",
+      "2608.28623",
+      "2601.13304",
+      "2608.17414"
+    ],
+    "3": [
+      "16846088e21dc76ee7cf5f027f0556f678e23c35",
+      "2856e73e25de53e4a3b213422f5b80f713ae4160",
+      "2511.15169",
+      "2501.18617",
+      "81b3e6bd410001f9a5504cb4f30f5901920ec1df",
+      "2509.24269",
+      "2605.28890"
+    ],
+    "5": [
+      "2501.16783",
+      "2505.13081",
+      "5881e53178afcf627e0e8b0225b93be8934596dc",
+      "2608.29174",
+      "2510.13928",
+      "bf25a842af4e271f833d7ab0385f62eefbbe5f4a",
+      "d2dedc14019ca8f3c5ef7e6ccb59cad41948e7c3"
+    ],
+    "0": [
+      "2606.28166",
+      "2511.17938",
+      "2510.11278",
+      "2602.21786",
+      "2506.05850",
+      "2510.02263",
+      "2510.21853",
+      "2507.15865",
+      "c79bb0b3e84e5ded60d208fcfa24c75623d4aae6",
+      "2608.14003",
+      "a4fc074ce17e397ba683856d22260a41424eed64"
+    ],
+    "6": [
+      "2606.11211",
+      "76f759323f58fd535fa13080709d9ef54f4ee9b4",
+      "2506.03923",
+      "2505.18978",
+      "2307.09009",
+      "2511.06419",
+      "2608.10928",
+      "2506.06998"
+    ],
+    "7": [
+      "2603.25942",
+      "2510.06077",
+      "2602.12506",
+      "2508.04227",
+      "2603.16256",
+      "2608.18627"
+    ]
+  },
+  "topic_labels": {
+    "0": "reasoning, reward, model, training, cot",
+    "1": "framework, safety, agent, prognostic, health",
+    "2": "multilingual, language, reasoning, semantic, llm",
+    "3": "reasoning, safety, model, detection, risk",
+    "4": "reasoning, model, multimodal, chain, visual",
+    "5": "agent, llm, rft, stability, drift",
+    "6": "reasoning, model, gpt4, behavior, question",
+    "7": "visual, video, vlm, reasoning, robustness"
+  },
+  "topic_keywords": {
+    "0": [
+      "reasoning",
+      "reward",
+      "model",
+      "training",
+      "cot",
+      "thought",
+      "llm",
+      "chain",
+      "policy",
+      "method"
+    ],
+    "1": [
+      "framework",
+      "safety",
+      "agent",
+      "prognostic",
+      "health",
+      "reasoning",
+      "data",
+      "clinical",
+      "validation",
+      "explicit"
+    ],
+    "2": [
+      "multilingual",
+      "language",
+      "reasoning",
+      "semantic",
+      "llm",
+      "linguistic",
+      "latent",
+      "crosslingual",
+      "capability",
+      "drift"
+    ],
+    "3": [
+      "reasoning",
+      "safety",
+      "model",
+      "detection",
+      "risk",
+      "attack",
+      "anomaly",
+      "thought",
+      "chain",
+      "cot"
+    ],
+    "4": [
+      "reasoning",
+      "model",
+      "multimodal",
+      "chain",
+      "visual",
+      "image",
+      "sycophancy",
+      "code",
+      "generation",
+      "counterfactual"
+    ],
+    "5": [
+      "agent",
+      "llm",
+      "rft",
+      "stability",
+      "drift",
+      "nonstationary",
+      "concept",
+      "political",
+      "largelanguagemodel",
+      "activist"
+    ],
+    "6": [
+      "reasoning",
+      "model",
+      "gpt4",
+      "behavior",
+      "question",
+      "calibration",
+      "llm",
+      "problem",
+      "step",
+      "lrm"
+    ],
+    "7": [
+      "visual",
+      "video",
+      "vlm",
+      "reasoning",
+      "robustness",
+      "cot",
+      "mllm",
+      "quality",
+      "think",
+      "pcqa"
+    ]
+  },
+  "human_readable_names": {
+    "0": "Reinforcement Learning with Chain-of-Thought Rewards",
+    "1": "Prognostic Safety Framework for Autonomous Agents",
+    "2": "Multilingual LLMs for Semantic Reasoning",
+    "3": "Risk-Aware Fault Detection in LLMs",
+    "4": "Multimodal Visual Chain-of-Thought Modeling",
+    "5": "Nonstationary Drift Analysis in LLM Agents",
+    "6": "Calibration of GPT-4 Reasoning Behavior",
+    "7": "Robust Video Reasoning via Chain-of-Thought",
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+  },
+  "topic_representations": {
+    "0": {
+      "final_label": "Reinforcement Learning with Chain-of-Thought Rewards",
+      "representative_phrases": [
+        "Tandem Reinforcement Learning",
+        "Reasoning Use Reward"
+      ],
+      "supporting_paper_ids": [
+        "2606.28166",
+        "2511.17938",
+        "2510.11278",
+        "2602.21786",
+        "2506.05850",
+        "2510.02263",
+        "2510.21853",
+        "2507.15865",
+        "c79bb0b3e84e5ded60d208fcfa24c75623d4aae6",
+        "2608.14003",
+        "a4fc074ce17e397ba683856d22260a41424eed64"
+      ]
+    },
+    "1": {
+      "final_label": "Prognostic Safety Framework for Autonomous Agents",
+      "representative_phrases": [
+        "Enforces Structured Reasoning",
+        "Interpretability Safety"
+      ],
+      "supporting_paper_ids": [
+        "022cfb4dfbc104e2dbb75f34497a160276e3c124",
+        "68c210b6af0f95a08b7d33818d33855716238bc1",
+        "2606.21123",
+        "2603.08321",
+        "2510.10013",
+        "b4d50cab544dd49f3ce69fcfb05fbd0770507b46",
+        "e6fe0069cb75677a21ac415f447073c4b0132b36"
+      ]
+    },
+    "2": {
+      "final_label": "Multilingual LLMs for Semantic Reasoning",
+      "representative_phrases": [
+        "Government Knowledge Graphs",
+        "Reasoning Intensive Decoding"
+      ],
+      "supporting_paper_ids": [
+        "05a1de07d5c107bccd75ddcf1d2ee02fc1b40d96",
+        "2511.09984",
+        "2604.09737",
+        "2602.23730",
+        "2605.10207",
+        "2608.00533",
+        "2504.01857"
+      ]
+    },
+    "3": {
+      "final_label": "Risk-Aware Fault Detection in LLMs",
+      "representative_phrases": [
+        "Improves Fault Detection",
+        "Anomaly Detection Aerial"
+      ],
+      "supporting_paper_ids": [
+        "16846088e21dc76ee7cf5f027f0556f678e23c35",
+        "2856e73e25de53e4a3b213422f5b80f713ae4160",
+        "2511.15169",
+        "2501.18617",
+        "81b3e6bd410001f9a5504cb4f30f5901920ec1df",
+        "2509.24269",
+        "2605.28890"
+      ]
+    },
+    "4": {
+      "final_label": "Multimodal Visual Chain-of-Thought Modeling",
+      "representative_phrases": [
+        "Visualizing Chain Thought",
+        "Ai Reasoning Incorporating"
+      ],
+      "supporting_paper_ids": [
+        "0b0d863e345af2ce812dc209d944adad0a175eb8",
+        "0eb29d686e1e9cc6377fd888cb2e464ef7ddbeb6",
+        "2606.23206",
+        "2604.07422",
+        "2608.28623",
+        "2601.13304",
+        "2608.17414"
+      ]
+    },
+    "5": {
+      "final_label": "Nonstationary Drift Analysis in LLM Agents",
+      "representative_phrases": [
+        "Stochastic Dynamical",
+        "Language Models Llms"
+      ],
+      "supporting_paper_ids": [
+        "2501.16783",
+        "2505.13081",
+        "5881e53178afcf627e0e8b0225b93be8934596dc",
+        "2608.29174",
+        "2510.13928",
+        "bf25a842af4e271f833d7ab0385f62eefbbe5f4a",
+        "d2dedc14019ca8f3c5ef7e6ccb59cad41948e7c3"
+      ]
+    },
+    "6": {
+      "final_label": "Calibration of GPT-4 Reasoning Behavior",
+      "representative_phrases": [
+        "Reliable Reasoning Tasks",
+        "Budgets Induce Overconfidence"
+      ],
+      "supporting_paper_ids": [
+        "2606.11211",
+        "76f759323f58fd535fa13080709d9ef54f4ee9b4",
+        "2506.03923",
+        "2505.18978",
+        "2307.09009",
+        "2511.06419",
+        "2608.10928",
+        "2506.06998"
+      ]
+    },
+    "7": {
+      "final_label": "Robust Video Reasoning via Chain-of-Thought",
+      "representative_phrases": [
+        "Video Reasoning Generating",
+        "Summary Driven Reinforcement"
+      ],
+      "supporting_paper_ids": [
+        "2603.25942",
+        "2510.06077",
+        "2602.12506",
+        "2508.04227",
+        "2603.16256",
+        "2608.18627"
+      ]
+    },
+    "-1": {
+      "final_label": "Outlier Papers (unclustered / cross-disciplinary)",
+      "representative_phrases": [],
+      "supporting_paper_ids": []
+    }
+  },
+  "coords_2d": {
+    "022cfb4dfbc104e2dbb75f34497a160276e3c124": [
+      6.004184246063232,
+      13.29272174835205
+    ],
+    "05a1de07d5c107bccd75ddcf1d2ee02fc1b40d96": [
+      4.762638092041016,
+      -10.920493125915527
+    ],
+    "0b0d863e345af2ce812dc209d944adad0a175eb8": [
+      -19.13016700744629,
+      1.000823974609375
+    ],
+    "0eb29d686e1e9cc6377fd888cb2e464ef7ddbeb6": [
+      -19.129804611206055,
+      1.0005815029144287
+    ],
+    "16846088e21dc76ee7cf5f027f0556f678e23c35": [
+      8.083956718444824,
+      13.052717208862305
+    ],
+    "2501.16783": [
+      1.39658522605896,
+      13.894255638122559
+    ],
+    "2856e73e25de53e4a3b213422f5b80f713ae4160": [
+      8.41291618347168,
+      13.007912635803223
+    ],
+    "2606.28166": [
+      5.871840000152588,
+      -13.706083297729492
+    ],
+    "2606.11211": [
+      3.1305246353149414,
+      -6.615729808807373
+    ],
+    "2603.25942": [
+      -15.930120468139648,
+      0.9834060072898865
+    ],
+    "2511.09984": [
+      4.256659984588623,
+      -9.617741584777832
+    ],
+    "2510.06077": [
+      -15.931208610534668,
+      0.9835485816001892
+    ],
+    "2511.17938": [
+      5.455435276031494,
+      -12.63635540008545
+    ],
+    "2606.23206": [
+      -19.13018035888672,
+      1.0010404586791992
+    ],
+    "2510.11278": [
+      5.271144866943359,
+      -12.162568092346191
+    ],
+    "2505.13081": [
+      1.9300875663757324,
+      13.82679557800293
+    ],
+    "2602.21786": [
+      5.867221832275391,
+      -13.69525146484375
+    ],
+    "5881e53178afcf627e0e8b0225b93be8934596dc": [
+      1.8591023683547974,
+      13.834428787231445
+    ],
+    "2604.07422": [
+      -19.130308151245117,
+      1.0006252527236938
+    ],
+    "2511.15169": [
+      7.856794357299805,
+      13.080657958984375
+    ],
+    "2608.29174": [
+      1.609157919883728,
+      13.868709564208984
+    ],
+    "2506.05850": [
+      5.456199645996094,
+      -12.63690185546875
+    ],
+    "2501.18617": [
+      8.266098022460938,
+      13.028447151184082
+    ],
+    "68c210b6af0f95a08b7d33818d33855716238bc1": [
+      5.216635227203369,
+      13.391311645507812
+    ],
+    "2510.13928": [
+      2.0515294075012207,
+      13.812146186828613
+    ],
+    "2510.02263": [
+      5.84830904006958,
+      -13.645565032958984
+    ],
+    "76f759323f58fd535fa13080709d9ef54f4ee9b4": [
+      3.1407229900360107,
+      -6.6443634033203125
+    ],
+    "2506.03923": [
+      3.1426002979278564,
+      -6.646535396575928
+    ],
+    "81b3e6bd410001f9a5504cb4f30f5901920ec1df": [
+      8.604080200195312,
+      12.988261222839355
+    ],
+    "2510.21853": [
+      5.83945369720459,
+      -13.624608039855957
+    ],
+    "2606.21123": [
+      4.6362433433532715,
+      13.464561462402344
+    ],
+    "2604.09737": [
+      4.265985012054443,
+      -9.642115592956543
+    ],
+    "2507.15865": [
+      5.899233818054199,
+      -13.776765823364258
+    ],
+    "2608.28623": [
+      -19.12978744506836,
+      1.0008456707000732
+    ],
+    "2505.18978": [
+      3.7517993450164795,
+      -8.22677230834961
+    ],
+    "2603.08321": [
+      4.459248065948486,
+      13.484283447265625
+    ],
+    "2509.24269": [
+      7.820578575134277,
+      13.085848808288574
+    ],
+    "2602.23730": [
+      4.6106414794921875,
+      -10.53546142578125
+    ],
+    "2510.10013": [
+      5.756734371185303,
+      13.323336601257324
+    ],
+    "2602.12506": [
+      -15.928699493408203,
+      0.9834877848625183
+    ],
+    "b4d50cab544dd49f3ce69fcfb05fbd0770507b46": [
+      4.781061172485352,
+      13.447103500366211
+    ],
+    "2508.04227": [
+      -15.928778648376465,
+      0.983485758304596
+    ],
+    "bf25a842af4e271f833d7ab0385f62eefbbe5f4a": [
+      2.0089993476867676,
+      13.815912246704102
+    ],
+    "2601.13304": [
+      -19.130399703979492,
+      1.0008492469787598
+    ],
+    "c79bb0b3e84e5ded60d208fcfa24c75623d4aae6": [
+      5.873452663421631,
+      -13.710124015808105
+    ],
+    "2605.10207": [
+      4.609545707702637,
+      -10.534542083740234
+    ],
+    "d2dedc14019ca8f3c5ef7e6ccb59cad41948e7c3": [
+      1.863926887512207,
+      13.835467338562012
+    ],
+    "2605.28890": [
+      8.09430980682373,
+      13.05202579498291
+    ],
+    "2307.09009": [
+      3.481200695037842,
+      -7.527988433837891
+    ],
+    "e6fe0069cb75677a21ac415f447073c4b0132b36": [
+      3.963245153427124,
+      13.549074172973633
+    ],
+    "2608.00533": [
+      4.580418586730957,
+      -10.463678359985352
+    ],
+    "2608.14003": [
+      5.602736473083496,
+      -13.01460075378418
+    ],
+    "2504.01857": [
+      4.281119346618652,
+      -9.679132461547852
+    ],
+    "2603.16256": [
+      -15.931020736694336,
+      0.983016312122345
+    ],
+    "2511.06419": [
+      3.1140432357788086,
+      -6.570775508880615
+    ],
+    "2608.10928": [
+      3.2048041820526123,
+      -6.8090128898620605
+    ],
+    "2608.17414": [
+      -19.12987518310547,
+      1.0005805492401123
+    ],
+    "2608.18627": [
+      -15.930868148803711,
+      0.983054518699646
+    ],
+    "a4fc074ce17e397ba683856d22260a41424eed64": [
+      5.826495170593262,
+      -13.589454650878906
+    ],
+    "2506.06998": [
+      3.1705033779144287,
+      -6.720512866973877
+    ]
+  },
+  "quality_metrics": {
+    "silhouette_score": 0.0646,
+    "dbcv_density_index": -0.1559,
+    "coherence_c_v": 0.4526,
+    "coherence_npmi": 0.247,
+    "topic_diversity": 0.7375,
+    "noise_rate": 0.0
+  },
+  "noise_audit": {
+    "initial_noise": 1,
+    "final_outliers": 0,
+    "reassigned_count": 1,
+    "outlier_rate": 0.0
+  },
+  "run_config": {
+    "timestamp_utc": "2026-09-16T19:00:20.976965Z",
+    "random_state": 42,
+    "target_outlier_ratio": 0.14,
+    "min_cluster_size_requested": null,
+    "umap_n_components": 5,
+    "umap_metric": "cosine",
+    "hdbscan_cluster_selection_method": "leaf",
+    "min_samples": 1,
+    "coherence_reference": "raw_abstracts",
+    "coords_2d_type": "force_directed_display_layout",
+    "library_versions": {
+      "bertopic": "0.17.4",
+      "umap": "0.5.12",
+      "hdbscan": "unknown",
+      "sentence_transformers": "6.0.1",
+      "pacmap": "0.9.1",
+      "sklearn": "1.9.0"
+    }
+  }
+}
