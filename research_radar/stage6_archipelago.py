@@ -132,7 +132,7 @@ def compile_archipelago_data(
             sat_r = 75.0
             satellites.append({
                 "id": pid,
-                "title": p.get("title") or "Satellite Study",
+                "title": p.get("title") or "Supporting Scientific Study",
                 "year": p.get("year") or 2022,
                 "citations": p.get("citation_count") or 0,
                 "doi": p.get("doi") or "",
@@ -208,29 +208,6 @@ def compile_archipelago_data(
                 if narrated_map[t].get("evidence_papers"):
                     g["evidence_papers"] = narrated_map[t]["evidence_papers"]
 
-    fallback_templates = [
-        ("Multi-Modal Graph Transformers", "Sentinel-2 Multi-Spectral", "Atmospheric Correction & Cloud Attenuation", -1.467, 0.4438),
-        ("Convolutional Neural Networks (CNN)", "Sentinel-1 SAR Imagery", "Forest Structure & Canopy Height", -1.116, 0.3601),
-        ("Contrastive Representation Learning", "MODIS Thermal Infrared", "Sub-Pixel Cloud Masking Uncertainty", -1.116, 0.3601),
-        ("Physics-Informed Neural Operators", "Sentinel Topography Radars", "Complex Multi-Path Signal Scattering", -1.076, 0.3498),
-        ("Vision-Language Foundation Models", "Landsat Multi-Decadal Time Series", "Sensor Calibration Drift & Resolution Mismatch", -0.924, 0.3089),
-    ]
-
-    while len(raw_gaps) < 5:
-        idx = len(raw_gaps)
-        fb_m, fb_d, fb_l, fb_z, fb_sc = fallback_templates[idx % len(fallback_templates)]
-        raw_gaps.append({
-            "gap_type": "Unexplored Method-Dataset Combination",
-            "title": f"Unexplored Application of {fb_m} on {fb_d}",
-            "method": fb_m,
-            "dataset": fb_d,
-            "limitation": fb_l,
-            "score": fb_sc,
-            "uzzi_z_score": fb_z,
-            "description": f"Zero papers evaluate {fb_m} directly on {fb_d} under {fb_l} constraints (Uzzi z = {fb_z}σ).",
-            "papers_involved": [],
-        })
-
     gap_positions = [
         {"x": 750.0, "y": 420.0, "role": "CENTER_TOP_GAP"},      # Gap 1 (Center)
         {"x": 450.0, "y": 240.0, "role": "QUAD_TOP_LEFT"},       # Gap 2 (Top-Left)
@@ -300,7 +277,7 @@ def compile_archipelago_data(
             "dataset": dataset_str,
             "limitation": limitation_str,
             "breakthrough_score": score_pct,
-            "uzzi_z_score": round(float(uzzi_z), 3),
+            "uzzi_z_score": round(float(uzzi_z), 3) if uzzi_z is not None else 0.0,
             "is_center_top": (g_idx == 0),
             "macro_x": pos["x"],
             "macro_y": pos["y"],
@@ -1444,8 +1421,8 @@ def run_stage6(
 
 def main():
     parser = argparse.ArgumentParser(description="Stage 6: Knowledge Graph")
-    parser.add_argument("--corpus", type=Path, default=Path("data/satellite_300_papers.json"))
-    parser.add_argument("--out", type=Path, default=Path("data/output_satellite_300"))
+    parser.add_argument("--corpus", type=Path, default=Path("data/papers.json"))
+    parser.add_argument("--out", type=Path, default=Path("data/output"))
     args = parser.parse_args()
 
     if not args.corpus.exists():

@@ -128,11 +128,42 @@ COMMON_DATASET_PATTERNS = [
 # Entity Extraction Helpers
 # ---------------------------------------------------------------------------
 
+_universal_extractor = None
+
+def _get_universal_extractor():
+    global _universal_extractor
+    if _universal_extractor is None:
+        try:
+            from research_radar.entities.universal_extractor import UniversalMDLExtractor
+            _universal_extractor = UniversalMDLExtractor()
+        except Exception:
+            _universal_extractor = False
+    return _universal_extractor if _universal_extractor else None
+
+
 def _extract_entities_from_paper(paper: dict, topic_keywords: list[str]) -> tuple[list[str], list[str]]:
     """
     Extract method entities and dataset entities from paper title, abstract, TLDR, keywords,
-    and Semantic Scholar reference methodology intents.
+    and Semantic Scholar reference methodology intents across ANY scientific discipline.
     """
+    methods_found = set()
+    datasets_found = set()
+
+    # 1. High-Precision Domain-Agnostic Extraction via UniversalMDLExtractor
+    ext = _get_universal_extractor()
+    if ext:
+        try:
+            rec = ext.extract(paper)
+            for m in rec.proposed_methods:
+                if m.canonical_name and len(m.canonical_name) > 2:
+                    methods_found.add(m.canonical_name)
+            for d in rec.evaluation_datasets:
+                if d.canonical_name and len(d.canonical_name) > 2:
+                    datasets_found.add(d.canonical_name)
+        except Exception:
+            pass
+
+    # 2. Canonical Pattern Matching
     text = " ".join([
         paper.get("title") or "",
         paper.get("abstract") or "",
@@ -140,7 +171,6 @@ def _extract_entities_from_paper(paper: dict, topic_keywords: list[str]) -> tupl
         " ".join(topic_keywords or []),
     ]).lower()
 
-    methods_found = set()
     for pat in COMMON_METHOD_PATTERNS:
         match = re.search(pat, text)
         if match:
@@ -157,18 +187,24 @@ def _extract_entities_from_paper(paper: dict, topic_keywords: list[str]) -> tupl
                     clean_m = re.search(pat, ref_title.lower()).group(0).title()
                     methods_found.add(clean_m)
 
-    # Fallback to key phrases in TLDR
-    if not methods_found and paper.get("tldr"):
-        tldr_words = paper["tldr"].split()
-        if len(tldr_words) > 4:
-            methods_found.add(" ".join(tldr_words[:3]).title())
-
-    datasets_found = set()
     for pat in COMMON_DATASET_PATTERNS:
         match = re.search(pat, text)
         if match:
             clean_d = match.group(0).upper() if len(match.group(0)) <= 6 else match.group(0).title()
             datasets_found.add(clean_d)
+
+    # 3. Universal Disciplinary Fallback from Title / TLDR Structure
+    if not methods_found:
+        title = paper.get("title") or ""
+        if ":" in title:
+            prefix = title.split(":")[0].strip()
+            words = prefix.split()
+            if 1 <= len(words) <= 4 and not any(w.lower() in ("a", "an", "the", "on", "towards") for w in words):
+                methods_found.add(prefix.title())
+        elif paper.get("tldr"):
+            tldr_words = paper["tldr"].split()
+            if len(tldr_words) > 4:
+                methods_found.add(" ".join(tldr_words[:3]).title())
 
     return list(methods_found), list(datasets_found)
 

@@ -778,42 +778,42 @@ def build_parser() -> argparse.ArgumentParser:
         help="Force fresh fetching from S2 API, bypassing local query cache and existing corpus file.",
     )
     parser.add_argument(
-        "--no-stage1",
+        "--no-stage1", "--skip-stage1",
         action="store_true",
         help="Skip Stage 1 (corpus must already exist).",
     )
     parser.add_argument(
-        "--no-stage2",
+        "--no-stage2", "--skip-stage2",
         action="store_true",
         help="Skip Stage 2 preprocessing.",
     )
     parser.add_argument(
-        "--no-stage3",
+        "--no-stage3", "--skip-stage3",
         action="store_true",
         help="Skip Stage 3 semantic embedding.",
     )
     parser.add_argument(
-        "--no-stage4",
+        "--no-stage4", "--skip-stage4",
         action="store_true",
         help="Skip Stage 4 Topic Modelling.",
     )
     parser.add_argument(
-        "--no-stage5",
+        "--no-stage5", "--skip-stage5",
         action="store_true",
         help="Skip Stage 5 Citation Graph.",
     )
     parser.add_argument(
-        "--no-stage6",
+        "--no-stage6", "--skip-stage6",
         action="store_true",
         help="Skip Stage 6 Knowledge Graph.",
     )
     parser.add_argument(
-        "--no-stage7",
+        "--no-stage7", "--skip-stage7",
         action="store_true",
         help="Skip Stage 7 Gap Identification.",
     )
     parser.add_argument(
-        "--no-stage8",
+        "--no-stage8", "--skip-stage8",
         action="store_true",
         help="Skip Stage 8 Gap Narration.",
     )

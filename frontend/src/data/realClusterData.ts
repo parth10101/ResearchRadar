@@ -366,7 +366,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "1",
     "clusterId": 1,
-    "name": "Topic 0: Deep Satellite Image Class",
+    "name": "Deep Satellite Image Classification",
     "color": "#E41A1C",
     "pointCount": 54,
     "centroid": {
@@ -1298,7 +1298,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "2",
     "clusterId": 2,
-    "name": "Topic 1: SAR Aperture Imaging Data",
+    "name": "SAR Aperture Imaging Data",
     "color": "#377EB8",
     "pointCount": 44,
     "centroid": {
@@ -2060,7 +2060,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "3",
     "clusterId": 3,
-    "name": "Topic 2: High-Resolution Forest Wat",
+    "name": "High-Resolution Forest Watersheds",
     "color": "#4DAF4A",
     "pointCount": 43,
     "centroid": {
@@ -2805,7 +2805,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "4",
     "clusterId": 4,
-    "name": "Topic 3: Land Cover Change Detectio",
+    "name": "Land Cover Change Detection",
     "color": "#984EA3",
     "pointCount": 27,
     "centroid": {
@@ -3278,7 +3278,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "5",
     "clusterId": 5,
-    "name": "Topic 4: Flood Impact on Soil Areas",
+    "name": "Flood Impact on Soil Areas",
     "color": "#FF7F00",
     "pointCount": 29,
     "centroid": {
@@ -3785,7 +3785,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "6",
     "clusterId": 6,
-    "name": "Topic 5: Space Mission System Opera",
+    "name": "Space Mission System Operations",
     "color": "#00C0BF",
     "pointCount": 25,
     "centroid": {
@@ -4224,7 +4224,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "7",
     "clusterId": 7,
-    "name": "Topic 6: Satellite Road Image Proce",
+    "name": "Satellite Road Image Processing",
     "color": "#A65628",
     "pointCount": 22,
     "centroid": {
@@ -4612,7 +4612,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "8",
     "clusterId": 8,
-    "name": "Topic 7: Ocean Cloud SDS Modeling",
+    "name": "Ocean Cloud SDS Modeling",
     "color": "#F781BF",
     "pointCount": 18,
     "centroid": {
@@ -4932,7 +4932,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "9",
     "clusterId": 9,
-    "name": "Topic 8: Hyperspectral Crop Feature",
+    "name": "Hyperspectral Crop Feature Extraction",
     "color": "#E6AB02",
     "pointCount": 10,
     "centroid": {
@@ -5116,7 +5116,7 @@ export const REAL_CLUSTERS: RealClusterItem[] = [
   {
     "id": "10",
     "clusterId": 10,
-    "name": "Topic 9: Urban Building Index Thres",
+    "name": "Urban Building Index Thresholds",
     "color": "#1F78B4",
     "pointCount": 10,
     "centroid": {

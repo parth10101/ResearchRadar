@@ -349,7 +349,7 @@ def refine_topic_names_academically(
         return current_names
 
     prompt = (
-        "You are a distinguished university professor and senior academic journal editor in computer science and science.\n"
+        "You are a distinguished university professor and senior academic journal editor across all academic disciplines, scientific fields, social sciences, and humanities.\n"
         "For each numbered research topic cluster below, synthesize a concise, rigorous, publication-grade 3-to-6 word academic title (e.g. 'Molecular Graph Neural Networks in Drug Discovery', 'Protein-Ligand Pocket Modeling & Binding Sites', 'In Silico Toxicity & Safety Assessment').\n\n"
         "Requirements:\n"
         "1. Strict grammatical correctness: Use proper Academic Noun Phrases. Every title must make logical academic sense to a professor.\n"
@@ -603,8 +603,8 @@ def fit_topics(
             mid_c  = (min_c + max_c) // 2
             candidate_sizes = [min_c, mid_c, max_c]
 
-        # Dynamic UMAP n_neighbors
-        n_neighbors = max(5, min(30, int(np.sqrt(n_papers))))
+        # Dynamic UMAP n_neighbors: guaranteed to be strictly less than n_papers
+        n_neighbors = max(2, min(30, int(np.sqrt(n_papers)), max(2, n_papers - 1)))
 
         from umap import UMAP
         from hdbscan import HDBSCAN

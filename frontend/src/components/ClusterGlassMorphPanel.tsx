@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Sparkles, BookOpen, BarChart3, TrendingUp, ArrowUpRight, ArrowLeft, Calendar, Award, ChevronDown } from 'lucide-react';
 import { RealClusterItem, RealClusterPoint } from '../data/realClusterData';
 
 interface ClusterGlassMorphPanelProps {
@@ -115,15 +116,21 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
     }
   }, [isAllPapersOpen]);
 
+  const cleanTopicName = (rawName: string) => {
+    return (rawName || '').replace(/^Topic\s*\d+\s*[:\-]\s*/i, '').trim() || rawName;
+  };
+
   const corpusPct = ((cluster.pointCount / totalCorpusCount) * 100).toFixed(1);
+  const topicNumber = cluster.clusterId >= 0 ? cluster.clusterId : '0';
+  const displayTopicName = cleanTopicName(cluster.name);
 
   return (
     <div className="w-[48%] max-w-[620px] h-full p-3 lg:p-4 flex flex-col shrink-0 animate-in fade-in slide-in-from-right-4 duration-300 pointer-events-auto">
-      {/* Cinematic Glass Morph Container */}
+      {/* Cinematic Obsidian Glass Morph Container */}
       <div
-        className="h-full backdrop-blur-2xl bg-zinc-950/80 border border-white/10 rounded-2xl p-4 lg:p-5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col justify-between overflow-hidden relative"
+        className="h-full backdrop-blur-2xl bg-[#080b11]/92 border border-white/[0.08] rounded-2xl p-4 lg:p-5 shadow-[0_25px_60px_rgba(0,0,0,0.92)] flex flex-col justify-between overflow-hidden relative"
         style={{
-          boxShadow: `0 20px 60px -15px rgba(0,0,0,0.9), 0 0 35px -5px ${cluster.color}25`,
+          boxShadow: `0 25px 60px -15px rgba(0,0,0,0.95), 0 0 30px -5px ${cluster.color ? cluster.color + '20' : 'rgba(255,67,0,0.12)'}`,
         }}
       >
         {/* Subtle decorative background radial glow */}
@@ -133,49 +140,49 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
         />
 
         {/* Scrollable Content Container */}
-        <div className="flex-1 overflow-y-auto pr-1 space-y-3.5 font-mono z-10 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto pr-1 space-y-3.5 z-10 custom-scrollbar">
           {/* Header & Back Button */}
           <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] shrink-0">
             <button
               onClick={onBackToOverview}
-              className="px-3 py-1.5 rounded-md bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 hover:border-zinc-500 transition-colors flex items-center space-x-1.5 text-xs font-semibold cursor-pointer active:scale-95"
+              className="px-3 py-1.5 rounded-lg bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 hover:border-zinc-500 transition-all flex items-center space-x-2 text-xs font-medium cursor-pointer active:scale-95 font-sans"
             >
-              <span>←</span>
-              <span>BACK TO OVERVIEW</span>
+              <ArrowLeft className="w-3.5 h-3.5 text-zinc-400" />
+              <span>Back to Overview</span>
             </button>
 
-            <div className="flex items-center space-x-2 text-xs">
+            <div className="flex items-center space-x-2 text-xs font-sans">
               <span
-                className="w-2.5 h-2.5 rounded-none shrink-0"
+                className="w-2.5 h-2.5 rounded-full shrink-0"
                 style={{ backgroundColor: cluster.color, boxShadow: `0 0 10px ${cluster.color}88` }}
               />
-              <span className="text-zinc-200 font-semibold tracking-wider">
-                {cluster.clusterId === -1 ? 'NOISE' : `TOPIC T${cluster.clusterId}`}
+              <span className="text-zinc-200 font-semibold">
+                {cluster.clusterId === -1 ? 'Peripheral Cluster' : `Topic ${topicNumber}`}
               </span>
-              <span className="text-zinc-500">·</span>
-              <span className="text-zinc-400">{cluster.pointCount}p ({corpusPct}%)</span>
+              <span className="text-zinc-600">·</span>
+              <span className="text-zinc-400 font-mono text-[11px]">{cluster.pointCount} papers ({corpusPct}%)</span>
             </div>
           </div>
 
           {/* Topic Title */}
           <div>
-            <div className="text-[10px] text-zinc-400 uppercase tracking-widest">
-              FOCUSED EPISTEMIC BASIN // LEVEL 1 INSPECT
+            <div className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono">
+              STAGE 04 · THEMATIC DEEP-DIVE
             </div>
-            <h1 className="text-lg font-bold font-sans tracking-tight text-white mt-1">
-              {cluster.name}
+            <h1 className="text-lg font-bold font-sans tracking-tight text-white mt-1 leading-snug">
+              {displayTopicName}
             </h1>
           </div>
 
-          {/* Foundational Landmark Paper (The Central Nucleus in Showpiece) */}
+          {/* Foundational Landmark Paper */}
           {landmarkPaper && (
-            <div className="p-3 rounded-xl bg-zinc-900/60 border border-white/[0.08] space-y-2 relative overflow-hidden">
+            <div className="p-3.5 rounded-xl bg-zinc-900/70 border border-white/[0.08] space-y-2 relative overflow-hidden">
               <div className="flex items-center justify-between text-[11px]">
-                <div className="flex items-center space-x-1.5 font-bold tracking-wider text-amber-400">
-                  <span className="w-1.5 h-1.5 bg-amber-400 rounded-none inline-block animate-pulse" />
-                  <span>FOUNDATIONAL LANDMARK</span>
+                <div className="flex items-center space-x-1.5 font-semibold text-amber-400 font-sans">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Foundational Landmark</span>
                 </div>
-                <span className="px-2 py-0.5 rounded bg-amber-400/10 text-amber-300 border border-amber-400/20 text-[10px] font-semibold">
+                <span className="px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/20 text-[10px] font-semibold font-mono">
                   {landmarkPaper.citations || 0} citations
                 </span>
               </div>
@@ -184,7 +191,7 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                 {landmarkPaper.title}
               </div>
 
-              <div className="text-[11px] text-zinc-400 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+              <div className="text-[11px] font-sans text-zinc-400 flex flex-wrap items-center gap-x-2 gap-y-0.5">
                 {landmarkPaper.authors && landmarkPaper.authors.length > 0 && (
                   <span className="text-zinc-300 font-medium">
                     {landmarkPaper.authors.slice(0, 2).join(', ')}
@@ -198,7 +205,7 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
               </div>
 
               {landmarkPaper.tldr && (
-                <div className="text-[11px] font-sans text-zinc-400 bg-black/40 p-2 rounded border border-white/[0.04] leading-relaxed italic">
+                <div className="text-[11px] font-sans text-zinc-300 bg-black/40 p-2.5 rounded-lg border border-white/[0.04] leading-relaxed">
                   "{landmarkPaper.tldr}"
                 </div>
               )}
@@ -213,44 +220,44 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] text-cyan-400 hover:text-cyan-300 underline underline-offset-2 flex items-center space-x-1"
+                    className="text-[11px] text-[#ff6622] hover:text-[#ff8844] font-sans flex items-center space-x-1 font-medium transition-colors"
                   >
                     <span>View Primary Source Paper (DOI)</span>
-                    <span>↗</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
               )}
             </div>
           )}
 
-          {/* Topic Insights (3 Dynamic, Universal Metrics) */}
-          <div className="p-3 rounded-xl bg-zinc-900/60 border border-white/[0.08] space-y-2">
-            <div className="text-[11px] font-bold tracking-wider text-zinc-300 flex items-center space-x-1.5">
-              <span>📊</span>
-              <span>TOPIC INSIGHTS</span>
+          {/* Topic Insights */}
+          <div className="p-3.5 rounded-xl bg-zinc-900/70 border border-white/[0.08] space-y-2.5">
+            <div className="text-xs font-semibold text-zinc-200 flex items-center space-x-2 font-sans">
+              <BarChart3 className="w-3.5 h-3.5 text-[#ff4300]" />
+              <span>Domain Scientometrics</span>
             </div>
 
-            <div className="space-y-1.5 text-xs">
-              <div className="flex items-start space-x-2">
-                <span className="text-zinc-500 font-bold">•</span>
+            <div className="space-y-2 text-xs font-sans">
+              <div className="flex items-center space-x-2.5">
+                <Calendar className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
                 <div>
-                  <span className="text-zinc-400 font-medium">Research Timeline: </span>
-                  <span className="text-zinc-200 font-semibold">{insights.timelineStr}</span>
+                  <span className="text-zinc-400 font-medium">Timeline: </span>
+                  <span className="text-zinc-200 font-medium">{insights.timelineStr}</span>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-2">
-                <span className="text-zinc-500 font-bold">•</span>
+              <div className="flex items-center space-x-2.5">
+                <Award className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
                 <div>
                   <span className="text-zinc-400 font-medium">Citation Impact: </span>
-                  <span className="text-zinc-200 font-semibold">{insights.citationStr}</span>
+                  <span className="text-zinc-200 font-medium">{insights.citationStr}</span>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-2">
-                <span className="text-zinc-500 font-bold">•</span>
+              <div className="flex items-center space-x-2.5">
+                <TrendingUp className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
                 <div>
-                  <span className="text-zinc-400 font-medium">Growth Trajectory: </span>
+                  <span className="text-zinc-400 font-medium">Growth Rate: </span>
                   <span
                     className={
                       insights.isIncrease
@@ -271,17 +278,15 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
           <div ref={papersSectionRef} className="rounded-xl border border-white/[0.08] bg-zinc-900/40 overflow-hidden transition-all">
             <button
               onClick={() => setIsAllPapersOpen(!isAllPapersOpen)}
-              className="w-full py-2.5 px-3.5 flex items-center justify-between text-xs font-semibold text-zinc-300 hover:text-white bg-zinc-900/80 hover:bg-zinc-850 transition-colors cursor-pointer"
+              className="w-full py-2.5 px-3.5 flex items-center justify-between text-xs font-medium text-zinc-300 hover:text-white bg-zinc-900/80 hover:bg-zinc-850 transition-colors cursor-pointer font-sans"
             >
               <div className="flex items-center space-x-2">
-                <span>📂</span>
-                <span>ALL {cluster.pointCount} PAPERS IN THIS TOPIC</span>
+                <BookOpen className="w-3.5 h-3.5 text-zinc-400" />
+                <span>All {cluster.pointCount} Publications</span>
               </div>
               <div className="flex items-center space-x-1.5 text-zinc-400 text-[11px]">
-                <span>{isAllPapersOpen ? 'Collapse' : 'Click to Expand'}</span>
-                <span className={`transform transition-transform duration-200 ${isAllPapersOpen ? 'rotate-180' : ''}`}>
-                  ▼
-                </span>
+                <span>{isAllPapersOpen ? 'Collapse' : 'Expand'}</span>
+                <ChevronDown className={`w-3.5 h-3.5 transform transition-transform duration-200 ${isAllPapersOpen ? 'rotate-180' : ''}`} />
               </div>
             </button>
 
@@ -291,10 +296,10 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                 {cluster.pointCount > 5 && (
                   <input
                     type="text"
-                    placeholder="Search by title, author, venue..."
+                    placeholder="Search publications by title or author..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full py-1 px-2.5 rounded bg-zinc-900/90 border border-zinc-700/80 text-[11px] text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 font-mono"
+                    className="w-full py-1.5 px-3 rounded-lg bg-zinc-900/90 border border-zinc-700/80 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 font-sans"
                   />
                 )}
 
@@ -304,15 +309,15 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                     <div
                       key={p.id || idx}
                       onClick={() => onSelectPaper && p.id && onSelectPaper(p.id)}
-                      className="p-2 rounded bg-zinc-900/50 hover:bg-zinc-850 border border-zinc-800/80 hover:border-zinc-700 transition-colors flex items-start justify-between group cursor-pointer"
+                      className="p-2.5 rounded-lg bg-zinc-900/50 hover:bg-zinc-850 border border-zinc-800/80 hover:border-zinc-700 transition-colors flex items-start justify-between group cursor-pointer"
                     >
                       <div className="min-w-0 flex-1 pr-2">
-                        <div className="text-[11px] font-sans font-medium text-zinc-200 group-hover:text-white line-clamp-1 leading-tight">
+                        <div className="text-xs font-sans font-medium text-zinc-200 group-hover:text-white line-clamp-1 leading-tight">
                           {p.title}
                         </div>
-                        <div className="text-[10px] text-zinc-500 mt-0.5 flex items-center space-x-2 truncate">
+                        <div className="text-[11px] font-sans text-zinc-500 mt-0.5 flex items-center space-x-2 truncate">
                           {p.authors && p.authors.length > 0 && (
-                            <span className="truncate max-w-[140px]">{p.authors[0]} et al.</span>
+                            <span className="truncate max-w-[140px] text-zinc-400">{p.authors[0]} et al.</span>
                           )}
                           <span>· {p.year || 2023}</span>
                           {p.venue && <span className="truncate max-w-[120px]">· {p.venue}</span>}
@@ -320,7 +325,7 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                       </div>
 
                       <div className="shrink-0 text-right flex items-center space-x-2">
-                        <span className="text-[10px] font-mono text-zinc-400 bg-zinc-800/80 px-1.5 py-0.5 rounded border border-zinc-700/50">
+                        <span className="text-[10px] font-mono text-zinc-400 bg-zinc-800/80 px-2 py-0.5 rounded-full border border-zinc-700/50">
                           {p.citations || 0} cites
                         </span>
                         {p.doi && (
@@ -329,10 +334,10 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="text-zinc-500 hover:text-cyan-400 text-[11px] p-0.5"
+                            className="text-zinc-500 hover:text-[#ff6622] p-0.5 transition-colors"
                             title="Open DOI"
                           >
-                            ↗
+                            <ArrowUpRight className="w-3.5 h-3.5" />
                           </a>
                         )}
                       </div>
@@ -340,7 +345,7 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                   ))}
 
                   {sortedPapers.length === 0 && (
-                    <div className="text-center py-4 text-xs text-zinc-500">
+                    <div className="text-center py-4 text-xs font-sans text-zinc-500">
                       No papers matched "{searchQuery}"
                     </div>
                   )}

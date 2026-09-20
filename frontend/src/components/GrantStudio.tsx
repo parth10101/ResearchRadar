@@ -1,208 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Award, ShieldCheck, Sparkles } from 'lucide-react';
+import { Award, ShieldCheck, Sparkles, Copy, Check, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 import { NarratedGap } from '../types';
+import { ObservatoryStandby } from './ObservatoryStandby';
 
 interface GrantStudioProps {
   narratedGaps: NarratedGap[];
   selectedGapTitle: string;
+  onNavigateToHero?: () => void;
 }
 
 // Curated high-fidelity scientometric fallback hypotheses
-const DEFAULT_NARRATED_GAPS: NarratedGap[] = [
-  {
-    gap_type: 'Under-Explored Sparse Frontier',
-    title: 'Under-Explored Sparse Frontier: Transformer for Panoramic Dental Radiomics',
-    method: 'Multi-Scale Self-Attention Transformers with Spatial Positional Encodings',
-    dataset: 'Panoramic Radiograph Imaging Archives (PANORAMA-10K Benchmark)',
-    limitation: 'Volumetric Superposition & Severe Anatomical Sparsity',
-    score: 0.94,
-    specificity_score: 0.98,
-    literature_tier: 'Tier 5: Verified Unexplored Frontier',
-    uzzi_z_score: -1.45,
-    expected_cooccur: 0.04,
-    description:
-      'Current dental radiomics relies predominantly on localized convolutional kernels (CNNs), which fundamentally fail to capture global relational dependencies between distal anatomical landmarks and sub-resolution bone mineral density variations. Introducing transformer self-attention resolves this structural disconnect.',
-    description_plain:
-      'Dental scans show wide-area connections between teeth and jaw structures, but conventional AI models only look at tiny local patches. This proposal applies attention-based AI to analyze the entire radiograph at once, unlocking automated diagnosis for previously missed subtle bone and nerve conditions.',
-    operational_hypothesis: {
-      task: 'Global Relational Radiomic Feature Extraction across High-Resolution Panoramic X-rays',
-      task_plain: 'Full-mouth panoramic scan interpretation for subtle bone and nerve pathologies',
-      methodology: 'Hierarchical Vision Transformer with Deformable Self-Attention kernels',
-      method_plain: 'A Vision Transformer that learns long-distance visual relationships across the jaw',
-      dataset: 'PANORAMA-10K Curated Multi-Center Benchmark with Radiologist Ground Truth',
-      dataset_plain: 'A validated public benchmark of 10,000 radiologist-annotated panoramic scans',
-      constraint: 'Extreme class imbalance and multi-scale morphological variation',
-      constraint_plain: 'Rare conditions appear in less than 2% of samples, requiring robust zero-shot attention',
-      epistemic_boundary: 'Connects macro transformer literature with micro oral radiomics',
-      epistemic_plain: 'Bridges modern computer vision with clinical dental medicine',
-      hypothesis_statement:
-        'Applying deformable transformer attention across panoramic radiomics yields a >=14% improvement in multi-class lesion classification AUC compared to standard ResNet/U-Net baselines.',
-      specificity_score: 0.98,
-      is_admissible: true,
-    },
-    llm_narration: `## Scientometric Baseline & Literature Audit
-Topic 'Transformer for Panoramic Dental Radiomics' exhibits high volume sparsity (only 12 published papers globally) despite the exponential growth of general medical transformers. This represents an acute empirical void with near-zero cross-citation overlap.
+const DEFAULT_NARRATED_GAPS: NarratedGap[] = [];
 
-## 1. Top Validated Research Gap
-- **Operational Scientific Task**: Panoramic radiomic feature extraction with spatial relationship retention.
-- **Concrete Mechanism**: Deformable self-attention transformers that compute cross-quadrant anatomical relationships.
-- **Sensor Benchmark**: Multi-center panoramic radiograph archives evaluated against consensus radiologist annotations.
-- **Constraint / Bottleneck**: High-density bone overlay creates severe image superposition that blinds local CNN filters.
-
-## 2. Experimental Validation Protocol
-1. **Model Architecture**: 12-layer hierarchical Vision Transformer pre-trained via self-supervised masked autoencoding on 50,000 unlabelled dental radiographs.
-2. **Evaluation Metrics**: Multi-label macro-AUC, lesion boundary Dice score, and radiologist concordance index (Cohen's Kappa).
-3. **Reproducibility Standard**: Open-source release of attention heatmaps verifying that attention heads localize clinically verified nerve canals and periodontal margins.`,
-    llm_model: 'groq/llama-3.3-70b-versatile',
-    llm_provider: 'Groq LPU Scientometric Synthesizer',
-    evidence_papers: [
-      {
-        index: 1,
-        id: 'paper_1',
-        title: 'Vision Transformers in Medical Imaging: A Comprehensive Survey',
-        year: 2023,
-        venue: 'IEEE Transactions on Medical Imaging',
-      },
-      {
-        index: 2,
-        id: 'paper_2',
-        title: 'Deep Learning for Panoramic Radiograph Diagnostics: Limitations of Convolutions',
-        year: 2024,
-        venue: 'Dentomaxillofacial Radiology',
-      },
-      {
-        index: 3,
-        id: 'paper_3',
-        title: 'Masked Autoencoders as Scalable Vision Learners',
-        year: 2022,
-        venue: 'CVPR',
-      },
-    ],
-    papers_involved: ['paper_1', 'paper_2', 'paper_3'],
-  },
-  {
-    gap_type: 'Structural Disconnect',
-    title: 'Structural Disconnect: Transformer Attention for 3D Medical Segmentation ↔ Mamba-UNet',
-    method: 'Selective State-Space Linear Attention (Mamba) Hybridized with Swin Transformers',
-    dataset: 'BraTS 2024 & Synapse Multi-Organ CT Benchmarks',
-    limitation: 'Quadratic Memory Scaling in High-Resolution 3D Volumetric Patches',
-    score: 0.92,
-    specificity_score: 0.96,
-    literature_tier: 'Tier 5: Verified Unexplored Frontier',
-    uzzi_z_score: -1.52,
-    expected_cooccur: 0.02,
-    description:
-      'While 3D Swin Transformers capture rich contextual dependencies, their quadratic attention complexity prevents full-organ high-resolution inference. Mamba state-space models achieve linear scaling O(N) but lack multi-scale cross-attention. Fusing both yields an unprecedented efficiency frontier.',
-    description_plain:
-      '3D CT and MRI scans are massive files that overwhelm GPU memory when analyzed in high resolution. This project combines fast linear-memory state-space computing with transformer attention, allowing full-resolution 3D medical scans to be processed in seconds on standard hospital hardware.',
-    operational_hypothesis: {
-      task: 'Sub-Second Volumetric Segmentation of 3D CT/MRI Organ and Tumor Boundaries',
-      task_plain: 'Instant 3D organ and tumor mapping from high-resolution CT and MRI scans',
-      methodology: 'Bi-directional Mamba-Swin Hybrid with Selective Parameterized State Expansion',
-      method_plain: 'A hybrid model that reads 3D volumes continuously like text while keeping spatial depth',
-      dataset: 'Synapse Multi-Organ CT and BraTS 2024 Glioblastoma Challenge',
-      dataset_plain: 'Leading global benchmarks for testing automated 3D medical segmentation',
-      constraint: 'Voxel anisotropy and hardware memory limits on 24GB GPUs',
-      constraint_plain: 'Scans vary in slice thickness and require excessive GPU memory under naive attention',
-      epistemic_boundary: 'Synthesizes State-Space Models with Medical Computer Vision',
-      epistemic_plain: 'Bridges mathematical control theory with clinical medical image analysis',
-      hypothesis_statement:
-        'Mamba-Swin hybrid architecture reduces 3D volumetric inference latency by 4.2x while matching or exceeding Swin-UNETR Dice scores by >=1.8%.',
-      specificity_score: 0.96,
-      is_admissible: true,
-    },
-    llm_narration: `## Scientometric Baseline & Literature Audit
-Analysis of co-citation networks reveals an epistemic bifurcation between the Mamba State-Space literature (concentrated in AI theory) and 3D medical segmentation (concentrated in MICCAI/IEEE TMI). No peer-reviewed study has yet operationalized selective state-space models on isotropic 3D voxel lattices.
-
-## 1. Top Validated Research Gap
-- **Operational Scientific Task**: Full-volume isotropic 3D organ boundary delineation without downsampling.
-- **Concrete Mechanism**: Selective State-Space scans across 6 Cartesian directions fused with cross-attention gating.
-- **Sensor Benchmark**: Synapse Multi-Organ CT and BraTS 2024 evaluated with 95% Hausdorff Distance.
-- **Constraint / Bottleneck**: Quadratic GPU memory scaling in self-attention matrices.`,
-    llm_model: 'groq/llama-3.3-70b-versatile',
-    llm_provider: 'Groq LPU Scientometric Synthesizer',
-    evidence_papers: [
-      {
-        index: 1,
-        id: 'paper_4',
-        title: 'Mamba: Linear-Time Sequence Modeling with Selective State Spaces',
-        year: 2023,
-        venue: 'arXiv',
-      },
-      {
-        index: 2,
-        id: 'paper_5',
-        title: 'Swin UNETR: 3D Transformers for Medical Image Segmentation',
-        year: 2022,
-        venue: 'MICCAI',
-      },
-    ],
-    papers_involved: ['paper_4', 'paper_5'],
-  },
-  {
-    gap_type: 'Methodological Recombination Frontier',
-    title: 'Cross-Modal Synthetic Aperture Radar (SAR) ↔ Optical Foundation Models',
-    method: 'Physics-Informed Latent Diffusion Alignment with Complex-Valued Phase Constraints',
-    dataset: 'SpaceNet 6 & Sentinel-1/Sentinel-2 Paired Earth Observation Archives',
-    limitation: 'Severe Speckle Noise and Phase De-correlation under All-Weather Cloud Cover',
-    score: 0.9,
-    specificity_score: 0.95,
-    literature_tier: 'Tier 5: Verified Unexplored Frontier',
-    uzzi_z_score: -1.38,
-    expected_cooccur: 0.05,
-    description:
-      'Optical satellite observation fails completely under heavy cloud cover, whereas radar penetrates clouds but produces complex speckle imagery. Joint cross-modal diffusion models trained with physical radar wave equations reconstruct cloud-penetrated optical imagery with zero hallucination.',
-    description_plain:
-      'Satellites cannot see through clouds with standard cameras, but radar satellites penetrate clouds in any weather. This project uses physics-guided AI to translate radar pulses into photographic satellite views, enabling real-time flood, disaster, and wildfire tracking 24/7.',
-    operational_hypothesis: {
-      task: 'All-Weather Cloud-Penetrating Optical Image Synthesis from Radar Backscatter',
-      task_plain: 'Seeing through clouds by translating radar satellite pulses into true-color satellite views',
-      methodology: 'Physics-Conditioned Latent Diffusion with Maxwell Phase Coherence Loss',
-      method_plain: 'An AI image generator guided by the exact physics of radar waves to prevent fake details',
-      dataset: 'Sentinel-1 (SAR) and Sentinel-2 (Optical) 10-meter Co-registered Archives',
-      dataset_plain: 'European Space Agency paired radar and camera satellite imagery across 5 continents',
-      constraint: 'Speckle noise distribution and seasonal vegetation phase changes',
-      constraint_plain: 'Radar signals have multiplicative noise that standard AI confuses with real ground details',
-      epistemic_boundary: 'Bridges Radar Electromagnetics with Generative Foundation Models',
-      epistemic_plain: 'Connects aerospace radar engineering with modern generative AI',
-      hypothesis_statement:
-        'Physics-conditioned SAR diffusion achieves >=34.2 dB PSNR in reconstructed optical reflectance, reducing cloud-induced data gaps from 65% to under 3% globally.',
-      specificity_score: 0.95,
-      is_admissible: true,
-    },
-    llm_narration: `## Scientometric Baseline & Literature Audit
-The scientometric co-occurrence matrix indicates that while optical diffusion models are ubiquitous, their recombination with complex-valued radar polarimetry remains an isolated island (Uzzi novelty z = -1.38σ).
-
-## 1. Top Validated Research Gap
-- **Operational Scientific Task**: Cloud-occluded surface reflectance synthesis from dual-pol SAR backscatter.
-- **Concrete Mechanism**: Physics-informed latent diffusion with wave-vector conservation loss.
-- **Sensor Benchmark**: Sentinel-1/Sentinel-2 paired time-series validated against cloud-free revisit days.
-- **Constraint / Bottleneck**: Multiplicative Rayleigh speckle noise causing hallucinations in unconstrained diffusion models.`,
-    llm_model: 'groq/llama-3.3-70b-versatile',
-    llm_provider: 'Groq LPU Scientometric Synthesizer',
-    evidence_papers: [
-      {
-        index: 1,
-        id: 'paper_6',
-        title: 'High-Resolution Image Synthesis with Latent Diffusion Models',
-        year: 2022,
-        venue: 'CVPR',
-      },
-      {
-        index: 2,
-        id: 'paper_7',
-        title: 'Deep Learning in Synthetic Aperture Radar: A Review',
-        year: 2023,
-        venue: 'IEEE GRSM',
-      },
-    ],
-    papers_involved: ['paper_6', 'paper_7'],
-  },
-];
-
-export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selectedGapTitle }) => {
+export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selectedGapTitle, onNavigateToHero }) => {
   // Always default to top gap (index 0) whenever navigating to this section
   const [activeGapIndex, setActiveGapIndex] = useState(0);
+  const [isCopied, setIsCopied] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Reset to top gap every time component is mounted/navigated
@@ -211,10 +24,20 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selected
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
     }
-  }, []);
+  }, [narratedGaps]);
 
-  const availableGaps =
-    narratedGaps && narratedGaps.length > 0 ? narratedGaps : DEFAULT_NARRATED_GAPS;
+  const availableGaps = narratedGaps || [];
+
+  if (!availableGaps || availableGaps.length === 0) {
+    return (
+      <ObservatoryStandby
+        stageNumber="03"
+        stageName="Gap Analysis & Grant Studio"
+        description="No research gaps or grant proposals currently initialized. Run a research inquiry or choose a curated topic from the search deck to generate grounded operational hypotheses."
+        onLaunchSearch={onNavigateToHero || (() => {})}
+      />
+    );
+  }
 
   const activeGap =
     availableGaps[activeGapIndex] ||
@@ -226,6 +49,42 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selected
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  const handlePrevGap = () => {
+    setActiveGapIndex((prev) => (prev - 1 + availableGaps.length) % availableGaps.length);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleCopyProposal = () => {
+    if (!activeGap) return;
+    const op = activeGap.operational_hypothesis;
+    const content = `# Grant Proposal: ${activeGap.title}
+Gap Type: ${activeGap.gap_type}
+Novelty z-score: ${activeGap.uzzi_z_score}σ
+
+## 1. Problem Statement
+${activeGap.description_plain || activeGap.description}
+
+## 2. Proposed Methodology
+${op?.method_plain || op?.methodology || activeGap.method}
+
+## 3. Validation Benchmark
+${op?.dataset_plain || op?.dataset || activeGap.dataset}
+
+## 4. Testable Scientific Hypothesis
+"${op?.hypothesis_statement || ''}"
+
+## 5. Synthesis & Literature Audit
+${activeGap.llm_narration}
+`;
+    try {
+      navigator.clipboard.writeText(content);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch { }
   };
 
   const opHyp = activeGap.operational_hypothesis;
@@ -358,7 +217,7 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selected
       {/* APPLE-INSPIRED MINIMALIST GLASS MORPH CARD                          */}
       {/* The shaded margins in user's sketch are completely empty space.     */}
       {/* =================================================================== */}
-      <div className="w-full max-w-[820px] max-h-[86vh] h-full flex flex-col bg-[#090d16]/75 backdrop-blur-3xl border border-white/[0.12] rounded-[32px] shadow-[0_30px_90px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.12)] overflow-hidden transition-all duration-500 relative">
+      <div className="w-full max-w-[820px] max-h-[86vh] h-full flex flex-col bg-[#090d16]/75 backdrop-blur-3xl border border-white/[0.12] rounded-[32px] shadow-[0_30px_90px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,255,255,0.12)] overflow-hidden transition-all duration-500 relative rr-enter-card">
         
         {/* Subtle Ambient Radial Highlight */}
         <div className="absolute -top-32 -right-32 w-80 h-80 bg-[#ff4300]/[0.08] rounded-full blur-3xl pointer-events-none" />
@@ -378,17 +237,37 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selected
             </span>
           </div>
 
-          {/* Right: Clean, free-floating text link "Next Gap →" with expanding accent underline */}
-          <button
-            onClick={handleNextGap}
-            className="relative group inline-flex items-center space-x-1.5 text-xs sm:text-sm text-zinc-400 hover:text-white transition-colors duration-300 font-sans cursor-pointer select-none py-1"
-            title="Advance to next research gap"
-          >
-            <span className="tracking-normal font-normal group-hover:font-medium transition-all">Next Gap</span>
-            <span className="transition-transform duration-300 ease-out group-hover:translate-x-1 text-zinc-400 group-hover:text-white">→</span>
-            {/* Intentional sliding/expanding accent underline */}
-            <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#ff4300] transition-all duration-300 ease-out group-hover:w-full rounded-full shadow-[0_0_8px_#ff4300]" />
-          </button>
+          {/* Right: Actions (Copy Proposal, Prev / Next) */}
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={handleCopyProposal}
+              className="px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.10] text-zinc-300 hover:text-white border border-white/[0.08] text-xs font-mono flex items-center space-x-1.5 transition-all cursor-pointer"
+              title="Copy structured grant proposal to clipboard"
+            >
+              {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-zinc-400" />}
+              <span>{isCopied ? 'Copied' : 'Copy'}</span>
+            </button>
+
+            <div className="flex items-center space-x-1 border border-white/[0.08] bg-white/[0.03] rounded-lg p-0.5 text-xs font-mono">
+              <button
+                onClick={handlePrevGap}
+                className="p-1 rounded text-zinc-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                title="Previous hypothesis (←)"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </button>
+              <span className="px-1 text-[11px] text-zinc-400">
+                {activeGapIndex + 1} / {availableGaps.length}
+              </span>
+              <button
+                onClick={handleNextGap}
+                className="p-1 rounded text-zinc-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                title="Next hypothesis (→)"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
         </header>
 
         {/* ----------------------------------------------------------------- */}

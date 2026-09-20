@@ -290,6 +290,20 @@ export const HeroSection: React.FC<Props> = ({
     };
   }, []);
 
+  // Global ⌘K / Ctrl+K shortcut to open Corpus Tier popover
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setCorpusMenuOpen((prev) => !prev);
+        setDropOpen(false);
+        setFieldMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
   const handleLaunch = (targetTab = 'archipelago') => {
     onLaunch(targetTab);
   };
@@ -366,6 +380,8 @@ export const HeroSection: React.FC<Props> = ({
   const activeField = useMemo(() => {
     return RESEARCH_FIELDS.find((f) => f.id === activeFieldId) || RESEARCH_FIELDS[0];
   }, [activeFieldId]);
+
+
 
   // Sliced recommendations based on shuffle
   const visibleTopics = useMemo(() => {
@@ -455,52 +471,59 @@ export const HeroSection: React.FC<Props> = ({
   // Current active tier info
   const currentTier = CORPUS_TIERS.find((t) => t.value === selectedCorpus) || CORPUS_TIERS[3];
 
+
+
   return (
-    <div className="hero-viewport-root" onClick={() => {
-      setDropOpen(false);
-      setCorpusMenuOpen(false);
-      setFieldMenuOpen(false);
-    }}>
-      {/* Smoothly Integrated Fluid Body (No Harsh Split) */}
-      <main className="hero-integrated-layout">
-        <div className="hero-content-anchor">
-          {/* Eyebrow Tag */}
-          <div className="hero-eyebrow-tag">
-            <span className="status-ping-dot" />
-            <span className="eyebrow-label">200M+ RESEARCH PAPERS · 8-STAGE SCIENTOMETRIC REASONING</span>
-          </div>
+    <div
+      className="hero-viewport-root"
+      onClick={() => {
+        setDropOpen(false);
+        setCorpusMenuOpen(false);
+        setFieldMenuOpen(false);
+      }}
+    >
+      <div className="hero-content-anchor">
+        {/* Eyebrow Tag */}
+        <div className="hero-eyebrow-tag">
+          <span className="status-ping-dot" />
+          <span className="eyebrow-label">200M+ RESEARCH PAPERS · 8-STAGE SCIENTOMETRIC REASONING</span>
+        </div>
 
-          {/* Prominent Editorial Headline */}
-          <h1 className="hero-main-title">
-            Search the frontier of <span className="title-serif-accent">science.</span>
-          </h1>
+        {/* Prominent Editorial Headline */}
+        <h1 className="hero-main-title">
+          Search the frontier of <span className="title-serif-accent">science.</span>
+        </h1>
 
-          {/* Subtitle */}
-          <p className="hero-main-subtitle">
-            Enter any topic, author, or DOI. ResearchRadar parses 200M+ papers across citation lineages, clusters concepts in high-dimensional vector space, and surfaces unexplored empirical gaps.
-          </p>
+        {/* Subtitle */}
+        <p className="hero-main-subtitle">
+          Enter any topic, author, or DOI. ResearchRadar parses 200M+ papers across citation lineages, clusters concepts in high-dimensional vector space, and surfaces unexplored empirical gaps.
+        </p>
 
-          {/* Architectural Search Command Unit */}
-          <div className="search-deck-unit" onClick={(e) => e.stopPropagation()}>
-            <div className="search-input-shell">
-              {/* Presets Trigger */}
-              <div className="presets-select-anchor">
-                <button
-                  className={`presets-anchor-btn ${dropOpen ? 'open' : ''}`}
-                  onClick={() => {
-                    setDropOpen(!dropOpen);
-                    setCorpusMenuOpen(false);
-                    setFieldMenuOpen(false);
-                  }}
-                  title="Select curated topic presets"
-                >
-                  <Database className="h-3.5 w-3.5 text-[#ff4300]" />
-                  <span>Presets</span>
-                  <span className="caret">▾</span>
-                </button>
+        {/* Architectural Search Command Unit */}
+        <div className="search-deck-unit" onClick={(e) => e.stopPropagation()}>
+          <div className="search-input-shell">
+            {/* Presets Trigger */}
+            <div className="presets-select-anchor">
+              <button
+                className={`presets-anchor-btn ${dropOpen ? 'open' : ''}`}
+                onClick={() => {
+                  setDropOpen(!dropOpen);
+                  setCorpusMenuOpen(false);
+                  setFieldMenuOpen(false);
+                }}
+                title="Select curated topic presets"
+              >
+                <Database className="h-3.5 w-3.5 text-[#ff4300]" />
+                <span>Presets</span>
+                <span className="caret">▾</span>
+              </button>
 
                 {dropOpen && (
-                  <div className="presets-floating-tray">
+                  <div
+                    className="presets-floating-tray overflow-y-auto custom-scrollbar"
+                    data-scrollable
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <div className="tray-hdr">CURATED SOTA CORPORA</div>
                     {PRESETS.map((p) => (
                       <div
@@ -538,6 +561,17 @@ export const HeroSection: React.FC<Props> = ({
                 placeholder="Search topic, paper title, author, or DOI..."
               />
 
+              {query && !isExecuting && (
+                <button
+                  type="button"
+                  onClick={() => setQuery('')}
+                  className="px-2 py-1 text-zinc-500 hover:text-white font-mono text-xs cursor-pointer transition-colors"
+                  title="Clear input"
+                >
+                  ✕
+                </button>
+              )}
+
               {/* Interactive Corpus Depth Selector Button (100 to 3k) */}
               <div className="corpus-anchor-wrap">
                 <button
@@ -558,7 +592,11 @@ export const HeroSection: React.FC<Props> = ({
 
                 {/* Floating Corpus Tiers Popover */}
                 {corpusMenuOpen && (
-                  <div className="corpus-tiers-tray" onClick={(e) => e.stopPropagation()}>
+                  <div
+                    className="corpus-tiers-tray overflow-y-auto custom-scrollbar"
+                    data-scrollable
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <div className="corpus-tray-header">
                       <span>CORPUS RETRIEVAL DEPTH</span>
                       <span className="corpus-current-badge">{selectedCorpus} papers</span>
@@ -710,7 +748,11 @@ export const HeroSection: React.FC<Props> = ({
                 </button>
 
                 {fieldMenuOpen && (
-                  <div className="fields-dropdown-tray" onClick={(e) => e.stopPropagation()}>
+                  <div
+                    className="fields-dropdown-tray overflow-y-auto custom-scrollbar"
+                    data-scrollable
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <div className="fields-tray-hdr">ALL RESEARCH DISCIPLINES</div>
                     <div className="fields-grid-options">
                       {RESEARCH_FIELDS.map((f) => (
@@ -763,13 +805,9 @@ export const HeroSection: React.FC<Props> = ({
                 <RotateCw className="h-3 w-3" />
                 <span>Shuffle</span>
               </button>
-            </div>
           </div>
         </div>
-
-        {/* Ambient Right Zone: The 3D Vector Manifold & Torus Knot */}
-        <div className="hero-ambient-zone" aria-hidden="true" />
-      </main>
+      </div>
     </div>
   );
 };

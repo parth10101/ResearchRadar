@@ -11,9 +11,27 @@ export const GapMatrix: React.FC<GapMatrixProps> = ({ gaps, onSelectGapForGrant 
   const [filterType, setFilterType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredGaps = gaps.filter(g => {
+  const activeGapsList = gaps || [];
+
+  if (!activeGapsList || activeGapsList.length === 0) {
+    return (
+      <div className="bg-[#131722]/80 backdrop-blur border border-white/10 rounded-2xl p-12 text-center my-8">
+        <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-4">
+          <Target className="w-6 h-6 animate-pulse" />
+        </div>
+        <h3 className="text-lg font-semibold text-white mb-2">No Research Gaps Identified</h3>
+        <p className="text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
+          The algorithmic gap matrix requires computed Stage 7 gap detection data for this corpus. 
+          Run the discovery pipeline to detect verified Method × Dataset × Limitation gaps.
+        </p>
+      </div>
+    );
+  }
+
+  const filteredGaps = activeGapsList.filter((g) => {
     const matchesType = filterType === 'all' || g.gap_type.toLowerCase().includes(filterType.toLowerCase());
-    const matchesSearch = !searchQuery || 
+    const matchesSearch =
+      !searchQuery ||
       g.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       g.method.toLowerCase().includes(searchQuery.toLowerCase()) ||
       g.dataset.toLowerCase().includes(searchQuery.toLowerCase());

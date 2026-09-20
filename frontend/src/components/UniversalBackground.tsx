@@ -11,16 +11,18 @@ interface UniversalBackgroundProps {
   autoRotate?: boolean;
   activeLayer?: 1 | 2 | 3;
   points3dData?: Points3DData | null;
+  scrollProgress?: number;
 }
 
 export const UniversalBackground: React.FC<UniversalBackgroundProps> = ({
   viewMode = 'hero',
   isTransitioning = false,
   activeTab = 'archipelago',
-  selectedClusterId = '1',
+  selectedClusterId = '',
   onSelectCluster,
   activeLayer = 1,
   points3dData,
+  scrollProgress = 0,
 }) => {
   return (
     <AstraParticleWorld
@@ -31,6 +33,7 @@ export const UniversalBackground: React.FC<UniversalBackgroundProps> = ({
       onSelectCluster={onSelectCluster}
       activeLayer={activeLayer}
       points3dData={points3dData}
+      scrollProgress={scrollProgress}
     />
   );
 };

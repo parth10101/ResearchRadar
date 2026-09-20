@@ -8,6 +8,7 @@ Operationalized Scientific Hypotheses:
 
 from __future__ import annotations
 
+import json
 from typing import Dict, Any, Optional
 from research_radar.specificity_engine import SpecificityEngine
 

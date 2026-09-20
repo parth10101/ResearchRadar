@@ -24,11 +24,13 @@ import {
   Award,
 } from 'lucide-react';
 import { CitationData } from '../types';
-import fallbackCards from './fallback_stage5_data.json';
+import { ObservatoryStandby } from './ObservatoryStandby';
 import './CitationTimeline.css';
 
 interface CitationTimelineProps {
   data: CitationData | null;
+  onNavigateToHero?: () => void;
+  targetPaperId?: string;
 }
 
 interface SharedRef {
@@ -238,48 +240,25 @@ function resolveActionMeta(url: string, rawLabel?: string) {
 
 // Extract disciplinary paradigm tag valid across ANY scientific or humanistic domain
 function extractDisciplinaryParadigmTag(title: string, venue: string): string {
-  const t = title.toLowerCase();
-  const v = venue.toLowerCase();
-
-  if (t.includes('star-forming') || t.includes('x-ray') || t.includes('ngc') || t.includes('astronomy') || t.includes('galaxy')) {
-    return 'ASTROPHYSICAL GAS DYNAMICS';
-  }
-  if (t.includes('earthquake') || t.includes('rupture') || t.includes('supershear') || t.includes('seismic') || v.includes('geoscience')) {
-    return 'SPACE-GEODETIC INTERFEROMETRY';
-  }
-  if (t.includes('soil moisture') || t.includes('dubois') || t.includes('sentinel-1') || t.includes('sar')) {
-    return 'MICROWAVE SAR BACKSCATTER';
-  }
-  if (t.includes('domain adapt') || t.includes('urban village') || t.includes('adversarial')) {
-    return 'ADVERSARIAL DOMAIN TRANSFER';
-  }
-  if (t.includes('dam breach') || t.includes('flood') || t.includes('hec-ras') || t.includes('hydrodynamic')) {
-    return 'MULTI-CRITERIA HYDRODYNAMICS';
-  }
-  if (t.includes('cloud removal') || t.includes('uncrtaints') || t.includes('time series')) {
-    return 'DEEP OCCLUSION INVARIANCE';
-  }
-  if (t.includes('larch') || t.includes('pest') || t.includes('spectral') || t.includes('super-resolution') || t.includes('landsat')) {
-    return 'SPECTRAL SUPER-RESOLUTION';
-  }
-  if (t.includes('plasma') || t.includes('geomagnetic') || t.includes('ionosphere')) {
-    return 'GEOMAGNETIC IONOSPHERIC DYNAMICS';
-  }
-  if (t.includes('urban growth') || t.includes('land surface temperature')) {
-    return 'URBAN THERMAL RADIOMETRY';
+  // If venue is provided and concise, use venue name
+  if (venue && venue.trim().length > 2 && venue.trim().length <= 30) {
+    return venue.trim().toUpperCase();
   }
 
-  // Universal Fallback extraction from title nouns
+  // Dynamic universal extraction from title salient keywords
   const words = title
     .replace(/[^a-zA-Z0-9\s]/g, '')
     .split(/\s+/)
     .filter(
       (w) =>
         w.length > 3 &&
-        !['with', 'from', 'using', 'based', 'study', 'case', 'approach', 'analysis'].includes(w.toLowerCase())
+        !['with', 'from', 'using', 'based', 'study', 'case', 'approach', 'analysis', 'toward', 'towards', 'through', 'under'].includes(w.toLowerCase())
     );
   if (words.length >= 2) {
     return `${words[0].toUpperCase()} ${words[1].toUpperCase()}`;
+  }
+  if (words.length === 1) {
+    return `${words[0].toUpperCase()} INVESTIGATION`;
   }
   return 'EMPIRICAL INVESTIGATION';
 }
@@ -330,25 +309,10 @@ function extractUniversalEpistemicNarrative(
     limitation = `Analytical framework requires continuous empirical validation across extended temporal horizons and unobserved environmental shifts.`;
   }
 
-  const lowerTitle = title.toLowerCase();
-  if (lowerTitle.includes('star-forming') || lowerTitle.includes('x-ray') || lowerTitle.includes('ngc')) {
-    breakthrough = 'Identified expanding waves of star formation triggered by density perturbations in marginally stable gas disks.';
-    limitation = 'Observational data bounded by optical filter bandwidth saturation; theoretical gas collapse dynamics unverified under non-stationary shockwaves.';
-  } else if (lowerTitle.includes('soil moisture') || lowerTitle.includes('dubois') || lowerTitle.includes('sentinel')) {
-    breakthrough = 'Overcame single-sensor optical limitations by introducing synthetic aperture radar backscatter modeling.';
-    limitation = 'Surfaced high sensitivity to surface roughness variations and dense vegetative canopy attenuation.';
-  } else if (lowerTitle.includes('earthquake') || lowerTitle.includes('rupture') || lowerTitle.includes('seismic')) {
-    breakthrough = 'Established persistent supershear rupture velocity tracking through space-geodetic satellite observations.';
-    limitation = 'Constrained by temporal revisit latency of orbit passes; sub-surface fault geometry inferred through indirect surface displacement.';
-  } else if (lowerTitle.includes('cloud removal') || lowerTitle.includes('uncrtaints')) {
-    breakthrough = 'Formulated deep uncertainty quantification models to reconstruct satellite surface signatures obscured by dense cloud cover.';
-    limitation = 'Degrades under prolonged multi-week cloud occlusions where temporal optical correlation collapses.';
-  }
-
   return { epochPhase, epochRole, breakthrough, limitation };
 }
 
-export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data }) => {
+export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavigateToHero, targetPaperId }) => {
   const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
   const initialMode = urlParams?.get('mode') === 'deepdive' ? 'deepdive' : 'journey';
   const initialLens = (urlParams?.get('lens') as 'foundation' | 'frontier' | 'all') || 'all';
@@ -368,6 +332,14 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data }) => {
   const [activeJourney, setActiveJourney] = useState<'foundation' | 'frontier' | 'all'>(initialLens);
   const [selectedPaperId, setSelectedPaperId] = useState<string>(initialPaper);
 
+  // Synchronize target paper selection from outside (e.g. Cluster Deep Dive)
+  useEffect(() => {
+    if (targetPaperId) {
+      setSelectedPaperId(targetPaperId);
+      setViewMode('deepdive');
+    }
+  }, [targetPaperId]);
+
   // Accordion state: collapsed at first glance as in reference photo
   const [isPriorArtExpanded, setIsPriorArtExpanded] = useState<boolean>(initialExpanded);
   const [expandedRefs, setExpandedRefs] = useState<Record<string, boolean>>({});
@@ -380,9 +352,20 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data }) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const browseTrayRef = useRef<HTMLDivElement>(null);
 
-  // Parse authentic Stage 5 papers from API data or rich fallback
+  if (!data || !data.cards || data.cards.length === 0) {
+    return (
+      <ObservatoryStandby
+        stageNumber="02"
+        stageName="Citations"
+        description="No citation network currently initialized. Run a research inquiry or choose a curated topic from the search deck to trace historical breakthroughs and citation lineages."
+        onLaunchSearch={onNavigateToHero || (() => {})}
+      />
+    );
+  }
+
+  // Parse authentic Stage 5 papers from API data
   const allPapers: Stage5Paper[] = useMemo(() => {
-    const sourceCards = data && data.cards && data.cards.length > 0 ? data.cards : (fallbackCards as any[]);
+    const sourceCards = data.cards || [];
     return sourceCards.map((c: any) => {
       const idStr = String(c.id || '');
       const rawUrl = c.arxiv_url || c.doi_url || c.url || '#';
@@ -712,14 +695,11 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data }) => {
       {/* Prominent Sculptural Years | Optical Reticles | Asymmetric Broadsheet     */}
       {/* ========================================================================= */}
       {viewMode === 'journey' && (
-        <section className="journey-fullscreen-canvas" onWheel={(e) => e.stopPropagation()}>
+        <section className="journey-fullscreen-canvas">
           
-          {/* Top Control Bar with Universal Stage ID & Mode Switcher */}
+          {/* Top Control Bar with Mode Switcher */}
           <header className="journey-top-bar">
-            <div className="instrument-stage-tag">
-              <span className="stage-status-dot" />
-              <span className="stage-label font-mono">02 · SPLC CITATION LINEAGE & SCIENTIFIC JOURNEY</span>
-            </div>
+            <div className="journey-top-bar-left" />
 
             {/* Mode Toggle Capsule */}
             <div className="mode-toggle-track font-mono" role="tablist" aria-label="Observatory View Mode">
@@ -920,15 +900,14 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data }) => {
       {viewMode === 'deepdive' && (
         <main className="citation-integrated-layout">
           <section
-            className="research-instrument-panel apple-glass-card"
+            className="research-instrument-panel apple-glass-card overflow-y-auto custom-scrollbar"
             onClick={(e) => e.stopPropagation()}
-            onWheel={(e) => e.stopPropagation()}
           >
             
             {/* 1. Top Observatory Control Bar */}
             <div className="instrument-top-bar">
               
-              {/* Left: Stage tag + Journey quick return */}
+              {/* Left: Journey quick return */}
               <div className="stage-and-return-group">
                 <button
                   onClick={() => setViewMode('journey')}
@@ -938,10 +917,6 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data }) => {
                   <ChevronLeft className="h-3 w-3" />
                   <span>Journey</span>
                 </button>
-                <div className="instrument-stage-tag">
-                  <span className="stage-status-dot" />
-                  <span className="stage-label font-mono">02 · SPLC CITATION LINEAGE</span>
-                </div>
               </div>
 
               {/* Center: Literature Lenses Switcher */}

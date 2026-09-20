@@ -24,6 +24,7 @@ export const particleVertexShader = `
   uniform float uFocusMode;
   uniform vec3 uFocusClusterCenter;
   uniform mat4 uFocusRotationMatrix;
+  uniform float uStageAlpha;
 
   varying vec3 vColor;
   varying float vAlpha;
@@ -156,25 +157,27 @@ export const particleVertexShader = `
 
     vec3 currentPos = mix(homePos, rotatedTarget, p) + tangential + disp * settle + livingDrift;
 
-    // 5. Cluster Selection State
+    // 5. Cluster Selection State (only active when p > 0.05, i.e. inside cluster space)
+    float selectionFade = smoothstep(0.05, 0.40, p);
     float isSelected = 0.0;
     if (uActiveClusterId > -900.0) {
       if (abs(aClusterId - uActiveClusterId) < 0.1) {
-        isSelected = 1.0;
+        isSelected = 1.0 * selectionFade;
       }
     }
     vIsSelected = isSelected;
     vIsOutlier = aIsOutlier;
 
     // 6. Focus Showpiece Mode: Center cluster and apply local turntable rotation
-    if (uFocusMode > 0.001) {
-      if (isSelected > 0.5) {
+    float effectiveFocus = uFocusMode * smoothstep(0.20, 0.85, p);
+    if (effectiveFocus > 0.001) {
+      if (isSelected > 0.3) {
         // Scale up the real UMAP local offsets so the cluster fills the left half of screen.
         // 2.5x preserves authentic irregular scatter arrangement — no orbital metaphor.
         vec3 localOffset = (aTargetPosition - uFocusClusterCenter) * 2.5;
         vec3 rotatedLocal = (uFocusRotationMatrix * vec4(localOffset, 1.0)).xyz;
         vec3 showpieceTarget = rotatedLocal + vec3(uConstellationX, 0.0, 0.0);
-        currentPos = mix(currentPos, showpieceTarget, uFocusMode);
+        currentPos = mix(currentPos, showpieceTarget, effectiveFocus);
       }
     }
 
@@ -192,8 +195,8 @@ export const particleVertexShader = `
     float clusterBase = aIsOutlier > 0.5 ? 8.5 : (isSelected > 0.5 ? 18.0 : 12.0);
     float targetBase  = mix(landingBase, clusterBase, p) * breathe;
 
-    if (uFocusMode > 0.001 && isSelected > 0.5) {
-      targetBase = mix(targetBase, 24.0, uFocusMode);
+    if (effectiveFocus > 0.001 && isSelected > 0.5) {
+      targetBase = mix(targetBase, 24.0, effectiveFocus);
     }
 
     float effectiveSize = mix(1.0, aSize, p);
@@ -212,7 +215,7 @@ export const particleVertexShader = `
 
     vec3 finalColor = mix(heroHome, aColorTarget, smoothstep(0.05, 0.75, p));
     if (isSelected > 0.5) {
-      finalColor = mix(finalColor, vec3(1.0, 1.0, 1.0), 0.20);
+      finalColor = mix(finalColor, vec3(1.0, 1.0, 1.0), 0.20 * selectionFade);
     }
     vColor = finalColor;
 
@@ -231,7 +234,7 @@ export const particleVertexShader = `
         baseAlpha = 1.0;
       }
     }
-    vAlpha = baseAlpha;
+    vAlpha = baseAlpha * uStageAlpha;
   }
 `;
 
@@ -276,10 +279,10 @@ export const particleFragmentShader = `
       alpha *= 0.90;
     }
 
-    if (vIsSelected > 0.5) {
+    if (vIsSelected > 0.05) {
       // Highlight for hovered/selected point
-      col = mix(col, vec3(1.0), 0.25);
-      alpha = min(1.0, alpha * 1.15);
+      col = mix(col, vec3(1.0), 0.25 * vIsSelected);
+      alpha = min(1.0, alpha * (1.0 + 0.15 * vIsSelected));
     }
 
     gl_FragColor = vec4(col, alpha);

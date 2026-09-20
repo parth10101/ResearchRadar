@@ -1,211 +1,403 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Header } from './components/Header';
 import { OmniScopeStudio } from './components/OmniScopeStudio';
-import { ArchipelagoCanvas } from './components/ArchipelagoCanvas';
 import { CitationTimeline } from './components/CitationTimeline';
-import { GapMatrix } from './components/GapMatrix';
 import { GrantStudio } from './components/GrantStudio';
 import { HeroSection } from './components/HeroSection';
 import { UniversalBackground } from './components/UniversalBackground';
 import { DatasetInfo, ArchipelagoData, CitationData, ResearchGap, NarratedGap, PipelineProgressEvent, Points3DData } from './types';
+import { spatialJourneyController } from './particles/SpatialJourneyController';
+
+// Stages definition
+const STAGES = ['hero', 'archipelago', 'timeline', 'grant'] as const;
+type StageId = typeof STAGES[number];
+
+const STAGE_LABELS: Record<StageId, string> = {
+  hero: '00 Hero Observatory',
+  archipelago: '01 Domain Clusters',
+  timeline: '02 Citations',
+  grant: '03 Gap Analysis',
+};
+
+const STAGE_PROGRESS: Record<StageId, number> = {
+  hero: 0.00,
+  archipelago: 0.33,
+  timeline: 0.66,
+  grant: 1.00,
+};
 
 export const App: React.FC = () => {
-  const [viewMode, setViewMode] = useState<'hero' | 'studio'>(() => {
-    if (typeof window !== 'undefined') {
-      const p = new URLSearchParams(window.location.search);
-      if (p.get('view') === 'studio') return 'studio';
-    }
-    return 'hero';
-  });
+  const [viewMode, setViewMode] = useState<'hero' | 'studio'>('hero');
   const [datasets, setDatasets] = useState<DatasetInfo[]>([]);
-  const [selectedDataset, setSelectedDataset] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      const p = new URLSearchParams(window.location.search);
-      if (p.get('dataset')) return p.get('dataset')!;
-    }
-    return '';
-  });
-  const [activeTab, setActiveTab] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      const p = new URLSearchParams(window.location.search);
-      if (p.get('tab')) return p.get('tab')!;
-    }
-    return 'timeline';
-  });
-  const [isHealthy, setIsHealthy] = useState<boolean>(true);
-
-  // Data states for the active dataset
+  const [selectedDataset, setSelectedDataset] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<StageId>('hero');
   const [points3dData, setPoints3dData] = useState<Points3DData | null>(null);
   const [archipelagoData, setArchipelagoData] = useState<ArchipelagoData | null>(null);
   const [citationData, setCitationData] = useState<CitationData | null>(null);
   const [detectedGaps, setDetectedGaps] = useState<ResearchGap[]>([]);
   const [narratedGaps, setNarratedGaps] = useState<NarratedGap[]>([]);
-
-  // Pipeline execution state
-  const [isRunning, setIsRunning] = useState<boolean>(false);
-  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-  const [studioUiVisible, setStudioUiVisible] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      const p = new URLSearchParams(window.location.search);
-      if (p.get('view') === 'studio') return true;
-    }
-    return false;
-  });
-  const [selectedClusterId, setSelectedClusterId] = useState<string>('3');
+  const [isRunning, setIsRunning] = useState(false);
+  const [selectedClusterId, setSelectedClusterId] = useState<string>('');
   const [activeLayer, setActiveLayer] = useState<1 | 2 | 3>(1);
   const [progressEvents, setProgressEvents] = useState<PipelineProgressEvent[]>([]);
-  const [selectedGapTitle, setSelectedGapTitle] = useState<string>('');
+  const [selectedGapTitle, setSelectedGapTitle] = useState('');
   const [pipelineError, setPipelineError] = useState<string | null>(null);
 
+  // Discrete Stage Engine
+  const [stageIndex, setStageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  // Visibilities of each stage (0: hero, 1: archipelago, 2: timeline, 3: grant)
+  // 'active': fully visible & interactive
+  // 'exiting': fading out
+  // 'entering': fading in
+  // 'hidden': display none
+  type StageDisplayState = 'active' | 'exiting' | 'entering' | 'hidden';
+  const [stageStates, setStageStates] = useState<StageDisplayState[]>(['active', 'hidden', 'hidden', 'hidden']);
 
-  // 1. Initial Load: Fetch available datasets list (no auto-selection — blank until user searches)
+  const [targetPaperId, setTargetPaperId] = useState<string>('');
+
+  const stageIndexRef = useRef(0);
+  useEffect(() => { stageIndexRef.current = stageIndex; }, [stageIndex]);
+
+  // Synchronize Home lock and selection context with SpatialJourneyController
   useEffect(() => {
-    fetch('/api/datasets')
-      .then(res => res.json())
-      .then(data => {
-        if (data.datasets && data.datasets.length > 0) {
-          setDatasets(data.datasets);
-          // Do NOT auto-select — let the user pick via search or presets
-        }
-      })
-      .catch(() => {
-        // Backend unreachable — keep empty datasets list, user can still search
-      });
+    spatialJourneyController.setHomeLocked(stageIndex === 0 || isTransitioning);
+  }, [stageIndex, isTransitioning]);
 
-    // Check health
-    fetch('/api/health')
-      .then(res => res.json())
-      .then(() => setIsHealthy(true))
-      .catch(() => setIsHealthy(false));
+  useEffect(() => {
+    return spatialJourneyController.subscribe((state) => {
+      setSelectedClusterId(state.context.clusterId || '');
+    });
   }, []);
 
+  const isAnimatingRef = useRef(false);
+  const accumulatedDeltaRef = useRef(0);
+  const deltaResetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const transitionTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  // 2. Fetch dataset resources whenever selectedDataset changes
+  const clearTransitionTimers = () => {
+    transitionTimersRef.current.forEach(t => clearTimeout(t));
+    transitionTimersRef.current = [];
+  };
+
+  // Coordinated Stage Navigation
+  const goToStage = useCallback((targetIndex: number) => {
+    if (isAnimatingRef.current) return;
+    const currentIndex = stageIndexRef.current;
+    if (targetIndex === currentIndex) return;
+    if (targetIndex < 0 || targetIndex >= STAGES.length) return;
+
+    isAnimatingRef.current = true;
+    setIsTransitioning(true);
+    accumulatedDeltaRef.current = 0;
+    clearTransitionTimers();
+
+    const fromStage = STAGES[currentIndex];
+    const toStage = STAGES[targetIndex];
+
+    // SCENARIO 1: Hero -> Epistemic Map (2.4s Coordinated Immersive Formation)
+    if (currentIndex === 0 && targetIndex === 1) {
+      // 1. Hero fades out immediately
+      setStageStates(['exiting', 'hidden', 'hidden', 'hidden']);
+      setViewMode('studio');
+      setActiveTab('archipelago');
+
+      // 2. At t = 400ms: Hero is hidden. The WebGL particle flight is now the sole hero in view.
+      const t1 = setTimeout(() => {
+        setStageStates(['hidden', 'hidden', 'hidden', 'hidden']);
+      }, 400);
+
+      // 3. At t = 1400ms: Particles have formed into clusters. OmniScopeStudio mounts with entry animation.
+      const t2 = setTimeout(() => {
+        setStageIndex(1);
+        setStageStates(['hidden', 'entering', 'hidden', 'hidden']);
+      }, 1400);
+
+      // 4. At t = 2400ms: Fully settled and interactive.
+      const t3 = setTimeout(() => {
+        setStageStates(['hidden', 'active', 'hidden', 'hidden']);
+        isAnimatingRef.current = false;
+        setIsTransitioning(false);
+      }, 2400);
+
+      transitionTimersRef.current = [t1, t2, t3];
+      return;
+    }
+
+    // SCENARIO 2: Return to Hero (from Epistemic, Citation Lineage, or Grant Studio)
+    if (targetIndex === 0) {
+      setStageStates(prev => {
+        const next = prev.map(() => 'hidden') as StageDisplayState[];
+        next[currentIndex] = 'exiting';
+        return next;
+      });
+      setViewMode('hero');
+      setActiveTab('hero');
+
+      const t1 = setTimeout(() => {
+        setStageStates(['hidden', 'hidden', 'hidden', 'hidden']);
+      }, 400);
+
+      const t2 = setTimeout(() => {
+        setStageIndex(0);
+        setStageStates(['entering', 'hidden', 'hidden', 'hidden']);
+      }, 1500);
+
+      const t3 = setTimeout(() => {
+        setStageStates(['active', 'hidden', 'hidden', 'hidden']);
+        isAnimatingRef.current = false;
+        setIsTransitioning(false);
+      }, 2400);
+
+      transitionTimersRef.current = [t1, t2, t3];
+      return;
+    }
+
+    // SCENARIO 3: Standard Fast Clean Cross-Fades (Epistemic <-> Timeline <-> Grant)
+    // Exit current stage
+    setStageStates(prev => {
+      const next = [...prev] as StageDisplayState[];
+      next[currentIndex] = 'exiting';
+      return next;
+    });
+
+    setActiveTab(toStage);
+    setViewMode(targetIndex === 0 ? 'hero' : 'studio');
+
+    // After current stage fades out (300ms), hide it and enter target stage
+    const t1 = setTimeout(() => {
+      setStageIndex(targetIndex);
+      setStageStates(prev => {
+        const next = [...prev] as StageDisplayState[];
+        next[currentIndex] = 'hidden';
+        next[targetIndex] = 'entering';
+        return next;
+      });
+    }, 300);
+
+    // After target stage settles (750ms total), lock in active state
+    const t2 = setTimeout(() => {
+      setStageStates(prev => {
+        const next = prev.map(() => 'hidden') as StageDisplayState[];
+        next[targetIndex] = 'active';
+        return next;
+      });
+      isAnimatingRef.current = false;
+      setIsTransitioning(false);
+    }, 800);
+
+    transitionTimersRef.current = [t1, t2];
+  }, []);
+
+  // Wheel Handler: Discrete Gestural Staging with Boundary Detection
+  const handleWheel = useCallback((e: WheelEvent) => {
+    if (isAnimatingRef.current) {
+      e.preventDefault();
+      return;
+    }
+
+    // When Ctrl or Meta is held, user is zooming 3D canvas (do not trigger stage navigation)
+    if (e.ctrlKey || e.metaKey) {
+      return;
+    }
+
+    // Check if user is scrolling inside an internal scrollable panel (like paper list or grant text)
+    const target = e.target as HTMLElement | null;
+    const scrollableParent = target?.closest('.overflow-y-auto, .custom-scrollbar, .research-instrument-panel, [data-scrollable]');
+    if (scrollableParent) {
+      const { scrollTop, scrollHeight, clientHeight } = scrollableParent;
+      const isAtTop = scrollTop <= 2;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 2;
+
+      // If scrolling down and can scroll further inside panel, don't hijack
+      if (e.deltaY > 0 && !isAtBottom) return;
+      // If scrolling up and can scroll further inside panel, don't hijack
+      if (e.deltaY < 0 && !isAtTop) return;
+    }
+
+    e.preventDefault();
+
+    // Accumulate scroll delta with automatic decay
+    accumulatedDeltaRef.current += e.deltaY;
+
+    if (deltaResetTimeoutRef.current) clearTimeout(deltaResetTimeoutRef.current);
+    deltaResetTimeoutRef.current = setTimeout(() => {
+      accumulatedDeltaRef.current = 0;
+    }, 300);
+
+    const THRESHOLD = 220;
+    if (accumulatedDeltaRef.current >= THRESHOLD) {
+      accumulatedDeltaRef.current = 0;
+      goToStage(stageIndexRef.current + 1);
+    } else if (accumulatedDeltaRef.current <= -THRESHOLD) {
+      accumulatedDeltaRef.current = 0;
+      goToStage(stageIndexRef.current - 1);
+    }
+  }, [goToStage]);
+
+  // Touch Handlers
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    touchStartYRef.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: TouchEvent) => {
+    if (touchStartYRef.current === null || isAnimatingRef.current) return;
+    const delta = touchStartYRef.current - e.changedTouches[0].clientY;
+    touchStartYRef.current = null;
+    if (delta > 60) goToStage(stageIndexRef.current + 1);
+    if (delta < -60) goToStage(stageIndexRef.current - 1);
+  }, [goToStage]);
+
+  // Keyboard Handlers (Arrow navigation)
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (isAnimatingRef.current) return;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      goToStage(stageIndexRef.current + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      goToStage(stageIndexRef.current - 1);
+    }
+  }, [goToStage]);
+
+  const stageContainerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (!selectedDataset) return;
+    const el = stageContainerRef.current;
+    if (!el) return;
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    el.addEventListener('touchstart', handleTouchStart, { passive: true });
+    el.addEventListener('touchend', handleTouchEnd, { passive: true });
+    return () => {
+      el.removeEventListener('wheel', handleWheel);
+      el.removeEventListener('touchstart', handleTouchStart);
+      el.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [handleWheel, handleTouchStart, handleTouchEnd]);
 
-    fetch(`/api/graph/points3d?dataset=${selectedDataset}`)
-      .then(res => res.ok ? res.json() : null)
-      .then(data => setPoints3dData(data))
-      .catch(() => setPoints3dData(null));
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
-    fetch(`/api/graph/archipelago?dataset=${selectedDataset}`)
-      .then(res => res.ok ? res.json() : null)
-      .then(data => setArchipelagoData(data))
-      .catch(() => setArchipelagoData(null));
+  const scrollToSection = useCallback((sectionId: string) => {
+    const idx = STAGES.indexOf(sectionId as StageId);
+    if (idx !== -1) goToStage(idx);
+  }, [goToStage]);
 
-    fetch(`/api/graph/citation?dataset=${selectedDataset}`)
-      .then(res => res.ok ? res.json() : null)
-      .then(data => setCitationData(data))
-      .catch(() => setCitationData(null));
-
-    fetch(`/api/gaps/detected?dataset=${selectedDataset}`)
-      .then(res => res.ok ? res.json() : null)
+  // Initial datasets list query (NO auto-selection: selectedDataset stays empty until user acts)
+  useEffect(() => {
+    fetch('/api/datasets')
+      .then(r => r.json())
       .then(data => {
-        if (data && data.gaps) setDetectedGaps(data.gaps);
-        else setDetectedGaps([]);
-      })
-      .catch(() => setDetectedGaps([]));
-
-    fetch(`/api/gaps/narrated?dataset=${selectedDataset}`)
-      .then(res => res.ok ? res.json() : null)
-      .then(data => {
-        if (data && data.gaps && data.gaps.length > 0) {
-          setNarratedGaps(data.gaps);
-          if (data.gaps[0]) setSelectedGapTitle(data.gaps[0].title);
-        } else {
-          setNarratedGaps([]);
+        if (data.datasets?.length > 0) {
+          setDatasets(data.datasets);
         }
-      })
-      .catch(() => setNarratedGaps([]));
+      }).catch(() => {});
+  }, []);
 
+  // Fetch dataset artifacts when selectedDataset is set
+  useEffect(() => {
+    if (!selectedDataset) {
+      setPoints3dData(null);
+      setArchipelagoData(null);
+      setCitationData(null);
+      setDetectedGaps([]);
+      setNarratedGaps([]);
+      setSelectedGapTitle('');
+      return;
+    }
+    fetch(`/api/graph/points3d?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setPoints3dData).catch(() => setPoints3dData(null));
+    fetch(`/api/graph/archipelago?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setArchipelagoData).catch(() => setArchipelagoData(null));
+    fetch(`/api/graph/citation?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setCitationData).catch(() => setCitationData(null));
+    fetch(`/api/gaps/detected?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(d => setDetectedGaps(d?.gaps ?? [])).catch(() => setDetectedGaps([]));
+    fetch(`/api/gaps/narrated?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(d => {
+      if (d?.gaps?.length > 0) { setNarratedGaps(d.gaps); setSelectedGapTitle(d.gaps[0].title); }
+      else setNarratedGaps([]);
+    }).catch(() => setNarratedGaps([]));
   }, [selectedDataset]);
 
-  // 3. Trigger Pipeline Execution with Live SSE Stream
   const handleTriggerRun = async (query: string, maxResults: number) => {
     setIsRunning(true);
     setProgressEvents([]);
     setPipelineError(null);
-
     try {
       const response = await fetch('/api/pipeline/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query, max_results: maxResults }),
       });
+      if (!response.ok) throw new Error(`Pipeline initialization failed: ${response.statusText}`);
+      const statusData = await response.json();
+      const jobId = statusData.job_id;
+      if (!jobId) throw new Error('No tracking job ID returned.');
 
-      if (!response.ok) {
-        throw new Error(`Pipeline failed: ${response.statusText}`);
-      }
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-      if (!reader) return;
-
-      let buffer = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n\n');
-        buffer = lines.pop() || '';
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const jsonStr = line.replace('data: ', '').trim();
-            if (!jsonStr) continue;
-
-            try {
-              const event: PipelineProgressEvent = JSON.parse(jsonStr);
-              setProgressEvents(prev => [...prev, event]);
-
-              if (event.is_terminal) {
-                setIsRunning(false);
-                if (event.dataset_id) {
-                  setSelectedDataset(event.dataset_id);
-                  // Auto launch to Archipelago Studio on completion
-                  handleLaunchWithTransition('archipelago');
-                }
-              }
-            } catch (e) {
-              console.error('Error parsing SSE event:', e);
+      const eventSource = new EventSource(`/api/pipeline/stream/${jobId}`);
+      eventSource.onmessage = (e) => {
+        try {
+          const event: PipelineProgressEvent = JSON.parse(e.data);
+          setProgressEvents(prev => [...prev, event]);
+          if (event.is_terminal) {
+            eventSource.close();
+            setIsRunning(false);
+            if (event.dataset_id) {
+              setSelectedDataset(event.dataset_id);
+              goToStage(1);
             }
           }
-        }
-      }
+        } catch { }
+      };
+      eventSource.onerror = () => {
+        eventSource.close();
+        setIsRunning(false);
+      };
     } catch (err: any) {
-      console.error('Pipeline streaming error:', err);
-      setPipelineError(err.message || 'Pipeline execution failed.');
+      setPipelineError(err.message || 'Pipeline failed.');
       setIsRunning(false);
     }
   };
 
   const handleSelectGapForGrant = (gapTitle: string) => {
     setSelectedGapTitle(gapTitle);
-    setActiveTab('grant');
-    if (viewMode !== 'studio') {
-      setViewMode('studio');
-      setStudioUiVisible(true);
-    }
+    scrollToSection('grant');
   };
 
-  // Smooth cinematic launch transition from Hero into Studio
-  const handleLaunchWithTransition = (tabId: string = 'archipelago') => {
-    setActiveTab(tabId);
-    setIsTransitioning(true);
+  const handleSelectPaper = (paperId: string) => {
+    setTargetPaperId(paperId);
+    scrollToSection('timeline');
+  };
 
-    setTimeout(() => {
-      setViewMode('studio');
-      setStudioUiVisible(true);
-      setIsTransitioning(false);
-    }, 1400);
+  // Inline Style Generator for Zero-Collision Staging
+  const getStageStyle = (state: StageDisplayState): React.CSSProperties => {
+    if (state === 'hidden') {
+      return {
+        display: 'none',
+      };
+    }
+    const base: React.CSSProperties = {
+      position: 'absolute',
+      inset: 0,
+      width: '100%',
+      height: '100%',
+      transition: 'opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+      willChange: 'opacity',
+    };
+    if (state === 'active') {
+      return { ...base, opacity: 1, pointerEvents: 'auto', zIndex: 10 };
+    }
+    if (state === 'entering') {
+      return { ...base, opacity: 1, pointerEvents: 'none', zIndex: 10 };
+    }
+    if (state === 'exiting') {
+      return { ...base, opacity: 0, pointerEvents: 'none', zIndex: 5 };
+    }
+    return base;
   };
 
   return (
-    <div className="min-h-screen bg-[#080b11] text-[#f8fafc] relative overflow-x-hidden selection:bg-[#ff4300]/20 selection:text-[#ff4300] flex flex-col transition-colors duration-700">
-      {/* Universal Atmospheric Canvas persistent across all views */}
+    <>
+      {/* Universal Atmospheric WebGL Canvas */}
       <UniversalBackground
         viewMode={viewMode}
         isTransitioning={isTransitioning}
@@ -214,109 +406,135 @@ export const App: React.FC = () => {
         onSelectCluster={setSelectedClusterId}
         activeLayer={activeLayer}
         points3dData={points3dData}
+        scrollProgress={STAGE_PROGRESS[activeTab]}
       />
 
-      {/* Unified Master Navigation Header (Persistent across hero & studio modes) */}
+      {/* Master Navigation Header */}
       <Header
-        viewMode={isTransitioning ? 'hero' : viewMode}
+        viewMode={viewMode}
         activeTab={activeTab}
-        onSelectTab={(tab) => {
-          setActiveTab(tab);
-          if (viewMode !== 'studio') {
-            setStudioUiVisible(true);
-            setViewMode('studio');
-          }
-        }}
-        datasets={datasets}
-        selectedDataset={selectedDataset}
-        onSelectDataset={setSelectedDataset}
-        onReturnToHero={() => {
-          setIsTransitioning(false);
-          setStudioUiVisible(false);
-          setViewMode('hero');
-        }}
-        onLaunchStudio={() => {
-          handleLaunchWithTransition('archipelago');
-        }}
+        onSelectTab={scrollToSection}
+        onReturnToHero={() => scrollToSection('hero')}
+        onLaunchStudio={() => scrollToSection('archipelago')}
       />
 
-      {viewMode === 'hero' ? (
-        <div className={`flex-1 flex flex-col transition-all duration-500 ease-out ${isTransitioning ? 'opacity-0 scale-105 pointer-events-none filter blur-[2px]' : 'opacity-100 scale-100'}`}>
-          <HeroSection
-            onLaunch={handleLaunchWithTransition}
-            isRunning={isRunning}
-            progressEvents={progressEvents}
-            pipelineError={pipelineError}
-            onSearch={(searchQuery, corpusSize, datasetId) => {
-              // Clear any previous error
-              setPipelineError(null);
-              // PRESET CLICK: datasetId is passed — load the existing pre-computed dataset
-              if (datasetId) {
-                setSelectedDataset(datasetId);
-                return;
-              }
+      {/* Main Viewport Stage Container */}
+      <div
+        ref={stageContainerRef}
+        style={{
+          position: 'fixed',
+          top: '60px',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflow: 'hidden',
+          zIndex: 2,
+        }}
+      >
+        {/* 00 — Hero Observatory & Search Deck */}
+        {stageStates[0] !== 'hidden' && (
+          <div style={getStageStyle(stageStates[0])}>
+            <HeroSection
+              onLaunch={(tab) => scrollToSection(tab || 'archipelago')}
+              isRunning={isRunning}
+              progressEvents={progressEvents}
+              pipelineError={pipelineError}
+              onSearch={(searchQuery, corpusSize, datasetId) => {
+                setPipelineError(null);
+                if (datasetId) {
+                  setSelectedDataset(datasetId);
+                  scrollToSection('archipelago');
+                  return;
+                }
+                handleTriggerRun(searchQuery, corpusSize || 300);
+              }}
+            />
+          </div>
+        )}
 
-              // CUSTOM QUERY: always trigger the live 8-stage pipeline
-              // Never silently redirect a user query to a hardcoded dataset
-              handleTriggerRun(searchQuery, corpusSize || 300);
-            }}
-          />
-        </div>
-      ) : (
-        <div className={`relative z-10 flex flex-col flex-1 transition-all duration-700 ease-out ${studioUiVisible ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 translate-y-6 scale-[0.98] pointer-events-none'}`}>
-          {/* Main Tabbed Content Area */}
-          <main className={`mx-auto flex-1 w-full ${activeTab === 'timeline' || activeTab === 'grant' || activeTab === 'archipelago' ? 'p-0 max-w-full overflow-hidden' : 'max-w-[1560px] px-4 sm:px-6 py-4 pb-12'}`}>
-            {activeTab === 'timeline' && (
-              <CitationTimeline data={citationData} />
-            )}
+        {/* 01 — Epistemic Archipelago & Algorithmic Gap Matrix */}
+        {stageStates[1] !== 'hidden' && (
+          <div style={getStageStyle(stageStates[1])}>
+            <OmniScopeStudio
+              data3d={points3dData}
+              onNavigateToGrant={handleSelectGapForGrant}
+              onNavigateToHero={() => scrollToSection('hero')}
+              onSelectPaper={handleSelectPaper}
+              selectedClusterId={selectedClusterId}
+              onSelectCluster={setSelectedClusterId}
+              activeLayer={activeLayer}
+              gaps={detectedGaps}
+              hasDataset={Boolean(selectedDataset)}
+            />
+          </div>
+        )}
 
-            {activeTab === 'archipelago' && (
-              <OmniScopeStudio
-                data3d={points3dData}
-                datasetName={datasets.find(d => d.id === selectedDataset)?.name || 'Satellite Earth Observation & Remote Sensing'}
-                onNavigateToGrant={handleSelectGapForGrant}
-                selectedClusterId={selectedClusterId}
-                onSelectCluster={setSelectedClusterId}
-                activeLayer={activeLayer}
-                onSelectLayer={setActiveLayer}
-              />
-            )}
+        {/* 02 — SPLC Citation Lineage & Epistemic Journey */}
+        {stageStates[2] !== 'hidden' && (
+          <div style={{ ...getStageStyle(stageStates[2]), overflowY: 'auto' }}>
+            <CitationTimeline
+              data={citationData}
+              onNavigateToHero={() => scrollToSection('hero')}
+              targetPaperId={targetPaperId}
+            />
+          </div>
+        )}
 
-            {activeTab === 'gaps' && (
-              <GapMatrix
-                gaps={detectedGaps}
-                onSelectGapForGrant={handleSelectGapForGrant}
-              />
-            )}
+        {/* 03 — AI Grant Studio & Operational Hypotheses */}
+        {stageStates[3] !== 'hidden' && (
+          <div style={{ ...getStageStyle(stageStates[3]), overflowY: 'auto' }}>
+            <GrantStudio
+              narratedGaps={narratedGaps}
+              selectedGapTitle={selectedGapTitle}
+              onNavigateToHero={() => scrollToSection('hero')}
+            />
+          </div>
+        )}
 
-            {activeTab === 'grant' && (
-              <GrantStudio
-                narratedGaps={narratedGaps}
-                selectedGapTitle={selectedGapTitle}
-              />
-            )}
-          </main>
-
-          {/* Swiss Editorial Footer (shown on long-scroll studio tabs) */}
-          {activeTab !== 'timeline' && activeTab !== 'archipelago' && activeTab !== 'grant' && (
-            <footer className="border-t border-[rgba(255,255,255,0.06)] bg-[#080b11]/80 backdrop-blur-md py-6 font-mono text-[11px] text-[#64748b]">
-            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 sm:flex-row">
-              <div className="flex items-center space-x-3">
-                <span>RESEARCHRADAR · SWISS SCIENTOMETRIC INTELLIGENCE</span>
-                <span>·</span>
-                <span className="text-[#ff4300]">EPISTEMIC RADAR</span>
-              </div>
-              <div className="flex items-center space-x-4 text-[#475569]">
-                <span>Price (1965)</span>
-                <span>Uzzi et al. (Science 2013)</span>
-                <span>Groq LPU Grounded RAG</span>
-              </div>
-            </div>
-          </footer>
-          )}
-        </div>
-      )}
-    </div>
+        {/* Vertical Stage Navigation Indicator (Right Edge) */}
+        <nav
+          aria-label="Platform Stage Navigation"
+          style={{
+            position: 'absolute',
+            right: '20px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            zIndex: 40,
+          }}
+        >
+          {STAGES.map((stageId, i) => {
+            const isActive = i === stageIndex;
+            return (
+              <button
+                key={stageId}
+                onClick={() => goToStage(i)}
+                title={STAGE_LABELS[stageId]}
+                className="group relative flex items-center justify-center p-1 focus:outline-none"
+              >
+                <div
+                  style={{
+                    width: isActive ? '6px' : '4px',
+                    height: isActive ? '26px' : '6px',
+                    borderRadius: '3px',
+                    backgroundColor: isActive ? '#ff4300' : 'rgba(255, 255, 255, 0.28)',
+                    boxShadow: isActive ? '0 0 12px rgba(255, 67, 0, 0.6)' : 'none',
+                    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                  className="group-hover:bg-[#ff4300] transition-colors"
+                />
+                {/* Floating Tooltip */}
+                <span className="absolute right-6 px-2 py-1 rounded bg-[#080b11]/90 border border-white/10 text-[10px] font-mono text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+                  {STAGE_LABELS[stageId]}
+                </span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+    </>
   );
 };
 

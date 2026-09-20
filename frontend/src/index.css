@@ -64,6 +64,10 @@
   --spring-easing:         cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+html {
+  scroll-behavior: auto;
+}
+
 body {
   background-color: var(--surface-l0-canvas);
   color: var(--text-primary);
@@ -113,5 +117,48 @@ body {
 .academic-card:hover {
   border-color: var(--border-medium);
   background-color: var(--surface-l2-elevated);
+}
+
+/* ==========================================================================
+   ResearchRadar Stage System — Production-Grade Choreography Engine
+   ========================================================================== */
+
+@keyframes rr-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes rr-slide-right-in {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes rr-slide-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rr-enter-fade {
+  animation: rr-fade-in 0.55s ease-out both;
+}
+
+.rr-enter-panel {
+  animation: rr-slide-right-in 0.80s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.rr-enter-card {
+  animation: rr-slide-up-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 

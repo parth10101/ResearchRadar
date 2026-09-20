@@ -160,13 +160,13 @@ def _format_rag_prompt(gap: dict, evidence_papers: list[dict], corpus_stats: dic
         context_str += f"[{i}] \"{title}\" ({year}) — {cits} citations\n    Abstract Snippet: {abstract}\n\n"
 
     gap_title = gap.get('title', '')
-    method = gap.get('method') or gap.get('topic') or gap.get('topic_1', 'Vision Transformers (ViT)')
-    dataset = gap.get('dataset') or gap.get('topic_2', 'Sentinel-1')
-    limitation = gap.get('limitation', 'Atmospheric Phase Delay')
+    method = gap.get('method') or gap.get('topic') or gap.get('topic_1', 'Proposed Methodology')
+    dataset = gap.get('dataset') or gap.get('topic_2', 'Target Benchmark Domain')
+    limitation = gap.get('limitation', 'Theoretical & Empirical Boundary')
 
-    t0_name = (corpus_stats or {}).get("topic_0", "Core Representation & Sensor Perception")
-    t1_name = (corpus_stats or {}).get("topic_1", "Downstream Monitoring & Environmental Analysis")
-    cos_sim = (corpus_stats or {}).get("cosine_similarity", 0.78)
+    t0_name = (corpus_stats or {}).get("topic_0", "Foundational Domain Foundations")
+    t1_name = (corpus_stats or {}).get("topic_1", "Applied Domain Investigations")
+    cos_sim = (corpus_stats or {}).get("cosine_similarity", 0.50)
 
     op_hyp = gap.get("operational_hypothesis") or {}
     op_task = op_hyp.get("task") or f"Target Extraction ({method})"
@@ -370,8 +370,6 @@ def run_stage8(
     if papers is None:
         papers_file = out_dir / "papers.json"
         if not papers_file.exists():
-            papers_file = Path("data/fl_papers.json")
-        if not papers_file.exists():
             papers_file = Path("data/papers.json")
         if papers_file.exists():
             try:
@@ -389,8 +387,8 @@ def run_stage8(
 
     # Extract dynamic topic names from topic_results.json
     corpus_stats = {
-        "topic_0": "Neural Dense Retrieval & RAG Question Answering",
-        "topic_1": "Adversarial Poisoning Attacks on RAG & Privacy Risks",
+        "topic_0": "Foundational Domain Foundations",
+        "topic_1": "Applied Domain Investigations",
     }
     topic_file = out_dir / "topic_results.json"
     if topic_file.exists():
@@ -399,10 +397,9 @@ def run_stage8(
             hrn = t_data.get("human_readable_names") or {}
             if "0" in hrn:
                 corpus_stats["topic_0"] = hrn["0"].split("&")[0].strip()
-            # Look for security/adversarial topic or topic 1
+            # Select next distinct topic cluster directly from corpus
             sec_keys = [k for k in hrn.keys() if k != "-1" and k != "0"]
-            adv_keys = [k for k in sec_keys if any(w in hrn[k].lower() for w in ["attack", "adversarial", "vulnerability", "security", "privacy"])]
-            chosen_k = adv_keys[0] if adv_keys else (sec_keys[0] if sec_keys else "1")
+            chosen_k = sec_keys[0] if sec_keys else "1"
             if chosen_k in hrn:
                 corpus_stats["topic_1"] = hrn[chosen_k].split("&")[0].strip()
         except Exception:

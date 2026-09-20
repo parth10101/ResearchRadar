@@ -11,9 +11,6 @@ def process_directory(out_dir: Path):
     papers_map = {}
     papers_candidates = [
         out_dir / 'papers.json',
-        Path('data/satellite_300_papers.json'),
-        Path('data/fl_papers.json'),
-        Path('data/gnn_drug_3k_papers.json'),
         Path('data/papers.json')
     ]
     for cand in papers_candidates:

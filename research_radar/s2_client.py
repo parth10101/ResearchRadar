@@ -476,7 +476,7 @@ class SemanticScholarClient:
         """
         words = [w.strip() for w in query.strip().split() if w.strip()]
         stop_words = {
-            "survey", "review", "applications", "preserving", "clinical",
+            "survey", "review", "applications",
             "and", "in", "of", "for", "with", "using", "via", "based", "towards", "on"
         }
         core = [w for w in words if w.lower() not in stop_words]
@@ -557,7 +557,8 @@ class SemanticScholarClient:
                     continue
                 t = (paper.get("title") or "").strip()
                 abs_len = len(paper.get("abstract") or "")
-                if t and t.lower() not in existing_titles and abs_len >= 30:
+                tldr_len = len(paper.get("tldr") or "")
+                if t and t.lower() not in existing_titles and (abs_len >= 10 or tldr_len >= 10 or len(t) >= 15):
                     candidate_papers.append(paper)
                     existing_titles.add(t.lower())
 
