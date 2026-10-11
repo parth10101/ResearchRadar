@@ -230,6 +230,33 @@ class TemporalBenchmarkHarness:
 
         return round(float(np.mean(trial_precisions)), 4)
 
+    def compute_frequency_baseline_precision(self, k: int = 10) -> float:
+        """
+        Computes empirical frequency/popularity baseline (heuristic non-topological baseline).
+        Extracts top-k historically frequent method-dataset co-occurrences and evaluates
+        their empirical presence in the sealed holdout ground-truth papers.
+        """
+        from research_radar.stage7_gap_detection import _extract_paper_entities
+        hist_entities = [_extract_paper_entities(p) for p in self.historical_papers]
+        pair_counts = Counter()
+        for pe in hist_entities:
+            for m in pe["methods"]:
+                for d in pe["datasets"]:
+                    if len(m) > 3 and len(d) > 3:
+                        pair_counts[(m, d)] += 1
+
+        top_pairs = [p for p, _ in pair_counts.most_common(k)]
+        if not top_pairs:
+            return 0.05
+
+        hits = 0
+        for m, d in top_pairs:
+            cand = {"method": m, "dataset": d}
+            realized, _, _ = self.verify_gap_realization(cand)
+            if realized:
+                hits += 1
+        return round(hits / float(len(top_pairs)), 4)
+
 
 # ---------------------------------------------------------------------------
 # 3. Main Benchmark Execution & Reporting Suite
@@ -332,11 +359,12 @@ def run_benchmark(
     avg_r1 = round(float(np.mean(rouge_1_scores)), 4) if rouge_1_scores else 0.0
     avg_r2 = round(float(np.mean(rouge_2_scores)), 4) if rouge_2_scores else 0.0
     avg_rl = round(float(np.mean(rouge_l_scores)), 4) if rouge_l_scores else 0.0
-    avg_bert_proxy = round(0.55 + 0.35 * avg_rl, 4) if avg_rl > 0 else 0.420
+    avg_semantic_sim = round(float(np.mean(semantic_sims)), 4) if semantic_sims else 0.0
 
-    # 3. Compute In-Corpus Baselines
+    # 3. Compute In-Corpus Empirical Baselines (Zero Multipliers)
     random_baseline_p = harness.compute_random_baseline_precision(k=evaluated_k)
-    frequency_baseline_p = min(0.58, random_baseline_p * 1.25)
+    frequency_baseline_p = harness.compute_frequency_baseline_precision(k=evaluated_k)
+
 
     # 4. Generate Comparative Benchmark Table with Strict Academic Footnotes
     in_corpus_comparison = [
@@ -443,7 +471,7 @@ def run_benchmark(
         "rouge_1": avg_r1,
         "rouge_2": avg_r2,
         "rouge_l": avg_rl,
-        "bertscore_proxy": avg_bert_proxy,
+        "semantic_similarity": avg_semantic_sim,
         "latency_sec": latency_sec,
         "table_1_in_corpus_comparison": in_corpus_comparison,
         "table_2_literature_context": literature_context,
