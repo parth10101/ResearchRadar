@@ -66,3 +66,7 @@ desktop.ini
 
 # Secrets
 *.pem
+
+# Scratch
+scratch_pdf_text.txt
+

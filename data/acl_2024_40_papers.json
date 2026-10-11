@@ -1,0 +1,362 @@
+[
+  {
+    "paper_id": "ACL2024_1001",
+    "title": "LLM-QAT: Data-Free Quantization Aware Training for Large Language Models",
+    "abstract": "Zechun Liu, Barlas Oguz, Changsheng Zhao, Ernie Chang, Pierre Stock, Yashar Mehdad, Yangyang Shi, Raghuraman Krishnamoorthi, Vikas Chandra. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.26",
+    "citation_count": 125
+  },
+  {
+    "paper_id": "ACL2024_1002",
+    "title": "Data Augmentation using LLMs: Data Perspectives, Learning Paradigms and Challenges",
+    "abstract": "Bosheng Ding, Chengwei Qin, Ruochen Zhao, Tianze Luo, Xinze Li, Guizhen Chen, Wenhan Xia, Junjie Hu, Anh Tuan Luu, Shafiq Joty. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.97",
+    "citation_count": 95
+  },
+  {
+    "paper_id": "ACL2024_1003",
+    "title": "Aligning Large Multimodal Models with Factually Augmented RLHF",
+    "abstract": "Zhiqing Sun, Sheng Shen, Shengcao Cao, Haotian Liu, Chunyuan Li, Yikang Shen, Chuang Gan, Liangyan Gui, Yu-Xiong Wang, Yiming Yang, Kurt Keutzer, Trevor Darrell. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.775",
+    "citation_count": 132
+  },
+  {
+    "paper_id": "ACL2024_1004",
+    "title": "The Revolution of Multimodal Large Language Models: A Survey",
+    "abstract": "Davide Caffagni, Federico Cocchi, Luca Barsellotti, Nicholas Moratelli, Sara Sarto, Lorenzo Baraldi, Lorenzo Baraldi, Marcella Cornia, Rita Cucchiara. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.807",
+    "citation_count": 87
+  },
+  {
+    "paper_id": "ACL2024_1005",
+    "title": "The Good and The Bad: Exploring Privacy Issues in Retrieval-Augmented Generation (RAG)",
+    "abstract": "Shenglai Zeng, Jiankun Zhang, Pengfei He, Yiding Liu, Yue Xing, Han Xu, Jie Ren, Yi Chang, Shuaiqiang Wang, Dawei Yin, Jiliang Tang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.267",
+    "citation_count": 102
+  },
+  {
+    "paper_id": "ACL2024_1006",
+    "title": "FreshLLMs: Refreshing Large Language Models with Search Engine Augmentation",
+    "abstract": "Tu Vu, Mohit Iyyer, Xuezhi Wang, Noah Constant, Jerry Wei, Jason Wei, Chris Tar, Yun-Hsuan Sung, Denny Zhou, Quoc Le, Thang Luong. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.813",
+    "citation_count": 70
+  },
+  {
+    "paper_id": "ACL2024_1007",
+    "title": "ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models",
+    "abstract": "Haoran Luo, Haihong E, Zichen Tang, Shiyao Peng, Yikai Guo, Wentai Zhang, Chenghao Ma, Guanting Dong, Meina Song, Wei Lin, Yifan Zhu, Anh Tuan Luu. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.122",
+    "citation_count": 78
+  },
+  {
+    "paper_id": "ACL2024_1008",
+    "title": "RoleLLM: Benchmarking, Eliciting, and Enhancing Role-Playing Abilities of Large Language Models",
+    "abstract": "Noah Wang, Z.y. Peng, Haoran Que, Jiaheng Liu, Wangchunshu Zhou, Yuhan Wu, Hongcheng Guo, Ruitong Gan, Zehao Ni, Jian Yang, Man Zhang, Zhaoxiang Zhang, Wanli Ouyang, Ke Xu, Wenhao Huang, Jie Fu, Junran Peng. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.878",
+    "citation_count": 115
+  },
+  {
+    "paper_id": "ACL2024_1009",
+    "title": "DebugBench: Evaluating Debugging Capability of Large Language Models",
+    "abstract": "Runchu Tian, Yining Ye, Yujia Qin, Xin Cong, Yankai Lin, Yinxu Pan, Yesai Wu, Hui Haotian, Liu Weichuan, Zhiyuan Liu, Maosong Sun. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.247",
+    "citation_count": 54
+  },
+  {
+    "paper_id": "ACL2024_1010",
+    "title": "LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression",
+    "abstract": "Zhuoshi Pan, Qianhui Wu, Huiqiang Jiang, Menglin Xia, Xufang Luo, Jue Zhang, Qingwei Lin, Victor R\u00fchle, Yuqing Yang, Chin-Yew Lin, H. Vicky Zhao, Lili Qiu, Dongmei Zhang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.57",
+    "citation_count": 50
+  },
+  {
+    "paper_id": "ACL2024_1011",
+    "title": "LMDX: Language Model-based Document Information Extraction and Localization",
+    "abstract": "Vincent Perot, Kai Kang, Florian Luisier, Guolong Su, Xiaoyu Sun, Ramya Sree Boppana, Zilong Wang, Zifeng Wang, Jiaqi Mu, Hao Zhang, Chen-Yu Lee, Nan Hua. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.899",
+    "citation_count": 37
+  },
+  {
+    "paper_id": "ACL2024_1012",
+    "title": "LLM2LLM: Boosting LLMs with Novel Iterative Data Enhancement",
+    "abstract": "Nicholas Lee, Thanakul Wattanawong, Sehoon Kim, Karttikeya Mangalam, Sheng Shen, Gopala Anumanchipalli, Michael Mahoney, Kurt Keutzer, Amir Gholami. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.388",
+    "citation_count": 21
+  },
+  {
+    "paper_id": "ACL2024_1013",
+    "title": "Decomposition for Enhancing Attention: Improving LLM-based Text-to-SQL through Workflow Paradigm",
+    "abstract": "Yuanzhen Xie, Xinzhou Jin, Tao Xie, Matrixmxlin Matrixmxlin, Liang Chen, Chenyun Yu, Cheng Lei, Chengxiang Zhuo, Bo Hu, Zang Li. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.641",
+    "citation_count": 34
+  },
+  {
+    "paper_id": "ACL2024_1014",
+    "title": "Graph Chain-of-Thought: Augmenting Large Language Models by Reasoning on Graphs",
+    "abstract": "Bowen Jin, Chulin Xie, Jiawei Zhang, Kashob Kumar Roy, Yu Zhang, Zheng Li, Ruirui Li, Xianfeng Tang, Suhang Wang, Yu Meng, Jiawei Han. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.11",
+    "citation_count": 40
+  },
+  {
+    "paper_id": "ACL2024_1015",
+    "title": "MatPlotAgent: Method and Evaluation for LLM-Based Agentic Scientific Data Visualization",
+    "abstract": "Zhiyu Yang, Zihan Zhou, Shuo Wang, Xin Cong, Xu Han, Yukun Yan, Zhenghao Liu, Zhixing Tan, Pengyuan Liu, Dong Yu, Zhiyuan Liu, Xiaodong Shi, Maosong Sun. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.701",
+    "citation_count": 35
+  },
+  {
+    "paper_id": "ACL2024_1016",
+    "title": "Fact-Checking the Output of Large Language Models via Token-Level Uncertainty Quantification",
+    "abstract": "Ekaterina Fadeeva, Aleksandr Rubashevskii, Artem Shelmanov, Sergey Petrakov, Haonan Li, Hamdy Mubarak, Evgenii Tsymbalov, Gleb Kuzmin, Alexander Panchenko, Timothy Baldwin, Preslav Nakov, Maxim Panov. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.558",
+    "citation_count": 28
+  },
+  {
+    "paper_id": "ACL2024_1017",
+    "title": "RadGraph-XL: A Large-Scale Expert-Annotated Dataset for Entity and Relation Extraction from Radiology Reports",
+    "abstract": "Jean-Benoit Delbrouck, Pierre Chambon, Zhihong Chen, Maya Varma, Andrew Johnston, Louis Blankemeier, Dave Van Veen, Tan Bui, Steven Truong, Curtis Langlotz. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.765",
+    "citation_count": 23
+  },
+  {
+    "paper_id": "ACL2024_1018",
+    "title": "Found in the middle: Calibrating Positional Attention Bias Improves Long Context Utilization",
+    "abstract": "Cheng-Yu Hsieh, Yung-Sung Chuang, Chun-Liang Li, Zifeng Wang, Long Le, Abhishek Kumar, James Glass, Alexander Ratner, Chen-Yu Lee, Ranjay Krishna, Tomas Pfister. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.890",
+    "citation_count": 28
+  },
+  {
+    "paper_id": "ACL2024_1019",
+    "title": "Call Me When Necessary: LLMs can Efficiently and Faithfully Reason over Structured Environments",
+    "abstract": "Sitao Cheng, Ziyuan Zhuang, Yong Xu, Fangkai Yang, Chaoyun Zhang, Xiaoting Qin, Xiang Huang, Ling Chen, Qingwei Lin, Dongmei Zhang, Saravan Rajmohan, Qi Zhang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.254",
+    "citation_count": 16
+  },
+  {
+    "paper_id": "ACL2024_1020",
+    "title": "ArabicMMLU: Assessing Massive Multitask Language Understanding in Arabic",
+    "abstract": "Fajri Koto, Haonan Li, Sara Shatnawi, Jad Doughman, Abdelrahman Sadallah, Aisha Alraeesi, Khalid Almubarak, Zaid Alyafeai, Neha Sengupta, Shady Shehata, Nizar Habash, Preslav Nakov, Timothy Baldwin. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.334",
+    "citation_count": 16
+  },
+  {
+    "paper_id": "ACL2024_1021",
+    "title": "A Grounded Preference Model for LLM Alignment",
+    "abstract": "Tahira Naseem, Guangxuan Xu, Sarathkrishna Swaminathan, Asaf Yehudai, Subhajit Chaudhury, Radu Florian, Ram\u00f3n Astudillo, Asim Munawar. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.10",
+    "citation_count": 4
+  },
+  {
+    "paper_id": "ACL2024_1022",
+    "title": "MathBench: Evaluating the Theory and Application Proficiency of LLMs with a Hierarchical Mathematics Benchmark",
+    "abstract": "Hongwei Liu, Zilong Zheng, Yuxuan Qiao, Haodong Duan, Zhiwei Fei, Fengzhe Zhou, Wenwei Zhang, Songyang Zhang, Dahua Lin, Kai Chen. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.411",
+    "citation_count": 16
+  },
+  {
+    "paper_id": "ACL2024_1023",
+    "title": "Benchmarking and Improving Long-Text Translation with Large Language Models",
+    "abstract": "Longyue Wang, Zefeng Du, Wenxiang Jiao, Chenyang Lyu, Jianhui Pang, Leyang Cui, Kaiqiang Song, Derek Wong, Shuming Shi, Zhaopeng Tu. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.428",
+    "citation_count": 8
+  },
+  {
+    "paper_id": "ACL2024_1024",
+    "title": "Code Needs Comments: Enhancing Code LLMs with Comment Augmentation",
+    "abstract": "Demin Song, Honglin Guo, Yunhua Zhou, Shuhao Xing, Yudong Wang, Zifan Song, Wenwei Zhang, Qipeng Guo, Hang Yan, Xipeng Qiu, Dahua Lin. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.809",
+    "citation_count": 9
+  },
+  {
+    "paper_id": "ACL2024_1025",
+    "title": "Investigating the Impact of Data Contamination of Large Language Models in Text-to-SQL translation",
+    "abstract": "Federico Ranaldi, Elena Sofia Ruzzetti, Dario Onorati, Leonardo Ranaldi, Cristina Giannone, Andrea Favalli, Raniero Romagnoli, Fabio Massimo Zanzotto. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.827",
+    "citation_count": 4
+  },
+  {
+    "paper_id": "ACL2024_1026",
+    "title": "Learning Fine-Grained Grounded Citations for Attributed Large Language Models",
+    "abstract": "Lei Huang, Xiaocheng Feng, Weitao Ma, Yuxuan Gu, Weihong Zhong, Xiachong Feng, Weijiang Yu, Weihua Peng, Duyu Tang, Dandan Tu, Bing Qin. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.838",
+    "citation_count": 8
+  },
+  {
+    "paper_id": "ACL2024_1027",
+    "title": "Prompting open-source and commercial language models for grammatical error correction of English learner text",
+    "abstract": "Christopher Davis, Andrew Caines, \u00d8istein E. Andersen, Shiva Taslimipoor, Helen Yannakoudakis, Zheng Yuan, Christopher Bryant, Marek Rei, Paula Buttery. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.711",
+    "citation_count": 11
+  },
+  {
+    "paper_id": "ACL2024_1028",
+    "title": "Codec-SUPERB: An In-Depth Analysis of Sound Codec Models",
+    "abstract": "Haibin Wu, Ho-Lam Chung, Yi-Cheng Lin, Yuan-Kuei Wu, Xuanjun Chen, Yu-Chi Pai, Hsiu-Hsuan Wang, Kai-Wei Chang, Alexander Liu, Hung-yi Lee. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.616",
+    "citation_count": 22
+  },
+  {
+    "paper_id": "ACL2024_1029",
+    "title": "StyleDubber: Towards Multi-Scale Style Learning for Movie Dubbing",
+    "abstract": "Gaoxiang Cong, Yuankai Qi, Liang Li, Amin Beheshti, Zhedong Zhang, Anton Hengel, Ming-Hsuan Yang, Chenggang Yan, Qingming Huang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.404",
+    "citation_count": 9
+  },
+  {
+    "paper_id": "ACL2024_1030",
+    "title": "DB-LLM: Accurate Dual-Binarization for Efficient LLMs",
+    "abstract": "Hong Chen, Chengtao Lv, Liang Ding, Haotong Qin, Xiabin Zhou, Yifu Ding, Xuebo Liu, Min Zhang, Jinyang Guo, Xianglong Liu, Dacheng Tao. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.516",
+    "citation_count": 12
+  },
+  {
+    "paper_id": "ACL2024_1031",
+    "title": "Exploring Ordinality in Text Classification: A Comparative Study of Explicit and Implicit Techniques",
+    "abstract": "Siva Rajesh Kasa, Aniket Goel, Karan Gupta, Sumegh Roychowdhury, Pattisapu Priyatam, Anish Bhanushali, Prasanna Srinivasa Murthy. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.320",
+    "citation_count": 4
+  },
+  {
+    "paper_id": "ACL2024_1032",
+    "title": "DevEval: A Manually-Annotated Code Generation Benchmark Aligned with Real-World Code Repositories",
+    "abstract": "Jia Li, Ge Li, Yunfei Zhao, Yongmin Li, Huanyu Liu, Hao Zhu, Lecheng Wang, Kaibo Liu, Zheng Fang, Lanshen Wang, Jiazheng Ding, Xuanming Zhang, Yuqi Zhu, Yihong Dong, Zhi Jin, Binhua Li, Fei Huang, Yongbin Li, Bin Gu, Mengfei Yang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.214",
+    "citation_count": 43
+  },
+  {
+    "paper_id": "ACL2024_1033",
+    "title": "Publicly Shareable Clinical Large Language Model Built on Synthetic Clinical Notes",
+    "abstract": "Sunjun Kweon, Junu Kim, Jiyoun Kim, Sujeong Im, Eunbyeol Cho, Seongsu Bae, Jungwoo Oh, Gyubok Lee, Jong Hak Moon, Seng Chan You, Seungjin Baek, Chang Hoon Han, Yoon Bin Jung, Yohan Jo, Edward Choi. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.305",
+    "citation_count": 30
+  },
+  {
+    "paper_id": "ACL2024_1034",
+    "title": "Debiasing In-Context Learning by Instructing LLMs How to Follow Demonstrations",
+    "abstract": "Lvxue Li, Jiaqi Chen, Xinyu Lu, Yaojie Lu, Hongyu Lin, Shuheng Zhou, Huijia Zhu, Weiqiang Wang, Zhongyi Liu, Xianpei Han, Le Sun. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.430",
+    "citation_count": 4
+  },
+  {
+    "paper_id": "ACL2024_1035",
+    "title": "Generalized Category Discovery with Large Language Models in the Loop",
+    "abstract": "Wenbin An, Wenkai Shi, Feng Tian, Haonan Lin, QianYing Wang, Yaqiang Wu, Mingxiang Cai, Luyan Wang, Yan Chen, Haiping Zhu, Ping Chen. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.512",
+    "citation_count": 9
+  },
+  {
+    "paper_id": "ACL2024_1036",
+    "title": "An Experimental Design Framework for Label-Efficient Supervised Finetuning of Large Language Models",
+    "abstract": "Gantavya Bhatt, Yifang Chen, Arnav Das, Jifan Zhang, Sang Truong, Stephen Mussmann, Yinglun Zhu, Jeff Bilmes, Simon Du, Kevin Jamieson, Jordan Ash, Robert Nowak. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.390",
+    "citation_count": 7
+  },
+  {
+    "paper_id": "ACL2024_1037",
+    "title": "Evaluating Robustness of Generative Search Engine on Adversarial Factoid Questions",
+    "abstract": "Xuming Hu, Xiaochuan Li, Junzhe Chen, Yinghui Li, Yangning Li, Xiaoguang Li, Yasheng Wang, Qun Liu, Lijie Wen, Philip Yu, Zhijiang Guo. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.633",
+    "citation_count": 3
+  },
+  {
+    "paper_id": "ACL2024_1038",
+    "title": "Developing PUGG for Polish: A Modern Approach to KBQA, MRC, and IR Dataset Construction",
+    "abstract": "Albert Sawczyn, Katsiaryna Viarenich, Konrad Wojtasik, Aleksandra Domoga\u0142a, Marcin Oleksy, Maciej Piasecki, Tomasz Kajdanowicz. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.652",
+    "citation_count": 0
+  },
+  {
+    "paper_id": "ACL2024_1039",
+    "title": "CMoralEval: A Moral Evaluation Benchmark for Chinese Large Language Models",
+    "abstract": "Linhao Yu, Yongqi Leng, Yufei Huang, Shang Wu, Haixin Liu, Xinmeng Ji, Jiahui Zhao, Jinwang Song, Tingting Cui, Xiaoqing Cheng, Tao Liu, Deyi Xiong. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.703",
+    "citation_count": 4
+  },
+  {
+    "paper_id": "ACL2024_1040",
+    "title": "Mitigating Data Scarcity in Semantic Parsing across Languages with the Multilingual Semantic Layer and its Dataset",
+    "abstract": "Abelardo Carlos Martinez Lorenzo, Pere-Llu\u00eds Huguet Cabot, Karim Ghonim, Lu Xu, Hee-Soo Choi, Alberte Fern\u00e1ndez-Castro, Roberto Navigli. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "year": 2024,
+    "venue": "ACL 2024",
+    "doi": "https://doi.org/10.18653/v1/2024.findings-acl.836",
+    "citation_count": 0
+  }
+]

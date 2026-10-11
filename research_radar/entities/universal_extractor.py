@@ -32,8 +32,16 @@ class UniversalMDLExtractor:
         "proposed method", "proposed framework", "proposed model", "our approach",
         "the method", "the model", "the framework", "this paper", "this work",
         "state of the art", "baseline", "baselines", "results", "study",
-        "datasets training", "diverse datasets", "healthcare datasets",
-        "various datasets", "different datasets", "public datasets", "real datasets"
+        "datasets training", "training datasets", "diverse datasets", "healthcare datasets",
+        "various datasets", "different datasets", "public datasets", "real datasets",
+        "synthetic datasets", "experimental data", "test data", "training data",
+        "multiple datasets", "several datasets", "cancer dataset", "diabetes dataset",
+        "medical datasets", "clinical datasets", "benchmark datasets", "standard datasets",
+        "open datasets", "available datasets", "existing datasets", "large datasets",
+        "subset of these", "subset of those", "subset", "subsets", "four interaction networks",
+        "source code", "source", "code", "cloud", "personalization", "cloud fail on personalization",
+        "fail on personalization", "system", "systems", "framework", "platform", "platforms",
+        "real-world applications", "applications", "environment", "environments", "scenario", "scenarios"
     }
 
     CONJUNCTION_CUTOFFS = {"and", "with", "for", "using", "on", "to", "in", "by", "as", "via", "under"}
@@ -67,12 +75,14 @@ class UniversalMDLExtractor:
 
     VERB_LEAK_TAILS = {
         "proves", "prove", "are", "is", "was", "were", "shows", "show", "can", "will", "would",
-        "could", "may", "might", "has", "have", "had", "demonstrates", "indicates", "suggests",
-        "continuously", "significantly", "effectively", "achieves", "achieve", "yields", "yield"
+        "could", "may", "might", "has", "have", "had", "demonstrates", "demonstrate", "indicates", "suggests",
+        "continuously", "significantly", "effectively", "achieves", "achieve", "yields", "yield",
+        "that", "than", "smaller", "larger", "better", "worse", "which", "where"
     }
     JUNK_HEADS = {
         "both", "either", "each", "all", "such", "various", "several", "different", "multiple",
-        "these", "those", "real-life", "real-world", "synthetic", "our", "their", "a", "an", "the"
+        "these", "those", "real-life", "real-world", "synthetic", "our", "their", "a", "an", "the",
+        "seven", "two", "three", "four", "five", "six", "eight", "nine", "ten", "one", "centers"
     }
 
     def _clean_phrase(self, phrase: str) -> str:
@@ -98,7 +108,7 @@ class UniversalMDLExtractor:
     def extract_deterministic(self, paper: dict) -> PaperMDLRecord:
         """
         High-precision deterministic discourse extractor with exact span verification.
-        Guarantees 0% extraction hallucination across any academic discipline.
+        Enforces exact verbatim text span grounding to prevent ungrounded entity extraction.
         """
         paper_id = str(paper.get("id") or paper.get("s2_paper_id") or "paper_unknown")
         title = (paper.get("title") or "").strip()
@@ -165,7 +175,8 @@ class UniversalMDLExtractor:
                 if (
                     len(cand) > 2
                     and c_low not in self.GENERIC_NOISE_TOKENS
-                    and not any(w in ("these", "various", "multiple", "several", "training", "testing", "experimental") for w in words[:1])
+                    and not any(w in ("these", "various", "multiple", "several", "training", "testing", "experimental", "diverse", "healthcare", "medical", "clinical", "different") for w in words[:1])
+                    and not any(w in ("dataset", "datasets", "data", "benchmark", "corpus") for w in words)
                 ):
                     start, end = self._find_span_offsets(full_text, cand)
                     canon = self.normalizer.canonicalize(cand, "dataset")
@@ -184,7 +195,14 @@ class UniversalMDLExtractor:
             for d_named in re.finditer(r'\b([A-Z][a-zA-Z0-9\-]+(?:\s+[A-Z][a-zA-Z0-9\-]+)?)\s+(?:Dataset|Benchmark|Cohort|Repository|Registry|Corpus)\b', sent):
                 cand = d_named.group(1).strip()
                 c_low = cand.lower()
-                if c_low not in self.GENERIC_NOISE_TOKENS and len(cand) > 2 and c_low not in seen_terms:
+                if (
+                    c_low not in self.GENERIC_NOISE_TOKENS
+                    and f"{c_low} dataset" not in self.GENERIC_NOISE_TOKENS
+                    and f"{c_low} datasets" not in self.GENERIC_NOISE_TOKENS
+                    and c_low not in ("diverse", "various", "multiple", "several", "training", "testing", "experimental", "healthcare", "medical", "cancer", "diabetes")
+                    and len(cand) > 2
+                    and c_low not in seen_terms
+                ):
                     start, end = self._find_span_offsets(full_text, cand)
                     canon = self.normalizer.canonicalize(cand, "dataset")
                     seen_terms.add(c_low)

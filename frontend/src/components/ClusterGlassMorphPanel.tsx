@@ -1,12 +1,14 @@
 import React, { useState, useMemo } from 'react';
 import { Sparkles, BookOpen, BarChart3, TrendingUp, ArrowUpRight, ArrowLeft, Calendar, Award, ChevronDown } from 'lucide-react';
 import { RealClusterItem, RealClusterPoint } from '../data/realClusterData';
+import { HighlightedTitle } from './HighlightedTitle';
 
 interface ClusterGlassMorphPanelProps {
   cluster: RealClusterItem;
   totalCorpusCount?: number;
   onBackToOverview: () => void;
   onSelectPaper?: (paperId: string) => void;
+  activeQuery?: string;
 }
 
 export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
@@ -14,6 +16,7 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
   totalCorpusCount = 300,
   onBackToOverview,
   onSelectPaper,
+  activeQuery,
 }) => {
   const [isAllPapersOpen, setIsAllPapersOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -188,7 +191,7 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
               </div>
 
               <div className="text-xs font-sans font-medium text-zinc-100 leading-snug">
-                {landmarkPaper.title}
+                <HighlightedTitle title={landmarkPaper.title} query={activeQuery} />
               </div>
 
               <div className="text-[11px] font-sans text-zinc-400 flex flex-wrap items-center gap-x-2 gap-y-0.5">
@@ -313,7 +316,7 @@ export const ClusterGlassMorphPanel: React.FC<ClusterGlassMorphPanelProps> = ({
                     >
                       <div className="min-w-0 flex-1 pr-2">
                         <div className="text-xs font-sans font-medium text-zinc-200 group-hover:text-white line-clamp-1 leading-tight">
-                          {p.title}
+                          <HighlightedTitle title={p.title} query={searchQuery || activeQuery} />
                         </div>
                         <div className="text-[11px] font-sans text-zinc-500 mt-0.5 flex items-center space-x-2 truncate">
                           {p.authors && p.authors.length > 0 && (

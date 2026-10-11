@@ -3158,20 +3158,20 @@
     ]
   },
   "human_readable_names": {
-    "0": "Point Clouds Semantic, Classification Lidar Scenes & Validation Deep Learning",
-    "1": "Droid Slam Improving, Lidar Monocular Visual & Agricultural Robotics",
-    "2": "Mapping Detecting Objects, Fetchmate Autonomous Indoor & Disabled Persons Iot",
-    "3": "Sensors Automated Driving, Reliability Presence Gps & Smart Camera Intrinsic",
-    "4": "Lidar Aerial Photography, Turbines Using Unmanned & Uav Based Monitoring",
-    "5": "Sparse Radar Data, Detection Classification Lidar & Offers Stronger Sensing",
-    "6": "Lidar Independent Robot, Sensor Pose Robot & Microair Vehicles Microrobots",
-    "7": "Modality Omni Cnn, Prediction Performance Camera Gps Lidar & Beam Selection Vehicular",
-    "8": "Inspeções Telhados Fachadas, Utilização Recursos Avançados & Fundamental Para Desenvolvimento",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "LiDAR-Camera Fusion for Object Detection",
+    "1": "Sensor-Based SLAM for Robot Localization",
+    "2": "Autonomous Robot Obstacle Detection Navigation",
+    "3": "Vehicle Lane Detection Sensor Systems",
+    "4": "UAV-Based Aerial LiDAR Point Clouds",
+    "5": "Radar-Camera Fusion for Object Detection",
+    "6": "Laser Photon Imaging Optical Sensing",
+    "7": "Vehicular mmWave Beam Blockage Mitigation",
+    "8": "Unmanned Aerial Vehicle Structural Inspection"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Point Clouds Semantic, Classification Lidar Scenes & Validation Deep Learning",
+      "final_label": "LiDAR-Camera Fusion for Object Detection",
       "representative_phrases": [
         "Point Clouds Semantic",
         "Classification Lidar Scenes",
@@ -3894,7 +3894,7 @@
       ]
     },
     "1": {
-      "final_label": "Droid Slam Improving, Lidar Monocular Visual & Agricultural Robotics",
+      "final_label": "Sensor-Based SLAM for Robot Localization",
       "representative_phrases": [
         "Droid Slam Improving",
         "Lidar Monocular Visual",
@@ -4126,7 +4126,7 @@
       ]
     },
     "2": {
-      "final_label": "Mapping Detecting Objects, Fetchmate Autonomous Indoor & Disabled Persons Iot",
+      "final_label": "Autonomous Robot Obstacle Detection Navigation",
       "representative_phrases": [
         "Mapping Detecting Objects",
         "Fetchmate Autonomous Indoor",
@@ -4269,7 +4269,7 @@
       ]
     },
     "3": {
-      "final_label": "Sensors Automated Driving, Reliability Presence Gps & Smart Camera Intrinsic",
+      "final_label": "Vehicle Lane Detection Sensor Systems",
       "representative_phrases": [
         "Sensors Automated Driving",
         "Reliability Presence Gps",
@@ -4406,7 +4406,7 @@
       ]
     },
     "4": {
-      "final_label": "Lidar Aerial Photography, Turbines Using Unmanned & Uav Based Monitoring",
+      "final_label": "UAV-Based Aerial LiDAR Point Clouds",
       "representative_phrases": [
         "Lidar Aerial Photography",
         "Turbines Using Unmanned",
@@ -4506,7 +4506,7 @@
       ]
     },
     "5": {
-      "final_label": "Sparse Radar Data, Detection Classification Lidar & Offers Stronger Sensing",
+      "final_label": "Radar-Camera Fusion for Object Detection",
       "representative_phrases": [
         "Sparse Radar Data",
         "Detection Classification Lidar",
@@ -4581,7 +4581,7 @@
       ]
     },
     "6": {
-      "final_label": "Lidar Independent Robot, Sensor Pose Robot & Microair Vehicles Microrobots",
+      "final_label": "Laser Photon Imaging Optical Sensing",
       "representative_phrases": [
         "Lidar Independent Robot",
         "Sensor Pose Robot",
@@ -4611,7 +4611,7 @@
       ]
     },
     "7": {
-      "final_label": "Modality Omni Cnn, Prediction Performance Camera Gps Lidar & Beam Selection Vehicular",
+      "final_label": "Vehicular mmWave Beam Blockage Mitigation",
       "representative_phrases": [
         "Modality Omni Cnn",
         "Prediction Performance Camera Gps Lidar",
@@ -4630,7 +4630,7 @@
       ]
     },
     "8": {
-      "final_label": "Inspeções Telhados Fachadas, Utilização Recursos Avançados & Fundamental Para Desenvolvimento",
+      "final_label": "Unmanned Aerial Vehicle Structural Inspection",
       "representative_phrases": [
         "Inspeções Telhados Fachadas",
         "Utilização Recursos Avançados",

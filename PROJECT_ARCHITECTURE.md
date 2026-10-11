@@ -1,4 +1,4 @@
-﻿# ResearchRadar — Project Architecture & System Blueprint
+# ResearchRadar — Project Architecture & System Blueprint
 
 ## Executive Overview
 **ResearchRadar** is an autonomous scientometric observatory and AI-powered research intelligence engine. It transforms academic paper corpora (from Semantic Scholar, arXiv, and OpenAlex) into interactive 3D knowledge manifolds, temporal citation lineages, topological research gap matrices, and grounded grant proposal hypotheses.
@@ -71,11 +71,9 @@ ResearchRadar/
 │   ├── stage1_ingest.py                    # Stage 1: API paper ingestion & caching
 │   ├── stage2_preprocess.py                # Stage 2: Abstract tokenization & cleaning
 │   ├── stage3_embed.py                     # Stage 3: SciBERT / SPECTER2 neural embeddings
-│   ├── stage4_quality.py                   # Stage 4: Cluster quality evaluation (Silhouette/DBI)
 │   ├── stage4_topics.py                    # Stage 4: HDBSCAN / BERTopic cluster extraction
-│   ├── stage5_citation_graph.py            # Stage 5: SPLC Main Path & citation DAG
-│   ├── stage5_knowledge_graph.py           # Stage 5: Bipartite entity knowledge graph
-│   ├── stage6_archipelago.py               # Stage 6: 3D UMAP manifold coordinates
+│   ├── stage5_citations.py                 # Stage 5: Epistemic Citation Journey (02 Citations)
+│   ├── stage6_domain_clusters_archipelago.py # Stage 6: Epistemic Archipelago & 3D Manifold (01 Domain Clusters)
 │   ├── stage7_gap_detection.py             # Stage 7: Bipartite structural hole gap detection
 │   └── stage8_llm_narration.py             # Stage 8: Groq/Llama-3 RAG gap narration
 ├── tests/                                  # Rigor and validation test suites
@@ -119,8 +117,8 @@ ResearchRadar/
 | **`stage1_ingest.py`** | `research_radar/stage1_ingest.py` | Fetches academic papers with abstracts, citation counts, and publication years via Semantic Scholar API with rate limiting. |
 | **`stage3_embed.py`** | `research_radar/stage3_embed.py` | Generates 768-dimensional dense vector embeddings using SciBERT/SPECTER2 models. |
 | **`stage4_topics.py`** | `research_radar/stage4_topics.py` | Clusters embeddings via HDBSCAN and generates descriptive topic labels with c-TF-IDF / BERTopic. |
-| **`stage5_citation_graph.py`** | `research_radar/stage5_citation_graph.py` | Constructs directed citation graph and extracts main developmental trajectory via SPLC (Search Path Link Count). |
-| **`stage6_archipelago.py`** | `research_radar/stage6_archipelago.py` | Projects high-dimensional embeddings to 3D UMAP manifold coordinates for spatial visualization. |
+| **`stage5_citations.py`** | `research_radar/stage5_citations.py` | Computes chronological milestones, bibliographic overlap, and authority scores (Powers website **02 Citations** tab). |
+| **`stage6_domain_clusters_archipelago.py`** | `research_radar/stage6_domain_clusters_archipelago.py` | Projects high-dimensional embeddings to 3D UMAP manifold and macro filaments (Powers website **01 Domain Clusters** tab). |
 | **`stage7_gap_detection.py`** | `research_radar/stage7_gap_detection.py` | Identifies topological white spaces, method-application disconnects, and unbridged scientific clusters. |
 | **`stage8_llm_narration.py`** | `research_radar/stage8_llm_narration.py` | Synthesizes grounded grant proposals and operational hypotheses via Groq LLM RAG engine. |
 | **`export_3d.py`** | `research_radar/export_3d.py` | Formats pipeline outputs into `cluster_3d_points.json` consumed directly by frontend WebGL buffers. |
@@ -385,6 +383,6 @@ To maintain 60 FPS without triggering React re-render cascades in the 3D loop:
 15. **`frontend/src/types.ts`** — Shared TypeScript data contracts.
 16. **`research_radar/api.py`** — FastAPI backend REST and SSE streaming endpoints.
 17. **`research_radar/pipeline.py`** — Master 8-stage scientometric pipeline orchestrator.
-18. **`research_radar/stage6_archipelago.py`** — 3D UMAP manifold generator.
+18. **`research_radar/stage6_domain_clusters_archipelago.py`** — 3D UMAP manifold and domain archipelago generator.
 19. **`research_radar/stage7_gap_detection.py`** — Algorithmic gap detection engine.
 20. **`research_radar/export_3d.py`** — 3D JSON exporter for WebGL buffer consumption.

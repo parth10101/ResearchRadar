@@ -1,0 +1,405 @@
+{
+  "total_gaps": 5,
+  "gaps": [
+    {
+      "gap_type": "Operationalized Scientific Research Gap",
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of B.Sar on PROBLEM OF DETECTING FIRE",
+      "method": "B.SAR",
+      "dataset": "PROBLEM OF DETECTING FIRE",
+      "limitation": "High Computational Costs",
+      "score": 0.0344,
+      "specificity_score": 0.69,
+      "operational_hypothesis": {
+        "task": "Empirical Modeling & Benchmark Evaluation of B.Sar",
+        "methodology": "Advanced Algorithmic Mechanism: B.Sar",
+        "dataset": "Problem Of Detecting Fire Canonical Scientific Benchmark",
+        "constraint": "Operational Boundary Regime: Direct Stress Evaluation under High Computational Costs",
+        "epistemic_boundary": "Quantifying performance boundaries and error curves of B.Sar under high computational costs",
+        "hypothesis_statement": "Applying B.SAR directly to PROBLEM OF DETECTING FIRE under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature.",
+        "specificity_evaluation": {
+          "specificity_score": 0.69,
+          "percentage": 69,
+          "is_admissible": true,
+          "threshold": 0.55,
+          "diagnostic": "ADMISSIBLE_SCIENTIFIC_HYPOTHESIS: Specificity score 69% meets high-rigor peer-reviewed standard.",
+          "sub_scores": {
+            "task": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "method": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "dataset": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "constraint": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            }
+          }
+        },
+        "specificity_score": 0.69,
+        "is_admissible": true
+      },
+      "literature_tier": "Tier 5: Empirically Verified White Space",
+      "uzzi_z_score": -0.076,
+      "expected_cooccur": 0.006,
+      "global_verification": {
+        "is_unexplored": true,
+        "global_hit_count": 0,
+        "confidence_score": 0.9,
+        "literature_tier": "Tier 5: Empirically Verified White Space",
+        "counterexamples": [],
+        "verification_urls": {
+          "google_scholar": "https://scholar.google.com/scholar?q=%22B.SAR%22%20%22PROBLEM%20OF%20DETECTING%20FIRE%22%20%22High%20Computational%20Costs%22",
+          "openalex": "https://openalex.org/works?search=B.SAR%20PROBLEM%20OF%20DETECTING%20FIRE%20High%20Computational%20Costs",
+          "semantic_scholar": "https://www.semanticscholar.org/search?q=B.SAR%20PROBLEM%20OF%20DETECTING%20FIRE%20High%20Computational%20Costs",
+          "exact_search_query": "\"B.SAR\" \"PROBLEM OF DETECTING FIRE\" \"High Computational Costs\""
+        },
+        "verification_notes": "Empirically Verified White Space: Zero global publications returned by OpenAlex combining 'B.SAR', 'PROBLEM OF DETECTING FIRE', and 'High Computational Costs'.",
+        "verification_source": "OpenAlex API (live_query)",
+        "exact_search_query": "\"B.SAR\" \"PROBLEM OF DETECTING FIRE\" \"High Computational Costs\""
+      },
+      "domain_feasibility": {
+        "is_compatible": true,
+        "rationale": "Theoretical compatibility between B.SAR, PROBLEM OF DETECTING FIRE, and High Computational Costs verified."
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013; Qwen-27B Academic Referee 2024",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Uzzi et al. 2013 Eq. 1; local corpus fixed-marginal configuration model)",
+        "referee_verdict": "Confirmed unstudied in published literature.",
+        "specificity_rigor": "69% Operational Precision"
+      },
+      "description": "Operational hypothesis: Applying B.SAR directly to PROBLEM OF DETECTING FIRE under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature. (Uzzi z = -0.08σ, Specificity = 69%). Status: Tier 5: Empirically Verified White Space.",
+      "papers_involved": [
+        "1805.06343",
+        "009867654f5a",
+        "00da54dcfcc3"
+      ]
+    },
+    {
+      "gap_type": "Operationalized Scientific Research Gap",
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of B.Sar on Radarsat-2",
+      "method": "B.SAR",
+      "dataset": "Radarsat-2",
+      "limitation": "High Computational Costs",
+      "score": 0.0344,
+      "specificity_score": 0.73,
+      "operational_hypothesis": {
+        "task": "Empirical Modeling & Benchmark Evaluation of B.Sar",
+        "methodology": "Advanced Algorithmic Mechanism: B.Sar",
+        "dataset": "Radarsat-2 Canonical Scientific Benchmark",
+        "constraint": "Operational Boundary Regime: Direct Stress Evaluation under High Computational Costs",
+        "epistemic_boundary": "Quantifying performance boundaries and error curves of B.Sar under high computational costs",
+        "hypothesis_statement": "Applying B.SAR directly to Radarsat-2 under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature.",
+        "specificity_evaluation": {
+          "specificity_score": 0.73,
+          "percentage": 73,
+          "is_admissible": true,
+          "threshold": 0.55,
+          "diagnostic": "ADMISSIBLE_SCIENTIFIC_HYPOTHESIS: Specificity score 73% meets high-rigor peer-reviewed standard.",
+          "sub_scores": {
+            "task": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "method": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "dataset": {
+              "score": 0.83,
+              "tier": "Fully operational scientific entity (Tier 3)"
+            },
+            "constraint": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            }
+          }
+        },
+        "specificity_score": 0.73,
+        "is_admissible": true
+      },
+      "literature_tier": "Tier 5: Empirically Verified White Space",
+      "uzzi_z_score": -0.076,
+      "expected_cooccur": 0.006,
+      "global_verification": {
+        "is_unexplored": true,
+        "global_hit_count": 0,
+        "confidence_score": 0.9,
+        "literature_tier": "Tier 5: Empirically Verified White Space",
+        "counterexamples": [],
+        "verification_urls": {
+          "google_scholar": "https://scholar.google.com/scholar?q=%22B.SAR%22%20%22Radarsat-2%22%20%22High%20Computational%20Costs%22",
+          "openalex": "https://openalex.org/works?search=B.SAR%20Radarsat-2%20High%20Computational%20Costs",
+          "semantic_scholar": "https://www.semanticscholar.org/search?q=B.SAR%20Radarsat-2%20High%20Computational%20Costs",
+          "exact_search_query": "\"B.SAR\" \"Radarsat-2\" \"High Computational Costs\""
+        },
+        "verification_notes": "Empirically Verified White Space: Zero global publications returned by OpenAlex combining 'B.SAR', 'Radarsat-2', and 'High Computational Costs'.",
+        "verification_source": "OpenAlex API (live_query)",
+        "exact_search_query": "\"B.SAR\" \"Radarsat-2\" \"High Computational Costs\""
+      },
+      "domain_feasibility": {
+        "is_compatible": true,
+        "rationale": "Theoretical compatibility between B.SAR, Radarsat-2, and High Computational Costs verified."
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013; Qwen-27B Academic Referee 2024",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Uzzi et al. 2013 Eq. 1; local corpus fixed-marginal configuration model)",
+        "referee_verdict": "Confirmed unstudied in published literature.",
+        "specificity_rigor": "73% Operational Precision"
+      },
+      "description": "Operational hypothesis: Applying B.SAR directly to Radarsat-2 under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature. (Uzzi z = -0.08σ, Specificity = 73%). Status: Tier 5: Empirically Verified White Space.",
+      "papers_involved": [
+        "1805.06343",
+        "009d72012665",
+        "00da54dcfcc3"
+      ]
+    },
+    {
+      "gap_type": "Operationalized Scientific Research Gap",
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of B.Sar on Estimate Time-Series Lai Of",
+      "method": "B.SAR",
+      "dataset": "Estimate Time-Series Lai Of",
+      "limitation": "High Computational Costs",
+      "score": 0.0344,
+      "specificity_score": 0.71,
+      "operational_hypothesis": {
+        "task": "Empirical Modeling & Benchmark Evaluation of B.Sar",
+        "methodology": "Advanced Algorithmic Mechanism: B.Sar",
+        "dataset": "Estimate Time-Series Lai Of Canonical Scientific Benchmark",
+        "constraint": "Operational Boundary Regime: Direct Stress Evaluation under High Computational Costs",
+        "epistemic_boundary": "Quantifying performance boundaries and error curves of B.Sar under high computational costs",
+        "hypothesis_statement": "Applying B.SAR directly to Estimate Time-Series Lai Of under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature.",
+        "specificity_evaluation": {
+          "specificity_score": 0.71,
+          "percentage": 71,
+          "is_admissible": true,
+          "threshold": 0.55,
+          "diagnostic": "ADMISSIBLE_SCIENTIFIC_HYPOTHESIS: Specificity score 71% meets high-rigor peer-reviewed standard.",
+          "sub_scores": {
+            "task": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "method": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "dataset": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "constraint": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            }
+          }
+        },
+        "specificity_score": 0.71,
+        "is_admissible": true
+      },
+      "literature_tier": "Tier 5: Empirically Verified White Space",
+      "uzzi_z_score": -0.076,
+      "expected_cooccur": 0.006,
+      "global_verification": {
+        "is_unexplored": true,
+        "global_hit_count": 0,
+        "confidence_score": 0.9,
+        "literature_tier": "Tier 5: Empirically Verified White Space",
+        "counterexamples": [],
+        "verification_urls": {
+          "google_scholar": "https://scholar.google.com/scholar?q=%22B.SAR%22%20%22Estimate%20Time-Series%20Lai%20Of%22%20%22High%20Computational%20Costs%22",
+          "openalex": "https://openalex.org/works?search=B.SAR%20Estimate%20Time-Series%20Lai%20Of%20High%20Computational%20Costs",
+          "semantic_scholar": "https://www.semanticscholar.org/search?q=B.SAR%20Estimate%20Time-Series%20Lai%20Of%20High%20Computational%20Costs",
+          "exact_search_query": "\"B.SAR\" \"Estimate Time-Series Lai Of\" \"High Computational Costs\""
+        },
+        "verification_notes": "Empirically Verified White Space: Zero global publications returned by OpenAlex combining 'B.SAR', 'Estimate Time-Series Lai Of', and 'High Computational Costs'.",
+        "verification_source": "OpenAlex API (live_query)",
+        "exact_search_query": "\"B.SAR\" \"Estimate Time-Series Lai Of\" \"High Computational Costs\""
+      },
+      "domain_feasibility": {
+        "is_compatible": true,
+        "rationale": "Theoretical compatibility between B.SAR, Estimate Time-Series Lai Of, and High Computational Costs verified."
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013; Qwen-27B Academic Referee 2024",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Uzzi et al. 2013 Eq. 1; local corpus fixed-marginal configuration model)",
+        "referee_verdict": "Confirmed unstudied in published literature.",
+        "specificity_rigor": "71% Operational Precision"
+      },
+      "description": "Operational hypothesis: Applying B.SAR directly to Estimate Time-Series Lai Of under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature. (Uzzi z = -0.08σ, Specificity = 71%). Status: Tier 5: Empirically Verified White Space.",
+      "papers_involved": [
+        "1805.06343",
+        "00da54dcfcc3",
+        "012b1c3edc39"
+      ]
+    },
+    {
+      "gap_type": "Operationalized Scientific Research Gap",
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of B.Sar on Bands",
+      "method": "B.SAR",
+      "dataset": "Bands",
+      "limitation": "High Computational Costs",
+      "score": 0.0344,
+      "specificity_score": 0.69,
+      "operational_hypothesis": {
+        "task": "Empirical Modeling & Benchmark Evaluation of B.Sar",
+        "methodology": "Advanced Algorithmic Mechanism: B.Sar",
+        "dataset": "Bands Canonical Scientific Benchmark",
+        "constraint": "Operational Boundary Regime: Direct Stress Evaluation under High Computational Costs",
+        "epistemic_boundary": "Quantifying performance boundaries and error curves of B.Sar under high computational costs",
+        "hypothesis_statement": "Applying B.SAR directly to Bands under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature.",
+        "specificity_evaluation": {
+          "specificity_score": 0.69,
+          "percentage": 69,
+          "is_admissible": true,
+          "threshold": 0.55,
+          "diagnostic": "ADMISSIBLE_SCIENTIFIC_HYPOTHESIS: Specificity score 69% meets high-rigor peer-reviewed standard.",
+          "sub_scores": {
+            "task": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "method": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "dataset": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "constraint": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            }
+          }
+        },
+        "specificity_score": 0.69,
+        "is_admissible": true
+      },
+      "literature_tier": "Tier 5: Empirically Verified White Space",
+      "uzzi_z_score": -0.076,
+      "expected_cooccur": 0.006,
+      "global_verification": {
+        "is_unexplored": true,
+        "global_hit_count": 0,
+        "confidence_score": 0.87,
+        "literature_tier": "Tier 5: Empirically Verified White Space",
+        "counterexamples": [],
+        "verification_urls": {
+          "google_scholar": "https://scholar.google.com/scholar?q=%22B.SAR%22%20%22Bands%22%20%22High%20Computational%20Costs%22",
+          "openalex": "https://openalex.org/works?search=B.SAR%20Bands%20High%20Computational%20Costs",
+          "semantic_scholar": "https://www.semanticscholar.org/search?q=B.SAR%20Bands%20High%20Computational%20Costs",
+          "exact_search_query": "\"B.SAR\" \"Bands\" \"High Computational Costs\""
+        },
+        "verification_notes": "Empirically Verified White Space: Zero global publications returned by OpenAlex combining 'B.SAR', 'Bands', and 'High Computational Costs'.",
+        "verification_source": "OpenAlex API (live_query)",
+        "exact_search_query": "\"B.SAR\" \"Bands\" \"High Computational Costs\""
+      },
+      "domain_feasibility": {
+        "is_compatible": true,
+        "rationale": "Theoretical compatibility between B.SAR, Bands, and High Computational Costs verified."
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013; Qwen-27B Academic Referee 2024",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Uzzi et al. 2013 Eq. 1; local corpus fixed-marginal configuration model)",
+        "referee_verdict": "Confirmed unstudied in published literature.",
+        "specificity_rigor": "69% Operational Precision"
+      },
+      "description": "Operational hypothesis: Applying B.SAR directly to Bands under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature. (Uzzi z = -0.08σ, Specificity = 69%). Status: Tier 5: Empirically Verified White Space.",
+      "papers_involved": [
+        "1805.06343",
+        "00da54dcfcc3",
+        "015dc5218dc5"
+      ]
+    },
+    {
+      "gap_type": "Operationalized Scientific Research Gap",
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of B.Sar on Local Networks",
+      "method": "B.SAR",
+      "dataset": "Local Networks",
+      "limitation": "High Computational Costs",
+      "score": 0.0344,
+      "specificity_score": 0.69,
+      "operational_hypothesis": {
+        "task": "Empirical Modeling & Benchmark Evaluation of B.Sar",
+        "methodology": "Advanced Algorithmic Mechanism: B.Sar",
+        "dataset": "Local Networks Canonical Scientific Benchmark",
+        "constraint": "Operational Boundary Regime: Direct Stress Evaluation under High Computational Costs",
+        "epistemic_boundary": "Quantifying performance boundaries and error curves of B.Sar under high computational costs",
+        "hypothesis_statement": "Applying B.SAR directly to Local Networks under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature.",
+        "specificity_evaluation": {
+          "specificity_score": 0.69,
+          "percentage": 69,
+          "is_admissible": true,
+          "threshold": 0.55,
+          "diagnostic": "ADMISSIBLE_SCIENTIFIC_HYPOTHESIS: Specificity score 69% meets high-rigor peer-reviewed standard.",
+          "sub_scores": {
+            "task": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "method": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "dataset": {
+              "score": 0.65,
+              "tier": "Concrete entity with context (Tier 2)"
+            },
+            "constraint": {
+              "score": 0.73,
+              "tier": "Concrete entity with context (Tier 2)"
+            }
+          }
+        },
+        "specificity_score": 0.69,
+        "is_admissible": true
+      },
+      "literature_tier": "Tier 5: Empirically Verified White Space",
+      "uzzi_z_score": -0.076,
+      "expected_cooccur": 0.006,
+      "global_verification": {
+        "is_unexplored": true,
+        "global_hit_count": 0,
+        "confidence_score": 0.9,
+        "literature_tier": "Tier 5: Empirically Verified White Space",
+        "counterexamples": [],
+        "verification_urls": {
+          "google_scholar": "https://scholar.google.com/scholar?q=%22B.SAR%22%20%22Local%20Networks%22%20%22High%20Computational%20Costs%22",
+          "openalex": "https://openalex.org/works?search=B.SAR%20Local%20Networks%20High%20Computational%20Costs",
+          "semantic_scholar": "https://www.semanticscholar.org/search?q=B.SAR%20Local%20Networks%20High%20Computational%20Costs",
+          "exact_search_query": "\"B.SAR\" \"Local Networks\" \"High Computational Costs\""
+        },
+        "verification_notes": "Empirically Verified White Space: Zero global publications returned by OpenAlex combining 'B.SAR', 'Local Networks', and 'High Computational Costs'.",
+        "verification_source": "OpenAlex API (live_query)",
+        "exact_search_query": "\"B.SAR\" \"Local Networks\" \"High Computational Costs\""
+      },
+      "domain_feasibility": {
+        "is_compatible": true,
+        "rationale": "Theoretical compatibility between B.SAR, Local Networks, and High Computational Costs verified."
+      },
+      "scientific_basis": {
+        "paper": "Uzzi et al., Science 2013; Qwen-27B Academic Referee 2024",
+        "doi": "10.1126/science.1240474",
+        "formula": "z = (C_obs - mu_null) / sigma_null (Uzzi et al. 2013 Eq. 1; local corpus fixed-marginal configuration model)",
+        "referee_verdict": "Confirmed unstudied in published literature.",
+        "specificity_rigor": "69% Operational Precision"
+      },
+      "description": "Operational hypothesis: Applying B.SAR directly to Local Networks under High Computational Costs constraints establishes verifiable empirical boundaries, overcoming theoretical disconnects in existing literature. (Uzzi z = -0.08σ, Specificity = 69%). Status: Tier 5: Empirically Verified White Space.",
+      "papers_involved": [
+        "1805.06343",
+        "00da54dcfcc3",
+        "0173eed5d076"
+      ]
+    }
+  ]
+}

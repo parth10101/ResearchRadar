@@ -4,7 +4,7 @@ Stage 7: Gap Identification
 Implements peer-reviewed, industry-grade research gap identification backed by top literature:
   1. G_combo (Entity-Relation Matrix Gap): D'Souza et al. (ACL 2024), Zhao et al. (IJCNLP 2023)
   2. G_bridge (Topological Citation Disconnect Gap): Kalyan et al. (EMNLP 2022), Boyack & Klavans (2010)
-  3. G_sparse (Density-Based GLOSH Outlier Gap): Campello et al. (ACM TKDD 2015), Grootendorst (2022)
+  3. G_sparse (Relative Volume Sparsity Gap): Cluster size normalized against corpus volume
   4. G_temporal (Temporal CAGR Velocity & Stagnation Gap): Wu et al. (Nature 2023), Bornmann & Mutz (2015)
 """
 
@@ -74,7 +74,14 @@ GENERIC_DATASET_BLACKLIST = {
     "the benchmark", "the corpus", "this benchmark", "existing datasets", "different datasets",
     "dataset", "datasets", "data", "benchmark", "benchmarks", "corpus", "database",
     "new dataset", "new benchmark", "massive dataset", "geotagged dataset", "attributive database",
-    "novel dataset", "small dataset", "large dataset", "custom dataset", "synthetic dataset"
+    "novel dataset", "small dataset", "large dataset", "custom dataset", "synthetic dataset",
+    "datasets training", "training datasets", "diverse datasets", "healthcare datasets",
+    "cancer dataset", "diabetes dataset", "various datasets", "multiple datasets",
+    "medical datasets", "clinical datasets", "standard datasets", "open datasets",
+    "subset of these", "subset of those", "subset", "subsets", "four interaction networks",
+    "source code", "Source Code", "source", "Source", "code", "Code", "cloud", "Cloud",
+    "cloud fail on personalization", "Cloud Fail On Personalization", "fail on personalization",
+    "system", "systems", "framework", "platform", "platforms", "applications", "environment"
 }
 
 GENERIC_CONSTRAINT_BLACKLIST = {
@@ -203,7 +210,7 @@ def _get_universal_extractor():
 def _extract_paper_entities(paper: dict) -> dict[str, list[str]]:
     """
     Extracts authentic Method (M), Dataset (D), and Limitation (L) entities from paper metadata.
-    Enforces Argumentative Discourse Zoning and Exact Verbatim Span-Grounding (0% hallucination).
+    Enforces Argumentative Discourse Zoning and Exact Verbatim Span-Grounding.
     """
     extractor = _get_universal_extractor()
     rec = extractor.extract_deterministic(paper)
@@ -244,15 +251,71 @@ def compute_combo_gaps(papers: list[dict]) -> list[dict]:
     all_datasets = Counter()
     all_limitations = Counter()
 
+    # Enhanced noise filters to eliminate garbage noun chunks and pathology nouns
+    INVALID_ENTITY_SUBSTRINGS = {
+        "unit of measurement", "units of measurement", "static nature", "version 6",
+        "legal proceedings looking", "corneal biomechanics in many", "looking", "in many",
+        "many", "several", "various", "version", "assessment", "looking at", "study of",
+        "aspects", "analysis of", "overview", "preliminaries", "related work", "than other tested",
+        "oligoastrocytoma", "astrocytoma", "carcinoma", "metastasis", "lesion", "tumor",
+        "patient", "patients", "syndrome", "disorder", "pathology", "disease"
+    }
+
+    def _is_valid_method_term(term: str) -> bool:
+        t = term.lower().strip()
+        if len(t) < 3 or len(t) > 60:
+            return False
+        if any(inv in t for inv in INVALID_ENTITY_SUBSTRINGS):
+            return False
+        if t in GENERIC_METHOD_BLACKLIST:
+            return False
+        # Reject raw dangling digits or version numbers without model name
+        if re.match(r'^(version|v\d+|\d+|no\.|number)\b', t):
+            return False
+        # Must have at least some alphabetic characters
+        if not re.search(r'[a-zA-Z]{3,}', t):
+            return False
+        return True
+
+    def _is_valid_dataset_term(term: str) -> bool:
+        t = term.lower().strip()
+        if len(t) < 3 or len(t) > 60:
+            return False
+        if any(inv in t for inv in INVALID_ENTITY_SUBSTRINGS):
+            return False
+        if t in GENERIC_DATASET_BLACKLIST:
+            return False
+        if any(t == b for b in GENERIC_DATASET_BLACKLIST):
+            return False
+        if any(t.startswith(p + " ") for p in ("various", "multiple", "different", "several", "diverse", "all", "in")):
+            return False
+        return True
+
+    def _is_valid_limitation_term(term: str) -> bool:
+        t = term.lower().strip()
+        if len(t) < 4 or len(t) > 75:
+            return False
+        if t in GENERIC_CONSTRAINT_BLACKLIST:
+            return False
+        if any(inv in t for inv in INVALID_ENTITY_SUBSTRINGS):
+            return False
+        return True
+
     for pe in paper_entities:
-        for m in pe["methods"]: all_methods[m] += 1
-        for d in pe["datasets"]: all_datasets[d] += 1
-        for l in pe["limitations"]: all_limitations[l] += 1
+        for m in pe["methods"]:
+            if _is_valid_method_term(m):
+                all_methods[m] += 1
+        for d in pe["datasets"]:
+            if _is_valid_dataset_term(d):
+                all_datasets[d] += 1
+        for l in pe["limitations"]:
+            if _is_valid_limitation_term(l):
+                all_limitations[l] += 1
 
     # Filter for methods and datasets with support >= 2 when available to avoid single-paper artifacts
-    top_methods = [m for m, c in all_methods.most_common(12) if c >= 2]
-    top_datasets = [d for d, c in all_datasets.most_common(12) if c >= 2]
-    top_limitations = [l for l, _ in all_limitations.most_common(8)]
+    top_methods = [m for m, c in all_methods.most_common(16) if c >= 2]
+    top_datasets = [d for d, c in all_datasets.most_common(16) if c >= 2]
+    top_limitations = [l for l, _ in all_limitations.most_common(10)]
 
     if not top_methods:
         top_methods = [m for m, _ in all_methods.most_common(12)]
@@ -298,16 +361,24 @@ def compute_combo_gaps(papers: list[dict]) -> list[dict]:
                     lim_counts = Counter([c[0] for c in valid_candidates])
                     lim = lim_counts.most_common(1)[0][0]
                     phys_rationale = next(r for c, r in valid_candidates if c == lim)
+                    gap_category = "TRIAD_HYPEREDGE"
                 elif top_limitations:
                     compat_top = [
                         tl for tl in top_limitations
                         if validate_triad_compatibility(m, d, tl)[0]
                     ]
-                    lim = compat_top[0] if compat_top else "Cross-Domain Generalization & Robustness Constraints"
-                    phys_rationale = f"Theoretical compatibility between {m}, {d}, and {lim} verified."
+                    if compat_top:
+                        lim = compat_top[0]
+                        phys_rationale = f"Cluster-level friction compatibility between {m}, {d}, and {lim} verified."
+                        gap_category = "TRIAD_HYPEREDGE"
+                    else:
+                        lim = "Unexplored Empirical Transfer"
+                        phys_rationale = f"Direct empirical transfer void between {m} and {d}."
+                        gap_category = "BIPARTITE_TRANSFER"
                 else:
-                    lim = "Cross-Domain Generalization & Robustness Constraints"
-                    phys_rationale = f"Theoretical compatibility between {m}, {d}, and {lim} verified."
+                    lim = "Unexplored Empirical Transfer"
+                    phys_rationale = f"Direct empirical transfer void between {m} and {d}."
+                    gap_category = "BIPARTITE_TRANSFER"
 
                 # Find exact supporting papers for Method, Dataset, and Limitation
                 m_papers = [p.get("id") for p, pe in zip(papers, paper_entities) if m in pe["methods"] and p.get("id")]
@@ -323,27 +394,34 @@ def compute_combo_gaps(papers: list[dict]) -> list[dict]:
                         if len(papers_involved) >= 5:
                             break
 
-                # Exact Uzzi et al. (Science 2013) Formulation
+                # Scientometrically Robust Uzzi et al. (Science 2013) Formulation with Laplace Variance Smoothing
                 mu_rand = (k_i * k_j) / float(n_papers_total)
                 denom = (n_papers_total - k_i) * (n_papers_total - k_j)
                 if denom > 0 and (n_papers_total - 1) > 0:
                     var_rand = (k_i * k_j * denom) / float((n_papers_total ** 2) * (n_papers_total - 1))
-                    sigma_rand = math.sqrt(max(1e-9, var_rand))
                 else:
-                    sigma_rand = 1.0
+                    var_rand = 0.0
 
-                z_score = - (mu_rand / sigma_rand)
-                abs_z = abs(z_score)
+                # Laplace pseudo-variance smoothing (lambda = 0.04) prevents division by near-zero on sparse small subgraphs
+                LAMBDA_SMOOTH = 0.04
+                sigma_smoothed = math.sqrt(var_rand + LAMBDA_SMOOTH)
+
+                # Deflection: unlinked void (C_obs = 0) vs expected coupling
+                raw_z = - (mu_rand / sigma_smoothed)
+                # Bounded statistical novelty metric
+                calibrated_z = min(3.5, max(-3.5, raw_z))
+                abs_z = abs(calibrated_z)
 
                 pre_candidates.append({
                     "method": m,
                     "dataset": d,
                     "limitation": lim,
+                    "gap_category": gap_category,
                     "k_i": k_i,
                     "k_j": k_j,
                     "mu_rand": mu_rand,
-                    "z_score": z_score,
-                    "abs_z": abs_z,
+                    "z_score": round(calibrated_z, 4),
+                    "abs_z": round(abs_z, 4),
                     "phys_rationale": phys_rationale,
                     "papers_involved": papers_involved,
                 })
@@ -426,10 +504,14 @@ def compute_combo_gaps(papers: list[dict]) -> list[dict]:
 
         raw_gaps.append((abs_z, {
             "gap_type": "Operationalized Scientific Research Gap",
-            "title": f"Unexplored Frontier: {op_hyp['task']} on {d}",
+            "gap_category": cand.get("gap_category", "TRIAD_HYPEREDGE"),
+            "title": f"Unexplored Frontier: {op_hyp['task']} on {d}" if cand.get("gap_category") == "TRIAD_HYPEREDGE" else f"Empirical Benchmark Transfer: {m} on {d}",
             "method": m,
             "dataset": d,
             "limitation": lim,
+            "method_support": k_i,
+            "dataset_support": k_j,
+            "co_occurrence_count": 0,
             "score": norm_score,
             "specificity_score": op_hyp["specificity_score"],
             "operational_hypothesis": op_hyp,
@@ -444,7 +526,7 @@ def compute_combo_gaps(papers: list[dict]) -> list[dict]:
             "scientific_basis": {
                 "paper": "Uzzi et al., Science 2013; Qwen-27B Academic Referee 2024",
                 "doi": "10.1126/science.1240474",
-                "formula": "z = (C_obs - mu_null) / sigma_null (Eq. 1, p. 469)",
+                "formula": "z = (C_obs - mu_null) / sigma_null (Uzzi et al. 2013 Eq. 1; local corpus fixed-marginal configuration model)",
                 "referee_verdict": referee_notes or "Confirmed unstudied in published literature.",
                 "specificity_rigor": f"{int(op_hyp['specificity_score'] * 100)}% Operational Precision"
             },
@@ -540,12 +622,12 @@ def compute_bridge_gaps(papers: list[dict], topics_data: dict) -> list[dict]:
 
 def compute_sparse_and_temporal_gaps(papers: list[dict], topics_data: dict) -> list[dict]:
     """
-    Tier 3 & 4: G_sparse (Density-Based GLOSH Outlier) & G_temporal (CAGR Velocity Gap).
-    Sourced from Campello et al. (ACM TKDD 2015), Wu et al. (Nature 2023), Bornmann (2015).
+    Tier 3 & 4: G_sparse (Relative Volume Sparsity) & G_temporal (CAGR Velocity Gap).
+    Sourced from Bornmann & Mutz (JASIST 2015), Wu et al. (Nature 2023).
     """
     gaps = []
     total_papers = max(1, len(papers))
-    current_year = 2026
+    current_year = time.localtime().tm_year
 
     for t in topics_data.get("topics", []):
         t_title = t.get("title") or t.get("name") or "Topic"

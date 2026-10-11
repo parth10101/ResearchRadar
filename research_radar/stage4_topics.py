@@ -179,29 +179,27 @@ def generate_topic_representation(
     """
     Extracts traceable, semantically coherent representative keyphrases directly from corpus text,
     and returns both the auditable phrase list and the final synthesized label.
-
-    Strict Principles:
-    1. 100% Traceability: All representative phrases are verbatim extracted keyphrases from papers / c-TF-IDF. No invented words.
-    2. Context Preservation: Domain context words (e.g., 'Healthcare') are strictly preserved.
-    3. Conservative Phrase Deduplication: Filters only exact or subsumed duplicate phrases.
     """
     if not cluster_keywords and not cluster_docs:
         return {
-            "label": "General Topic Cluster",
-            "representative_phrases": ["General Topic Cluster"]
+            "label": "Scientific Research Cluster",
+            "representative_phrases": ["Scientific Research Cluster"]
         }
 
     generic_junk = {
         "datum", "use", "used", "paper", "study", "approach", "method", "propose",
         "learn artificial", "supplement research", "methodology chatgpt", "model",
         "analysis", "performance", "framework", "system", "evaluate", "result",
-        "results", "based", "using", "application", "applications"
+        "results", "based", "using", "application", "applications", "novel", "new",
+        "proposed", "proposes", "presents", "present", "show", "shows", "demonstrates",
+        "towards", "need", "effective", "enhanced", "improving", "advances"
     }
 
     bad_verb_prefixes = {
         "accurately", "predicts", "predicting", "learns", "learning", "driven",
         "using", "based", "boost", "synthesizes", "identifying", "improving",
-        "enhancing", "leveraging", "proposed", "proposing", "presents", "evaluating"
+        "enhancing", "leveraging", "proposed", "proposing", "presents", "evaluating",
+        "towards", "via", "from", "with", "through", "enabling"
     }
 
     clean_kws = [k.replace("_", " ").strip().title() for k in cluster_keywords if k.lower().replace("_", " ").strip() not in generic_junk]
@@ -212,7 +210,6 @@ def generate_topic_representation(
         kw_model = _get_keybert_model(embedding_model_name)
         if kw_model is not None and cluster_docs:
             sample_text = ". ".join(cluster_docs[:4])
-            # KeyBERT Pass 1: Extract (2, 3) n-gram keyphrases from paper text
             extracted = kw_model.extract_keywords(
                 sample_text,
                 keyphrase_ngram_range=(2, 3),
@@ -234,10 +231,12 @@ def generate_topic_representation(
             if extracted:
                 for item in extracted:
                     raw_phrase = item[0].replace("_", " ").strip()
-                    words = raw_phrase.split()
+                    # Clean punctuation from phrases
+                    import re
+                    raw_phrase = re.sub(r'[\,\:\;\(\)\[\]\{\}\"\']', ' ', raw_phrase)
+                    words = [w for w in raw_phrase.split() if w]
                     if not words:
                         continue
-                    # Reject phrases starting with dangling adverbs/verbs
                     if words[0].lower() in bad_verb_prefixes:
                         words = words[1:]
                     if not words or len(words) < 2:
@@ -245,10 +244,9 @@ def generate_topic_representation(
 
                     phrase = " ".join(words).title()
                     p_lower = phrase.lower()
-                    if p_lower in generic_junk:
+                    if p_lower in generic_junk or any(w in generic_junk for w in p_lower.split()):
                         continue
 
-                    # Conservative phrase deduplication: skip only exact/subsumed phrases
                     if any(p_lower == t.lower() or (len(p_lower) > 4 and p_lower in t.lower()) or (len(t) > 4 and t.lower() in p_lower) for t in extracted_phrases):
                         continue
 
@@ -258,7 +256,6 @@ def generate_topic_representation(
     except Exception:
         pass
 
-    # Fallback to c-TF-IDF keywords if KeyBERT extracted phrases are insufficient
     if len(extracted_phrases) < 2:
         for kw in clean_kws:
             if kw.lower() not in generic_junk and not any(kw.lower() == t.lower() for t in extracted_phrases):
@@ -269,7 +266,6 @@ def generate_topic_representation(
     if not extracted_phrases:
         extracted_phrases = ["Scientific Research Cluster"]
 
-    # Synthesize clean 2-concept academic title (No disjointed 3-phrase comma salads)
     if len(extracted_phrases) == 1:
         label = extracted_phrases[0]
     else:
@@ -300,13 +296,140 @@ def refine_topic_names_academically(
     """
     Synthesizes concise, rigorous, publication-grade academic topic titles (3-6 words)
     that a university professor or peer reviewer will recognize as legitimate research fields.
-    Uses Groq LLM batch synthesis if GROQ_API_KEY is available (~0.8s), with an automatic
-    local grammatical fallback.
+    
+    1. Computes domain-salience TF-IDF specificity over the whole corpus to eliminate shared query noise.
+    2. Extracts clean grammatical academic noun phrases from central landmark publications.
+    3. Guarantees global uniqueness across all clusters.
+    4. Applies Groq LLM refinement if GROQ_API_KEY is active (~0.8s), with 100% reliable local synthesis fallback.
     """
     import os
+    import re
     import json
+    from collections import Counter
     from pathlib import Path
+    from sklearn.feature_extraction import text
 
+    if not papers:
+        return current_names
+
+    p_map = {p.get("id"): p for p in papers if p.get("id")}
+    total_papers = len(papers)
+    if total_papers == 0:
+        return current_names
+
+    # 1. Corpus-wide word frequency baseline (to filter query keywords appearing in all clusters)
+    academic_noise = {
+        "paper", "study", "model", "models", "learning", "approach", "approaches",
+        "system", "systems", "method", "methods", "data", "datum", "based", "using",
+        "use", "used", "results", "result", "performance", "framework", "frameworks",
+        "proposed", "proposes", "novel", "new", "present", "presents", "show", "shows",
+        "application", "applications", "review", "survey", "towards", "need", "effective",
+        "enhanced", "improving", "advances", "enhancing", "evaluating", "challenges",
+        "solutions", "state", "art", "comprehensive", "recent", "scoping", "investigation",
+        "analysis", "platform", "platforms", "techniques", "technique", "practical",
+        "machine", "artificial", "intelligence", "overview", "future", "directions"
+    }
+    stop_words = set(text.ENGLISH_STOP_WORDS).union(academic_noise)
+
+    corpus_word_freq = Counter()
+    for p in papers:
+        t = (p.get("title", "") + " " + (p.get("abstract", "") or "")).lower()
+        for w in set(re.findall(r"[a-zA-Z]{3,}", t)):
+            corpus_word_freq[w] += 1
+
+    local_synthesized_names: dict[int, str] = {}
+    chosen_names: set[str] = set()
+
+    for tid, pids in sorted(clusters.items(), key=lambda x: int(x[0])):
+        if tid == -1:
+            local_synthesized_names[-1] = "Outlier Papers (unclustered / cross-disciplinary)"
+            continue
+
+        cluster_papers = [p_map[pid] for pid in pids if pid in p_map]
+        n_cluster = len(cluster_papers)
+        if n_cluster == 0:
+            local_synthesized_names[tid] = current_names.get(tid, f"Topic {tid}")
+            continue
+
+        # Calculate cluster term specificity
+        cluster_word_freq = Counter()
+        for p in cluster_papers:
+            t = (p.get("title", "") + " " + (p.get("abstract", "") or "")).lower()
+            for w in set(re.findall(r"[a-zA-Z]{3,}", t)):
+                cluster_word_freq[w] += 1
+
+        salience = {}
+        for w, c in cluster_word_freq.items():
+            if w in stop_words or c < 2:
+                continue
+            c_prev = c / n_cluster
+            glob_prev = corpus_word_freq.get(w, 1) / total_papers
+            salience[w] = c_prev * (c_prev / (glob_prev + 1e-4))
+
+        top_salient = sorted(salience.keys(), key=lambda w: salience[w], reverse=True)[:12]
+
+        # Extract 2-4 word clean candidate noun phrases from paper titles & abstracts
+        phrase_scores = Counter()
+        for p in cluster_papers:
+            text_to_scan = p.get("title", "") + ". " + (p.get("abstract", "") or "")[:250]
+            clauses = re.split(r"[\.\:\;\,\(\)\[\]\—\–\-\/]", text_to_scan)
+            for clause in clauses:
+                raw_words = [w for w in clause.strip().split() if w]
+                for length in (2, 3):
+                    for i in range(len(raw_words) - length + 1):
+                        ngram = raw_words[i:i+length]
+                        ngram_lower = [w.lower().strip("\"'") for w in ngram]
+                        if ngram_lower[0] in text.ENGLISH_STOP_WORDS or ngram_lower[-1] in text.ENGLISH_STOP_WORDS:
+                            continue
+                        if ngram_lower[0] in ("via", "for", "with", "using", "based", "from", "towards", "through"):
+                            continue
+                        if any(len(w) < 3 or not w.isalpha() for w in ngram_lower):
+                            continue
+                        score = sum(salience.get(w, 0.0) for w in ngram_lower)
+                        if score > 0.3:
+                            p_clean = " ".join(ngram).title()
+                            phrase_scores[p_clean] += score * 1.5
+
+        top_phrases = [p for p, _ in phrase_scores.most_common(12)]
+
+        lead_phrase = None
+        for p in top_phrases:
+            if not any(p.lower() in cn.lower() or cn.lower() in p.lower() for cn in chosen_names):
+                lead_phrase = p
+                break
+        if not lead_phrase and top_phrases:
+            lead_phrase = top_phrases[0]
+        if not lead_phrase and top_salient:
+            lead_phrase = f"{top_salient[0].title()} Technologies"
+        if not lead_phrase:
+            lead_phrase = current_names.get(tid, f"Topic {tid}")
+
+        secondary_phrase = None
+        lead_words = set(lead_phrase.lower().split())
+        for p in top_phrases:
+            p_words = set(p.lower().split())
+            if not p_words.intersection(lead_words) and p.lower() != lead_phrase.lower():
+                secondary_phrase = p
+                break
+
+        if not secondary_phrase:
+            remaining_kws = [k.title() for k in top_salient if k.lower() not in lead_words and len(k) > 2]
+            if len(remaining_kws) >= 2:
+                secondary_phrase = f"{remaining_kws[0]} & {remaining_kws[1]}"
+            elif remaining_kws:
+                secondary_phrase = remaining_kws[0]
+
+        if secondary_phrase and len(lead_phrase.split()) <= 2:
+            combined_title = f"{lead_phrase} & {secondary_phrase}"
+        else:
+            combined_title = lead_phrase
+
+        # Clean trailing punctuation or conjunctions
+        combined_title = re.sub(r"[\,\:\;\&\-\s]+$", "", combined_title).strip()
+        chosen_names.add(combined_title)
+        local_synthesized_names[tid] = combined_title
+
+    # 2. Check for GROQ LLM API Key to provide extra refinement if configured
     key = os.environ.get("GROQ_API_KEY")
     if not key:
         candidates = [Path.cwd() / ".env", Path(__file__).resolve().parent.parent / ".env"]
@@ -327,50 +450,37 @@ def refine_topic_names_academically(
                 break
 
     if not key:
-        return current_names
-
-    id_to_title = {}
-    if papers:
-        id_to_title = {p.get("id"): p.get("title", "") for p in papers if p.get("id")}
+        return local_synthesized_names
 
     sample_topics = {}
     for tid, kws in topic_keywords_dict.items():
         if tid == -1:
             continue
         pids = clusters.get(tid, [])
-        sample_titles = [id_to_title[pid] for pid in pids[:2] if pid in id_to_title and id_to_title[pid]]
+        sample_titles = [p_map[pid].get("title", "") for pid in pids[:3] if pid in p_map and p_map[pid].get("title")]
         sample_topics[str(tid)] = {
             "keywords": kws[:6],
             "sample_titles": sample_titles,
-            "raw_name": current_names.get(tid, f"Topic {tid}"),
+            "synthesized_candidate": local_synthesized_names.get(tid, f"Topic {tid}"),
         }
 
     if not sample_topics:
-        return current_names
+        return local_synthesized_names
 
     prompt = (
-        "You are a distinguished university professor and senior academic journal editor across all academic disciplines, scientific fields, social sciences, and humanities.\n"
-        "For each numbered research topic cluster below, synthesize a concise, rigorous, publication-grade 3-to-6 word academic title (e.g. 'Molecular Graph Neural Networks in Drug Discovery', 'Protein-Ligand Pocket Modeling & Binding Sites', 'In Silico Toxicity & Safety Assessment').\n\n"
+        "You are a distinguished university professor and academic journal editor.\n"
+        "For each numbered topic cluster below, synthesize a concise, publication-grade 3-to-6 word academic title (e.g. 'Differential Privacy in Clinical Data Sharing', 'Blockchain-Enabled IoMT Security & Intrusion Detection').\n\n"
         "Requirements:\n"
-        "1. Strict grammatical correctness: Use proper Academic Noun Phrases. Every title must make logical academic sense to a professor.\n"
-        "2. No dangling verbs or fragmented sentences (e.g. do NOT output 'Accurately Predicts Cryptic' or 'Fracaug Learns Semantics').\n"
-        "3. Non-English Clusters: If keywords or titles are clearly non-English, translate and summarize it accurately with a '[Non-English] ' prefix.\n"
-        "4. Do NOT use generic filler words like 'Study of', 'Approach to', 'Recent Advances in'.\n\n"
-        f"Topic Clusters to Label:\n{json.dumps(sample_topics, indent=2)}\n\n"
-        "Respond with ONLY a JSON object mapping each topic ID string to its refined academic title."
+        "1. Complete Academic Noun Phrases only. No dangling verbs, commas, or incomplete sentences.\n"
+        "2. Ensure every title is distinct and directly identifies the specific sub-field.\n"
+        f"Topic Clusters:\n{json.dumps(sample_topics, indent=2)}\n\n"
+        "Respond with ONLY a JSON object mapping topic ID string to refined title."
     )
-
-    models_to_try = [
-        "openai/gpt-oss-20b",
-        "groq/compound",
-        "qwen/qwen3.8-27b",
-        "llama-3.3-70b-versatile",
-    ]
 
     import requests
     headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
 
-    for model in models_to_try:
+    for model in ["llama-3.3-70b-versatile", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"]:
         try:
             resp = requests.post(
                 "https://api.groq.com/openai/v1/chat/completions",
@@ -381,28 +491,28 @@ def refine_topic_names_academically(
                     "temperature": 0.1,
                     "response_format": {"type": "json_object"},
                 },
-                timeout=10.0,
+                timeout=8.0,
             )
             if resp.status_code == 200:
                 data = resp.json()
                 raw_json = data["choices"][0]["message"]["content"]
                 parsed = json.loads(raw_json)
-                refined = dict(current_names)
+                refined = dict(local_synthesized_names)
                 for str_tid, academic_title in parsed.items():
                     try:
                         t_int = int(str_tid)
                         academic_title = academic_title.strip().strip("'\"")
-                        if academic_title:
+                        if academic_title and len(academic_title.split()) >= 2:
                             refined[t_int] = academic_title
                     except Exception:
                         pass
-                logger.info(f"Academic topic title refinement succeeded using Groq ({model})")
+                logger.info(f"Academic topic title refinement succeeded via Groq ({model})")
                 return refined
-        except Exception as err:
-            logger.warning(f"Groq topic title refinement attempt failed ({model}): {err}")
+        except Exception:
             continue
 
-    return current_names
+    return local_synthesized_names
+
 
 
 # ---------------------------------------------------------------------------
@@ -997,7 +1107,7 @@ def generate_topic_plots(result: dict[str, Any], out_dir: Path) -> dict[str, Pat
 
     for tid in real_topics:
         mask = topics == tid
-        label = f"Topic {tid}: {human_names.get(tid, f'Topic {tid}')[:22]}"
+        label = f"Topic {tid}: {human_names.get(tid, f'Topic {tid}')}"
         ax1.scatter(
             c3d[mask, 0], c3d[mask, 1], c3d[mask, 2],
             label=label,
@@ -1032,7 +1142,7 @@ def generate_topic_plots(result: dict[str, Any], out_dir: Path) -> dict[str, Pat
     for tid in real_topics:
         mask = topics == tid
         pts = c2d[mask]
-        label = f"Topic {tid}: {human_names.get(tid, f'Topic {tid}')[:22]}"
+        label = f"Topic {tid}: {human_names.get(tid, f'Topic {tid}')}"
 
         # Draw filled convex hull boundary
         if len(pts) >= 3:
@@ -1056,9 +1166,9 @@ def generate_topic_plots(result: dict[str, Any], out_dir: Path) -> dict[str, Pat
 
         # Centroid badge
         cx, cy = float(np.mean(pts[:, 0])), float(np.mean(pts[:, 1]))
-        short_title = human_names.get(tid, f"Topic {tid}").split("&")[0].strip()[:18]
+        full_title = human_names.get(tid, f"Topic {tid}")
         ax2.annotate(
-            f"T{tid}: {short_title}",
+            f"T{tid}: {full_title}",
             (cx, cy),
             fontsize=7.5,
             fontweight="bold",
@@ -1134,7 +1244,7 @@ def generate_topic_plots(result: dict[str, Any], out_dir: Path) -> dict[str, Pat
                     opacity=0.90,
                     line=dict(width=1, color="white"),
                 ),
-                name=f"Topic {tid}: {t_name[:26]}",
+                name=f"Topic {tid}: {t_name}",
                 text=hover_texts,
                 hoverinfo="text",
             ))

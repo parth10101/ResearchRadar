@@ -128,6 +128,19 @@ async def execute_pipeline_task(job_id: str, req: PipelineRunRequest):
 
         out_path.mkdir(parents=True, exist_ok=True)
 
+        # Check if dataset already fully computed and verified on disk
+        if not getattr(req, "force_fetch", False) and (out_path / "detected_gaps.json").exists() and (out_path / "cluster_3d_points.json").exists():
+            print(f"[PIPELINE RUNNER] Precomputed dataset '{out_path.name}' detected on disk. Bypassing execution for instant response.", flush=True)
+            _update_stage(1, "Stage 1: Verified Corpus Loaded", 30, f"Loaded precomputed corpus '{out_path.name}' from disk")
+            await asyncio.sleep(0.15)
+            _update_stage(4, "Stage 4: Topic & Manifold Cached", 70, "Restored 3D semantic manifold & citation topologies")
+            await asyncio.sleep(0.15)
+            _update_stage(8, "Pipeline Complete", 100, f"Synthesized research space ready ({out_path.name})")
+            job["dataset_id"] = out_path.name
+            job["status"] = "completed"
+            job["is_terminal"] = True
+            return
+
         # Resolve correct python executable
         root_dir = settings.ROOT_DIR
         python_candidates = [
@@ -156,6 +169,10 @@ async def execute_pipeline_task(job_id: str, req: PipelineRunRequest):
                 "--out", str(out_path)
             ])
 
+        if getattr(req, "year", None):
+            cmd.extend(["--year", req.year])
+        if getattr(req, "force_fetch", False):
+            cmd.append("--force-fetch")
         if req.skip_stage1:
             cmd.append("--no-stage1")
         if req.skip_stage6:

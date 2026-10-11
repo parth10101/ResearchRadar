@@ -12,6 +12,7 @@ interface OmniScopeL1ClusterSpaceProps {
   onSelectCluster: (id: string) => void;
   onSelectPaper?: (id: string) => void;
   onNavigateToHero?: () => void;
+  activeQuery?: string;
 }
 
 export const OmniScopeL1ClusterSpace: React.FC<OmniScopeL1ClusterSpaceProps> = ({
@@ -20,6 +21,7 @@ export const OmniScopeL1ClusterSpace: React.FC<OmniScopeL1ClusterSpaceProps> = (
   onSelectCluster,
   onSelectPaper,
   onNavigateToHero,
+  activeQuery,
 }) => {
   const [isInspectMode, setIsInspectMode] = useState(false);
   const [isAutoRotate, setIsAutoRotate] = useState(true);
@@ -264,6 +266,7 @@ export const OmniScopeL1ClusterSpace: React.FC<OmniScopeL1ClusterSpaceProps> = (
           cluster={activeCluster || clusters[0]}
           totalCorpusCount={totalPapers}
           onBackToOverview={handleBackToOverview}
+          activeQuery={activeQuery}
           onSelectPaper={(paperId) => {
             if (onSelectPaper) {
               onSelectPaper(paperId);

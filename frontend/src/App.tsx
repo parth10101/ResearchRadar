@@ -5,6 +5,7 @@ import { CitationTimeline } from './components/CitationTimeline';
 import { GrantStudio } from './components/GrantStudio';
 import { HeroSection } from './components/HeroSection';
 import { UniversalBackground } from './components/UniversalBackground';
+import { BenchmarkModal } from './components/BenchmarkModal';
 import { DatasetInfo, ArchipelagoData, CitationData, ResearchGap, NarratedGap, PipelineProgressEvent, Points3DData } from './types';
 import { spatialJourneyController } from './particles/SpatialJourneyController';
 
@@ -42,6 +43,8 @@ export const App: React.FC = () => {
   const [progressEvents, setProgressEvents] = useState<PipelineProgressEvent[]>([]);
   const [selectedGapTitle, setSelectedGapTitle] = useState('');
   const [pipelineError, setPipelineError] = useState<string | null>(null);
+  const [activeQuery, setActiveQuery] = useState<string>('Federated Learning Privacy & Non-IID Drift in Clinical LLMs');
+  const [isBenchmarkOpen, setIsBenchmarkOpen] = useState(false);
 
   // Discrete Stage Engine
   const [stageIndex, setStageIndex] = useState(0);
@@ -96,36 +99,31 @@ export const App: React.FC = () => {
     const fromStage = STAGES[currentIndex];
     const toStage = STAGES[targetIndex];
 
-    // SCENARIO 1: Hero -> Epistemic Map (2.4s Coordinated Immersive Formation)
+    // SCENARIO 1: Hero -> Epistemic Map (Snappy, Fluid Particle Formation)
     if (currentIndex === 0 && targetIndex === 1) {
-      // 1. Hero fades out immediately
+      // 1. Hero fades out
       setStageStates(['exiting', 'hidden', 'hidden', 'hidden']);
       setViewMode('studio');
       setActiveTab('archipelago');
 
-      // 2. At t = 400ms: Hero is hidden. The WebGL particle flight is now the sole hero in view.
+      // 2. At t = 120ms: Mount OmniScopeStudio with smooth entering fade
       const t1 = setTimeout(() => {
-        setStageStates(['hidden', 'hidden', 'hidden', 'hidden']);
-      }, 400);
-
-      // 3. At t = 1400ms: Particles have formed into clusters. OmniScopeStudio mounts with entry animation.
-      const t2 = setTimeout(() => {
         setStageIndex(1);
         setStageStates(['hidden', 'entering', 'hidden', 'hidden']);
-      }, 1400);
+      }, 120);
 
-      // 4. At t = 2400ms: Fully settled and interactive.
-      const t3 = setTimeout(() => {
+      // 3. At t = 450ms: Fully settled and interactive
+      const t2 = setTimeout(() => {
         setStageStates(['hidden', 'active', 'hidden', 'hidden']);
         isAnimatingRef.current = false;
         setIsTransitioning(false);
-      }, 2400);
+      }, 450);
 
-      transitionTimersRef.current = [t1, t2, t3];
+      transitionTimersRef.current = [t1, t2];
       return;
     }
 
-    // SCENARIO 2: Return to Hero (from Epistemic, Citation Lineage, or Grant Studio)
+    // SCENARIO 2: Return to Hero
     if (targetIndex === 0) {
       setStageStates(prev => {
         const next = prev.map(() => 'hidden') as StageDisplayState[];
@@ -136,26 +134,21 @@ export const App: React.FC = () => {
       setActiveTab('hero');
 
       const t1 = setTimeout(() => {
-        setStageStates(['hidden', 'hidden', 'hidden', 'hidden']);
-      }, 400);
-
-      const t2 = setTimeout(() => {
         setStageIndex(0);
         setStageStates(['entering', 'hidden', 'hidden', 'hidden']);
-      }, 1500);
+      }, 120);
 
-      const t3 = setTimeout(() => {
+      const t2 = setTimeout(() => {
         setStageStates(['active', 'hidden', 'hidden', 'hidden']);
         isAnimatingRef.current = false;
         setIsTransitioning(false);
-      }, 2400);
+      }, 450);
 
-      transitionTimersRef.current = [t1, t2, t3];
+      transitionTimersRef.current = [t1, t2];
       return;
     }
 
     // SCENARIO 3: Standard Fast Clean Cross-Fades (Epistemic <-> Timeline <-> Grant)
-    // Exit current stage
     setStageStates(prev => {
       const next = [...prev] as StageDisplayState[];
       next[currentIndex] = 'exiting';
@@ -165,7 +158,6 @@ export const App: React.FC = () => {
     setActiveTab(toStage);
     setViewMode(targetIndex === 0 ? 'hero' : 'studio');
 
-    // After current stage fades out (300ms), hide it and enter target stage
     const t1 = setTimeout(() => {
       setStageIndex(targetIndex);
       setStageStates(prev => {
@@ -174,9 +166,8 @@ export const App: React.FC = () => {
         next[targetIndex] = 'entering';
         return next;
       });
-    }, 300);
+    }, 120);
 
-    // After target stage settles (750ms total), lock in active state
     const t2 = setTimeout(() => {
       setStageStates(prev => {
         const next = prev.map(() => 'hidden') as StageDisplayState[];
@@ -185,7 +176,7 @@ export const App: React.FC = () => {
       });
       isAnimatingRef.current = false;
       setIsTransitioning(false);
-    }, 800);
+    }, 380);
 
     transitionTimersRef.current = [t1, t2];
   }, []);
@@ -308,25 +299,37 @@ export const App: React.FC = () => {
       setSelectedGapTitle('');
       return;
     }
+    // 1. High-priority immediate fetch for Stage 1 visual rendering & particles
     fetch(`/api/graph/points3d?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setPoints3dData).catch(() => setPoints3dData(null));
     fetch(`/api/graph/archipelago?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setArchipelagoData).catch(() => setArchipelagoData(null));
-    fetch(`/api/graph/citation?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setCitationData).catch(() => setCitationData(null));
     fetch(`/api/gaps/detected?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(d => setDetectedGaps(d?.gaps ?? [])).catch(() => setDetectedGaps([]));
     fetch(`/api/gaps/narrated?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(d => {
       if (d?.gaps?.length > 0) { setNarratedGaps(d.gaps); setSelectedGapTitle(d.gaps[0].title); }
       else setNarratedGaps([]);
     }).catch(() => setNarratedGaps([]));
+
+    // 2. Defer heavy citation dataset fetch slightly so WebGL particle transition stays locked at 60 FPS
+    const timer = setTimeout(() => {
+      fetch(`/api/graph/citation?dataset=${selectedDataset}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(setCitationData)
+        .catch(() => setCitationData(null));
+    }, 200);
+
+    return () => clearTimeout(timer);
   }, [selectedDataset]);
 
-  const handleTriggerRun = async (query: string, maxResults: number) => {
+  const handleTriggerRun = async (query: string, maxResults: number, year?: string) => {
     setIsRunning(true);
     setProgressEvents([]);
     setPipelineError(null);
     try {
+      const payload: Record<string, any> = { query, max_results: maxResults };
+      if (year) payload.year = year;
       const response = await fetch('/api/pipeline/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, max_results: maxResults }),
+        body: JSON.stringify(payload),
       });
       if (!response.ok) throw new Error(`Pipeline initialization failed: ${response.statusText}`);
       const statusData = await response.json();
@@ -416,6 +419,7 @@ export const App: React.FC = () => {
         onSelectTab={scrollToSection}
         onReturnToHero={() => scrollToSection('hero')}
         onLaunchStudio={() => scrollToSection('archipelago')}
+        onOpenBenchmark={() => setIsBenchmarkOpen(true)}
       />
 
       {/* Main Viewport Stage Container */}
@@ -439,14 +443,28 @@ export const App: React.FC = () => {
               isRunning={isRunning}
               progressEvents={progressEvents}
               pipelineError={pipelineError}
-              onSearch={(searchQuery, corpusSize, datasetId) => {
+              onSearch={(searchQuery, corpusSize, datasetId, year) => {
                 setPipelineError(null);
+                setActiveQuery(searchQuery);
                 if (datasetId) {
                   setSelectedDataset(datasetId);
                   scrollToSection('archipelago');
                   return;
                 }
-                handleTriggerRun(searchQuery, corpusSize || 300);
+                // Check if query directly matches any precomputed dataset
+                const qClean = searchQuery.toLowerCase().trim();
+                const matched = datasets.find(d => 
+                  d.id === searchQuery || 
+                  d.id === `output_${qClean.replace(/[^a-z0-9]+/g, '_').slice(0, 24).replace(/_+$/, '')}` ||
+                  (d.query && d.query.toLowerCase() === qClean) ||
+                  d.name.toLowerCase() === qClean
+                );
+                if (matched) {
+                  setSelectedDataset(matched.id);
+                  scrollToSection('archipelago');
+                  return;
+                }
+                handleTriggerRun(searchQuery, corpusSize || 300, year);
               }}
             />
           </div>
@@ -457,6 +475,7 @@ export const App: React.FC = () => {
           <div style={getStageStyle(stageStates[1])}>
             <OmniScopeStudio
               data3d={points3dData}
+              activeQuery={activeQuery}
               onNavigateToGrant={handleSelectGapForGrant}
               onNavigateToHero={() => scrollToSection('hero')}
               onSelectPaper={handleSelectPaper}
@@ -465,6 +484,7 @@ export const App: React.FC = () => {
               activeLayer={activeLayer}
               gaps={detectedGaps}
               hasDataset={Boolean(selectedDataset)}
+              onOpenBenchmark={() => setIsBenchmarkOpen(true)}
             />
           </div>
         )}
@@ -474,6 +494,7 @@ export const App: React.FC = () => {
           <div style={{ ...getStageStyle(stageStates[2]), overflowY: 'auto' }}>
             <CitationTimeline
               data={citationData}
+              searchQuery={activeQuery}
               onNavigateToHero={() => scrollToSection('hero')}
               targetPaperId={targetPaperId}
             />
@@ -486,6 +507,7 @@ export const App: React.FC = () => {
             <GrantStudio
               narratedGaps={narratedGaps}
               selectedGapTitle={selectedGapTitle}
+              searchQuery={activeQuery}
               onNavigateToHero={() => scrollToSection('hero')}
             />
           </div>
@@ -534,6 +556,12 @@ export const App: React.FC = () => {
           })}
         </nav>
       </div>
+
+      {/* SOTA Ground Truth Empirical Verification Benchmark Modal */}
+      <BenchmarkModal
+        isOpen={isBenchmarkOpen}
+        onClose={() => setIsBenchmarkOpen(false)}
+      />
     </>
   );
 };

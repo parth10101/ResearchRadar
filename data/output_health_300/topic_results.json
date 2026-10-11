@@ -796,16 +796,16 @@
     ]
   },
   "human_readable_names": {
-    "0": "Health Dataset & Suicide Prevention & Algorithm Clinical",
-    "1": "Smart Healthcare & Medical Dataset & Machine Svm",
-    "2": "Digital Ayurveda & Wellness Analytic & Acceptance Model",
-    "3": "Assistant Dermatology & Support Medbot & Vision Language",
-    "4": "Clinical Dataset & Detection Chest & Advance Pediatric",
-    "5": "Medical Dataset & Benchmark Medarabiq & Enhance Healthcare",
-    "6": "Assess Knee & Radiology Workflow & Osteoscan Website",
-    "7": "Clinical Workflow & Healthcare Software & Explainability Healthcare",
-    "8": "Kidney Transplant & Generate Patient",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Machine Learning in Clinical Medicine",
+    "1": "Patient Privacy in Healthcare Systems",
+    "2": "Artificial Intelligence in Medical Education",
+    "3": "Medical Chatbots for Patient Support",
+    "4": "Deep Learning for Medical Image Classification",
+    "5": "Large Language Models in Biomedicine",
+    "6": "AI Analysis of DICOM Radiology Images",
+    "7": "Explainable AI for Clinical Decision Support",
+    "8": "LLM Accuracy in Medical Education Assessment"
   },
   "coords_2d": {
     "0002148f4747": [

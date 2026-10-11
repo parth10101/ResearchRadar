@@ -75,14 +75,13 @@
     ]
   },
   "human_readable_names": {
-    "0": "Quantum Surface Code Error Performance",
-    "1": "Superconducting Quantum Spin Code Architecture",
-    "2": "Scalable Quantum Decoder Hardware",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "0": "Quantum Surface Code Performance",
+    "1": "Superconducting Quantum Spin Codes",
+    "2": "Scalable Quantum Decoder Hardware"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Quantum Surface Code Error Performance",
+      "final_label": "Quantum Surface Code Performance",
       "representative_phrases": [
         "Error Rates Quantum",
         "Noisy Qec Codes"
@@ -95,7 +94,7 @@
       ]
     },
     "1": {
-      "final_label": "Superconducting Quantum Spin Code Architecture",
+      "final_label": "Superconducting Quantum Spin Codes",
       "representative_phrases": [
         "Codes Superconducting Quantum",
         "Advances Quantum Error"

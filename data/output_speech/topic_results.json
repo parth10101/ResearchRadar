@@ -734,16 +734,16 @@
     ]
   },
   "human_readable_names": {
-    "0": "Programming Voice & Conversational Technology & Service Speech",
-    "1": "Classify Voice & Application Biometric & Feature Mfcc",
-    "2": "Generate Speech & Speech Recognition Asr Models & Rnnt Training",
-    "3": "Voice Detect & Raspberry Component & Intelligence Computer",
-    "4": "Voice Multilingual & Translation Computer & Regenerate Speech",
-    "5": "Multimodal Emotion Detection Voice & Voice Integration & Speech Corpus",
-    "6": "Speech Audiometric & Recognition Speak & Discrimination Quiet",
-    "7": "Wounded Utterance & Petition Strengthen & Italy Conflict",
-    "8": "Speech Pilot & Recognition Asr Technology & Airspace Computer",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Voice-Activated Speech Control Systems",
+    "1": "Speaker Recognition via Voice Signals",
+    "2": "Speech Recognition Model Training Methods",
+    "3": "Gesture-Based Sign Language Recognition",
+    "4": "Multilingual Speech-to-Text Translation Models",
+    "5": "Speech-Based Emotion Recognition Features",
+    "6": "Auditory Speech Perception and Discrimination",
+    "7": "Digital Disinformation and Political Governance",
+    "8": "Aviation Air Traffic Control Speech"
   },
   "coords_2d": {
     "2305.15971": [

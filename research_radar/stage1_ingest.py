@@ -1,15 +1,13 @@
 """
 Stage 1: Data Ingestion
 =======================
-Dual ingestion pathway:
-  - arXiv API (arxiv Python library)   — via fetch_from_arxiv()
-  - Semantic Scholar API (S2AG)        — via fetch_from_semanticscholar()
+Primary ingestion pathway:
+  - Semantic Scholar API (S2AG) via fetch_from_semanticscholar()
 
-All papers are normalised into a single dict schema and written to a
-JSON database (data/papers.json) so Stage 2 doesn't care where a
-paper came from.
+All papers are normalised into a unified schema and written to a
+JSON database (data/papers.json) for downstream processing.
 
-New fields added by Semantic Scholar ingestion:
+Fields populated by Semantic Scholar ingestion:
   · s2_paper_id            — S2's canonical paper ID
   · tldr                   — AI-generated 1-sentence summary (method + main result)
   · citation_count         — total raw citation count
@@ -29,16 +27,6 @@ import re
 import time
 from pathlib import Path
 from typing import Any
-
-
-# ---------------------------------------------------------------------------
-# HOW: Optional arxiv library is imported safely (no crash if not installed)
-# ---------------------------------------------------------------------------
-
-try:
-    import arxiv  # pip install arxiv
-except ImportError:
-    arxiv = None  # If not installed, arxiv = None (we check for None before using it)
 
 
 # ---------------------------------------------------------------------------
@@ -190,7 +178,7 @@ def _empty_paper(**kwargs) -> dict:
         "authors":                   [],     # List of author name strings
         "year":                      None,   # Integer publication year (e.g. 2022)
         "doi":                       None,   # Digital Object Identifier string
-        "source":                    "arxiv",# Data source: "arxiv" | "semanticscholar"
+        "source":                    "semanticscholar",# Data source: "semanticscholar"
 
         # --- Text content ---
         "abstract":                  "",     # Full abstract text string
@@ -281,77 +269,6 @@ def _get_s2_headers() -> dict[str, str]:
     return headers
 
 
-# ---------------------------------------------------------------------------
-# HOW: arXiv ingestion — unchanged from original
-# ---------------------------------------------------------------------------
-
-def fetch_from_arxiv(
-    query: str,
-    categories: list[str] | None = None,
-    start_year: int | None = None,
-    end_year: int | None = None,
-    max_results: int = 300,
-    rate_limit_seconds: float = 4.0,
-) -> list[dict]:
-    if arxiv is None:
-        raise ImportError("pip install arxiv")
-
-    full_query = query
-    if categories:
-        cat_filter = " OR ".join(f"cat:{c}" for c in categories)
-        full_query = f"({query}) AND ({cat_filter})"
-
-    search = arxiv.Search(
-        query=full_query,
-        max_results=max_results,
-        sort_by=arxiv.SortCriterion.Relevance,
-    )
-    client = arxiv.Client(
-        page_size=min(max_results, 100),
-        delay_seconds=max(rate_limit_seconds, 4.0),
-        num_retries=5,
-    )
-
-    papers = []
-    max_attempts = 3
-    for attempt in range(max_attempts):
-        try:
-            papers = []  # Reset to prevent duplicate accumulation on retry
-            for result in client.results(search):
-                year = result.published.year if result.published else None
-                if not year:
-                    continue
-                if start_year and year < start_year:
-                    continue
-                if end_year and year > end_year:
-                    continue
-                title_clean = result.title.strip().replace("\n", " ")
-                abstract_clean = result.summary.strip().replace("\n", " ")
-                tldr_gen = _generate_fallback_tldr(abstract_clean, title_clean)
-                papers.append(
-                    _empty_paper(
-                        id=result.get_short_id(),
-                        title=title_clean,
-                        authors=[a.name for a in result.authors],
-                        year=year,
-                        abstract=abstract_clean,
-                        tldr=tldr_gen,
-                        citation_count=0,
-                        influential_citation_count=0,
-                        doi=result.doi,
-                        source="arxiv",
-                    )
-                )
-            break
-        except Exception as e:
-            if "429" in str(e) or "HTTPError" in type(e).__name__:
-                wait_time = (attempt + 1) * 15
-                print(f"  [arXiv Rate Limit 429] Cooldown pause for {wait_time}s (Attempt {attempt + 1}/{max_attempts})...")
-                time.sleep(wait_time)
-            else:
-                raise e
-
-    return papers
 
 
 # ---------------------------------------------------------------------------

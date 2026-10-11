@@ -2,17 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Award, ShieldCheck, Sparkles, Copy, Check, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 import { NarratedGap } from '../types';
 import { ObservatoryStandby } from './ObservatoryStandby';
+import { HighlightedTitle } from './HighlightedTitle';
 
 interface GrantStudioProps {
   narratedGaps: NarratedGap[];
   selectedGapTitle: string;
   onNavigateToHero?: () => void;
+  searchQuery?: string;
 }
 
 // Curated high-fidelity scientometric fallback hypotheses
 const DEFAULT_NARRATED_GAPS: NarratedGap[] = [];
 
-export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selectedGapTitle, onNavigateToHero }) => {
+export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selectedGapTitle, onNavigateToHero, searchQuery }) => {
   // Always default to top gap (index 0) whenever navigating to this section
   const [activeGapIndex, setActiveGapIndex] = useState(0);
   const [isCopied, setIsCopied] = useState(false);
@@ -379,7 +381,7 @@ ${activeGap.llm_narration}
                       >
                         <div className="space-y-0.5 min-w-0 pr-3">
                           <div className="font-sans font-medium text-zinc-200 truncate">
-                            {paper.title}
+                            <HighlightedTitle title={paper.title} query={searchQuery} />
                           </div>
                           <div className="font-mono text-[11px] text-zinc-500">
                             {paper.venue || 'Academic Journal'} · {paper.year}

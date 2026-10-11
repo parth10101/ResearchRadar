@@ -2148,20 +2148,20 @@
     ]
   },
   "human_readable_names": {
-    "0": "Learning Graphs Gnns, Benchmarking Graph Neural & Revolutionizing Graph Representation",
-    "1": "Traffic Classification Graph, Architecture Spatiotemporal Gnns & Flow Forecasting Data",
-    "2": "Training Graph Neural, Nanoscale Stackable Resistors & Use Memory Computing",
-    "3": "Nlp Graph Neural, Text Classification Gnn & Graph2Seq Graph Sequence",
-    "4": "Gnns Wireless Networks, Graph Algorithm Learning & Network Sizes Optimal",
-    "5": "Learning Molecules Gnns, Molecular Dynamics Simulations & Equivariant Interatomic Potentials",
-    "6": "Graph Neural, Eeg Signals Adjacency & Emotion Recognition Rgnn",
-    "7": "Recommendation Graph Neural, Session Based Recommender & Session Graph Gnn",
-    "8": "Graph Anomaly Detection, Anomalies Using Gnn & Propose Beta Wavelet",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Graph Neural Network Representation Learning",
+    "1": "Spatiotemporal Graph Neural Network Traffic Forecasting",
+    "2": "Spiking Neural Network Memory Training",
+    "3": "Knowledge Graph Entity Text Modeling",
+    "4": "Graph Neural Network Optimization Search",
+    "5": "Molecular Graph Neural Network Drug Prediction",
+    "6": "EEG Functional Brain Connectivity Graph Analysis",
+    "7": "Session-Based Graph Neural Network Recommendation",
+    "8": "Graph Neural Network Anomaly Detection"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Learning Graphs Gnns, Benchmarking Graph Neural & Revolutionizing Graph Representation",
+      "final_label": "Graph Neural Network Representation Learning",
       "representative_phrases": [
         "Learning Graphs Gnns",
         "Benchmarking Graph Neural",
@@ -2603,7 +2603,7 @@
       ]
     },
     "1": {
-      "final_label": "Traffic Classification Graph, Architecture Spatiotemporal Gnns & Flow Forecasting Data",
+      "final_label": "Spatiotemporal Graph Neural Network Traffic Forecasting",
       "representative_phrases": [
         "Traffic Classification Graph",
         "Architecture Spatiotemporal Gnns",
@@ -2699,7 +2699,7 @@
       ]
     },
     "2": {
-      "final_label": "Training Graph Neural, Nanoscale Stackable Resistors & Use Memory Computing",
+      "final_label": "Spiking Neural Network Memory Training",
       "representative_phrases": [
         "Training Graph Neural",
         "Nanoscale Stackable Resistors",
@@ -2809,7 +2809,7 @@
       ]
     },
     "3": {
-      "final_label": "Nlp Graph Neural, Text Classification Gnn & Graph2Seq Graph Sequence",
+      "final_label": "Knowledge Graph Entity Text Modeling",
       "representative_phrases": [
         "Nlp Graph Neural",
         "Text Classification Gnn",
@@ -2888,7 +2888,7 @@
       ]
     },
     "4": {
-      "final_label": "Gnns Wireless Networks, Graph Algorithm Learning & Network Sizes Optimal",
+      "final_label": "Graph Neural Network Optimization Search",
       "representative_phrases": [
         "Gnns Wireless Networks",
         "Graph Algorithm Learning",
@@ -2968,7 +2968,7 @@
       ]
     },
     "5": {
-      "final_label": "Learning Molecules Gnns, Molecular Dynamics Simulations & Equivariant Interatomic Potentials",
+      "final_label": "Molecular Graph Neural Network Drug Prediction",
       "representative_phrases": [
         "Learning Molecules Gnns",
         "Molecular Dynamics Simulations",
@@ -3043,7 +3043,7 @@
       ]
     },
     "6": {
-      "final_label": "Graph Neural, Eeg Signals Adjacency & Emotion Recognition Rgnn",
+      "final_label": "EEG Functional Brain Connectivity Graph Analysis",
       "representative_phrases": [
         "Graph Neural",
         "Eeg Signals Adjacency",
@@ -3095,7 +3095,7 @@
       ]
     },
     "7": {
-      "final_label": "Recommendation Graph Neural, Session Based Recommender & Session Graph Gnn",
+      "final_label": "Session-Based Graph Neural Network Recommendation",
       "representative_phrases": [
         "Recommendation Graph Neural",
         "Session Based Recommender",
@@ -3128,7 +3128,7 @@
       ]
     },
     "8": {
-      "final_label": "Graph Anomaly Detection, Anomalies Using Gnn & Propose Beta Wavelet",
+      "final_label": "Graph Neural Network Anomaly Detection",
       "representative_phrases": [
         "Graph Anomaly Detection",
         "Anomalies Using Gnn",

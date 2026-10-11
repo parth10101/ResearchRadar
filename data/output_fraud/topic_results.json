@@ -750,14 +750,14 @@
     ]
   },
   "human_readable_names": {
-    "0": "Autoencoder Efficient & Classification Computer & Pruning Technique",
-    "1": "Fraud Detection & Dataset Credit & Classification Performance",
-    "2": "Card Security & Fraud Dataset & Transaction Processing",
-    "3": "Fraud Dataset & Detect Credit & Card Processing",
-    "4": "Fraud Detection & Mining Credit & Card Dataset",
-    "5": "Fraud Dataset & Classify Highly & Detect Credit",
-    "6": "Fraud Detection & Classification Credit & Dataset Roc",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Card Transaction Fraud Detection Model",
+    "1": "Quantum Privacy Adversarial Fraud Detection Model",
+    "2": "Card Transaction Credit Fraud Detection System",
+    "3": "Machine Credit Card Fraud Detection",
+    "4": "Machine Learning Credit Card Fraud Algorithm",
+    "5": "Minority Class Imbalance Feature Scoring Model",
+    "6": "Random Forest Card Transaction Fraud Model"
   },
   "coords_2d": {
     "001d874a8be8": [

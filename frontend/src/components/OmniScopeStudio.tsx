@@ -16,6 +16,8 @@ interface OmniScopeStudioProps {
   onSelectLayer?: (layer: 1 | 2 | 3) => void;
   gaps?: ResearchGap[];
   hasDataset?: boolean;
+  activeQuery?: string;
+  onOpenBenchmark?: () => void;
 }
 
 export const OmniScopeStudio: React.FC<OmniScopeStudioProps> = ({
@@ -28,6 +30,8 @@ export const OmniScopeStudio: React.FC<OmniScopeStudioProps> = ({
   activeLayer = 1,
   gaps = [],
   hasDataset = false,
+  activeQuery,
+  onOpenBenchmark,
 }) => {
   const [localClusterId, setLocalClusterId] = useState<string>('');
 
@@ -54,7 +58,11 @@ export const OmniScopeStudio: React.FC<OmniScopeStudioProps> = ({
       <main className="relative flex-1 w-full h-full overflow-hidden">
         {activeLayer === 3 ? (
           <div className="w-full h-full overflow-y-auto px-6 py-4 max-w-[1560px] mx-auto bg-[#07090e]/85 backdrop-blur-xl">
-            <GapMatrix gaps={gaps || []} onSelectGapForGrant={onNavigateToGrant || (() => {})} />
+            <GapMatrix 
+              gaps={gaps || []} 
+              onSelectGapForGrant={onNavigateToGrant || (() => {})} 
+              onOpenBenchmark={onOpenBenchmark}
+            />
           </div>
         ) : (
           <OmniScopeL1ClusterSpace
@@ -63,6 +71,7 @@ export const OmniScopeStudio: React.FC<OmniScopeStudioProps> = ({
             onSelectCluster={handleSelectCluster}
             onSelectPaper={onSelectPaper}
             onNavigateToHero={onNavigateToHero}
+            activeQuery={activeQuery}
           />
         )}
       </main>

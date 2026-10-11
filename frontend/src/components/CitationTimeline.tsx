@@ -25,12 +25,14 @@ import {
 } from 'lucide-react';
 import { CitationData } from '../types';
 import { ObservatoryStandby } from './ObservatoryStandby';
+import { HighlightedTitle } from './HighlightedTitle';
 import './CitationTimeline.css';
 
 interface CitationTimelineProps {
   data: CitationData | null;
   onNavigateToHero?: () => void;
   targetPaperId?: string;
+  searchQuery?: string;
 }
 
 interface SharedRef {
@@ -312,7 +314,7 @@ function extractUniversalEpistemicNarrative(
   return { epochPhase, epochRole, breakthrough, limitation };
 }
 
-export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavigateToHero, targetPaperId }) => {
+export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavigateToHero, targetPaperId, searchQuery }) => {
   const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
   const initialMode = urlParams?.get('mode') === 'deepdive' ? 'deepdive' : 'journey';
   const initialLens = (urlParams?.get('lens') as 'foundation' | 'frontier' | 'all') || 'all';
@@ -814,7 +816,7 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
                     onDoubleClick={() => handleOpenMilestoneDeepDive(currentMilestone.paper.id)}
                     title="Double-click to inspect publication deep-dive in Apple Glass Card"
                   >
-                    {currentMilestone.paper.title}
+                    <HighlightedTitle title={currentMilestone.paper.title} query={searchQuery} />
                   </h2>
 
                   {/* Authors, Venue & Global Citations Byline */}
@@ -1037,7 +1039,9 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
                               setIsBrowseTrayOpen(false);
                             }}
                           >
-                            <div className="catalog-row-title">{p.title}</div>
+                            <div className="catalog-row-title">
+                              <HighlightedTitle title={p.title} query={searchQuery} />
+                            </div>
                             <div className="catalog-row-meta font-mono">
                               <span>{p.authors.split(',')[0]} et al. ({p.year})</span>
                               <span className="text-sky-400">{p.global_cits.toLocaleString()} cits</span>
@@ -1073,7 +1077,7 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
 
               {/* Dominant Academic Title */}
               <h1 className="pub-main-title">
-                {activePaper.title}
+                <HighlightedTitle title={activePaper.title} query={searchQuery} />
               </h1>
 
               {/* Authors & Venue Byline */}
@@ -1177,7 +1181,7 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
                               className="entry-title-btn"
                               title="Pivot observatory to this publication"
                             >
-                              {rel.title}
+                              <HighlightedTitle title={rel.title} query={searchQuery} />
                             </button>
 
                             {/* Meta Line */}
@@ -1224,7 +1228,9 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
                                   <div className="shared-refs-listing">
                                     {rel.shared_refs_list.map((refItem, rIdx) => (
                                       <div key={rIdx} className="shared-ref-row">
-                                        <div className="ref-primary-title">{refItem.title}</div>
+                                        <div className="ref-primary-title">
+                                          <HighlightedTitle title={refItem.title} query={searchQuery} />
+                                        </div>
                                         <div className="ref-secondary-meta font-mono">
                                           <span>{refItem.authors || 'Unknown Authors'} ({refItem.year || 'N/A'})</span>
                                           {refItem.citationCount !== undefined && refItem.citationCount > 0 && (

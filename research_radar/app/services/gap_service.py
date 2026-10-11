@@ -8,6 +8,60 @@ from typing import Any, Dict, List, Optional
 from research_radar.app.services.dataset_service import resolve_output_dir
 
 
+def _enrich_gaps_with_realization(target_dir: Path, gaps: List[Dict[str, Any]]) -> None:
+    """Enriches gap items with empirical holdout realization ground truth if benchmark reports exist."""
+    bench_candidates = [
+        target_dir / "benchmark_evaluation_report.json",
+        target_dir.parent / f"output_benchmark_{target_dir.name.replace('output_', '')}" / "benchmark_evaluation_report.json",
+        target_dir.parent / "output_benchmark_fl" / "benchmark_evaluation_report.json",
+        target_dir.parent / "output_benchmark_satellite" / "benchmark_evaluation_report.json",
+        target_dir.parent / "output_benchmark" / "benchmark_evaluation_report.json",
+    ]
+    realization_map = {}
+    for bc in bench_candidates:
+        if bc.exists():
+            try:
+                b_data = json.loads(bc.read_text(encoding="utf-8"))
+                for dr in b_data.get("detailed_results", []):
+                    if dr.get("realized") and dr.get("title"):
+                        realization_map[dr["title"].strip().lower()] = dr
+            except Exception:
+                pass
+
+    if realization_map:
+        for g in gaps:
+            g_title = (g.get("title") or "").strip().lower()
+            if g_title in realization_map:
+                match = realization_map[g_title]
+                g["realized"] = True
+                g["verifying_paper_title"] = match.get("verifying_paper_title")
+                g["verifying_paper_year"] = match.get("verifying_paper_year")
+                g["rouge_l"] = match.get("rouge_l")
+
+    # 2. Dynamic holdout verification against in-corpus subsequent literature
+    unverified = [g for g in gaps if not g.get("realized")]
+    papers_file = target_dir / "papers.json"
+    if not papers_file.exists() and (target_dir.parent / "fl_papers.json").exists() and "fl" in target_dir.name:
+        papers_file = target_dir.parent / "fl_papers.json"
+
+    if unverified and papers_file.exists():
+        try:
+            from research_radar.evaluation.benchmark_runner import TemporalBenchmarkHarness
+            corpus_papers = json.loads(papers_file.read_text(encoding="utf-8"))
+            if len(corpus_papers) >= 20:
+                harness = TemporalBenchmarkHarness(corpus_papers, cutoff_year=2022)
+                if harness.holdout_papers:
+                    for g in unverified:
+                        realized, ver_p, sim = harness.verify_gap_realization(g)
+                        if realized and ver_p:
+                            g["realized"] = True
+                            g["verifying_paper_title"] = ver_p.get("title")
+                            g["verifying_paper_year"] = ver_p.get("year")
+                            g["rouge_l"] = round(float(sim), 4)
+        except Exception:
+            pass
+
+
 def get_detected_gaps(dataset: Optional[str] = None, out_dir: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Retrieves algorithmic research gap detections (Uzzi novelty, Tug-of-war refutations)."""
     if not dataset and not out_dir:
@@ -19,7 +73,10 @@ def get_detected_gaps(dataset: Optional[str] = None, out_dir: Optional[str] = No
     gaps_file = target_dir / "detected_gaps.json"
     if gaps_file.exists():
         try:
-            return json.loads(gaps_file.read_text(encoding="utf-8"))
+            data = json.loads(gaps_file.read_text(encoding="utf-8"))
+            if data and data.get("gaps"):
+                _enrich_gaps_with_realization(target_dir, data["gaps"])
+            return data
         except Exception:
             pass
     return None
@@ -39,6 +96,7 @@ def get_narrated_gaps(dataset: Optional[str] = None, out_dir: Optional[str] = No
         try:
             data = json.loads(narr_file.read_text(encoding="utf-8"))
             if data.get("gaps"):
+                _enrich_gaps_with_realization(target_dir, data["gaps"])
                 return data
         except Exception:
             pass
@@ -50,6 +108,7 @@ def get_narrated_gaps(dataset: Optional[str] = None, out_dir: Optional[str] = No
             gaps_data = json.loads(gaps_file.read_text(encoding="utf-8"))
             gaps = gaps_data.get("gaps", [])
             if gaps:
+                _enrich_gaps_with_realization(target_dir, gaps)
                 rep_file = target_dir / "master_gap_report.md"
                 report_md = rep_file.read_text(encoding="utf-8") if rep_file.exists() else ""
                 return {

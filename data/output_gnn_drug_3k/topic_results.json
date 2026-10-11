@@ -6253,27 +6253,27 @@
     ]
   },
   "human_readable_names": {
-    "0": "Molecular Property Prediction via Representation Models",
-    "1": "Graph Neural Network Image Representation",
-    "2": "Cancer Gene Response Modeling",
-    "3": "Protein Ligand Affinity Modeling",
-    "4": "Protein Target Interaction Prediction",
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Molecular Property Prediction Models",
+    "1": "Graph Neural Network Architectures",
+    "2": "Cancer Drug Response Prediction",
+    "3": "Protein-Ligand Binding Affinity Prediction",
+    "4": "Drug-Target Interaction Prediction",
     "5": "Machine Learning Drug Discovery",
-    "6": "Drug Interaction Prediction via Graphs",
-    "7": "Microbe Drug Association Knowledge Graph",
-    "8": "Clinical Adverse Reaction Prediction",
-    "9": "HERG Toxicity Prediction Model",
-    "10": "Generative Molecular Design",
-    "11": "[Non-English] User Graph Recommendation Model",
+    "6": "Drug-Drug Interaction Prediction",
+    "7": "Knowledge Graph Drug Association",
+    "8": "Adverse Drug Reaction Prediction",
+    "9": "Drug Toxicity Prediction Models",
+    "10": "De Novo Molecular Generation",
+    "11": "Social Network Link Prediction",
     "12": "Brain Functional Connectivity Analysis",
-    "13": "miRNA Drug Resistance Association",
-    "14": "Biomedical Entity Relation Extraction",
-    "15": "Brain Barrier Permeability Prediction",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "13": "Non-Coding RNA Drug Association",
+    "14": "Biomedical Relation Extraction",
+    "15": "Blood-Brain Barrier Permeability Prediction"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Molecular Property Prediction via Representation Models",
+      "final_label": "Molecular Property Prediction Models",
       "representative_phrases": [
         "Representation Drug Discovery",
         "Multimodal Pre Training"
@@ -6723,7 +6723,7 @@
       ]
     },
     "1": {
-      "final_label": "Graph Neural Network Image Representation",
+      "final_label": "Graph Neural Network Architectures",
       "representative_phrases": [
         "Augmentation Boost Graph",
         "Graphs Synthesizes Fractional"
@@ -6992,7 +6992,7 @@
       ]
     },
     "2": {
-      "final_label": "Cancer Gene Response Modeling",
+      "final_label": "Cancer Drug Response Prediction",
       "representative_phrases": [
         "Sinonasal Nut Carcinoma",
         "Brd4 Nutm1 Tumor"
@@ -7241,7 +7241,7 @@
       ]
     },
     "3": {
-      "final_label": "Protein Ligand Affinity Modeling",
+      "final_label": "Protein-Ligand Binding Affinity Prediction",
       "representative_phrases": [
         "Protein Pocket Modelling",
         "Drug Discovery Identifying"
@@ -7499,7 +7499,7 @@
       ]
     },
     "4": {
-      "final_label": "Protein Target Interaction Prediction",
+      "final_label": "Drug-Target Interaction Prediction",
       "representative_phrases": [
         "Networks Predicting Drug",
         "Gnns Molecular Representation"
@@ -7949,7 +7949,7 @@
       ]
     },
     "6": {
-      "final_label": "Drug Interaction Prediction via Graphs",
+      "final_label": "Drug-Drug Interaction Prediction",
       "representative_phrases": [
         "Network Drug Discovery",
         "Biomedical Knowledge Graph"
@@ -8162,7 +8162,7 @@
       ]
     },
     "7": {
-      "final_label": "Microbe Drug Association Knowledge Graph",
+      "final_label": "Knowledge Graph Drug Association",
       "representative_phrases": [
         "Drug Microbe",
         "Moment Networks Embedding"
@@ -8322,7 +8322,7 @@
       ]
     },
     "8": {
-      "final_label": "Clinical Adverse Reaction Prediction",
+      "final_label": "Adverse Drug Reaction Prediction",
       "representative_phrases": [
         "Forecasting Adverse Drug",
         "Drug Interaction Detection"
@@ -8477,7 +8477,7 @@
       ]
     },
     "9": {
-      "final_label": "HERG Toxicity Prediction Model",
+      "final_label": "Drug Toxicity Prediction Models",
       "representative_phrases": [
         "Graph Neural Networks",
         "Toxicity Prediction Graph"
@@ -8589,7 +8589,7 @@
       ]
     },
     "10": {
-      "final_label": "Generative Molecular Design",
+      "final_label": "De Novo Molecular Generation",
       "representative_phrases": [
         "Drug Design Iterative",
         "Graph Based Deep"
@@ -8664,7 +8664,7 @@
       ]
     },
     "11": {
-      "final_label": "[Non-English] User Graph Recommendation Model",
+      "final_label": "Social Network Link Prediction",
       "representative_phrases": [
         "Pengecekan Terhadap Data",
         "Pendataanstok Obat Ini"
@@ -8837,7 +8837,7 @@
       ]
     },
     "13": {
-      "final_label": "miRNA Drug Resistance Association",
+      "final_label": "Non-Coding RNA Drug Association",
       "representative_phrases": [
         "Drug Mirna",
         "Drugs Using Cnns"
@@ -8884,7 +8884,7 @@
       ]
     },
     "14": {
-      "final_label": "Biomedical Entity Relation Extraction",
+      "final_label": "Biomedical Relation Extraction",
       "representative_phrases": [
         "Entity Recognition Biomedical",
         "Graph Neural"
@@ -8929,7 +8929,7 @@
       ]
     },
     "15": {
-      "final_label": "Brain Barrier Permeability Prediction",
+      "final_label": "Blood-Brain Barrier Permeability Prediction",
       "representative_phrases": [
         "Peptide Permeability",
         "Canine Kidney Rrck"

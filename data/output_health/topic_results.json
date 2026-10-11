@@ -494,16 +494,16 @@
     ]
   },
   "human_readable_names": {
-    "0": "Health Dataset & Suicide Prevention & Algorithm Clinical",
-    "1": "Digital Ayurveda & Wellness Analytic & Acceptance Model",
-    "2": "Kidney Transplant & Revolutionize Medical & Chatgpt Health",
-    "3": "Knowledge Pharmacy & Healthcare Student & Questionnaire Adapt",
-    "4": "Technology Smart Healthcare & Optimize Care & Dataset Extensive",
-    "5": "Clinical Workflow & Explainability Healthcare & Model Criminal Justice Healthcare",
-    "6": "Assistant Dermatology & Support Medbot & Vision Language",
-    "7": "Dataset Medical & Benchmark Medarabiq & Improvement Biomedical",
-    "8": "Customize Medicine & Future Biomedical & Healthcare Industry",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Medical Image Learning Model",
+    "1": "Artificial Intelligence Healthcare System",
+    "2": "Generative Chatbot Education Limitations",
+    "3": "Medical Student Knowledge Survey",
+    "4": "Smart Patient Monitoring System",
+    "5": "Explainable Black Box Decision Model",
+    "6": "Medical Support Language Assistant",
+    "7": "Biomedical LLM Language Benchmark",
+    "8": "Personalized Drug Therapy Review"
   },
   "coords_2d": {
     "0002148f4747": [

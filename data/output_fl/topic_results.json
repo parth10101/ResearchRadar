@@ -785,21 +785,21 @@
     ]
   },
   "human_readable_names": {
-    "0": "Deep Federated Learning, Learning Classify Chest & Protects Patient Privacy",
-    "1": "Privacy Federated Learning, Healthcare Data Sharing & Severity Classification Healthcare",
-    "2": "Blockchain Federated Learning, Pets Blockchain Privacy & Fl Healthcare Blockchain",
-    "3": "Clinical Models Federated, Learning Healthcare Platform & Multimodal Health Data",
-    "4": "Privacy Federated Learning, Health Data Fusion & Medical Device Authentication",
-    "5": "Healthcare Federated Learning, Data Privacy Healthcare & Data Governance Mechanisms",
-    "6": "Federated Learning Intrusion, Anomaly Recognition Secure & Protecting Patient Data",
-    "7": "Blockchain Iomt Healthcare, Federated Learning Framework & Machine Learning Blockchain",
-    "8": "Federated Deep Learning, Things Iot Healthcare & Edge Cloud",
-    "9": "Federated Learning Approach, Iot Healthcare Security & Novel Intrusion Detection",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Federated Learning in Distributed Healthcare",
+    "1": "Privacy-Preserving Federated Learning in Healthcare",
+    "2": "Blockchain-Enabled Federated Learning for Healthcare",
+    "3": "Multimodal Federated Learning in Healthcare",
+    "4": "Edge Federated Learning for Healthcare IoT",
+    "5": "Federated Learning Governance in Healthcare",
+    "6": "Adversarial Attacks in Federated Healthcare Learning",
+    "7": "Blockchain IoMT Intrusion Detection Systems",
+    "8": "Federated Deep Learning for Healthcare IoT",
+    "9": "IoMT Security via Federated Learning"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Deep Federated Learning, Learning Classify Chest & Protects Patient Privacy",
+      "final_label": "Federated Learning in Distributed Healthcare",
       "representative_phrases": [
         "Deep Federated Learning",
         "Learning Classify Chest",
@@ -873,7 +873,7 @@
       ]
     },
     "1": {
-      "final_label": "Privacy Federated Learning, Healthcare Data Sharing & Severity Classification Healthcare",
+      "final_label": "Privacy-Preserving Federated Learning in Healthcare",
       "representative_phrases": [
         "Privacy Federated Learning",
         "Healthcare Data Sharing",
@@ -915,7 +915,7 @@
       ]
     },
     "2": {
-      "final_label": "Blockchain Federated Learning, Pets Blockchain Privacy & Fl Healthcare Blockchain",
+      "final_label": "Blockchain-Enabled Federated Learning for Healthcare",
       "representative_phrases": [
         "Blockchain Federated Learning",
         "Pets Blockchain Privacy",
@@ -955,7 +955,7 @@
       ]
     },
     "3": {
-      "final_label": "Clinical Models Federated, Learning Healthcare Platform & Multimodal Health Data",
+      "final_label": "Multimodal Federated Learning in Healthcare",
       "representative_phrases": [
         "Clinical Models Federated",
         "Learning Healthcare Platform",
@@ -992,7 +992,7 @@
       ]
     },
     "4": {
-      "final_label": "Privacy Federated Learning, Health Data Fusion & Medical Device Authentication",
+      "final_label": "Edge Federated Learning for Healthcare IoT",
       "representative_phrases": [
         "Privacy Federated Learning",
         "Health Data Fusion",
@@ -1037,7 +1037,7 @@
       ]
     },
     "5": {
-      "final_label": "Healthcare Federated Learning, Data Privacy Healthcare & Data Governance Mechanisms",
+      "final_label": "Federated Learning Governance in Healthcare",
       "representative_phrases": [
         "Healthcare Federated Learning",
         "Data Privacy Healthcare",
@@ -1072,7 +1072,7 @@
       ]
     },
     "6": {
-      "final_label": "Federated Learning Intrusion, Anomaly Recognition Secure & Protecting Patient Data",
+      "final_label": "Adversarial Attacks in Federated Healthcare Learning",
       "representative_phrases": [
         "Federated Learning Intrusion",
         "Anomaly Recognition Secure",
@@ -1103,7 +1103,7 @@
       ]
     },
     "7": {
-      "final_label": "Blockchain Iomt Healthcare, Federated Learning Framework & Machine Learning Blockchain",
+      "final_label": "Blockchain IoMT Intrusion Detection Systems",
       "representative_phrases": [
         "Blockchain Iomt Healthcare",
         "Federated Learning Framework",
@@ -1127,7 +1127,7 @@
       ]
     },
     "8": {
-      "final_label": "Federated Deep Learning, Things Iot Healthcare & Edge Cloud",
+      "final_label": "Federated Deep Learning for Healthcare IoT",
       "representative_phrases": [
         "Federated Deep Learning",
         "Things Iot Healthcare",
@@ -1146,7 +1146,7 @@
       ]
     },
     "9": {
-      "final_label": "Federated Learning Approach, Iot Healthcare Security & Novel Intrusion Detection",
+      "final_label": "IoMT Security via Federated Learning",
       "representative_phrases": [
         "Federated Learning Approach",
         "Iot Healthcare Security",

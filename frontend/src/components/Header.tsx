@@ -7,12 +7,14 @@ interface HeaderProps {
   onSelectTab: (tab: string) => void;
   onReturnToHero: () => void;
   onLaunchStudio?: () => void;
+  onOpenBenchmark?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   activeTab,
   onSelectTab,
   onReturnToHero,
+  onOpenBenchmark,
 }) => {
   const navTabs = [
     { id: 'archipelago', idx: '01', label: 'Domain Clusters' },
@@ -74,8 +76,18 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
         )}
 
-        {/* Right Empty Spacer to balance flex layout */}
-        <div className="w-8 pointer-events-none" />
+        {/* Right SOTA Benchmark Verification Trigger */}
+        <div className="flex items-center space-x-3 pointer-events-auto">
+          {onOpenBenchmark && (
+            <button
+              onClick={onOpenBenchmark}
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition-all font-mono text-[11px] font-semibold cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.15)]"
+              title="Open SOTA Benchmark & Empirical Verification Suite"
+            >
+              <span>🎓 SOTA Benchmark</span>
+            </button>
+          )}
+        </div>
 
       </div>
     </header>

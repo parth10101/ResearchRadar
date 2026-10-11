@@ -24,6 +24,9 @@ MODALITY_LIDAR_3D = "LIDAR_3D"
 MODALITY_BIOMEDICAL_TABULAR = "BIOMEDICAL_TABULAR"
 MODALITY_GENOMICS_MOLECULAR = "GENOMICS_MOLECULAR"
 MODALITY_ECONOMICS_POLICY = "ECONOMICS_POLICY"
+MODALITY_GRAPH_TOPOLOGY = "GRAPH_TOPOLOGY"
+MODALITY_LANGUAGE_NLP = "LANGUAGE_NLP"
+MODALITY_QUANTUM_PHYSICS = "QUANTUM_PHYSICS"
 MODALITY_GENERAL_SCIENCE = "GENERAL_SCIENCE"
 MODALITY_GENERIC_CV = "COMPUTER_VISION_2D"
 
@@ -59,6 +62,34 @@ DATASET_MODALITY_MAP: Dict[str, str] = {
     "pandaset": MODALITY_LIDAR_3D,
     "gedi": MODALITY_LIDAR_3D,
     "icesat": MODALITY_LIDAR_3D,
+
+    # Graph & Network Topologies
+    "ppi": MODALITY_GRAPH_TOPOLOGY,
+    "cora": MODALITY_GRAPH_TOPOLOGY,
+    "citeseer": MODALITY_GRAPH_TOPOLOGY,
+    "pubmed": MODALITY_GRAPH_TOPOLOGY,
+    "ogbn": MODALITY_GRAPH_TOPOLOGY,
+    "ogbl": MODALITY_GRAPH_TOPOLOGY,
+    "ogbg": MODALITY_GRAPH_TOPOLOGY,
+    "reddit": MODALITY_GRAPH_TOPOLOGY,
+    "mutag": MODALITY_GRAPH_TOPOLOGY,
+    "proteins": MODALITY_GRAPH_TOPOLOGY,
+
+    # NLP / Linguistic Benchmarks
+    "squad": MODALITY_LANGUAGE_NLP,
+    "glue": MODALITY_LANGUAGE_NLP,
+    "superglue": MODALITY_LANGUAGE_NLP,
+    "xnli": MODALITY_LANGUAGE_NLP,
+    "wmt": MODALITY_LANGUAGE_NLP,
+    "flores": MODALITY_LANGUAGE_NLP,
+    "bookcorpus": MODALITY_LANGUAGE_NLP,
+    "common crawl": MODALITY_LANGUAGE_NLP,
+
+    # Quantum & Physics Benchmarks
+    "surface code": MODALITY_QUANTUM_PHYSICS,
+    "toric code": MODALITY_QUANTUM_PHYSICS,
+    "syndrome decoding": MODALITY_QUANTUM_PHYSICS,
+    "color code": MODALITY_QUANTUM_PHYSICS,
 
     # Biomedical / Tabular / EHR
     "mimic": MODALITY_BIOMEDICAL_TABULAR,
@@ -121,8 +152,14 @@ def infer_dataset_modality(dataset_name: str) -> str:
         return MODALITY_RADAR_SAR
     if any(term in dl for term in ["multispectral", "hyperspectral", "rgb", "optical", "satellite image", "landsat"]):
         return MODALITY_OPTICAL
-    if any(term in dl for term in ["point cloud", "lidar", "3d box"]):
+    if any(term in dl for term in ["point cloud", "lidar", "3d box", "voxel"]):
         return MODALITY_LIDAR_3D
+    if any(term in dl for term in ["graph", "network topology", "citation network", "ppi", "molecule", "cora"]):
+        return MODALITY_GRAPH_TOPOLOGY
+    if any(term in dl for term in ["quantum", "qubit", "surface code", "toric", "syndrome"]):
+        return MODALITY_QUANTUM_PHYSICS
+    if any(term in dl for term in ["nlp", "text", "corpus", "translation", "language", "cross-lingual", "sentence"]):
+        return MODALITY_LANGUAGE_NLP
     if any(term in dl for term in ["protein", "rna", "dna", "crispr", "molecular", "gene", "genome"]):
         return MODALITY_GENOMICS_MOLECULAR
     if any(term in dl for term in ["clinical", "ehr", "patient", "hospital", "mortality", "icu"]):

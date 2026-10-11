@@ -48,6 +48,9 @@ python -m research_radar.pipeline --query "federated learning healthcare" --max-
 # 5. Run Offline Sample Papers
 python -m research_radar.pipeline --corpus data/sample_papers.json --out data/output
 
-# 6. Run Standalone Visualizations (Stage 5)
-python -m research_radar.stage5_citation_graph --papers data/output/papers.json --topics data/output/topic_results.json --out data/output
-python -m research_radar.stage5_knowledge_graph --papers data/output/papers.json --topics data/output/topic_results.json --out data/output
+# 6. Run Standalone Stages
+# Tab 02: Citations (The Epistemic Citation Journey & Publication Deep-Dive)
+python -m research_radar.stage5_citations --papers data/output/papers.json --topics data/output/topic_results.json --out data/output
+
+# Tab 01: Domain Clusters (Epistemic Archipelago & Macro Filaments)
+python -m research_radar.stage6_domain_clusters_archipelago --papers data/output/papers.json --topics data/output/topic_results.json --out data/output

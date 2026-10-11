@@ -755,19 +755,19 @@
     ]
   },
   "human_readable_names": {
-    "0": "Federated Learning Data, Prediction Distributed Healthcare & Privacy Preserving Heart",
-    "1": "Ai Predictive Healthcare, Combines Semi Supervised & Genomic Profiles Mental",
-    "2": "Privacy Federated Learning, Protection Feature Engineering & Dataset Maintaining Intention",
-    "3": "Federated Learning Chest, Self Supervised Image & Ai Healthcare Adaptive",
-    "4": "Federated Learning Iot, Cloud Big Data & Ecg Data Microservice",
-    "5": "Data Governance Fairness, Ai Blockchain Federated & Systems Ethical Ai",
-    "6": "Federated Learning Spaceflight, Machine Learning Ml & Model Compression Decentralized",
-    "7": "Differential Privacy Homomorphic, Secure Adaptive Ai & Seizure Detection Federated",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Federated Learning Disease Data",
+    "1": "Clinical Patient Data System Review",
+    "2": "Federated Privacy Learning Model",
+    "3": "Deep Medical Image Learning Model",
+    "4": "Edge IoT Device Learning Model",
+    "5": "Blockchain Healthcare Privacy Framework",
+    "6": "Federated Non-IID Learning Datum",
+    "7": "Federated Device Privacy Learning Model"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Federated Learning Data, Prediction Distributed Healthcare & Privacy Preserving Heart",
+      "final_label": "Federated Learning Disease Data",
       "representative_phrases": [
         "Federated Learning Data",
         "Prediction Distributed Healthcare",
@@ -831,7 +831,7 @@
       ]
     },
     "1": {
-      "final_label": "Ai Predictive Healthcare, Combines Semi Supervised & Genomic Profiles Mental",
+      "final_label": "Clinical Patient Data System Review",
       "representative_phrases": [
         "Ai Predictive Healthcare",
         "Combines Semi Supervised",
@@ -886,7 +886,7 @@
       ]
     },
     "2": {
-      "final_label": "Privacy Federated Learning, Protection Feature Engineering & Dataset Maintaining Intention",
+      "final_label": "Federated Privacy Learning Model",
       "representative_phrases": [
         "Privacy Federated Learning",
         "Protection Feature Engineering",
@@ -934,7 +934,7 @@
       ]
     },
     "3": {
-      "final_label": "Federated Learning Chest, Self Supervised Image & Ai Healthcare Adaptive",
+      "final_label": "Deep Medical Image Learning Model",
       "representative_phrases": [
         "Federated Learning Chest",
         "Self Supervised Image",
@@ -981,7 +981,7 @@
       ]
     },
     "4": {
-      "final_label": "Federated Learning Iot, Cloud Big Data & Ecg Data Microservice",
+      "final_label": "Edge IoT Device Learning Model",
       "representative_phrases": [
         "Federated Learning Iot",
         "Cloud Big Data",
@@ -1028,7 +1028,7 @@
       ]
     },
     "5": {
-      "final_label": "Data Governance Fairness, Ai Blockchain Federated & Systems Ethical Ai",
+      "final_label": "Blockchain Healthcare Privacy Framework",
       "representative_phrases": [
         "Data Governance Fairness",
         "Ai Blockchain Federated",
@@ -1063,7 +1063,7 @@
       ]
     },
     "6": {
-      "final_label": "Federated Learning Spaceflight, Machine Learning Ml & Model Compression Decentralized",
+      "final_label": "Federated Non-IID Learning Datum",
       "representative_phrases": [
         "Federated Learning Spaceflight",
         "Machine Learning Ml",
@@ -1094,7 +1094,7 @@
       ]
     },
     "7": {
-      "final_label": "Differential Privacy Homomorphic, Secure Adaptive Ai & Seizure Detection Federated",
+      "final_label": "Federated Device Privacy Learning Model",
       "representative_phrases": [
         "Differential Privacy Homomorphic",
         "Secure Adaptive Ai",

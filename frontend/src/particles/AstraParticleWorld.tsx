@@ -195,12 +195,12 @@ export const AstraParticleWorld: React.FC<Props> = ({
       const points = rawPoints.length > 0
         ? sampleRepresentativePoints(rawPoints, clusters, PARTICLE_WORLD_MAX)
         : sampleRepresentativePoints(ALL_REAL_POINTS, REAL_CLUSTERS, PARTICLE_WORLD_MAX);
-      currentPoints = points;
+      currentPoints = rawPoints.length > 0 ? points : [];
       const pData = generateAstraParticleData(
         points,
         rawPoints.length > 0 ? clusters : REAL_CLUSTERS
       );
-      activeClusterMetasRef.current = pData.clusterMetas;
+      activeClusterMetasRef.current = rawPoints.length > 0 ? pData.clusterMetas : [];
       const { midX: nMidX, midY: nMidY, midZ: nMidZ, worldScale: nScale } = getEmbeddingBoundsAndScale(points);
       cameraSplineRig.setBoundsAndScale(nMidX, nMidY, nMidZ, nScale);
 
@@ -722,7 +722,12 @@ export const AstraParticleWorld: React.FC<Props> = ({
       renderer.render(bgScene, bgCamera);
 
       const isHero = astraState.viewMode === 'hero' || astraState.activeTab === 'hero';
-      const isTargetingClusterSpace = !isHero;
+      const hasRealClusters = Boolean(
+        points3dDataRef.current &&
+        points3dDataRef.current.clusters &&
+        points3dDataRef.current.clusters.length > 0
+      );
+      const isTargetingClusterSpace = !isHero && hasRealClusters;
 
       // Deterministic physical transition clock (0.0 to 2.4s)
       if (isTargetingClusterSpace) {
@@ -738,13 +743,13 @@ export const AstraParticleWorld: React.FC<Props> = ({
       particleUniforms.uTime.value = t;
       particleUniforms.uProgress.value = progress;
 
-      // Stage Alpha Control: Particles and 3D cluster spheres exist in Hero (stardust) and Epistemic (clusters)
-      // In Citation Lineage and Grant Studio, cluster spheres fade out completely (zero collision with timeline/grant cards)
-      const isClusterVisible = astraState.activeTab === 'hero' || astraState.activeTab === 'archipelago';
+      // Stage Alpha Control: Particles and 3D cluster spheres exist in Hero (stardust) and Epistemic (clusters IF real dataset loaded)
+      // In Citation Lineage, Grant Studio, or Standby mode (no dataset), cluster spheres fade out completely
+      const isClusterVisible = isHero || (astraState.activeTab === 'archipelago' && hasRealClusters);
       const targetStageAlpha = isClusterVisible ? 1.0 : 0.0;
       currentStageAlpha += (targetStageAlpha - currentStageAlpha) * Math.min(1.0, dt * 5.0);
       particleUniforms.uStageAlpha.value = currentStageAlpha;
-      ptsMesh.visible = currentStageAlpha > 0.005;
+      ptsMesh.visible = isClusterVisible && currentStageAlpha > 0.005;
 
       // Parse active cluster selection and centroid for 3D Showpiece
       const activeCid = astraState.selectedClusterId;
@@ -816,10 +821,10 @@ export const AstraParticleWorld: React.FC<Props> = ({
         particleUniforms.uFocusRotationMatrix.value.identity();
       }
 
-      // 3D Coordinate Grid Opacity (Only visible in Epistemic mode when clusters are active)
-      const showGrid = progress > 0.35 && !isPostEpistemicJourney && currentStageAlpha > 0.05 && astraState.activeTab === 'archipelago';
+      // 3D Coordinate Grid Opacity (Only visible in Epistemic mode when clusters are active AND real dataset is loaded)
+      const showGrid = progress > 0.35 && !isPostEpistemicJourney && currentStageAlpha > 0.05 && astraState.activeTab === 'archipelago' && hasRealClusters;
       gridGroup.visible = showGrid;
-      let gridAlpha = Math.max(0, (progress - 0.35) / 0.65) * currentStageAlpha;
+      let gridAlpha = hasRealClusters ? Math.max(0, (progress - 0.35) / 0.65) * currentStageAlpha : 0.0;
       boxLineMat.opacity = 0.20 * gridAlpha;
       (floorGrid.material as THREE.Material).opacity = 0.22 * gridAlpha;
       (backGrid.material as THREE.Material).opacity = 0.22 * gridAlpha;
@@ -827,7 +832,7 @@ export const AstraParticleWorld: React.FC<Props> = ({
       spDim1.material.opacity = 0.75 * gridAlpha;
       spDim2.material.opacity = 0.75 * gridAlpha;
       spDim3.material.opacity = 0.75 * gridAlpha;
-      edgeUniforms.uOpacity.value = Math.max(gridAlpha * 0.6, isPostEpistemicJourney ? 0.4 : 0.0);
+      edgeUniforms.uOpacity.value = hasRealClusters ? Math.max(gridAlpha * 0.6, isPostEpistemicJourney ? 0.4 : 0.0) : 0.0;
 
       // Smooth Constellation Left-Shift into Studio View (-0.95 for left 54% viewport)
       if (progress > 0.08) {

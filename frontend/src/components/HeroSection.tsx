@@ -249,7 +249,7 @@ const RESEARCH_FIELDS: ResearchField[] = [
 
 interface Props {
   onLaunch: (tab?: string) => void;
-  onSearch?: (query: string, corpusSize?: number, datasetId?: string) => void;
+  onSearch?: (query: string, corpusSize?: number, datasetId?: string, year?: string) => void;
   isRunning?: boolean;
   progressEvents?: PipelineProgressEvent[];
   pipelineError?: string | null;
@@ -280,6 +280,34 @@ export const HeroSection: React.FC<Props> = ({
   const [executingStageIdx, setExecutingStageIdx] = useState<number>(0);
   const [executingPct, setExecutingPct] = useState<number>(0);
   const executionTimerRef = useRef<any>(null);
+
+  // IEEE Xplore 3-Row Boolean Search State (Demanded by PhD Committee)
+  const [isIeeeMode, setIsIeeeMode] = useState<boolean>(false);
+  const [temporalHoldout, setTemporalHoldout] = useState<boolean>(false);
+  const [ieeeTerm1, setIeeeTerm1] = useState<string>('Federated Learning');
+  const [ieeeOp1, setIeeeOp1] = useState<'AND' | 'OR' | 'NOT'>('AND');
+  const [ieeeTerm2, setIeeeTerm2] = useState<string>('Differential Privacy');
+  const [ieeeOp2, setIeeeOp2] = useState<'AND' | 'OR' | 'NOT'>('NOT');
+  const [ieeeTerm3, setIeeeTerm3] = useState<string>('Edge Devices');
+
+  // Composed IEEE Boolean Expression
+  const composedIeeeQuery = useMemo(() => {
+    const t1 = ieeeTerm1.trim();
+    const t2 = ieeeTerm2.trim();
+    const t3 = ieeeTerm3.trim();
+    if (!t1 && !t2 && !t3) return '';
+    const parts: string[] = [];
+    if (t1) parts.push(t1.includes(' ') ? `"${t1}"` : t1);
+    if (t2) {
+      parts.push(ieeeOp1);
+      parts.push(t2.includes(' ') ? `"${t2}"` : t2);
+    }
+    if (t3) {
+      parts.push(ieeeOp2);
+      parts.push(t3.includes(' ') ? `"${t3}"` : t3);
+    }
+    return parts.join(' ');
+  }, [ieeeTerm1, ieeeOp1, ieeeTerm2, ieeeOp2, ieeeTerm3]);
 
   // Clean up timer on unmount
   useEffect(() => {
@@ -402,11 +430,29 @@ export const HeroSection: React.FC<Props> = ({
 
   const handleExecuteSearch = (targetQuery?: string, targetDatasetId?: string) => {
     if (isExecuting || isRunning) return;
-    const q = (targetQuery !== undefined ? targetQuery : query).trim();
+    const q = (targetQuery !== undefined ? targetQuery : (isIeeeMode ? composedIeeeQuery : query)).trim();
     if (!q) return;
 
-    if (targetQuery) {
-      setQuery(targetQuery);
+    setQuery(q);
+
+    const holdoutYear = temporalHoldout ? '-2023' : undefined;
+
+    // Check if matching preset exists
+    const matchingPreset = PRESETS.find(
+      (p) => p.value.toLowerCase() === q.toLowerCase() || p.label.toLowerCase() === q.toLowerCase()
+    );
+
+    let effectiveDatasetId = targetDatasetId || matchingPreset?.datasetId;
+    if (!effectiveDatasetId && isIeeeMode && q.toLowerCase().includes('federated learning') && q.toLowerCase().includes('differential privacy')) {
+      effectiveDatasetId = 'output_federated_learning_and';
+    }
+
+    if (effectiveDatasetId) {
+      // Immediate preset / precomputed launch
+      if (onSearch) {
+        onSearch(q, selectedCorpus, effectiveDatasetId, holdoutYear);
+      }
+      return;
     }
 
     setIsExecuting(true);
@@ -417,43 +463,9 @@ export const HeroSection: React.FC<Props> = ({
       clearTimeout(executionTimerRef.current);
     }
 
-    // Immediately notify parent
+    // Live search execution: notify parent
     if (onSearch) {
-      onSearch(q, selectedCorpus, targetDatasetId);
-    }
-
-    // If precomputed dataset or preset is selected, run fast smooth 8-stage sequence
-    if (targetDatasetId) {
-      const stageTargets = [
-        { stage: 0, targetPct: 14, duration: 240 },  // 01: Gathering
-        { stage: 1, targetPct: 28, duration: 240 },  // 02: Reading
-        { stage: 2, targetPct: 44, duration: 250 },  // 03: Aligning
-        { stage: 3, targetPct: 62, duration: 250 },  // 04: Clustering
-        { stage: 4, targetPct: 76, duration: 240 },  // 05: Tracing
-        { stage: 5, targetPct: 88, duration: 240 },  // 06: Mapping
-        { stage: 6, targetPct: 96, duration: 230 },  // 07: Auditing
-        { stage: 7, targetPct: 100, duration: 260 }, // 08: Synthesizing
-      ];
-
-      let currentStep = 0;
-      const runNext = () => {
-        if (currentStep < stageTargets.length) {
-          const item = stageTargets[currentStep];
-          setExecutingStageIdx(item.stage);
-          setExecutingPct(item.targetPct);
-          currentStep++;
-          executionTimerRef.current = setTimeout(runNext, item.duration);
-        } else {
-          setExecutingPct(100);
-          setExecutingStageIdx(7);
-          executionTimerRef.current = setTimeout(() => {
-            setIsExecuting(false);
-            handleLaunch('archipelago');
-          }, 350);
-        }
-      };
-
-      executionTimerRef.current = setTimeout(runNext, 60);
+      onSearch(q, selectedCorpus, undefined, holdoutYear);
     }
   };
 
@@ -501,7 +513,283 @@ export const HeroSection: React.FC<Props> = ({
 
         {/* Architectural Search Command Unit */}
         <div className="search-deck-unit" onClick={(e) => e.stopPropagation()}>
-          <div className="search-input-shell">
+          {/* Mode Switcher: Standard Inquiry vs IEEE Xplore 3-Bar Boolean */}
+          <div className="ieee-mode-bar">
+            <div className="ieee-mode-switch-group">
+              <button
+                type="button"
+                className={`ieee-mode-btn ${!isIeeeMode ? 'active' : ''}`}
+                onClick={() => setIsIeeeMode(false)}
+              >
+                <Search className="h-3 w-3" />
+                <span>Standard Inquiry</span>
+              </button>
+              <button
+                type="button"
+                className={`ieee-mode-btn ${isIeeeMode ? 'active' : ''}`}
+                onClick={() => {
+                  setIsIeeeMode(true);
+                  if (composedIeeeQuery) setQuery(composedIeeeQuery);
+                }}
+              >
+                <Compass className="h-3 w-3 text-[#ff4300]" />
+                <span>IEEE Xplore Advanced</span>
+                <span className="ieee-badge">AND / OR / NOT</span>
+              </button>
+            </div>
+
+            {isIeeeMode && (
+              <span className="text-[10px] font-mono tracking-wider text-zinc-400">
+                IEEE 3-FIELD BOOLEAN SPECIFICATION
+              </span>
+            )}
+          </div>
+
+          {isIeeeMode ? (
+            /* IEEE Xplore 3-Bar Boolean Search Deck */
+            <div className="ieee-deck-container">
+              {/* Row 1: Primary Search Term */}
+              <div className="ieee-row">
+                <span className="ieee-row-prefix">TERM 1</span>
+                <input
+                  type="text"
+                  className="ieee-input-field"
+                  placeholder="Primary concept (e.g. Federated Learning)"
+                  value={ieeeTerm1}
+                  onChange={(e) => setIeeeTerm1(e.target.value)}
+                  disabled={isExecuting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isExecuting && composedIeeeQuery) {
+                      e.preventDefault();
+                      handleExecuteSearch(composedIeeeQuery);
+                    }
+                  }}
+                />
+                {ieeeTerm1 && (
+                  <button
+                    type="button"
+                    onClick={() => setIeeeTerm1('')}
+                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
+                    title="Clear Term 1"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Row 2: Operator 1 + Secondary Search Term */}
+              <div className="ieee-row">
+                <select
+                  className="ieee-operator-dropdown"
+                  value={ieeeOp1}
+                  onChange={(e) => setIeeeOp1(e.target.value as any)}
+                  disabled={isExecuting}
+                >
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                <input
+                  type="text"
+                  className="ieee-input-field"
+                  placeholder="Secondary concept (e.g. Differential Privacy)"
+                  value={ieeeTerm2}
+                  onChange={(e) => setIeeeTerm2(e.target.value)}
+                  disabled={isExecuting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isExecuting && composedIeeeQuery) {
+                      e.preventDefault();
+                      handleExecuteSearch(composedIeeeQuery);
+                    }
+                  }}
+                />
+                {ieeeTerm2 && (
+                  <button
+                    type="button"
+                    onClick={() => setIeeeTerm2('')}
+                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
+                    title="Clear Term 2"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Row 3: Operator 2 + Excluded / Tertiary Search Term */}
+              <div className="ieee-row">
+                <select
+                  className="ieee-operator-dropdown"
+                  value={ieeeOp2}
+                  onChange={(e) => setIeeeOp2(e.target.value as any)}
+                  disabled={isExecuting}
+                >
+                  <option value="NOT">NOT</option>
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                </select>
+                <input
+                  type="text"
+                  className="ieee-input-field"
+                  placeholder="Excluded or conditional concept (e.g. Edge Devices)"
+                  value={ieeeTerm3}
+                  onChange={(e) => setIeeeTerm3(e.target.value)}
+                  disabled={isExecuting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isExecuting && composedIeeeQuery) {
+                      e.preventDefault();
+                      handleExecuteSearch(composedIeeeQuery);
+                    }
+                  }}
+                />
+                {ieeeTerm3 && (
+                  <button
+                    type="button"
+                    onClick={() => setIeeeTerm3('')}
+                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
+                    title="Clear Term 3"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Real-time Boolean Expression Preview */}
+              <div className="ieee-preview-strip">
+                <span className="ieee-preview-label">Expression:</span>
+                <span className="ieee-preview-formula">
+                  {composedIeeeQuery || '(Enter search terms above)'}
+                </span>
+              </div>
+
+              {/* Footer Controls */}
+              <div className="ieee-footer-actions">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    className={`ieee-clear-btn flex items-center gap-1.5 transition-colors ${
+                      temporalHoldout 
+                        ? 'border-emerald-500/50 text-emerald-400 bg-emerald-500/10 hover:border-emerald-400' 
+                        : 'hover:text-zinc-300'
+                    }`}
+                    onClick={() => setTemporalHoldout(!temporalHoldout)}
+                    disabled={isExecuting}
+                    title="Constrain training corpus strictly to literature <= 2023 for empirical realization proof"
+                  >
+                    <span className={`inline-block w-1.5 h-1.5 rounded-full ${temporalHoldout ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-600'}`} />
+                    <span>Temporal Holdout (≤ 2023)</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="ieee-clear-btn"
+                    onClick={() => {
+                      setIeeeTerm1('');
+                      setIeeeTerm2('');
+                      setIeeeTerm3('');
+                    }}
+                    disabled={isExecuting}
+                  >
+                    Clear Fields
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {/* Corpus Retrieval Depth Selector */}
+                  <div className="corpus-anchor-wrap">
+                    <button
+                      type="button"
+                      className={`corpus-tier-trigger-btn ${corpusMenuOpen ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCorpusMenuOpen(!corpusMenuOpen);
+                        setDropOpen(false);
+                        setFieldMenuOpen(false);
+                      }}
+                      title="Configure target corpus retrieval depth"
+                    >
+                      <SlidersHorizontal className="h-3 w-3 text-[#ff4300]" />
+                      <span className="corpus-pill-val">{currentTier.label}</span>
+                      <span className="corpus-k-hint">⌘K</span>
+                      <ChevronDown className="h-3 w-3 opacity-60" />
+                    </button>
+
+                    {corpusMenuOpen && (
+                      <div
+                        className="corpus-tiers-tray overflow-y-auto custom-scrollbar"
+                        data-scrollable
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div className="corpus-tray-header">
+                          <span>CORPUS RETRIEVAL DEPTH</span>
+                          <span className="corpus-current-badge">{selectedCorpus} papers</span>
+                        </div>
+
+                        <div className="corpus-tiers-list">
+                          {CORPUS_TIERS.map((tier) => {
+                            const isSelected = selectedCorpus === tier.value;
+                            const isRecommended = recommendedCorpusValue === tier.value;
+
+                            return (
+                              <div
+                                key={tier.value}
+                                className={`corpus-tier-row ${isSelected ? 'selected' : ''} ${isRecommended ? 'recommended' : ''}`}
+                                onClick={() => {
+                                  setSelectedCorpus(tier.value);
+                                  setCorpusMenuOpen(false);
+                                }}
+                              >
+                                <div className="tier-left">
+                                  <span className="tier-number">{tier.label}</span>
+                                  <div className="tier-meta">
+                                    <span className="tier-name">{tier.name}</span>
+                                    <span className="tier-time">{tier.estTime}</span>
+                                  </div>
+                                </div>
+
+                                <div className="tier-right">
+                                  {isRecommended && (
+                                    <span className="recommended-flag">
+                                      <Zap className="h-2.5 w-2.5" />
+                                      <span>Recommended</span>
+                                    </span>
+                                  )}
+                                  {isSelected && <Check className="h-3.5 w-3.5 text-[#ff4300]" />}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="ieee-search-submit-btn"
+                    onClick={() => {
+                      if (composedIeeeQuery) {
+                        setQuery(composedIeeeQuery);
+                        handleExecuteSearch(composedIeeeQuery);
+                      }
+                    }}
+                    disabled={isExecuting || !composedIeeeQuery}
+                  >
+                    {isExecuting ? (
+                      <>
+                        <RotateCw className="h-3.5 w-3.5 animate-spin text-white" />
+                        <span>Synthesizing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Search className="h-3.5 w-3.5" />
+                        <span>Search IEEE Mode</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="search-input-shell">
             {/* Presets Trigger */}
             <div className="presets-select-anchor">
               <button
@@ -660,6 +948,7 @@ export const HeroSection: React.FC<Props> = ({
                 )}
               </button>
             </div>
+          )}
 
             {/* Dynamic Scientometric Pipeline Reasoning Dock */}
             <div className={`dynamic-reasoning-dock transition-all duration-300 ${isExecuting ? 'border-[#ff4300]/50 shadow-[0_0_24px_rgba(255,67,0,0.2)]' : 'border-[rgba(255,255,255,0.08)]'}`}>

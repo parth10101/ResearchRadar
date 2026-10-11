@@ -145,7 +145,7 @@ def _print_paper_sample(paper: dict) -> None:
 
 # ---------------------------------------------------------------------------
 # HOW: Stage 1 runner — checks if data exists on disk,
-#      or fetches from either Semantic Scholar (default) or arXiv
+#      or fetches from Semantic Scholar API (S2AG)
 # ---------------------------------------------------------------------------
 
 def run_stage1(
@@ -171,50 +171,39 @@ def run_stage1(
             print("[ERROR] --query is required when the corpus file doesn't exist yet, is empty, or --force-fetch is set.", file=sys.stderr)
             sys.exit(1)
 
-        if source == "semanticscholar":
-            # HOW: Fetch via Semantic Scholar batch API (preferred — includes TLDR, citation intents,
-            #      influentialCitationCount, references with intents in ~2-4 API calls regardless of size)
-            print(f"  Source         : Semantic Scholar API (S2AG)")
-            print(f"  Query          : '{query}'")
-            print(f"  Max Results    : {max_results}")
-            if year:
-                print(f"  Year Filter    : {year}")
-            papers = s1.fetch_from_semanticscholar(
-                query=query,
-                max_results=max_results,
-                year=year,
-                bypass_cache=force_fetch,
-            )
-        else:
-            # HOW: Fallback to arXiv API (no citation intents or TLDR available)
-            print(f"  Source         : arXiv API")
-            print(f"  Query          : '{query}'")
-            print(f"  Max Results    : {max_results}")
-            papers = s1.fetch_from_arxiv(query=query, max_results=max_results)
+        print(f"  Source         : Semantic Scholar API (S2AG)")
+        print(f"  Query          : '{query}'")
+        print(f"  Max Results    : {max_results}")
+        if year:
+            print(f"  Year Filter    : {year}")
+        papers = s1.fetch_from_semanticscholar(
+            query=query,
+            max_results=max_results,
+            year=year,
+            bypass_cache=force_fetch,
+        )
 
         s1.save_corpus(papers, corpus_path)  # HOW: Save to disk
 
     if not papers:
         return []
 
-    # HOW: Print corpus-wide ingestion summary for Semantic Scholar
-    src = papers[0].get("source", "arxiv")
-    if src == "semanticscholar":
-        n_with_tldr     = sum(1 for p in papers if p.get("tldr"))
-        n_with_refs     = sum(1 for p in papers if p.get("references"))
-        n_with_intents  = sum(1 for p in papers if any(
-            r.get("intents") for r in (p.get("references") or [])
-        ))
-        n_influential   = sum(1 for p in papers if (p.get("influential_citation_count") or 0) > 0)
-        print(f"\n  {'=' * 66}")
-        print(f"  SEMANTIC SCHOLAR INGESTION SUMMARY")
-        print(f"  {'=' * 66}")
-        print(f"  Total Papers Ingested    : {len(papers)}")
-        print(f"  Papers with TLDR         : {n_with_tldr}  ({n_with_tldr*100//max(len(papers),1)}%)")
-        print(f"  Papers with References   : {n_with_refs}  ({n_with_refs*100//max(len(papers),1)}%)")
-        print(f"  Papers with Intent Tags  : {n_with_intents}  (methodology / result / background)")
-        print(f"  Papers with Influence    : {n_influential}  (influentialCitationCount > 0)")
-        print(f"  {'=' * 66}")
+    # HOW: Print corpus-wide ingestion summary
+    n_with_tldr     = sum(1 for p in papers if p.get("tldr"))
+    n_with_refs     = sum(1 for p in papers if p.get("references"))
+    n_with_intents  = sum(1 for p in papers if any(
+        r.get("intents") for r in (p.get("references") or [])
+    ))
+    n_influential   = sum(1 for p in papers if (p.get("influential_citation_count") or 0) > 0)
+    print(f"\n  {'=' * 66}")
+    print(f"  SEMANTIC SCHOLAR INGESTION SUMMARY")
+    print(f"  {'=' * 66}")
+    print(f"  Total Papers Ingested    : {len(papers)}")
+    print(f"  Papers with TLDR         : {n_with_tldr}  ({n_with_tldr*100//max(len(papers),1)}%)")
+    print(f"  Papers with References   : {n_with_refs}  ({n_with_refs*100//max(len(papers),1)}%)")
+    print(f"  Papers with Intent Tags  : {n_with_intents}  (methodology / result / background)")
+    print(f"  Papers with Influence    : {n_influential}  (influentialCitationCount > 0)")
+    print(f"  {'=' * 66}")
 
     print(f"\n  [OK]  {len(papers)} papers ready.")
     _print_paper_sample(papers[0])
@@ -672,30 +661,16 @@ def run_stage4(
 # ---------------------------------------------------------------------------
 
 def run_stage5(papers: list[dict], out_dir: Path, corpus_path: Path | None = None) -> None:
-    _banner(5, "CITATION GRAPH")
-    from research_radar import stage5_citation_graph as s5_cit
-    from research_radar import stage5_knowledge_graph as s5_kg
+    _banner(5, "CITATION JOURNEY & TIMELINE (02 Citations)")
+    from research_radar import stage5_citations as s5_cit
 
-    topics_path = out_dir / "topic_results.json"
-    if not topics_path.exists():
-        print(f"  [WARN] Topic results not found at {topics_path}. Stage 5 requires Stage 4 output.", file=sys.stderr)
-        return
-
-    topic_results = json.loads(topics_path.read_text(encoding="utf-8"))
-
-    # 1. Visualization: Guided Citation & Gaps Intelligence Graph
     papers_path = corpus_path or Path("data/papers.json")
     s5_cit.run_stage5(papers=papers, out_dir=out_dir, corpus_path=papers_path)
 
-    # 2. Knowledge Graph Analytics & White Space Data Preservation (silently saved to disk)
-    G_kg, kg_stats = s5_kg.build_knowledge_graph(papers, topic_results)
-    kg_json_path = out_dir / "knowledge_graph_stats.json"
-    kg_json_path.write_text(json.dumps(kg_stats, indent=2, ensure_ascii=False), encoding="utf-8")
-
 
 def run_stage6(papers: list[dict], out_dir: Path) -> dict:
-    _banner(6, "KNOWLEDGE GRAPH")
-    from research_radar import stage6_archipelago as s6
+    _banner(6, "DOMAIN CLUSTERS & EPISTEMIC ARCHIPELAGO (01 Domain Clusters)")
+    from research_radar import stage6_domain_clusters_archipelago as s6
     return s6.run_stage6(papers=papers, out_dir=out_dir)
 
 
@@ -753,13 +728,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--source",
-        choices=["semanticscholar", "arxiv"],
+        choices=["semanticscholar"],
         default="semanticscholar",
         help=(
             "Data source for Stage 1 ingestion. "
             "'semanticscholar' (default) fetches via S2AG batch API with TLDR, "
-            "citation intents, influentialCitationCount, and references embedded. "
-            "'arxiv' uses the arXiv Python library (no citation data)."
+            "citation intents, influentialCitationCount, and references embedded."
         ),
     )
     parser.add_argument(
@@ -768,8 +742,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help=(
             "Publication year filter for Semantic Scholar search. "
-            "Examples: '2022-2024', '2020-', '2023'. "
-            "Ignored when --source=arxiv."
+            "Examples: '2022-2024', '2020-', '2023'."
         ),
     )
     parser.add_argument(

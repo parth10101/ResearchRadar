@@ -1,0 +1,105 @@
+<mxfile host="app.diagrams.net" modified="2026-09-20T18:00:00.000Z" agent="ResearchRadar-DrawioSkill" version="24.7.5">
+  <diagram id="ieee-sys-arch" name="IEEE System Architecture">
+    <mxGraphModel dx="1800" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1850" pageHeight="1000" math="1" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <mxCell id="hdr" value="&lt;b&gt;Fig. 1. End-to-End System Architecture of Autonomous Scientometric Intelligence Engine (ResearchRadar)&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px; color: #94a3b8;&quot;&gt;IEEE Format • Ingestion • SPECTER/BM25 • HDBSCAN/c-TF-IDF • Citation DAG &amp;amp; SPLC Main Path • Hetero KG • 4-Tier Gap Engine • Groq RAG&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;fontColor=#ffffff;align=left;spacingLeft=20;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="30" y="30" width="1790" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- STAGE 1 CONTAINER -->
+        <mxCell id="s1_box" value="&lt;b&gt;STAGE 1: INGESTION &amp;amp; CACHE&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#2563eb;strokeWidth=2;dashed=1;fontColor=#2563eb;fontSize=12;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="320" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1_c1" value="&lt;b&gt;1. Multi-Source Scientometric Ingestion&lt;/b&gt;&lt;hr&gt;• Semantic Scholar REST API (S2AG Graph)&lt;br&gt;• OpenAlex Concept Hierarchy Taxonomy&lt;br&gt;• arXiv Preprints, Categories &amp;amp; DOIs&lt;br&gt;• Corpus Size N in [300, 3000]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s1_box">
+          <mxGeometry x="15" y="45" width="290" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1_c2" value="&lt;b&gt;2. Token-Bucket Rate Limiter&lt;/b&gt;&lt;hr&gt;• Bucket Capacity C=100, Refill r=1.0/s&lt;br&gt;• HTTP 429 Exponential Backoff + Jitter&lt;br&gt;• Concurrency Semaphore (k=5 parallel)&lt;br&gt;• Persistent S2 Client Rate State" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s1_box">
+          <mxGeometry x="15" y="165" width="290" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1_c3" value="&lt;b&gt;3. SHA-256 Corpus Caching&lt;/b&gt;&lt;hr&gt;• Hash Key: H(q || N || year_filter)&lt;br&gt;• Local Persistent JSON Lakehouse&lt;br&gt;• Idempotent Instant Sub-MS Retrieval&lt;br&gt;• DuckDB Parquet Storage Mirror" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s1_box">
+          <mxGeometry x="15" y="280" width="290" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1_out" value="&lt;b&gt;Output: Corpus D (N Paper Records)&lt;/b&gt;&lt;hr&gt;Structured JSON Schema with paper_id, title, abstract, year, citations, venue, references DAG, concepts.&lt;br&gt;&lt;br&gt;&lt;b&gt;✓ Strict Scientometric Normalization&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;align=left;spacingLeft=10;fontSize=11;fontColor=#1e3a8a;" vertex="1" parent="s1_box">
+          <mxGeometry x="15" y="400" width="290" height="360" as="geometry"/>
+        </mxCell>
+
+        <!-- STAGE 2 CONTAINER -->
+        <mxCell id="s2_box" value="&lt;b&gt;STAGES 2-4: EMBED &amp;amp; CLUSTERING&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fcfaff;strokeColor=#7c3aed;strokeWidth=2;dashed=1;fontColor=#7c3aed;fontSize=12;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="395" y="110" width="330" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_c1" value="&lt;b&gt;Stage 2: Okapi BM25 &amp;amp; Preprocessing&lt;/b&gt;&lt;hr&gt;• SciSpacy Academic Tokenizer &amp;amp; Stopwords&lt;br&gt;• Robertson (TREC-3) BM25 Formulation&lt;br&gt;• Parameters: k_1=1.5, b=0.75, English Filter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e9d5ff;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s2_box">
+          <mxGeometry x="15" y="45" width="300" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_c2" value="&lt;b&gt;Stage 3: SPECTER Transformer Vectorizer&lt;/b&gt;&lt;hr&gt;• Cohan (ACL 2020) Citation-Informed Model&lt;br&gt;• Triplet Loss: L = max(0, ||e_i-e_j||^2 - ||e_i-e_k||^2 + m)&lt;br&gt;• Dense Matrix: X in R^(N x 768)&lt;br&gt;• L2 Normalized + AVX2 Accelerated Math" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e9d5ff;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s2_box">
+          <mxGeometry x="15" y="160" width="300" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_c3" value="&lt;b&gt;Stage 4: HDBSCAN &amp;amp; c-TF-IDF Topics&lt;/b&gt;&lt;hr&gt;• McInnes (JOSS 2017) HDBSCAN (min_size=8)&lt;br&gt;• Grootendorst (2022) Class-based TF-IDF:&lt;br&gt;  W_(t,c) = ||tf_(t,c)|| x log(1 + A / Sum ||tf||)&lt;br&gt;• Thematic Clusters C_1, ..., C_K + Anchors&lt;br&gt;• Cross-Cluster Semantic Filaments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e9d5ff;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s2_box">
+          <mxGeometry x="15" y="295" width="300" height="155" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_out" value="&lt;b&gt;Scientometric Quality Gate&lt;/b&gt;&lt;hr&gt;• Silhouette Score Gate: S &gt;= 0.42&lt;br&gt;• Davies-Bouldin Index: DBI &lt;= 1.35&lt;br&gt;• Outlier Rejection Threshold alpha = 0.05&lt;br&gt;&lt;br&gt;&lt;b&gt;✓ Validated Epistemic Clusters&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#a855f7;align=left;spacingLeft=10;fontSize=11;fontColor=#581c87;" vertex="1" parent="s2_box">
+          <mxGeometry x="15" y="470" width="300" height="290" as="geometry"/>
+        </mxCell>
+
+        <!-- STAGE 3 CONTAINER -->
+        <mxCell id="s3_box" value="&lt;b&gt;STAGE 5: CITATION DAG &amp;amp; HETERO KG&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#059669;strokeWidth=2;dashed=1;fontColor=#059669;fontSize=12;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="760" y="110" width="345" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3_c1" value="&lt;b&gt;Stage 5A: SPLC Main Path Lineage&lt;/b&gt;&lt;hr&gt;• Citation DAG G = (V, E) with Topological Sort&lt;br&gt;• Batagelj (2003) SPLC Equation:&lt;br&gt;  SPLC(e) = [N_sources(u) x N_sinks(v)] / N_total_paths&lt;br&gt;• Main Path Backbone P_main = argmax Sum SPLC&lt;br&gt;• Price Index (Price 1965) Literature Freshness&lt;br&gt;• Kleinberg (2002) Burst Automaton (sigma)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a7f3d0;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s3_box">
+          <mxGeometry x="15" y="45" width="315" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3_c2" value="&lt;b&gt;Stage 5B: Heterogeneous Knowledge Graph&lt;/b&gt;&lt;hr&gt;• Node Partitions: Paper, Topic, Method, Dataset, Author&lt;br&gt;• Bipartite Incidence Matrix: A in R^(|V_Paper| x |V_Entity|)&lt;br&gt;• Co-Occurrence Projection: C = A x A^T&lt;br&gt;• Unexplored (Method x Dataset) Combinations&lt;br&gt;• Cross-Disciplinary Entity Filaments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#a7f3d0;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s3_box">
+          <mxGeometry x="15" y="225" width="315" height="155" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3_out" value="&lt;b&gt;Topological Lineage &amp;amp; Graph Artifacts&lt;/b&gt;&lt;hr&gt;• SPLC Main Path Developmental Lineage&lt;br&gt;• Price Index: P_(3yr) = 0.684 (High-Velocity)&lt;br&gt;• Kleinberg Burst Intensity: sigma = 14.82&lt;br&gt;• Boyack Co-Citation Conductance Deficit: 0.842&lt;br&gt;&lt;br&gt;&lt;b&gt;✓ 100% Deterministic Lineages&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#34d399;align=left;spacingLeft=10;fontSize=11;fontColor=#065f46;" vertex="1" parent="s3_box">
+          <mxGeometry x="15" y="400" width="315" height="360" as="geometry"/>
+        </mxCell>
+
+        <!-- STAGE 4 CONTAINER -->
+        <mxCell id="s4_box" value="&lt;b&gt;STAGES 6-8: 4-TIER GAPS &amp;amp; LLM RAG&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#d97706;strokeWidth=2;dashed=1;fontColor=#d97706;fontSize=12;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="110" width="345" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4_c1" value="&lt;b&gt;Stage 7: 4-Tier Gap Discovery Engine&lt;/b&gt;&lt;hr&gt;• Tier 1: Uzzi (Science 2013) Atypical z-Score (G_combo)&lt;br&gt;• Tier 2: Boyack (2010) Citation Conductance Deficit (G_bridge)&lt;br&gt;• Tier 3: Campello (2015) GLOSH Density Outliers (G_sparse)&lt;br&gt;• Tier 4: Bornmann (2015) CAGR Output Momentum (G_temporal)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#fde68a;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s4_box">
+          <mxGeometry x="15" y="45" width="315" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4_c2" value="&lt;b&gt;Stage 8: Groq Grounded LLM RAG&lt;/b&gt;&lt;hr&gt;• Groq LPU Inference (Llama-3-70B Pipeline)&lt;br&gt;• Grounded Hypothesis: H_m = Method_A (x) Domain_B&lt;br&gt;• Real-Time DOI &amp;amp; Semantic Scholar Verifier Loop&lt;br&gt;• Algorithmic Protocol &amp;amp; Scientific Risk Matrix" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#fde68a;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s4_box">
+          <mxGeometry x="15" y="215" width="315" height="145" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4_out" value="&lt;b&gt;Synthesized Grant Hypotheses (Grant Studio)&lt;/b&gt;&lt;hr&gt;• Operational Hypothesis with Formal Methodology&lt;br&gt;• Composite Novelty: 0.914 (|z|=3.84, Deficit=0.89)&lt;br&gt;• Technical Risk Mitigation &amp;amp; Grounded Citations&lt;br&gt;&lt;br&gt;&lt;b&gt;✓ Direct Export to NSF / NIH Proposal Format&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#f59e0b;align=left;spacingLeft=10;fontSize=11;fontColor=#78350f;" vertex="1" parent="s4_box">
+          <mxGeometry x="15" y="380" width="315" height="380" as="geometry"/>
+        </mxCell>
+
+        <!-- STAGE 5 CONTAINER -->
+        <mxCell id="s5_box" value="&lt;b&gt;STAGE 6 &amp;amp; WEBGL UI OBSERVATORY&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#0f172a;strokeWidth=2;dashed=1;fontColor=#0f172a;fontSize=12;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="1515" y="110" width="295" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5_c1" value="&lt;b&gt;Stage 6: 3D UMAP Manifold&lt;/b&gt;&lt;hr&gt;• X in R^(N x 768) -&gt; Y in R^(N x 3)&lt;br&gt;• n_neighbors=15, min_dist=0.1&lt;br&gt;• Retains Geodesic Manifold Geometry&lt;br&gt;• GPU Float32BufferAttribute Gen" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s5_box">
+          <mxGeometry x="15" y="45" width="265" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5_c2" value="&lt;b&gt;Three.js WebGL Particle Engine&lt;/b&gt;&lt;hr&gt;• Persistent AstraParticleWorld Canvas&lt;br&gt;• GLSL Simplex/Curl Noise GPU Shaders&lt;br&gt;• Quintic S-Curve Morphing Rig&lt;br&gt;• 60 FPS Raycasting &amp;amp; Spline Flight" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="s5_box">
+          <mxGeometry x="15" y="170" width="265" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5_out" value="&lt;b&gt;4 Reactive UI Observatory Views&lt;/b&gt;&lt;hr&gt;• Stage 00: Search Deck &amp;amp; SSE Stream&lt;br&gt;• Stage 01: Epistemic Archipelago (54%/46%)&lt;br&gt;• Stage 02: Citation Timeline (SPLC Lineage)&lt;br&gt;• Stage 03: AI Grant Studio (Hypothesis RAG)&lt;br&gt;&lt;br&gt;&lt;b&gt;✓ Single-Page Reactive SPA&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#334155;align=left;spacingLeft=10;fontSize=11;fontColor=#f8fafc;" vertex="1" parent="s5_box">
+          <mxGeometry x="15" y="305" width="265" height="455" as="geometry"/>
+        </mxCell>
+
+        <!-- Connecting Horizontal Arrows -->
+        <mxCell id="edge1" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#2563eb;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="s1_box" target="s2_box" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge2" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#7c3aed;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="s2_box" target="s3_box" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge3" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#059669;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="s3_box" target="s4_box" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge4" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d97706;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="s4_box" target="s5_box" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

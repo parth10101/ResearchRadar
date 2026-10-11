@@ -262,14 +262,14 @@
     ]
   },
   "human_readable_names": {
-    "0": "Clinical Workflow & Enhance Healthcare & Expertise Artificial",
-    "1": "Health Dataset & Predict Suicidality & Algorithm Clinical",
-    "2": "Assistant Dermatology & Efficacy Chatbot & Support Workflow",
-    "3": "Medarabiq Benchmarke & Medical Domain & Construct Dataset",
-    "4": "Assess Knee & Optimize Medical & Osteoscan Website",
-    "5": "Digital Ayurveda & Wellness Analytic & Acceptance Model",
-    "6": "Patient Chest & Available Dataset & Supervise Image",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Artificial Intelligence in Clinical Medicine",
+    "1": "Deep Learning for Medical Disease Prediction",
+    "2": "ChatGPT Applications in Healthcare Practice",
+    "3": "Pre-trained Language Models for Biomedical Tasks",
+    "4": "Knee Osteoscan Diagnostic Technology Systems",
+    "5": "Digital Ayurveda Ecosystems and Consumer Acceptance",
+    "6": "Pediatric Chest Radiograph Imaging Datasets"
   },
   "coords_2d": {
     "0002148f4747": [

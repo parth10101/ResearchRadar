@@ -238,18 +238,10 @@ However, real-world deployments face **{limitation}**, where physical and enviro
 
 ## 2. Topic Cluster & Structural Insights
 
-Across the macroscopic topic clusters discovered in the corpus:
-
-- **High-Impact Recombination Frontier**: **Topic 0 [{t0_name}]** represents the mature algorithmic core, while **Topic 1 [{t1_name}]** represents the emerging application frontier.
-  * *What this means*: High-impact papers emerge when an established algorithm is tested against an unsolved challenge. Here, researchers can take the algorithmic paradigms from Topic 0 and test them directly against the operational challenges from Topic 1, creating a robust framework that has never been published before.
-
-- **Structural Knowledge Vacuum**: Although Topic 0 and Topic 1 are each dense internally, they exhibit **zero cross-citations (n_bridge = 0)**.
-  * *What this means*: Topic 0 contains papers focused on core representation learning. Topic 1 contains papers focused on specialized downstream reliability. Yet, zero papers cite across both fields (n_bridge = 0).
-  * *Application Example*: Researchers can take the **learned representations from Topic 0** and use them as an **automated feature validator to compensate for domain shift and sensor degradation in Topic 1**. Because core perception engineers and downstream domain specialists work in separate silos, this direct application remains completely unexplored.
-
-- **Optimal Innovation Sweet Spot**: The semantic proximity between Topic 0 and Topic 1 (**Cosine Similarity = {cos_sim}**) represents the ideal innovation balance.
-  * *What this means*: The two topics are closely related enough that techniques transfer easily between them, but distinct enough that combining them produces a genuinely novel, high-impact paper.
-  * *Application Example*: Because both fields share common data representations and processing pipelines, researchers can directly adapt the models from Topic 0 into Topic 1 without designing custom data adapters, rapidly producing a novel, high-impact benchmark.
+Provide a concise 3-point structural synthesis of how this gap bridges the literature:
+- **Recombination Frontier**: Analyze how combining methodological concepts from **[{t0_name}]** with the operational domain of **[{t1_name}]** creates a publishable contribution.
+- **Structural Disconnect**: Explain why these subfields have remained siloed without direct integration in the retrieved corpus.
+- **Methodological Transfer**: Provide a specific, concrete mechanism for transferring **{op_mech}** to **{op_sensor}** while addressing **{op_perturb}**.
 """
     return system_prompt, user_prompt
 

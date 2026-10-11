@@ -6148,20 +6148,20 @@
     ]
   },
   "human_readable_names": {
-    "0": "Language Models Hallucination, Answering Machine Translation & Questioning Effectively Mitigates",
-    "1": "Improving Factuality Biomedical, Generate Semantically Validate & Answers Condition Aware",
-    "2": "Dialogue Ontology Relation, Relation Extraction Generate & Large Language Models",
-    "3": "Agents Urban Planning, Offer Powerful Reasoning & Diverse Stakeholders Contentious",
-    "4": "Question Answering Visual, Scene Graphs Commonsense & Modal Reasoning Extensive",
-    "5": "Retrieval Augmented Generation, Lightweight Question Retrieval & Question Answering Mutual",
-    "6": "Helpful Misinformation Detection, Generate News Reactions & Language Models Llms",
-    "7": "Defending Language Models, User Query Adversarial & Generation Retrieval Augmented",
-    "8": "Bibliometric Analysis, Multimodal Knowledge Graphs & Integration Large Language",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "LLM Hallucination Detection Mechanisms",
+    "1": "Clinical LLM Factuality Validation",
+    "2": "Knowledge Graph Enhanced LLM Reasoning",
+    "3": "LLM Agents for Code Generation",
+    "4": "Vision-Language Model Hallucination Mitigation",
+    "5": "Retrieval-Augmented Generation System Optimization",
+    "6": "Financial LLM Misinformation Detection",
+    "7": "Adversarial Security in LLMs",
+    "8": "Scientific Literature Review Automation"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Language Models Hallucination, Answering Machine Translation & Questioning Effectively Mitigates",
+      "final_label": "LLM Hallucination Detection Mechanisms",
       "representative_phrases": [
         "Language Models Hallucination",
         "Answering Machine Translation",
@@ -6653,7 +6653,7 @@
       ]
     },
     "1": {
-      "final_label": "Improving Factuality Biomedical, Generate Semantically Validate & Answers Condition Aware",
+      "final_label": "Clinical LLM Factuality Validation",
       "representative_phrases": [
         "Improving Factuality Biomedical",
         "Generate Semantically Validate",
@@ -7084,7 +7084,7 @@
       ]
     },
     "2": {
-      "final_label": "Dialogue Ontology Relation, Relation Extraction Generate & Large Language Models",
+      "final_label": "Knowledge Graph Enhanced LLM Reasoning",
       "representative_phrases": [
         "Dialogue Ontology Relation",
         "Relation Extraction Generate",
@@ -7446,7 +7446,7 @@
       ]
     },
     "3": {
-      "final_label": "Agents Urban Planning, Offer Powerful Reasoning & Diverse Stakeholders Contentious",
+      "final_label": "LLM Agents for Code Generation",
       "representative_phrases": [
         "Agents Urban Planning",
         "Offer Powerful Reasoning",
@@ -7791,7 +7791,7 @@
       ]
     },
     "4": {
-      "final_label": "Question Answering Visual, Scene Graphs Commonsense & Modal Reasoning Extensive",
+      "final_label": "Vision-Language Model Hallucination Mitigation",
       "representative_phrases": [
         "Question Answering Visual",
         "Scene Graphs Commonsense",
@@ -8145,7 +8145,7 @@
       ]
     },
     "5": {
-      "final_label": "Retrieval Augmented Generation, Lightweight Question Retrieval & Question Answering Mutual",
+      "final_label": "Retrieval-Augmented Generation System Optimization",
       "representative_phrases": [
         "Retrieval Augmented Generation",
         "Lightweight Question Retrieval",
@@ -8415,7 +8415,7 @@
       ]
     },
     "6": {
-      "final_label": "Helpful Misinformation Detection, Generate News Reactions & Language Models Llms",
+      "final_label": "Financial LLM Misinformation Detection",
       "representative_phrases": [
         "Helpful Misinformation Detection",
         "Generate News Reactions",
@@ -8580,7 +8580,7 @@
       ]
     },
     "7": {
-      "final_label": "Defending Language Models, User Query Adversarial & Generation Retrieval Augmented",
+      "final_label": "Adversarial Security in LLMs",
       "representative_phrases": [
         "Defending Language Models",
         "User Query Adversarial",
@@ -8687,7 +8687,7 @@
       ]
     },
     "8": {
-      "final_label": "Bibliometric Analysis, Multimodal Knowledge Graphs & Integration Large Language",
+      "final_label": "Scientific Literature Review Automation",
       "representative_phrases": [
         "Bibliometric Analysis",
         "Multimodal Knowledge Graphs",

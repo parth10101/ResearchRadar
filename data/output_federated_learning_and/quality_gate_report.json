@@ -1,0 +1,307 @@
+[
+  {
+    "paper_id": "0ac3e2d485dbeb9bf11571f1fcc57262e4bdea62",
+    "title": "A Systematic Survey for Differential Privacy Techniques in Federated Learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "5036e7c4b66047fc4277fe5c8703d423811791ea",
+    "title": "Enhancing PV feed-in power forecasting through federated learning with differential privacy using LSTM and GRU",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "461311f1064c0f9615718c7c61b19c70694bcbb7",
+    "title": "Proof-of-authority-based secure and efficient aggregation with differential privacy for federated learning in industrial IoT",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "53004e7c863a7d76154e7d38b30b91264a735f9c",
+    "title": "CLFLDP: Communication-efficient layer clipping federated learning with local differential privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "17cbeed787440990e3c529a9be0ef95651fbd55f",
+    "title": "Local differential privacy federated learning based on heterogeneous data multi-privacy mechanism",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "217ba497bef71f14fca31bede5233ff1f759a1c4",
+    "title": "Federated Learning with Differential Privacy for End-to-End Speech Recognition",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "1f82d7bd0ac04619b6b126dae600e6eddf19e230",
+    "title": "Protecting Data Privacy in Federated Learning Combining Differential Privacy and Weak Encryption",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "3d5b5e12011d60e117bdc4887d859f1780fbf82b",
+    "title": "Data-Secure and Privacy-Protected Electric Vehicle Battery Fault Detection Using Decentralized Federated Learning with Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4e399ab1f0803f7fe7df4e990edb33584ab962e3",
+    "title": "Communication Efﬁcient Federated Learning with Secure Aggregation and Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "1960cb4e6a15c00058916bff56ae6632398ae70c",
+    "title": "FedSam: Enhancing federated learning accuracy with differential privacy and data heterogeneity mitigation",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "02c99bc63578766ed85c16d7a3521fd100a17f9b",
+    "title": "FL-MAC-RDP: Federated Learning over Multiple Access Channels with Rényi Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "0ad64f7ab229706157ad03d5f228066602419aab",
+    "title": "A survey of optimization algorithms for differential privacy in Federated Learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "42543fda926702d2a0b0940bfe0baf7a2a601956",
+    "title": "DP-GSGLD: A Bayesian optimizer inspired by differential privacy defending against privacy leakage in federated learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4bad1404609fa1d6d88ab51f5621c04edc073a66",
+    "title": "Dynamic privacy budget allocation for enhanced differential privacy in federated learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "527f70b7b38ecd22b4a0e824a67918b1a5e39824",
+    "title": "Differential Privacy at the Edge: A Federated Learning Framework for GDPR-Compliant TinyML Deployments",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "3f21f791229d490580ea73654acfa52b523028c5",
+    "title": "Privacy protection in federated learning: a study on the combined strategy of local and global differential privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "0a0e9861c01af989bcb6e09a17e4a105360ba4b5",
+    "title": "Federated Learning Based on Data Divergence and Differential Privacy in燜inancial Risk Control Research",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "0977ade0c6d281c8bf37acde212f99603746f91d",
+    "title": "Balancing privacy and fairness: Client selection in differential privacy-based federated learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "1b0732b384ab92975e9228bc5638ee2dcbfdf29d",
+    "title": "Accuracy-aware differential privacy in federated learning of large transformer models",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "228ef6e1acf3203eec868cd372788145dda7dc1a",
+    "title": "Enhancing Privacy in Federated Learning with Local Differential Privacy for Email Classification",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "053194fd28c3daf840c3316be614e2635968aa51",
+    "title": "Enhancing Data Privacy in Intrusion Detection: A Federated Learning Framework With Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "3fa50efed9c6ac4cc220e8baee0863af3e4bc3ac",
+    "title": "DPSHE: A privacy-preserving federated learning scheme based on homomorphic encryption and differential privacy for medical image",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "08bd777d250f6d015255731c3b704dfeb0bdbba4",
+    "title": "An enhanced method for hierarchical federated learning based on privacy metric and adaptive differential privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "0922f6836f85185604258dbb307c536a99da8ab6",
+    "title": "Byzantine-resilient federated learning with dynamic scoring matrix and variant PBFT consensus under differential privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "21ff347d74684e36b8f9924bcb52589085f740a9",
+    "title": "Mitigating Disparate Impact of Differential Privacy in Federated Learning through Robust Clustering",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "23f14a1a93b37d72e13c417c3ee9917f393a1692",
+    "title": "Differential Privacy Integrated Federated Learning for Power Systems: An Explainability-Driven Approach",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "3666d56183fe6b805136c4b3b7002eaf815057a7",
+    "title": "Secure Federated Learning Scheme Based on Differential Privacy and Homomorphic Encryption",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "43fa4e5d587da0497d79a9660a827af63126ff40",
+    "title": "A Federated Learning-Based Android Malware Detector Through Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "046ddb5f45a2ccb89697807463aac67b7cad51b2",
+    "title": "ACSFL: An adaptive client selection-based Federated Learning with personalized differential privacy for heterogeneous AIoT environments",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "0d9051b585079de1f24e7a829ce88fee6fbe1769",
+    "title": "Secure and Decentralized Plant Disease Detection via Federated Learning with Differential Privacy and Homomorphic Encryption",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "243dc0d2ed0e23ecba3932c74d380469f2d19f72",
+    "title": "DDP-SA: Scalable Privacy-Preserving Federated Learning via Distributed Differential Privacy and Secure Aggregation",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4f993b14001f886aaa83695c9cc5336c923d3be2",
+    "title": "Formalizing Federated Learning and Differential Privacy for GIS Systems in IIIf",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "52dd04c9154e62420f8d61c221dfc230223a61e3",
+    "title": "FAdagrad: Adaptive federated learning with differential privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "0025a51e4f61fcce1e72a70192af849eb3d26387",
+    "title": "Handling Sensitive Medical Data - A Differential Privacy Enabled Federated Learning Approach",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "256de85b672e4c23e7eed9d20ca35ce6ccedf67c",
+    "title": "FedDP: Secure Federated Learning with Differential Privacy for Disease Prediction",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "434e47d4a916d3f9333df33b2b8f816840f61da8",
+    "title": "Correction: Dynamic privacy budget allocation for enhanced differential privacy in federated learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4eea2c0fcf95da2250683e330c2f478c1440ccfb",
+    "title": "A Hierarchical Privacy-Preserving Federated Learning Framework with Differential Privacy for Collaborative Healthcare Diagnostics",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "526da17b5e3f7d6561d3331a37767dcd40db7dd9",
+    "title": "A Blockchain-Based Framework for Enhancing Adaptive Differential Privacy in Federated Learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "0d0d46c5b109526e829575e4a3d2814f7bba738a",
+    "title": "DIFFERENTIAL PRIVACY BY DESIGN: ENSURING COVID-19 DATA PRIVACY ON FEDERATED LEARNING SYSTEMS",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "10ac0837bfaa7016fea0b3e84c0592bcd151d926",
+    "title": "Privacy‑Preserving Multidimensional Data Sharing via Federated Learning and Differential Privacy in Cloud‑ Edge Environments",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "10b49a649e397e1c2ce5085ed86354c3745cfeb1",
+    "title": "Federated Learning with Locally Enforced K-Anonymity and Differential Privacy: A Hybrid Privacy Approach",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "11677df4b58c657adf185799966ddafd4f3e9977",
+    "title": "Federated Learning on Riemannian Manifolds with Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "24e1f4fd158967a34647e05bf080459ce2766a60",
+    "title": "Privacy-Preserving Federated Learning for Emotion Recognition: An Improved Framework with Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "28f83ddace60eda7a0ff3510c496a5391653bd2d",
+    "title": "FedGC: Federated learning with geometry calibrated differential privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "2af8326b60b3425ffb20b022cfa62e2327314b68",
+    "title": "Federated Learning with Differential Privacy for Secure Medical Image Classification",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "2cac7cdfee31165bc8fd4b318b012f150a39d4a7",
+    "title": "Privacy-Preserving Federated Learning for Critical Infrastructure Cybersecurity Using Differential Privacy and",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "3896b1df68ac4475dea04c1908bbf5c0a4c9476e",
+    "title": "Differential Privacy for Multiple Antenna Wireless Communication Assisted Federated Learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "38e21ee1238f7d989c03e50a730e645dd250ad02",
+    "title": "HFL-DP NIDS: A hierarchical federated learning-based network intrusion detection method with differential privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "47c000518f59f4f17c7ce1a288ddfbba9fd6c474",
+    "title": "An Adaptive Differential Privacy Method Based on Federated Learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4960d161b962cf861d2b33c86fdefd6c001a7f1c",
+    "title": "Federated Learning Differential Privacy Medical Image Classification Algorithm Based on Hybrid Reality Technology",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4975b72a66e841158f10e3d0de3cda90b9c69b54",
+    "title": "Federated Learning and Differential Privacy in Multi-Cloud Banking",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4a3f40692b5f80c6d1d181769d0df5fc75d860f6",
+    "title": "An Efficient Federated Learning Privacy Preservation Method with Differential Privacy Against Model Inversion Attack",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "4fa00bab7e25f2f3008474c2f1c3015e515530bb",
+    "title": "FedHealthGuard: a user-level trajectory differential privacy federated learning framework for continuous medical behavior data",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "56a26f3d7b6de223519f1793b96319ff16efd705",
+    "title": "Mitigating the Privacy-Utility Trade-off in Decentralized Federated Learning via f-Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "085e14d285896da3de39d80c899c68b508d6af07",
+    "title": "Federated Inverse Reinforcement Learning for Smart ICUs With Differential Privacy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "364184f18af50e62ec7f1a0fe371a87777da7205",
+    "title": "Differential Privacy Approach to Solve Gradient Leakage Attack in a Federated Machine Learning Environment",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "503fceebf08c81d52cb4544887fe252fe1d8c933",
+    "title": "On the Impact of Differential Privacy on Federated Neuromorphic Learning Accuracy",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "2f02510534db2d1838305100f0a6419dc8b85d0f",
+    "title": "Privacy preserving task offloading and resource allocation for satellite terrestrial integrated edge computing networks based on differentially private federated learning",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "353760535b7ed4597d1fa2cef89dbf884a0a842d",
+    "title": "Federated Deep Learning with Differential Evolution for Privacy-Preserving IoT Anomaly Detection",
+    "reason": "Abstract too short (0 words < 20 required threshold)"
+  },
+  {
+    "paper_id": "1abe3b36e367600a1c630e91c25d54986d71c2c2",
+    "title": "Privacy-Preserving Personalized Federated Learning",
+    "reason": "Near-duplicate (cosine similarity 0.9922 >= 0.98 with 06331192794ca97dfe7826e50571a2835677f13b)"
+  },
+  {
+    "paper_id": "2010.10572",
+    "title": "Mitigating Sybil Attacks on Differential Privacy based Federated Learning",
+    "reason": "Near-duplicate (cosine similarity 0.9900 >= 0.98 with 130c3a6247701de84f887c4945dd737a7757b388)"
+  }
+]

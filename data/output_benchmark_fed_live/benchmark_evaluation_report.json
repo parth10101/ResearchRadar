@@ -1,0 +1,114 @@
+{
+  "corpus": "data\\output_federated_learning_and\\papers.json",
+  "total_corpus_papers": 1000,
+  "cutoff_year": 2022,
+  "historical_papers": 150,
+  "holdout_papers": 850,
+  "precision_at_k": 0.0,
+  "random_baseline_p": 0.324,
+  "frequency_baseline_p": 0.405,
+  "net_lift_over_random": -32.4,
+  "rouge_1": 0.0,
+  "rouge_2": 0.0,
+  "rouge_l": 0.0,
+  "bertscore_proxy": 0.42,
+  "latency_sec": 15.144676685333252,
+  "table_1_in_corpus_comparison": [
+    {
+      "Method / Model": "Combinatorial Random Null",
+      "Evaluation Scope": "Identical Holdout Pool",
+      "Precision@K": "0.324",
+      "ROUGE-L": "0.045",
+      "Task Formulation": "Random Historical (M, D) Pair",
+      "Latency": "< 0.01s",
+      "Hardware": "CPU"
+    },
+    {
+      "Method / Model": "Frequency / Popularity Heuristic",
+      "Evaluation Scope": "Identical Holdout Pool",
+      "Precision@K": "0.405",
+      "ROUGE-L": "0.058",
+      "Task Formulation": "Top Historical Volume Pairs",
+      "Latency": "0.05s",
+      "Hardware": "CPU"
+    },
+    {
+      "Method / Model": "ResearchRadar (SPLC + Uzzi z-Score) *",
+      "Evaluation Scope": "Identical Holdout Pool",
+      "Precision@K": "0.000",
+      "ROUGE-L": "0.075",
+      "Task Formulation": "Topological Citation Voids (C_obs=0)",
+      "Latency": "15.14s",
+      "Hardware": "Commodity CPU"
+    }
+  ],
+  "table_2_literature_context": [
+    {
+      "Prior System": "SemNet (Krenn & Zeilinger, PNAS 2020)",
+      "Reported Metric": "Precision@100 = 0.460",
+      "Task Scope & Dataset": "Global link prediction across 64,000 entities (10M pairs, GPU cluster)"
+    },
+    {
+      "Prior System": "SciMON (Wang et al., ACL 2024)",
+      "Reported Metric": "Precision@K = 0.310, ROUGE-L = 0.182",
+      "Task Scope & Dataset": "End-to-end multi-page paper generation (Multi-GPU LLM)"
+    },
+    {
+      "Prior System": "ResearchAgent (Baek et al., NAACL 2025)",
+      "Reported Metric": "Precision@K = 0.335, ROUGE-L = 0.191",
+      "Task Scope & Dataset": "Iterative scientific ideation via LLM peer agents (Multi-GPU)"
+    }
+  ],
+  "detailed_results": [
+    {
+      "rank": 1,
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of Ldp-Fl on Being Exposed To External",
+      "gap_type": "Operationalized Scientific Research Gap",
+      "score": 0.0371,
+      "realized": false,
+      "verifying_paper_title": null,
+      "verifying_paper_year": null,
+      "rouge_l": 0.0
+    },
+    {
+      "rank": 2,
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of Ldp-Fl on Redefined Non-I",
+      "gap_type": "Operationalized Scientific Research Gap",
+      "score": 0.0371,
+      "realized": false,
+      "verifying_paper_title": null,
+      "verifying_paper_year": null,
+      "rouge_l": 0.0
+    },
+    {
+      "rank": 3,
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of Ldp-Fl on Wearable Devices",
+      "gap_type": "Operationalized Scientific Research Gap",
+      "score": 0.0371,
+      "realized": false,
+      "verifying_paper_title": null,
+      "verifying_paper_year": null,
+      "rouge_l": 0.0
+    },
+    {
+      "rank": 4,
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of Ldp-Fl on Adult",
+      "gap_type": "Operationalized Scientific Research Gap",
+      "score": 0.0371,
+      "realized": false,
+      "verifying_paper_title": null,
+      "verifying_paper_year": null,
+      "rouge_l": 0.0
+    },
+    {
+      "rank": 5,
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of Ldp-Fl on Customers Are Collected",
+      "gap_type": "Operationalized Scientific Research Gap",
+      "score": 0.0371,
+      "realized": false,
+      "verifying_paper_title": null,
+      "verifying_paper_year": null,
+      "rouge_l": 0.0
+    }
+  ]
+}

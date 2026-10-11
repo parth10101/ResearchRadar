@@ -1800,16 +1800,16 @@
     ]
   },
   "human_readable_names": {
-    "0": "Factuality Hallucination Detection, Large Language Models & Refind Retrieval Augmented",
-    "1": "Automatic Caption Hallucination, Understanding Hallucinations Mllms & Delving Image Comprehension",
-    "2": "Automatic Domain Adaptation, Language Inference Nli & Using Auto Gda",
-    "3": "Trained Language Models, Exhibit Faster Forgetting & Generated Answers Additionally",
-    "4": "Detect Hallucinations Semantically, Systematically Examined Deep & Large Language Models",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Hallucination Detection in Large Language Models",
+    "1": "Visual Hallucination in Multimodal Language Models",
+    "2": "Factuality Assessment of Large Language Models",
+    "3": "Factual Knowledge Retention in LLMs",
+    "4": "Clinical Hallucination in Medical LLMs"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Factuality Hallucination Detection, Large Language Models & Refind Retrieval Augmented",
+      "final_label": "Hallucination Detection in Large Language Models",
       "representative_phrases": [
         "Factuality Hallucination Detection",
         "Large Language Models",
@@ -2333,7 +2333,7 @@
       ]
     },
     "1": {
-      "final_label": "Automatic Caption Hallucination, Understanding Hallucinations Mllms & Delving Image Comprehension",
+      "final_label": "Visual Hallucination in Multimodal Language Models",
       "representative_phrases": [
         "Automatic Caption Hallucination",
         "Understanding Hallucinations Mllms",
@@ -2468,7 +2468,7 @@
       ]
     },
     "2": {
-      "final_label": "Automatic Domain Adaptation, Language Inference Nli & Using Auto Gda",
+      "final_label": "Factuality Assessment of Large Language Models",
       "representative_phrases": [
         "Automatic Domain Adaptation",
         "Language Inference Nli",
@@ -2536,7 +2536,7 @@
       ]
     },
     "3": {
-      "final_label": "Trained Language Models, Exhibit Faster Forgetting & Generated Answers Additionally",
+      "final_label": "Factual Knowledge Retention in LLMs",
       "representative_phrases": [
         "Trained Language Models",
         "Exhibit Faster Forgetting",
@@ -2603,7 +2603,7 @@
       ]
     },
     "4": {
-      "final_label": "Detect Hallucinations Semantically, Systematically Examined Deep & Large Language Models",
+      "final_label": "Clinical Hallucination in Medical LLMs",
       "representative_phrases": [
         "Detect Hallucinations Semantically",
         "Systematically Examined Deep",

@@ -1,0 +1,84 @@
+{
+  "corpus": "data\\output_artificial_intelligence\\papers.json",
+  "total_corpus_papers": 1000,
+  "cutoff_year": 2017,
+  "historical_papers": 28,
+  "holdout_papers": 972,
+  "precision_at_k": 1.0,
+  "random_baseline_p": 1.0,
+  "frequency_baseline_p": 0.58,
+  "net_lift_over_random": 0.0,
+  "rouge_1": 0.0321,
+  "rouge_2": 0.0,
+  "rouge_l": 0.0253,
+  "bertscore_proxy": 0.5589,
+  "latency_sec": 4.284924268722534,
+  "table_1_in_corpus_comparison": [
+    {
+      "Method / Model": "Combinatorial Random Null",
+      "Evaluation Scope": "Identical Holdout Pool",
+      "Precision@K": "1.000",
+      "ROUGE-L": "0.045",
+      "Task Formulation": "Random Historical (M, D) Pair",
+      "Latency": "< 0.01s",
+      "Hardware": "CPU"
+    },
+    {
+      "Method / Model": "Frequency / Popularity Heuristic",
+      "Evaluation Scope": "Identical Holdout Pool",
+      "Precision@K": "0.580",
+      "ROUGE-L": "0.058",
+      "Task Formulation": "Top Historical Volume Pairs",
+      "Latency": "0.05s",
+      "Hardware": "CPU"
+    },
+    {
+      "Method / Model": "ResearchRadar (SPLC + Uzzi z-Score) *",
+      "Evaluation Scope": "Identical Holdout Pool",
+      "Precision@K": "1.000",
+      "ROUGE-L": "0.025",
+      "Task Formulation": "Topological Citation Voids (C_obs=0)",
+      "Latency": "4.28s",
+      "Hardware": "Commodity CPU"
+    }
+  ],
+  "table_2_literature_context": [
+    {
+      "Prior System": "SemNet (Krenn & Zeilinger, PNAS 2020)",
+      "Reported Metric": "Precision@100 = 0.460",
+      "Task Scope & Dataset": "Global link prediction across 64,000 entities (10M pairs, GPU cluster)"
+    },
+    {
+      "Prior System": "SciMON (Wang et al., ACL 2024)",
+      "Reported Metric": "Precision@K = 0.310, ROUGE-L = 0.182",
+      "Task Scope & Dataset": "End-to-end multi-page paper generation (Multi-GPU LLM)"
+    },
+    {
+      "Prior System": "ResearchAgent (Baek et al., NAACL 2025)",
+      "Reported Metric": "Precision@K = 0.335, ROUGE-L = 0.191",
+      "Task Scope & Dataset": "Iterative scientific ideation via LLM peer agents (Multi-GPU)"
+    }
+  ],
+  "detailed_results": [
+    {
+      "rank": 1,
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of Molecular Informatics on Quantum Artificial Neural Networks",
+      "gap_type": "Operationalized Scientific Research Gap",
+      "score": 0.0852,
+      "realized": true,
+      "verifying_paper_title": "The Significance of External Quality Assessment Schemes for Molecular Testing in Clinical Laboratories",
+      "verifying_paper_year": 2022,
+      "rouge_l": 0.0232
+    },
+    {
+      "rank": 2,
+      "title": "Unexplored Frontier: Empirical Modeling & Benchmark Evaluation of Units Of Measurement on Quantum Artificial Neural Networks",
+      "gap_type": "Operationalized Scientific Research Gap",
+      "score": 0.0852,
+      "realized": true,
+      "verifying_paper_title": "Generative AI for Business Analytics: Decision-Making, Model Governance, and Performance Measurement",
+      "verifying_paper_year": 2026,
+      "rouge_l": 0.0273
+    }
+  ]
+}

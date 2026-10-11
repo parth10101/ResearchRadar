@@ -1168,20 +1168,20 @@
     ]
   },
   "human_readable_names": {
-    "0": "Centrality Subgraph Gnns, Annotation Graph Neural & Learns Efficiently Embed",
-    "1": "Adversarial Attack Wind, Power Forecasting Model & Attacks Renewable Energy",
-    "2": "Predicting Phase Separation, Graph Neural Network & Learning Predict Metastatic",
-    "3": "Loss Prediction Vehicular, Gnn Mmwave Path & Modal Sensing Residual",
-    "4": "Emotion Recognition Conversation, Hypergraph Autoencoder Contrastive & Snn Framework Integrates",
-    "5": "Graph Accelerator Framework, Fpgas Node Swift & Memory Hbm Swift",
-    "6": "Deep Sea Submersible, Graph Neural Network & Numerical Models Deep",
-    "7": "Spacecraft Pose Estimation, Inception Resnet Convolutional & Salient Feature Image",
-    "8": "Networks Human Motion, Action Recognition Benchmark & Manifold Guided Graph",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Graph Neural Network Architectures",
+    "1": "IoT Graph-Based Intrusion Detection",
+    "2": "Molecular Graph Neural Networks",
+    "3": "Traffic Flow Graph Prediction",
+    "4": "Functional Brain Connectivity Graphs",
+    "5": "Mathematical Formula Recognition Networks",
+    "6": "Graph-Based Fault Diagnosis Models",
+    "7": "Image Segmentation Convolutional Networks",
+    "8": "Human Action Recognition Graphs"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Centrality Subgraph Gnns, Annotation Graph Neural & Learns Efficiently Embed",
+      "final_label": "Graph Neural Network Architectures",
       "representative_phrases": [
         "Centrality Subgraph Gnns",
         "Annotation Graph Neural",
@@ -1307,7 +1307,7 @@
       ]
     },
     "1": {
-      "final_label": "Adversarial Attack Wind, Power Forecasting Model & Attacks Renewable Energy",
+      "final_label": "IoT Graph-Based Intrusion Detection",
       "representative_phrases": [
         "Adversarial Attack Wind",
         "Power Forecasting Model",
@@ -1376,7 +1376,7 @@
       ]
     },
     "2": {
-      "final_label": "Predicting Phase Separation, Graph Neural Network & Learning Predict Metastatic",
+      "final_label": "Molecular Graph Neural Networks",
       "representative_phrases": [
         "Predicting Phase Separation",
         "Graph Neural Network",
@@ -1468,7 +1468,7 @@
       ]
     },
     "3": {
-      "final_label": "Loss Prediction Vehicular, Gnn Mmwave Path & Modal Sensing Residual",
+      "final_label": "Traffic Flow Graph Prediction",
       "representative_phrases": [
         "Loss Prediction Vehicular",
         "Gnn Mmwave Path",
@@ -1531,7 +1531,7 @@
       ]
     },
     "4": {
-      "final_label": "Emotion Recognition Conversation, Hypergraph Autoencoder Contrastive & Snn Framework Integrates",
+      "final_label": "Functional Brain Connectivity Graphs",
       "representative_phrases": [
         "Emotion Recognition Conversation",
         "Hypergraph Autoencoder Contrastive",
@@ -1577,7 +1577,7 @@
       ]
     },
     "5": {
-      "final_label": "Graph Accelerator Framework, Fpgas Node Swift & Memory Hbm Swift",
+      "final_label": "Mathematical Formula Recognition Networks",
       "representative_phrases": [
         "Graph Accelerator Framework",
         "Fpgas Node Swift",
@@ -1622,7 +1622,7 @@
       ]
     },
     "6": {
-      "final_label": "Deep Sea Submersible, Graph Neural Network & Numerical Models Deep",
+      "final_label": "Graph-Based Fault Diagnosis Models",
       "representative_phrases": [
         "Deep Sea Submersible",
         "Graph Neural Network",
@@ -1663,7 +1663,7 @@
       ]
     },
     "7": {
-      "final_label": "Spacecraft Pose Estimation, Inception Resnet Convolutional & Salient Feature Image",
+      "final_label": "Image Segmentation Convolutional Networks",
       "representative_phrases": [
         "Spacecraft Pose Estimation",
         "Inception Resnet Convolutional",
@@ -1704,7 +1704,7 @@
       ]
     },
     "8": {
-      "final_label": "Networks Human Motion, Action Recognition Benchmark & Manifold Guided Graph",
+      "final_label": "Human Action Recognition Graphs",
       "representative_phrases": [
         "Networks Human Motion",
         "Action Recognition Benchmark",

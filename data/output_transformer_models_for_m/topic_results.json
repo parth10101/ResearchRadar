@@ -2208,24 +2208,24 @@
     ]
   },
   "human_readable_names": {
-    "0": "Transformer Attention for 3D Medical Segmentation",
-    "1": "Transformer Models for Medical Image Segmentation",
-    "2": "Transformer for Brain Tumor Segmentation",
-    "3": "Domain-Adapted DINOv3 for Medical Image Segmentation",
-    "4": "Deep Learning for Cancer Imaging",
-    "5": "Mamba-UNet for Medical Image Segmentation",
-    "6": "3D U-Net for Liver Tumor Segmentation",
-    "7": "Vision Transformer for Skin Lesion Segmentation",
-    "8": "Attention-Driven CNN-Transformer for Lung Nodule Segmentation",
-    "9": "Multi-Modal Transformer for Medical Image Segmentation",
-    "10": "Knowledge Distillation for Cartilage Segmentation",
-    "11": "Diffusion Model for Medical Image Segmentation",
-    "12": "Transformer for Panoramic Dental Radiomics",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Medical Image Segmentation",
+    "1": "Organ Segmentation & Medical Image",
+    "2": "Brain Tumor & Magnetic Resonance Imaging",
+    "3": "Supervised Learning & Medical Image Segmentation",
+    "4": "Deep Learning & Medical Imaging",
+    "5": "Vision Mamba & Medical Image Segmentation",
+    "6": "Liver Tumor & Image Segmentation",
+    "7": "Skin Lesion & Medical Image Segmentation",
+    "8": "Lung Cancer & Pulmonary & Chest",
+    "9": "Modal Medical Image",
+    "10": "Knowledge Distillation & Medical Image Segmentation",
+    "11": "Diffusion Model & Medical Image Segmentation",
+    "12": "Oral Panoramic & Individual Teeth"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Transformer Attention for 3D Medical Segmentation",
+      "final_label": "Medical Image Segmentation",
       "representative_phrases": [
         "Cnn Transformer",
         "3D Medical Image"
@@ -2527,7 +2527,7 @@
       ]
     },
     "1": {
-      "final_label": "Transformer Models for Medical Image Segmentation",
+      "final_label": "Organ Segmentation & Medical Image",
       "representative_phrases": [
         "Medical Segmentation Models",
         "Cnn Transformer Review"
@@ -2654,7 +2654,7 @@
       ]
     },
     "2": {
-      "final_label": "Transformer for Brain Tumor Segmentation",
+      "final_label": "Brain Tumor & Magnetic Resonance Imaging",
       "representative_phrases": [
         "Trained Segment Glioma",
         "Ai Radiologist Workflows"
@@ -2764,7 +2764,7 @@
       ]
     },
     "3": {
-      "final_label": "Domain-Adapted DINOv3 for Medical Image Segmentation",
+      "final_label": "Supervised Learning & Medical Image Segmentation",
       "representative_phrases": [
         "Adaptation Dinov3 Segmentation",
         "Lesion Segmentation Deep"
@@ -2867,7 +2867,7 @@
       ]
     },
     "4": {
-      "final_label": "Deep Learning for Cancer Imaging",
+      "final_label": "Deep Learning & Medical Imaging",
       "representative_phrases": [
         "Microfluidic Based Tumor",
         "Integrated Deep Learning"
@@ -2965,7 +2965,7 @@
       ]
     },
     "5": {
-      "final_label": "Mamba-UNet for Medical Image Segmentation",
+      "final_label": "Vision Mamba & Medical Image Segmentation",
       "representative_phrases": [
         "Range Dependencies Cnns",
         "Cnn Medical Image"
@@ -3037,7 +3037,7 @@
       ]
     },
     "6": {
-      "final_label": "3D U-Net for Liver Tumor Segmentation",
+      "final_label": "Liver Tumor & Image Segmentation",
       "representative_phrases": [
         "Training 3D Patchgan",
         "Liver Tumor Segmentation"
@@ -3092,7 +3092,7 @@
       ]
     },
     "7": {
-      "final_label": "Vision Transformer for Skin Lesion Segmentation",
+      "final_label": "Skin Lesion & Medical Image Segmentation",
       "representative_phrases": [
         "Dermatologic Image Classification",
         "Resnet Convolutional Neural"
@@ -3141,7 +3141,7 @@
       ]
     },
     "8": {
-      "final_label": "Attention-Driven CNN-Transformer for Lung Nodule Segmentation",
+      "final_label": "Lung Cancer & Pulmonary & Chest",
       "representative_phrases": [
         "Guided Hybrid Cnn",
         "Classification Lesion Localization"
@@ -3179,7 +3179,7 @@
       ]
     },
     "9": {
-      "final_label": "Multi-Modal Transformer for Medical Image Segmentation",
+      "final_label": "Modal Medical Image",
       "representative_phrases": [
         "Cnn Transformer Efficiently",
         "Lesion Detection Cnn"
@@ -3215,7 +3215,7 @@
       ]
     },
     "10": {
-      "final_label": "Knowledge Distillation for Cartilage Segmentation",
+      "final_label": "Knowledge Distillation & Medical Image Segmentation",
       "representative_phrases": [
         "Transfer Learning Dense",
         "Medical Images Deep"
@@ -3249,7 +3249,7 @@
       ]
     },
     "11": {
-      "final_label": "Diffusion Model for Medical Image Segmentation",
+      "final_label": "Diffusion Model & Medical Image Segmentation",
       "representative_phrases": [
         "Cardiac Mri Segmentation",
         "Annotated Synthetic Dataset"
@@ -3278,7 +3278,7 @@
       ]
     },
     "12": {
-      "final_label": "Transformer for Panoramic Dental Radiomics",
+      "final_label": "Oral Panoramic & Individual Teeth",
       "representative_phrases": [
         "Teeth Segmentation Panoramic",
         "Images Dataset Divided"

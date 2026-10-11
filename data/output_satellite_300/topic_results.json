@@ -778,22 +778,22 @@
     ]
   },
   "human_readable_names": {
-    "0": "Deep Satellite Image Classification",
-    "1": "SAR Aperture Imaging Data",
-    "2": "High-Resolution Forest Water Mapping",
-    "3": "Land Cover Change Detection",
-    "4": "Flood Impact on Soil Areas",
-    "5": "Space Mission System Operations",
-    "6": "Satellite Road Image Processing",
-    "7": "Ocean Cloud SDS Modeling",
-    "8": "Hyperspectral Crop Feature Extraction",
-    "9": "Urban Building Index Thresholding",
-    "10": "Syndecan-4 Mediated Muscle Cell Migration",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Deep Learning & Convolutional Neural",
+    "1": "Synthetic Aperture Radar",
+    "2": "Satellite Images & Remote Sensing",
+    "3": "Land Cover & Vegetation Trend Changes",
+    "4": "Digital Elevation & Remote Sensing",
+    "5": "Resolution Optical Satellites",
+    "6": "Image Processing & Satellite Images",
+    "7": "Imaging Radiometer Suite",
+    "8": "Hyperspectral Remote Sensing",
+    "9": "Building Height Types",
+    "10": "Skeletal Muscle & Local Cells"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Deep Satellite Image Classification",
+      "final_label": "Deep Learning & Convolutional Neural",
       "representative_phrases": [
         "Ai Applications Geological",
         "Remote Sensing Intelligent"
@@ -856,7 +856,7 @@
       ]
     },
     "1": {
-      "final_label": "SAR Aperture Imaging Data",
+      "final_label": "Synthetic Aperture Radar",
       "representative_phrases": [
         "Sar Data Focusing",
         "Radar Imaging Technique"
@@ -909,7 +909,7 @@
       ]
     },
     "2": {
-      "final_label": "High-Resolution Forest Water Mapping",
+      "final_label": "Satellite Images & Remote Sensing",
       "representative_phrases": [
         "Soil Moisture Sentinel",
         "Microwave Remote Sensing"
@@ -961,7 +961,7 @@
       ]
     },
     "3": {
-      "final_label": "Land Cover Change Detection",
+      "final_label": "Land Cover & Vegetation Trend Changes",
       "representative_phrases": [
         "Land Surface Temperature",
         "Urban Heat Islands"
@@ -997,7 +997,7 @@
       ]
     },
     "4": {
-      "final_label": "Flood Impact on Soil Areas",
+      "final_label": "Digital Elevation & Remote Sensing",
       "representative_phrases": [
         "Photogrammetric Techniques Uav",
         "Assessment Mountainous Terrains"
@@ -1035,7 +1035,7 @@
       ]
     },
     "5": {
-      "final_label": "Space Mission System Operations",
+      "final_label": "Resolution Optical Satellites",
       "representative_phrases": [
         "Epbs Geomagnetic Storm",
         "Equatorial Plasma Bubbles"
@@ -1069,7 +1069,7 @@
       ]
     },
     "6": {
-      "final_label": "Satellite Road Image Processing",
+      "final_label": "Image Processing & Satellite Images",
       "representative_phrases": [
         "Road Maps Image",
         "Resolution Remote Sensing"
@@ -1100,7 +1100,7 @@
       ]
     },
     "7": {
-      "final_label": "Ocean Cloud SDS Modeling",
+      "final_label": "Imaging Radiometer Suite",
       "representative_phrases": [
         "Cubesats Hyperspectral Imagers",
         "Hyperfield Constellation Launched"
@@ -1127,7 +1127,7 @@
       ]
     },
     "8": {
-      "final_label": "Hyperspectral Crop Feature Extraction",
+      "final_label": "Hyperspectral Remote Sensing",
       "representative_phrases": [
         "Images Hyperspectral Data",
         "Remote Sensing Important"
@@ -1146,7 +1146,7 @@
       ]
     },
     "9": {
-      "final_label": "Urban Building Index Thresholding",
+      "final_label": "Building Height Types",
       "representative_phrases": [
         "Urban Extents Nighttime",
         "Country Scale Photogrammetry"
@@ -1165,7 +1165,7 @@
       ]
     },
     "10": {
-      "final_label": "Syndecan-4 Mediated Muscle Cell Migration",
+      "final_label": "Skeletal Muscle & Local Cells",
       "representative_phrases": [
         "Igg Antibodies Fibromyalgia",
         "Mediated Peripheral Pain"

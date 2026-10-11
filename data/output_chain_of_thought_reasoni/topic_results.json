@@ -250,19 +250,18 @@
     ]
   },
   "human_readable_names": {
-    "0": "Reinforcement Learning with Chain-of-Thought Rewards",
-    "1": "Prognostic Safety Framework for Autonomous Agents",
-    "2": "Multilingual LLMs for Semantic Reasoning",
-    "3": "Risk-Aware Fault Detection in LLMs",
-    "4": "Multimodal Chain-of-Thought for Visual Reasoning",
-    "5": "Stability Analysis of Nonstationary LLM Agents",
-    "6": "Calibration of GPT‑4 Reasoning Behavior",
-    "7": "Robust Video Reasoning with Chain-of-Thought",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "0": "Reward-Driven Reasoning Models",
+    "1": "Prognostic Safety Framework for Agents",
+    "2": "Multilingual Semantic Reasoning Models",
+    "3": "Risk Detection Models for Safety",
+    "4": "Multimodal Visual Reasoning Chains",
+    "5": "Nonstationary Drift in LLM Agents",
+    "6": "Calibration of GPT-4 Reasoning",
+    "7": "Robust Video Reasoning Models"
   },
   "topic_representations": {
     "0": {
-      "final_label": "Reinforcement Learning with Chain-of-Thought Rewards",
+      "final_label": "Reward-Driven Reasoning Models",
       "representative_phrases": [
         "Tandem Reinforcement Learning",
         "Reasoning Use Reward"
@@ -282,7 +281,7 @@
       ]
     },
     "1": {
-      "final_label": "Prognostic Safety Framework for Autonomous Agents",
+      "final_label": "Prognostic Safety Framework for Agents",
       "representative_phrases": [
         "Enforces Structured Reasoning",
         "Interpretability Safety"
@@ -298,7 +297,7 @@
       ]
     },
     "2": {
-      "final_label": "Multilingual LLMs for Semantic Reasoning",
+      "final_label": "Multilingual Semantic Reasoning Models",
       "representative_phrases": [
         "Government Knowledge Graphs",
         "Reasoning Intensive Decoding"
@@ -314,7 +313,7 @@
       ]
     },
     "3": {
-      "final_label": "Risk-Aware Fault Detection in LLMs",
+      "final_label": "Risk Detection Models for Safety",
       "representative_phrases": [
         "Improves Fault Detection",
         "Anomaly Detection Aerial"
@@ -330,7 +329,7 @@
       ]
     },
     "4": {
-      "final_label": "Multimodal Chain-of-Thought for Visual Reasoning",
+      "final_label": "Multimodal Visual Reasoning Chains",
       "representative_phrases": [
         "Visualizing Chain Thought",
         "Ai Reasoning Incorporating"
@@ -346,7 +345,7 @@
       ]
     },
     "5": {
-      "final_label": "Stability Analysis of Nonstationary LLM Agents",
+      "final_label": "Nonstationary Drift in LLM Agents",
       "representative_phrases": [
         "Stochastic Dynamical",
         "Language Models Llms"
@@ -362,7 +361,7 @@
       ]
     },
     "6": {
-      "final_label": "Calibration of GPT‑4 Reasoning Behavior",
+      "final_label": "Calibration of GPT-4 Reasoning",
       "representative_phrases": [
         "Reliable Reasoning Tasks",
         "Budgets Induce Overconfidence"
@@ -379,7 +378,7 @@
       ]
     },
     "7": {
-      "final_label": "Robust Video Reasoning with Chain-of-Thought",
+      "final_label": "Robust Video Reasoning Models",
       "representative_phrases": [
         "Video Reasoning Generating",
         "Summary Driven Reinforcement"

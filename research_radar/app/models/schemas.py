@@ -11,11 +11,13 @@ from pydantic import BaseModel, Field
 # ---------------------------------------------------------------------------
 
 class PipelineRunRequest(BaseModel):
-    query: Optional[str] = Field(None, description="Search query string for Semantic Scholar / arXiv")
+    query: Optional[str] = Field(None, description="Search query string for Semantic Scholar")
     corpus_path: Optional[str] = Field("data/papers.json", description="Path to input corpus JSON")
     out_dir: Optional[str] = Field(None, description="Path to output directory")
     max_results: int = Field(300, ge=10, le=5000, description="Max papers to fetch")
-    source: str = Field("semanticscholar", description="Source API: 'semanticscholar' or 'arxiv'")
+    source: str = Field("semanticscholar", description="Source API: 'semanticscholar'")
+    year: Optional[str] = Field(None, description="Publication year filter (e.g. '-2023' for temporal holdout validation, '2020-2023')")
+    force_fetch: bool = Field(False, description="Force fresh download bypassing existing cache")
     skip_stage1: bool = Field(False, description="Skip Stage 1 ingestion if corpus exists")
     skip_stage6: bool = Field(False, description="Skip Stage 6 Knowledge Graph compilation")
     skip_stage8: bool = Field(False, description="Skip Stage 8 Groq RAG narration")

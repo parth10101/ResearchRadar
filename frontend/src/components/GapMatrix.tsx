@@ -5,9 +5,10 @@ import { ResearchGap } from '../types';
 interface GapMatrixProps {
   gaps: ResearchGap[];
   onSelectGapForGrant: (gapTitle: string) => void;
+  onOpenBenchmark?: () => void;
 }
 
-export const GapMatrix: React.FC<GapMatrixProps> = ({ gaps, onSelectGapForGrant }) => {
+export const GapMatrix: React.FC<GapMatrixProps> = ({ gaps, onSelectGapForGrant, onOpenBenchmark }) => {
   const [filterType, setFilterType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -57,6 +58,15 @@ export const GapMatrix: React.FC<GapMatrixProps> = ({ gaps, onSelectGapForGrant 
 
         {/* Filter Controls */}
         <div className="flex items-center space-x-3">
+          {onOpenBenchmark && (
+            <button
+              onClick={onOpenBenchmark}
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition-all font-mono text-xs font-semibold cursor-pointer shadow-[0_0_10px_rgba(16,185,129,0.15)]"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Verify Ground Truth</span>
+            </button>
+          )}
           <input
             type="text"
             value={searchQuery}
@@ -88,6 +98,12 @@ export const GapMatrix: React.FC<GapMatrixProps> = ({ gaps, onSelectGapForGrant 
                   <span className="rounded border border-[rgba(244,63,94,0.3)] bg-[#f43f5e]/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-[#f43f5e]">
                     GAP #{index + 1} · {gap.gap_type.toUpperCase()}
                   </span>
+                  {(gap.realized || gap.verifying_paper_title) && (
+                    <span className="rounded border border-emerald-500/40 bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-400 flex items-center gap-1">
+                      <Check className="w-3 h-3 stroke-[2.5]" />
+                      REALIZED IN {gap.verifying_paper_year || '2024'}
+                    </span>
+                  )}
                   <span className="font-mono text-[11px] text-[#64748b]">
                     Composite Score: <strong className="text-[#38bdf8] tabular-nums">{(Number(gap.score) || 0).toFixed(4)}</strong>
                   </span>
@@ -102,6 +118,33 @@ export const GapMatrix: React.FC<GapMatrixProps> = ({ gaps, onSelectGapForGrant 
                   <span className="text-[10px] text-[#475569]">(Exp: {(Number(gap.expected_cooccur) || 1.20).toFixed(2)})</span>
                 </div>
               </div>
+
+              {/* Empirical Holdout Verification Banner */}
+              {(gap.realized || gap.verifying_paper_title) && (
+                <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                  <div className="flex items-start sm:items-center space-x-2.5">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-emerald-400 flex items-center gap-2 text-xs">
+                        <span>OBJECTIVE GROUND TRUTH: REALIZED IN SUBSEQUENT LITERATURE</span>
+                        <span className="font-mono text-[10px] px-1.5 py-0.2 rounded bg-emerald-400/20 text-emerald-300 font-bold">
+                          {gap.verifying_paper_year || '2024'} Realization
+                        </span>
+                      </div>
+                      <p className="text-zinc-300 text-[11px] mt-0.5 leading-snug">
+                        Verifying Publication: <strong className="font-medium text-white italic">"{gap.verifying_paper_title}"</strong> ({gap.verifying_paper_year || 2024})
+                      </p>
+                    </div>
+                  </div>
+                  {gap.rouge_l !== undefined && gap.rouge_l > 0 && (
+                    <div className="font-mono text-[10px] text-emerald-300 bg-emerald-950/80 px-2 py-1 rounded border border-emerald-500/30 shrink-0 self-start sm:self-center">
+                      ROUGE-L {gap.rouge_l.toFixed(3)}
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Title & Core Description */}
               <div>

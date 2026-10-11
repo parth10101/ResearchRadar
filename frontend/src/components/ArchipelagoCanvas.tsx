@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Layers, RotateCcw, Play, Pause, Sparkles, Box, ExternalLink, ArrowRight, X, Compass, Eye, ShieldCheck } from 'lucide-react';
 import { Points3DData } from '../types';
+import { HighlightedTitle } from './HighlightedTitle';
 
 interface ArchipelagoCanvasProps {
   data3d: Points3DData | null;
   datasetName: string;
   onNavigateToGrant?: (gapTitle: string) => void;
   selectedDataset?: string;
+  activeQuery?: string;
 }
 
 interface HoveredPaperInfo {
@@ -29,6 +31,7 @@ export const ArchipelagoCanvas: React.FC<ArchipelagoCanvasProps> = ({
   datasetName,
   onNavigateToGrant,
   selectedDataset,
+  activeQuery,
 }) => {
   const [activeClusterFilter, setActiveClusterFilter] = useState<number | null>(null);
   const [isAutoRotating, setIsAutoRotating] = useState<boolean>(true);
@@ -265,7 +268,7 @@ export const ArchipelagoCanvas: React.FC<ArchipelagoCanvasProps> = ({
             </div>
 
             <h3 className="text-sm font-bold text-slate-900 leading-snug mb-2.5 line-clamp-2">
-              {activeDisplayPaper.title}
+              <HighlightedTitle title={activeDisplayPaper.title} query={activeQuery} />
             </h3>
 
             <div className="flex flex-wrap items-center gap-2 mb-3 text-[11px] font-mono text-slate-600">

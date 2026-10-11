@@ -2208,20 +2208,20 @@
     ]
   },
   "human_readable_names": {
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
     "0": "Artificial Clinical Disease Modeling",
-    "1": "Artificial Learning in Virtual Education",
-    "2": "Artificial Intelligence Game Modeling",
-    "3": "Digital Business Intelligence Management",
-    "4": "Artificial Energy IoT Optimization",
-    "5": "Artificial Intelligence Legal Governance",
-    "6": "Neural Material Memory Design",
-    "7": "Quantum Edge Security Networks",
-    "8": "Voice-Assisted Medical Care",
-    "9": "Satellite Remote Climate Modeling",
+    "1": "Artificial Intelligence Education",
+    "2": "Artificial Intelligence System Design",
+    "3": "Artificial Intelligence Business Management",
+    "4": "Artificial Intelligence Energy Optimization",
+    "5": "Artificial Intelligence Governance Law",
+    "6": "Neural Device Memory Systems",
+    "7": "Quantum Network Security",
+    "8": "Artificial Intelligence Medical Care",
+    "9": "Remote Sensing Climate Modeling",
     "10": "Facial Emotion Recognition",
-    "11": "Deep Plant Disease Modeling",
-    "12": "[Non-English] Motor Application Development Intelligence Influence",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "11": "Deep Learning Disease Detection",
+    "12": "Artificial Intelligence Student Intelligence"
   },
   "topic_representations": {
     "0": {
@@ -2421,7 +2421,7 @@
       ]
     },
     "1": {
-      "final_label": "Artificial Learning in Virtual Education",
+      "final_label": "Artificial Intelligence Education",
       "representative_phrases": [
         "Technologies Specifically Virtual",
         "Student Perceptions Immersive"
@@ -2574,7 +2574,7 @@
       ]
     },
     "2": {
-      "final_label": "Artificial Intelligence Game Modeling",
+      "final_label": "Artificial Intelligence System Design",
       "representative_phrases": [
         "Game World Modeling",
         "Real Time Interactive"
@@ -2697,7 +2697,7 @@
       ]
     },
     "3": {
-      "final_label": "Digital Business Intelligence Management",
+      "final_label": "Artificial Intelligence Business Management",
       "representative_phrases": [
         "Cybercrime Projected",
         "Crimes Loss Data"
@@ -2819,7 +2819,7 @@
       ]
     },
     "4": {
-      "final_label": "Artificial Energy IoT Optimization",
+      "final_label": "Artificial Intelligence Energy Optimization",
       "representative_phrases": [
         "Recycling India Study",
         "Intelligence Techniques Irrigation"
@@ -2907,7 +2907,7 @@
       ]
     },
     "5": {
-      "final_label": "Artificial Intelligence Legal Governance",
+      "final_label": "Artificial Intelligence Governance Law",
       "representative_phrases": [
         "Ai Risk Mitigation",
         "Intelligence Legislation European"
@@ -2987,7 +2987,7 @@
       ]
     },
     "6": {
-      "final_label": "Neural Material Memory Design",
+      "final_label": "Neural Device Memory Systems",
       "representative_phrases": [
         "Mi300X Generative Ai",
         "Platform Architecture Amd"
@@ -3049,7 +3049,7 @@
       ]
     },
     "7": {
-      "final_label": "Quantum Edge Security Networks",
+      "final_label": "Quantum Network Security",
       "representative_phrases": [
         "Similarity Diversity Wireless",
         "Assessing Air Interface"
@@ -3106,7 +3106,7 @@
       ]
     },
     "8": {
-      "final_label": "Voice-Assisted Medical Care",
+      "final_label": "Artificial Intelligence Medical Care",
       "representative_phrases": [
         "Care Voice Assistants",
         "Ai Integration Healthcare"
@@ -3155,7 +3155,7 @@
       ]
     },
     "9": {
-      "final_label": "Satellite Remote Climate Modeling",
+      "final_label": "Remote Sensing Climate Modeling",
       "representative_phrases": [
         "Temperature Noaaglobaltemp Dataset",
         "Arctic Region Warming"
@@ -3237,7 +3237,7 @@
       ]
     },
     "11": {
-      "final_label": "Deep Plant Disease Modeling",
+      "final_label": "Deep Learning Disease Detection",
       "representative_phrases": [
         "Agriculture Detection",
         "Plants Using Cnn"
@@ -3265,7 +3265,7 @@
       ]
     },
     "12": {
-      "final_label": "[Non-English] Motor Application Development Intelligence Influence",
+      "final_label": "Artificial Intelligence Student Intelligence",
       "representative_phrases": [
         "Motor Pembuatan Aplikasi",
         "Pengaruh Terhadap Kecerdasan"

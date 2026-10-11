@@ -748,16 +748,16 @@
     ]
   },
   "human_readable_names": {
-    "0": "Human Driving & Video Approach & Scenario Dataset",
-    "1": "Autonomous Vehicle & Vehicle Donkietown & Drive Odometry",
-    "2": "Predict Vehicle & Safety Lane & Drift Control",
-    "3": "Collision Avoidance & Driving Flexibility & Generate Vehicle",
-    "4": "Track Tracklet & Driving Dataset & Object Fusion",
-    "5": "Wheel Controller & Track Vehicle & Lqr Mpc",
-    "6": "Automate Vehicle & Speed Cornering & Hybrid Mpc",
-    "7": "Autonomous Vehicular & Destination Optimize & Qos Requirement",
-    "8": "Highway Navigation & Vehicle Bzier & Controller Robot",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
+    "0": "Autonomous Vehicle Trajectory Prediction",
+    "1": "LiDAR-Based Autonomous SLAM",
+    "2": "Human Lane-Change Control",
+    "3": "Collision-Aware Trajectory Planning",
+    "4": "Vehicle Multi-Object Tracking",
+    "5": "Predictive MPC Vehicle Tracking",
+    "6": "Reinforcement Learning Vehicle Control",
+    "7": "V2X Communication for Cargo Vehicles",
+    "8": "Clothoid Trajectory Generation"
   },
   "coords_2d": {
     "2003.02059": [

@@ -25,7 +25,7 @@ class LiteratureVerifier:
 
     OPENALEX_WORKS_URL = "https://api.openalex.org/works"
 
-    def __init__(self, timeout_sec: float = 5.0, cache_path: Optional[Path | str] = None):
+    def __init__(self, timeout_sec: float = 2.5, cache_path: Optional[Path | str] = None):
         self.timeout_sec = timeout_sec
         self.cache_path = Path(cache_path) if cache_path else Path("data/cache/openalex_verifier_cache.json")
         self.cache: Dict[str, Dict[str, Any]] = self._load_cache()
@@ -141,7 +141,7 @@ class LiteratureVerifier:
         except Exception as e:
             api_status = f"offline_fallback: {str(e)[:50]}"
 
-        if global_hit_count > 30:
+        if global_hit_count > 10:
             is_unexplored = False
             tier = "Tier 1: Saturated Literature (Established Baseline)"
             confidence = 0.95
@@ -149,18 +149,18 @@ class LiteratureVerifier:
                 f"Saturated Field: OpenAlex reports {global_hit_count} published works evaluating "
                 f"'{cm}' on '{cd}'. This represents an established baseline, not an open research gap."
             )
-        elif 5 <= global_hit_count <= 30:
-            is_unexplored = True
-            tier = "Tier 2: Active Research Frontier (Incremental Work)"
+        elif 3 <= global_hit_count <= 10:
+            is_unexplored = False
+            tier = "Tier 2: Active Literature (Documented Combinations)"
             confidence = 0.85
             notes = (
-                f"Active Frontier: OpenAlex records {global_hit_count} existing works touching this intersection. "
-                f"Work in this space is active and highly viable with open boundary challenges."
+                f"Active Area: OpenAlex records {global_hit_count} existing works touching this intersection. "
+                f"Prior art exists in published literature."
             )
-        elif 1 <= global_hit_count < 5:
+        elif 1 <= global_hit_count < 3:
             is_unexplored = True
             tier = "Tier 3: Nascent Scientific Frontier (Proof-of-Concept Stage)"
-            confidence = 0.80
+            confidence = 0.75
             notes = (
                 f"Nascent Frontier: Only {global_hit_count} publication(s) found globally across 250M+ records. "
                 f"High-novelty research frontier with initial exploratory evidence."
@@ -168,7 +168,8 @@ class LiteratureVerifier:
         else:
             is_unexplored = True
             tier = "Tier 5: Empirically Verified White Space"
-            confidence = 0.98 if api_status == "live_query" else 0.50
+            query_spec = min(0.20, (len(cm) + len(cd)) / 60.0)
+            confidence = round(0.70 + query_spec, 2) if api_status == "live_query" else 0.50
             notes = (
                 f"Empirically Verified White Space: Zero global publications returned by OpenAlex "
                 f"combining '{cm}', '{cd}', and '{cl}'."

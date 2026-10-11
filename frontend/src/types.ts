@@ -119,6 +119,10 @@ export interface ArchipelagoGap {
   hypothesis?: string;
   anchor_a?: ArchipelagoPillar;
   anchor_b?: ArchipelagoPillar;
+  realized?: boolean;
+  verifying_paper_title?: string;
+  verifying_paper_year?: number;
+  rouge_l?: number;
 }
 
 export interface ArchipelagoData {
@@ -204,6 +208,10 @@ export interface ResearchGap {
   description_plain?: string;
   description_rigor?: string;
   papers_involved: string[];
+  realized?: boolean;
+  verifying_paper_title?: string;
+  verifying_paper_year?: number;
+  rouge_l?: number;
 }
 
 export interface EvidencePaper {

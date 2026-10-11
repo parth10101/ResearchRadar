@@ -8,7 +8,7 @@ export const TOTAL_PARTICLE_COUNT = ALL_REAL_POINTS.length;
 // Universal adapter from API Points3DData to internal cluster format
 export function convertPoints3DData(data3d: Points3DData | null): { points: RealClusterPoint[]; clusters: RealClusterItem[] } {
   if (!data3d || !data3d.clusters || data3d.clusters.length === 0) {
-    return { points: ALL_REAL_POINTS, clusters: REAL_CLUSTERS };
+    return { points: [], clusters: [] };
   }
 
   const clusters: RealClusterItem[] = [];

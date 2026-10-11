@@ -3178,6 +3178,7 @@
     ]
   },
   "human_readable_names": {
+    "-1": "Outlier Papers (unclustered / cross-disciplinary)",
     "0": "Optimizes Retrieval Generation, Question Answering Mutual & Answering Task Retriever",
     "1": "Product Recommendation Using, Enabling Automated Personalized & Langgraph Manage Reasoning",
     "2": "Language Models Hallucinate, Generated Captions & Safe Trustworthy Ai",
@@ -3186,8 +3187,7 @@
     "5": "Metis Ai Assistant, Mars Exploration Telemetry & Retrieval Augmented Generation",
     "6": "Answering Lecture Videos, Transcripts Visual Captions & Temporally Annotated Questions",
     "7": "Attacks Retrieval Augmented, Privacy Risks Embeddings & Trump Adversarial Passages",
-    "8": "Vulnerability Detection Retrieval, Attack Graph Formation & Agent Red Teaming",
-    "-1": "Outlier Papers (unclustered / cross-disciplinary)"
+    "8": "Vulnerability Detection Retrieval, Attack Graph Formation & Agent Red Teaming"
   },
   "topic_representations": {
     "0": {

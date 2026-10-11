@@ -138,6 +138,128 @@ def _parse_retry_after(header_val: Any, fallback: float = 1.2) -> float:
     except (ValueError, TypeError):
         return fallback
 
+def parse_boolean_query(query: str) -> dict:
+    """
+    Parses an academic search query supporting IEEE Xplore-style Boolean operators
+    (AND, OR, NOT) and quoted phrases.
+    """
+    q = query.strip()
+    must = []
+    must_not = []
+    should = []
+
+    tokens = re.findall(r'(?:(AND|OR|NOT)\s+)?(?:"([^"]+)"|(\S+))', q, re.IGNORECASE)
+    current_op = 'AND'
+    for op, quoted, word in tokens:
+        term = (quoted or word or '').strip()
+        if not term:
+            continue
+        if op:
+            current_op = op.upper()
+        clean = term.lower().strip('"\'')
+        if not clean or clean in ('and', 'or', 'not'):
+            continue
+        if current_op == 'NOT':
+            must_not.append(clean)
+        elif current_op == 'OR':
+            # If A was in must, and is followed by OR B, move A to should as well
+            if must and not should:
+                should.append(must.pop())
+            should.append(clean)
+        else:
+            must.append(clean)
+        current_op = 'AND'
+
+    if not must and not must_not and not should:
+        parts = re.findall(r'"([^"]+)"|(\S+)', q)
+        for quoted, word in parts:
+            t = (quoted or word or '').strip().lower().strip('"\'')
+            if t and t not in ('and', 'or', 'not', 'the', 'for', 'with', 'via', 'of', 'in'):
+                must.append(t)
+
+    if must:
+        clean_s2 = ' '.join(must)
+    elif should:
+        clean_s2 = should[0]
+    else:
+        clean_s2 = q.replace('"', '')
+
+    return {
+        'must': must,
+        'must_not': must_not,
+        'should': should,
+        'clean_s2_query': clean_s2
+    }
+
+
+def matches_boolean_criteria(paper: dict, bool_spec: dict) -> tuple[bool, int]:
+    """
+    Evaluates whether a paper satisfies the Boolean search specification with semantic context awareness.
+    Returns (matches: bool, relevance_score: int).
+
+    Design Principles:
+      1. Forbidden terms (NOT) are 100% rejected.
+      2. Required terms (AND) must be substantively present in the paper's scientific context (Title + Abstract).
+      3. Semantic Context Priority:
+         - Papers containing key terms directly in the TITLE receive top ranking (+5 to +10 priority).
+         - Papers with key terms in the ABSTRACT are fully valid and preserved (preventing false-negative drops of seminal papers).
+         - Prevents out-of-context noise by requiring meaningful contextual co-occurrence in abstract.
+    """
+    title = (paper.get("title") or "").lower()
+    abstract = (paper.get("abstract") or "").lower()
+    tldr = (paper.get("tldr") or "").lower()
+    full_text = f"{title} {abstract} {tldr}"
+
+    # 1. Strict Exclusion (NOT)
+    for not_term in bool_spec.get("must_not", []):
+        if not_term in full_text:
+            return False, 0
+
+    must_terms = bool_spec.get("must", [])
+    should_terms = bool_spec.get("should", [])
+    relevance_score = 0
+
+    # 2. Semantic Inclusion (AND / Primary terms)
+    if must_terms:
+        for term in must_terms:
+            words = [w for w in term.split() if len(w) > 2]
+            term_in_title = term in title or (words and all(w in title for w in words))
+            term_in_abstract = term in abstract or (words and all(w in abstract for w in words))
+            term_in_full = term in full_text or (words and all(w in full_text for w in words))
+
+            if not term_in_full:
+                return False, 0
+
+            # Title priority boost
+            if term_in_title:
+                relevance_score += 5
+            elif term_in_abstract:
+                relevance_score += 2
+
+            # Additional density boost if key term occurs multiple times in abstract (contextual depth)
+            if term_in_abstract and abstract.count(term) >= 2:
+                relevance_score += 1
+
+    # 3. Optional Inclusion (OR)
+    if should_terms:
+        matched_or = False
+        for term in should_terms:
+            words = [w for w in term.split() if len(w) > 2]
+            term_in_title = term in title or (words and all(w in title for w in words))
+            term_in_full = term in full_text or (words and all(w in full_text for w in words))
+
+            if term_in_title:
+                relevance_score += 4
+                matched_or = True
+            elif term_in_full:
+                relevance_score += 1
+                matched_or = True
+
+        if not must_terms and not matched_or:
+            return False, 0
+
+    return True, relevance_score
+
 
 class SemanticScholarClient:
     """
@@ -524,6 +646,9 @@ class SemanticScholarClient:
              ~3 authenticated API calls (~3.5 seconds total). Zero offset limits, zero 429s.
           3. Co-Citation Graph Synthesis: in-memory reference linking in 0.02s (0 API calls).
         """
+        bool_spec = parse_boolean_query(query)
+        s2_query = bool_spec.get("clean_s2_query") or query
+
         cache_file = self._get_query_cache_path(query, max_results, year, fields_of_study)
 
         if not bypass_cache and cache_file.exists():
@@ -543,7 +668,7 @@ class SemanticScholarClient:
         from research_radar.stage1_ingest import _s2_paper_to_schema
 
         def _ingest_raw(raw_list: list[dict]) -> None:
-            """Normalize raw S2 dicts and add to candidate_papers if not duplicate."""
+            """Normalize raw S2 dicts and add to candidate_papers if satisfying Boolean criteria."""
             for r in raw_list:
                 if len(candidate_papers) >= max_results:
                     break
@@ -555,6 +680,13 @@ class SemanticScholarClient:
                 paper = _s2_paper_to_schema(r)
                 if not paper:
                     continue
+
+                # Enforce Boolean specification (AND, OR, NOT) & title priority
+                matches, title_score = matches_boolean_criteria(paper, bool_spec)
+                if not matches:
+                    continue
+                paper["_title_match_score"] = title_score
+
                 t = (paper.get("title") or "").strip()
                 abs_len = len(paper.get("abstract") or "")
                 tldr_len = len(paper.get("tldr") or "")
@@ -563,10 +695,10 @@ class SemanticScholarClient:
                     existing_titles.add(t.lower())
 
         # ── Direct Single-Query Cursor Bulk Search (Streaming Verification) ─────────
-        print(f"  [S2 Bulk Engine] Streaming query '{query}' (Target: {max_results} verified papers)...")
+        print(f"  [S2 Bulk Engine] Streaming query '{s2_query}' (Target: {max_results} verified papers)...")
         bulk_url = f"{S2_GRAPH_BASE_URL}/paper/search/bulk"
         base_params = {
-            "query": query,
+            "query": s2_query,
             "fields": DEFAULT_BULK_FIELDS,
         }
         if year:
@@ -578,8 +710,8 @@ class SemanticScholarClient:
 
         token = None
         cursor_page = 0
-        # Dynamic page ceiling: allow enough 1,000-paper pages to fulfill max_results verified papers
-        max_cursor_pages = max(4, int(max_results / 600) + 2)
+        # Dynamic page ceiling: allow enough cursor pages to fulfill max_results even with 70-80% NOT filter rejection
+        max_cursor_pages = max(6, int(max_results / 200) + 3)
 
         try:
             while len(candidate_papers) < max_results and cursor_page < max_cursor_pages:
@@ -603,14 +735,15 @@ class SemanticScholarClient:
         except Exception as e:
             print(f"  [Direct Stream] S2 bulk search exception: {e}")
 
-        # Fallback 1: Standard Public Relevance Search (works without API key)
-        if not candidate_papers:
-            print(f"  [S2 Public Fallback] Bulk returned 0 papers; attempting standard search endpoint for '{query}'...")
+        # Fallback 1: Standard Public Search (relevance ranked) if still under quota
+        if len(candidate_papers) < min(max_results, 50):
+            print(f"  [S2 Public Fallback] Bulk stream yielded {len(candidate_papers)} papers; probing standard search for '{s2_query}'...")
             try:
                 offset = 0
-                while len(candidate_papers) < max_results and offset < max_results * 2:
+                max_offset = min(1000, max_results * 4)
+                while len(candidate_papers) < max_results and offset < max_offset:
                     search_res = self.search_papers(
-                        query=query,
+                        query=s2_query,
                         limit=min(max_results - len(candidate_papers), 100),
                         offset=offset,
                         year=year,
@@ -628,11 +761,11 @@ class SemanticScholarClient:
             except Exception as e:
                 print(f"  [S2 Public Fallback] Search exception: {e}")
 
-        # Fallback 2: OpenAlex Works Search (open scholarly knowledge graph)
+        # Fallback 2: OpenAlex Works Search (open scholarly knowledge graph) if still empty
         if not candidate_papers:
-            print(f"  [OpenAlex Fallback] S2 returned 0 papers; querying OpenAlex works search for '{query}'...")
+            print(f"  [OpenAlex Fallback] S2 returned 0 papers; querying OpenAlex works search for '{s2_query}'...")
             try:
-                oa_url = f"https://api.openalex.org/works?search={requests.utils.quote(query)}&per_page={min(max_results, 50)}"
+                oa_url = f"https://api.openalex.org/works?search={requests.utils.quote(s2_query)}&per_page={min(max_results, 50)}"
                 oa_resp = requests.get(oa_url, headers={"User-Agent": "ResearchRadar-Academic/3.0 (mailto:academic@researchradar.org)"}, timeout=10.0)
                 if oa_resp.status_code == 200:
                     oa_data = oa_resp.json().get("results", [])
@@ -674,18 +807,19 @@ class SemanticScholarClient:
             print(f"  [S2 Ingestion] No academic publications found matching '{query}'. Exiting safely.")
             return []
 
-        # Auxiliary Expansion: Only triggered if primary cursor exhausted all available papers on S2
+        # Auxiliary Expansion: Iterate across alternative keyword permutations if primary cursor exhausted
         if len(candidate_papers) < max_results:
             bulk_queries = self._generate_bulk_queries(query)
             aux_candidates = [q for q in bulk_queries if q.strip().lower() != query.strip().lower()]
-            if aux_candidates:
-                b_q = aux_candidates[0]
+            for b_q in aux_candidates:
+                if len(candidate_papers) >= max_results:
+                    break
                 needed_verified = max_results - len(candidate_papers)
-                print(f"  [Smart Expansion] Searching top auxiliary '{b_q}' (Target: up to {needed_verified} more papers)...")
+                print(f"  [Smart Expansion] Searching auxiliary '{b_q}' (Target: up to {needed_verified} more papers)...")
                 try:
                     bulk_raw = self.search_bulk(
                         query=b_q,
-                        limit=needed_verified * 2,
+                        limit=min(needed_verified * 3, 1000),
                         year=year,
                         fields_of_study=fields_of_study,
                         sort=sort,
@@ -702,6 +836,14 @@ class SemanticScholarClient:
 
 
         # ── In-Memory Co-Citation Graph Synthesis → Cache ────────────────────────────
+        # Prioritize papers with keywords in title to satisfy IEEE keyword compliance
+        candidate_papers.sort(
+            key=lambda p: (
+                p.get("_title_match_score", 0),
+                (p.get("citation_count") or 0) + (p.get("influential_citation_count") or 0) * 3
+            ),
+            reverse=True
+        )
         final_papers = candidate_papers[:max_results]
         final_papers = self._synthesize_cocitation_references(final_papers)
 

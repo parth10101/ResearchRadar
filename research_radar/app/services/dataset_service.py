@@ -103,7 +103,7 @@ def list_datasets() -> DatasetListResponse:
     except Exception as e:
         pass
 
-    # 2. Augment / fallback with disk scan
+    # 2. Augment / fallback with disk scan and auto-sync to DB
     data_dir = settings.DATA_DIR
     if data_dir.exists():
         for p in sorted(data_dir.glob("output*")):
@@ -111,34 +111,47 @@ def list_datasets() -> DatasetListResponse:
                 continue
             key = p.name
             files = {f.name for f in p.iterdir()}
+
+            # Extract actual paper count from papers.json if available
+            actual_count = None
+            papers_file = p / "papers.json"
+            if papers_file.exists():
+                try:
+                    raw = papers_file.read_text(encoding="utf-8", errors="replace")
+                    parsed = json.loads(raw)
+                    actual_count = len(parsed) if isinstance(parsed, list) else 0
+                except Exception:
+                    actual_count = 0
+
+            # Derive clean editorial name
+            default_name = key.replace("output_", "").replace("_", " ").title()
             meta = METADATA_REGISTRY.get(key, {
-                "name": key.replace("output_", "").replace("_", " ").title(),
-                "description": f"Computed pipeline output in {key}",
+                "name": default_name,
+                "description": f"Computed pipeline synthesis for {default_name}",
                 "query": key.replace("output_", "").replace("_", " "),
-                "papers": None,
+                "papers": actual_count,
             })
 
-            actual_count = meta.get("papers")
-            if actual_count is None:
-                papers_file = p / "papers.json"
-                if papers_file.exists():
-                    try:
-                        raw = papers_file.read_text(encoding="utf-8", errors="replace")
-                        parsed = json.loads(raw)
-                        actual_count = len(parsed) if isinstance(parsed, list) else 0
-                    except Exception:
-                        actual_count = 0
-                else:
-                    actual_count = 0
+            # Auto-register to SQLite database if missing
+            if "detected_gaps.json" in files or papers_file.exists():
+                try:
+                    from research_radar.app.services.db_service import sync_directory_to_db
+                    sync_directory_to_db(corpus_id=key, dir_path=p, metadata={
+                        "name": meta["name"],
+                        "query": meta["query"],
+                        "description": meta["description"],
+                    })
+                except Exception:
+                    pass
 
             datasets.append(DatasetInfo(
                 id=key,
                 name=meta["name"],
                 description=meta["description"],
                 query=meta["query"],
-                paper_count=actual_count,
+                paper_count=actual_count if actual_count is not None else meta.get("papers"),
                 has_archipelago="archipelago_data.json" in files or "topic_results.json" in files,
-                has_milestones="citation_data.json" in files or "citation_graph.html" in files,
+                has_milestones="citation_data.json" in files,
                 has_gaps="detected_gaps.json" in files,
                 has_narration="narrated_gaps.json" in files or "master_gap_report.md" in files,
             ))

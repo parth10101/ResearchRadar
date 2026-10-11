@@ -1,4 +1,4 @@
-﻿"""
+"""
 OpenAlex Universal Concept Normalizer
 =====================================
 Disambiguates and canonicalizes scientific entities using OpenAlex's
@@ -84,34 +84,36 @@ class OpenAlexConceptNormalizer:
         if lower in self.cache:
             return self.cache[lower]
 
-        # 3. Query OpenAlex Concepts API
-        headers = {
-            "User-Agent": "ResearchRadar-Academic/3.0 (mailto:audit@researchradar.org)",
-            "Accept": "application/json",
-        }
-        q = urllib.parse.quote(clean)
-        url = f"{self.CONCEPTS_URL}?search={q}&per_page=1"
-        try:
-            res = requests.get(url, headers=headers, timeout=self.timeout_sec)
-            if res.status_code == 200:
-                data = res.json()
-                results = data.get("results") or []
-                if results:
-                    top = results[0]
-                    canon = top.get("display_name") or clean.title()
-                    rec = {
-                        "canonical_name": canon,
-                        "concept_id": top.get("id"),
-                        "display_name": canon,
-                        "level": top.get("level"),
-                        "wikidata": top.get("wikidata"),
-                        "source": "openalex_concepts"
-                    }
-                    self.cache[lower] = rec
-                    self._save_cache()
-                    return rec
-        except Exception:
-            pass
+        # 3. Query OpenAlex Concepts API (only if explicitly enabled via env var)
+        import os
+        if os.environ.get("OPENALEX_LIVE_CONCEPTS", "0") == "1":
+            headers = {
+                "User-Agent": "ResearchRadar-Academic/3.0 (mailto:audit@researchradar.org)",
+                "Accept": "application/json",
+            }
+            q = urllib.parse.quote(clean)
+            url = f"{self.CONCEPTS_URL}?search={q}&per_page=1"
+            try:
+                res = requests.get(url, headers=headers, timeout=self.timeout_sec)
+                if res.status_code == 200:
+                    data = res.json()
+                    results = data.get("results") or []
+                    if results:
+                        top = results[0]
+                        canon = top.get("display_name") or clean.title()
+                        rec = {
+                            "canonical_name": canon,
+                            "concept_id": top.get("id"),
+                            "display_name": canon,
+                            "level": top.get("level"),
+                            "wikidata": top.get("wikidata"),
+                            "source": "openalex_concepts"
+                        }
+                        self.cache[lower] = rec
+                        self._save_cache()
+                        return rec
+            except Exception:
+                pass
 
         # 4. Fallback: clean title
         fallback_rec = {
