@@ -250,7 +250,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
         # -------------------------------------------------------------------
         # METRIC 2 & 3: 100% Objective Feasibility & Scientific Quality Evaluation
         # -------------------------------------------------------------------
-        max_citations = max(p.get("citation_count", 1) for p in target_papers)
+        max_citations = max([int(p.get("citation_count") or 0) for p in target_papers] + [1])
 
         def score_idea(idea: Dict[str, Any]) -> Tuple[float, float]:
             m = idea["method"]
@@ -265,7 +265,8 @@ class DynamicGraph2IdeaBenchmarkRunner:
             feasibility = min(1.0, has_method + has_sub + has_lim)
 
             # Objective Scientific Quality: Citation Foundation + Uzzi Atypicality + Alignment
-            cit_norm = math.log1p(src_p.get("citation_count", 0)) / math.log1p(max_citations)
+            raw_cits = int(src_p.get("citation_count") or 0)
+            cit_norm = (math.log1p(raw_cits) / math.log1p(max_citations)) if max_citations > 0 else 0.5
             z_norm = min(1.0, idea.get("uzzi_z_score", 0.0) / 2.0)
             quality = round(0.40 * cit_norm + 0.35 * z_norm + 0.25 * feasibility, 4)
 

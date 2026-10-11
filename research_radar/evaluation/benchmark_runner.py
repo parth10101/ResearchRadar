@@ -199,11 +199,11 @@ class TemporalBenchmarkHarness:
 
         return False, None, 0.0
 
-    def compute_random_baseline_precision(self, k: int = 10, n_trials: int = 50) -> float:
+    def compute_random_baseline_metrics(self, k: int = 10, n_trials: int = 50) -> Tuple[float, float]:
         """
         Computes the random combinatorial baseline (null hypothesis).
         Randomly pairs methods and datasets from the historical vocabulary and checks
-        their realization rate in the holdout papers.
+        their realization rate and lexical alignment in the holdout papers.
         """
         import random
         from research_radar.stage7_gap_detection import _extract_paper_entities
@@ -213,9 +213,10 @@ class TemporalBenchmarkHarness:
         all_datasets = [d for pe in hist_entities for d in pe["datasets"] if len(d) > 3]
 
         if not all_methods or not all_datasets:
-            return 0.048  # Published empirical random baseline from literature
+            return 0.048, 0.0
 
         trial_precisions = []
+        trial_rouges = []
         for _ in range(n_trials):
             hits = 0
             for _ in range(k):
@@ -223,18 +224,26 @@ class TemporalBenchmarkHarness:
                     "method": random.choice(all_methods),
                     "dataset": random.choice(all_datasets),
                 }
-                realized, _, _ = self.verify_gap_realization(rand_gap)
+                realized, verifying_p, _ = self.verify_gap_realization(rand_gap)
                 if realized:
                     hits += 1
+                    ver_text = f"{verifying_p.get('title', '')}. {verifying_p.get('abstract', '')}" if verifying_p else ""
+                    cand_text = f"{rand_gap.get('method', '')} on {rand_gap.get('dataset', '')}"
+                    trial_rouges.append(compute_rouge_l(cand_text, ver_text)["f1"])
             trial_precisions.append(hits / float(k))
 
-        return round(float(np.mean(trial_precisions)), 4)
+        p_mean = round(float(np.mean(trial_precisions)), 4)
+        rl_mean = round(float(np.mean(trial_rouges)), 4) if trial_rouges else 0.0
+        return p_mean, rl_mean
 
-    def compute_frequency_baseline_precision(self, k: int = 10) -> float:
+    def compute_random_baseline_precision(self, k: int = 10, n_trials: int = 50) -> float:
+        return self.compute_random_baseline_metrics(k, n_trials)[0]
+
+    def compute_frequency_baseline_metrics(self, k: int = 10) -> Tuple[float, float]:
         """
         Computes empirical frequency/popularity baseline (heuristic non-topological baseline).
         Extracts top-k historically frequent method-dataset co-occurrences and evaluates
-        their empirical presence in the sealed holdout ground-truth papers.
+        their empirical presence and lexical alignment in the sealed holdout ground-truth papers.
         """
         from research_radar.stage7_gap_detection import _extract_paper_entities
         hist_entities = [_extract_paper_entities(p) for p in self.historical_papers]
@@ -247,15 +256,25 @@ class TemporalBenchmarkHarness:
 
         top_pairs = [p for p, _ in pair_counts.most_common(k)]
         if not top_pairs:
-            return 0.05
+            return 0.05, 0.0
 
         hits = 0
+        freq_rouges = []
         for m, d in top_pairs:
             cand = {"method": m, "dataset": d}
-            realized, _, _ = self.verify_gap_realization(cand)
+            realized, verifying_p, _ = self.verify_gap_realization(cand)
             if realized:
                 hits += 1
-        return round(hits / float(len(top_pairs)), 4)
+                ver_text = f"{verifying_p.get('title', '')}. {verifying_p.get('abstract', '')}" if verifying_p else ""
+                cand_text = f"{m} on {d}"
+                freq_rouges.append(compute_rouge_l(cand_text, ver_text)["f1"])
+
+        p_val = round(hits / float(len(top_pairs)), 4)
+        rl_val = round(float(np.mean(freq_rouges)), 4) if freq_rouges else 0.0
+        return p_val, rl_val
+
+    def compute_frequency_baseline_precision(self, k: int = 10) -> float:
+        return self.compute_frequency_baseline_metrics(k)[0]
 
 
 # ---------------------------------------------------------------------------
@@ -362,9 +381,8 @@ def run_benchmark(
     avg_semantic_sim = round(float(np.mean(semantic_sims)), 4) if semantic_sims else 0.0
 
     # 3. Compute In-Corpus Empirical Baselines (Zero Multipliers)
-    random_baseline_p = harness.compute_random_baseline_precision(k=evaluated_k)
-    frequency_baseline_p = harness.compute_frequency_baseline_precision(k=evaluated_k)
-
+    random_baseline_p, random_baseline_rl = harness.compute_random_baseline_metrics(k=evaluated_k)
+    frequency_baseline_p, freq_baseline_rl = harness.compute_frequency_baseline_metrics(k=evaluated_k)
 
     # 4. Generate Comparative Benchmark Table with Strict Academic Footnotes
     in_corpus_comparison = [
@@ -372,7 +390,7 @@ def run_benchmark(
             "Method / Model": "Combinatorial Random Null",
             "Evaluation Scope": "Identical Holdout Pool",
             "Precision@K": f"{random_baseline_p:.3f}",
-            "ROUGE-L": "0.045",
+            "ROUGE-L": f"{random_baseline_rl:.3f}" if random_baseline_rl > 0 else "0.000",
             "Task Formulation": "Random Historical (M, D) Pair",
             "Latency": "< 0.01s",
             "Hardware": "CPU",
@@ -381,7 +399,7 @@ def run_benchmark(
             "Method / Model": "Frequency / Popularity Heuristic",
             "Evaluation Scope": "Identical Holdout Pool",
             "Precision@K": f"{frequency_baseline_p:.3f}",
-            "ROUGE-L": "0.058",
+            "ROUGE-L": f"{freq_baseline_rl:.3f}" if freq_baseline_rl > 0 else "0.000",
             "Task Formulation": "Top Historical Volume Pairs",
             "Latency": "0.05s",
             "Hardware": "CPU",
@@ -390,7 +408,7 @@ def run_benchmark(
             "Method / Model": "ResearchRadar (SPLC + Uzzi z-Score) *",
             "Evaluation Scope": "Identical Holdout Pool",
             "Precision@K": f"{precision_at_k:.3f}",
-            "ROUGE-L": f"{avg_rl:.3f}" if avg_rl > 0 else "0.075",
+            "ROUGE-L": f"{avg_rl:.3f}" if avg_rl > 0 else "0.000",
             "Task Formulation": "Topological Citation Voids (C_obs=0)",
             "Latency": f"{latency_sec:.2f}s",
             "Hardware": "Commodity CPU",
@@ -426,7 +444,7 @@ def run_benchmark(
         print(f"{row['Method / Model']:<36} | {row['Precision@K']:<6} | {row['ROUGE-L']:<8} | {row['Latency']:<8} | {row['Hardware']}")
     print("=" * 90)
     print("  * Measured live on the identical historical/holdout partition.")
-    print("  Statistically honest note: Random base rate in this domain is ~44.8%.")
+    print(f"  Statistically honest note: Random base rate in this domain is {random_baseline_p * 100:.1f}%.")
     print(f"  ResearchRadar achieves a net lift of +{(precision_at_k - random_baseline_p)*100:.1f}% over random chance.")
     print("=" * 90)
 
@@ -466,7 +484,9 @@ def run_benchmark(
         "holdout_papers": n_hold,
         "precision_at_k": precision_at_k,
         "random_baseline_p": random_baseline_p,
+        "random_baseline_rouge_l": random_baseline_rl,
         "frequency_baseline_p": frequency_baseline_p,
+        "frequency_baseline_rouge_l": freq_baseline_rl,
         "net_lift_over_random": round((precision_at_k - random_baseline_p) * 100, 1),
         "rouge_1": avg_r1,
         "rouge_2": avg_r2,
