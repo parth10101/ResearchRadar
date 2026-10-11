@@ -161,7 +161,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
             </div>
             <div>
               <h2 className="text-base font-semibold text-white flex items-center gap-2">
-                Empirical Benchmark & Mentor Proof Scrutiny Suite
+                Empirical Benchmark & Scientific Verification Suite
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
                   Strictly Verified 2026
                 </span>
@@ -266,7 +266,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                     <BookOpen className="w-4 h-4 text-emerald-400" />
                     Exact 4 Public Seed Papers Fed into System (Page 11, Figure 2 of 2026 Paper):
                   </span>
-                  <span className="text-slate-500 text-[11px] font-mono">100% Publicly Available for Mentor Audit</span>
+                  <span className="text-slate-500 text-[11px] font-mono">100% Publicly Available & Verifiable</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                   {[
@@ -431,7 +431,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
               <div className="p-4 rounded-xl bg-purple-500/5 border border-purple-500/20 space-y-2">
                 <div className="font-semibold text-purple-300 text-xs flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-purple-400" />
-                  Exact Proof Scrutiny to Show Your Mentor:
+                  Methodological Scrutiny & Architectural Advantages:
                 </div>
                 <div className="space-y-1.5 text-slate-300 font-mono text-[11px] leading-relaxed">
                   <div>• <strong>1. Same Exact Input Data</strong>: We ingested the identical 4 seed papers cited in Graph2Idea Figure 2 (Page 11).</div>
@@ -482,7 +482,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
               <div className="p-4 rounded-xl bg-[#0f1422] border border-blue-500/30 space-y-2">
                 <div className="text-blue-400 font-mono font-bold text-xs flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4" />
-                  The Mentor Scrutiny Defense: "Why It Is Impossible to Be a Lucky Coincidence"
+                  Empirical Validation: "Elimination of Selection Bias & Serendipity"
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300 font-mono text-[11px] pt-1">
                   <div className="p-2.5 rounded bg-black/40 border border-white/5 space-y-1">
@@ -592,10 +592,10 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                     onClick={copyAuditTranscript}
                     disabled={!terminalLogs.length}
                     className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 flex items-center gap-1.5 font-mono text-xs cursor-pointer transition-all disabled:opacity-40"
-                    title="Copy full line-by-line audit transcript for your mentor"
+                    title="Copy complete line-by-line verification audit transcript"
                   >
                     {copiedAudit ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedAudit ? 'Copied to Clipboard!' : 'Copy Audit for Mentor'}</span>
+                    <span>{copiedAudit ? 'Copied to Clipboard!' : 'Copy Audit Transcript'}</span>
                   </button>
                   <button
                     onClick={runLiveProofTerminal}

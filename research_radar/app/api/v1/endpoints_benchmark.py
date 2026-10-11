@@ -280,7 +280,7 @@ def get_graph2idea_benchmark_case():
 def run_proof_terminal(req: ProofRunRequest):
     """
     Executes a simulated live proof execution and returns detailed, line-by-line terminal logs
-    matching previous pipeline stages for rigorous mentor presentation and scrutiny.
+    matching previous pipeline stages for rigorous scientific evaluation and scrutiny.
     """
     proof_id = req.proof_id
     t_start = time.time()
