@@ -2,7 +2,7 @@
   {
     "paper_id": "ACL2024_1001",
     "title": "LLM-QAT: Data-Free Quantization Aware Training for Large Language Models",
-    "abstract": "Zechun Liu, Barlas Oguz, Changsheng Zhao, Ernie Chang, Pierre Stock, Yashar Mehdad, Yangyang Shi, Raghuraman Krishnamoorthi, Vikas Chandra. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Several post-training quantization methods have been applied to large language models (LLMs), and have been shown to perform well down to 8-bits. We find that these methods break down at lower bit precision, and investigate quantization-aware training for LLMs (LLM-QAT) to push quantization levels even further. We propose a data-free distillation method that leverages generations produced by the pre-trained model, which better preserves the original output distribution and allows quantizing any generative model independent of its training data, similar to post-training quantization methods. In addition to quantizing weights and activations, we also quantize the KV cache, which is critical for increasing throughput and supporting long sequence dependencies at current model sizes. We experiment with LLaMA models of sizes 7B, 13B, and 30B, at quantization levels down to 4-bits. We observe large improvements over training-free methods, especially in the low-bit settings.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.26",
@@ -11,7 +11,7 @@
   {
     "paper_id": "ACL2024_1002",
     "title": "Data Augmentation using LLMs: Data Perspectives, Learning Paradigms and Challenges",
-    "abstract": "Bosheng Ding, Chengwei Qin, Ruochen Zhao, Tianze Luo, Xinze Li, Guizhen Chen, Wenhan Xia, Junjie Hu, Anh Tuan Luu, Shafiq Joty. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "In the rapidly evolving field of large language models (LLMs), data augmentation (DA) has emerged as a pivotal technique for enhancing model performance by diversifying training examples without the need for additional data collection. This survey explores the transformative impact of LLMs on DA, particularly addressing the unique challenges and opportunities they present in the context of natural language processing (NLP) and beyond. From both data and learning perspectives, we examine various strategies that utilize LLMs for data augmentation, including a novel exploration of learning paradigms where LLM-generated data is used for diverse forms of further training. Additionally, this paper highlights the primary open challenges faced in this domain, ranging from controllable data augmentation to multi-modal data augmentation. This survey highlights a paradigm shift introduced by LLMs in DA, and aims to serve as a comprehensive guide for researchers and practitioners.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.97",
@@ -20,7 +20,7 @@
   {
     "paper_id": "ACL2024_1003",
     "title": "Aligning Large Multimodal Models with Factually Augmented RLHF",
-    "abstract": "Zhiqing Sun, Sheng Shen, Shengcao Cao, Haotian Liu, Chunyuan Li, Yikang Shen, Chuang Gan, Liangyan Gui, Yu-Xiong Wang, Yiming Yang, Kurt Keutzer, Trevor Darrell. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large Multimodal Models (LMM) are built across modalities and the misalignment between two modalities can result in “hallucination”, generating textual outputs that are not grounded by the multimodal information in context. To address the multimodal misalignment issue, we adapt the Reinforcement Learning from Human Feedback (RLHF) from the text domain to the vision-language alignment, where human annotators are asked to compare two responses and pinpoint the more hallucinated one, and the vision-language model is trained to maximize the simulated human rewards. We propose a new alignment algorithm called Factually Augmented RLHF that augments the reward model with additional factual information such as image captions and ground-truth multi-choice options, which alleviates the reward hacking phenomenon in RLHF and further improves the performance. We also enhance the GPT-4-generated training data (for vision instruction tuning) with previously available human-written image-text pairs to improve the general capabilities of our model. To evaluate the proposed approach in real-world scenarios, we develop a new evaluation benchmark MMHAL-BENCH with a special focus on penalizing hallucinations. As the first LMM trained with RLHF, our approach achieves remarkable improvement on the LLaVA-Bench dataset with the 96% performance level of the text-only GPT-4 (while previous best methods can only achieve the 87% level), and an improvement of 60% on MMHAL-BENCH over other baselines.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.775",
@@ -29,7 +29,7 @@
   {
     "paper_id": "ACL2024_1004",
     "title": "The Revolution of Multimodal Large Language Models: A Survey",
-    "abstract": "Davide Caffagni, Federico Cocchi, Luca Barsellotti, Nicholas Moratelli, Sara Sarto, Lorenzo Baraldi, Lorenzo Baraldi, Marcella Cornia, Rita Cucchiara. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Connecting text and visual modalities plays an essential role in generative intelligence. For this reason, inspired by the success of large language models, significant research efforts are being devoted to the development of Multimodal Large Language Models (MLLMs). These models can seamlessly integrate visual and textual modalities, while providing a dialogue-based interface and instruction-following capabilities. In this paper, we provide a comprehensive review of recent visual-based MLLMs, analyzing their architectural choices, multimodal alignment strategies, and training techniques. We also conduct a detailed analysis of these models across a wide range of tasks, including visual grounding, image generation and editing, visual understanding, and domain-specific applications. Additionally, we compile and describe training datasets and evaluation benchmarks, conducting comparisons among existing models in terms of performance and computational requirements. Overall, this survey offers a comprehensive overview of the current state of the art, laying the groundwork for future MLLMs.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.807",
@@ -38,7 +38,7 @@
   {
     "paper_id": "ACL2024_1005",
     "title": "The Good and The Bad: Exploring Privacy Issues in Retrieval-Augmented Generation (RAG)",
-    "abstract": "Shenglai Zeng, Jiankun Zhang, Pengfei He, Yiding Liu, Yue Xing, Han Xu, Jie Ren, Yi Chang, Shuaiqiang Wang, Dawei Yin, Jiliang Tang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Retrieval-augmented generation (RAG) is a powerful technique to facilitate language model generation with proprietary and private data, where data privacy is a pivotal concern. Whereas extensive research has demonstrated the privacy risks of large language models (LLMs), the RAG technique could potentially reshape the inherent behaviors of LLM generation, posing new privacy issues that are currently under-explored. To this end, we conduct extensive empirical studies with novel attack methods, which demonstrate the vulnerability of RAG systems on leaking the private retrieval database. Despite the new risks brought by RAG on the retrieval data, we further discover that RAG can be used to mitigate the old risks, i.e., the leakage of the LLMs’ training data. In general, we reveal many new insights in this paper for privacy protection of retrieval-augmented LLMs, which could benefit both LLMs and RAG systems builders.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.267",
@@ -47,7 +47,7 @@
   {
     "paper_id": "ACL2024_1006",
     "title": "FreshLLMs: Refreshing Large Language Models with Search Engine Augmentation",
-    "abstract": "Tu Vu, Mohit Iyyer, Xuezhi Wang, Noah Constant, Jerry Wei, Jason Wei, Chris Tar, Yun-Hsuan Sung, Denny Zhou, Quoc Le, Thang Luong. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Since most large language models (LLMs) are trained once and never updated, they struggle to dynamically adapt to our ever-changing world. In this work, we present FreshQA, a dynamic QA benchmark that tests a model’s ability to answer questions that may require reasoning over up-to-date world knowledge. We develop a two-mode human evaluation procedure to measure both correctness and hallucination, which we use to benchmark both closed and open-source LLMs by collecting >50K human judgments. We observe that all LLMs struggle to answer questions that require fast-changing world knowledge as well as questions with false premises that need to be debunked. In response, we develop FreshPrompt, a few-shot prompting method that curates and organizes relevant information from a search engine into an LLM’s prompt. Our experiments show that FreshPrompt outperforms both competing search engine-augmented prompting methods such as Self-Ask (Press et al., 2022) as well as commercial systems such as Perplexity.AI. To facilitate future work, we additionally develop FreshEval, a reliable autorater for quick evaluation and comparison on FreshQA. Our latest results with FreshEval suggest that open-source LLMs such as Mixtral (Jiang et al., 2024), when combined with FreshPrompt, are competitive with closed-source and commercial systems on search-augmented QA.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.813",
@@ -56,7 +56,7 @@
   {
     "paper_id": "ACL2024_1007",
     "title": "ChatKBQA: A Generate-then-Retrieve Framework for Knowledge Base Question Answering with Fine-tuned Large Language Models",
-    "abstract": "Haoran Luo, Haihong E, Zichen Tang, Shiyao Peng, Yikai Guo, Wentai Zhang, Chenghao Ma, Guanting Dong, Meina Song, Wei Lin, Yifan Zhu, Anh Tuan Luu. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Knowledge Base Question Answering (KBQA) aims to answer natural language questions over large-scale knowledge bases (KBs), which can be summarized into two crucial steps: knowledge retrieval and semantic parsing. However, three core challenges remain: inefficient knowledge retrieval, mistakes of retrieval adversely impacting semantic parsing, and the complexity of previous KBQA methods. To tackle these challenges, we introduce ChatKBQA, a novel and simple generate-then-retrieve KBQA framework, which proposes first generating the logical form with fine-tuned LLMs, then retrieving and replacing entities and relations with an unsupervised retrieval method, to improve both generation and retrieval more directly. Experimental results show that ChatKBQA achieves new state-of-the-art performance on standard KBQA datasets, WebQSP, and CWQ. This work can also be regarded as a new paradigm for combining LLMs with knowledge graphs (KGs) for interpretable and knowledge-required question answering.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.122",
@@ -65,7 +65,7 @@
   {
     "paper_id": "ACL2024_1008",
     "title": "RoleLLM: Benchmarking, Eliciting, and Enhancing Role-Playing Abilities of Large Language Models",
-    "abstract": "Noah Wang, Z.y. Peng, Haoran Que, Jiaheng Liu, Wangchunshu Zhou, Yuhan Wu, Hongcheng Guo, Ruitong Gan, Zehao Ni, Jian Yang, Man Zhang, Zhaoxiang Zhang, Wanli Ouyang, Ke Xu, Wenhao Huang, Jie Fu, Junran Peng. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "The advent of Large Language Models (LLMs) has paved the way for complex tasks such as role-playing, which enhances user interactions by enabling models to imitate various characters. However, the closed-source nature of state-of-the-art LLMs and their general-purpose training limit role-playing optimization. In this paper, we introduce RoleLLM, a framework to benchmark, elicit, and enhance role-playing abilities in LLMs. RoleLLM comprises four stages: (1) Role Profile Construction for 100 roles; (2) Context-Based Instruction Generation (Context-Instruct) for role-specific knowledge extraction; (3) Role Prompting using GPT (RoleGPT) for speaking style imitation; and (4) Role-Conditioned Instruction Tuning (RoCIT) for fine-tuning open-source models along with role customization. By Context-Instruct and RoleGPT, we create RoleBench, the first systematic and fine-grained character-level benchmark dataset for role-playing with 168,093 samples. Moreover, RoCIT on RoleBench yields RoleLLaMA (English) and RoleGLM (Chinese), significantly enhancing role-playing abilities and even achieving comparable results with RoleGPT (using GPT-4).",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.878",
@@ -74,7 +74,7 @@
   {
     "paper_id": "ACL2024_1009",
     "title": "DebugBench: Evaluating Debugging Capability of Large Language Models",
-    "abstract": "Runchu Tian, Yining Ye, Yujia Qin, Xin Cong, Yankai Lin, Yinxu Pan, Yesai Wu, Hui Haotian, Liu Weichuan, Zhiyuan Liu, Maosong Sun. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large Language Models (LLMs) have demonstrated exceptional coding capability. However, as another critical component of programming proficiency, the debugging capability of LLMs remains relatively unexplored. Previous evaluations of LLMs’ debugging ability are significantly limited by the risk of data leakage, the scale of the dataset, and the variety of tested bugs. To overcome these deficiencies, we introduce ‘DebugBench’, an LLM debugging benchmark consisting of 4,253 instances. It covers four major bug categories and 18 minor types in C++, Java, and Python. To construct DebugBench, we collect code snippets from the LeetCode community, implant bugs into source data with GPT-4, and assure rigorous quality checks. We evaluate two commercial and four open-source models in a zero-shot scenario. We find that (1) while closed-source models exhibit inferior debugging performance compared to humans, open-source models relatively lower pass rate scores; (2) the complexity of debugging notably fluctuates depending on the bug category; (3) incorporating runtime feedback has a clear impact on debugging performance which is not always helpful. As an extension, we also compare LLM debugging and code generation, revealing a strong correlation between them for closed-source models. These findings will benefit the development of LLMs in debugging.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.247",
@@ -83,7 +83,7 @@
   {
     "paper_id": "ACL2024_1010",
     "title": "LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression",
-    "abstract": "Zhuoshi Pan, Qianhui Wu, Huiqiang Jiang, Menglin Xia, Xufang Luo, Jue Zhang, Qingwei Lin, Victor R\u00fchle, Yuqing Yang, Chin-Yew Lin, H. Vicky Zhao, Lili Qiu, Dongmei Zhang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "This paper focuses on task-agnostic prompt compression for better generalizability and efficiency. Considering the redundancy in natural language, existing approaches compress prompts by removing tokens or lexical units according to their information entropy obtained from a causal language model such as LLaMa-7B. The challenge is that information entropy may be a suboptimal compression metric: (i) it only leverages unidirectional context and may fail to capture all essential information needed for prompt compression; (ii) it is not aligned with the prompt compression objective.To address these issues, we propose a data distillation procedure to derive knowledge from an LLM to compress prompts without losing crucial information, and meantime, introduce an extractive text compression dataset. We formulate prompt compression as a token classification problem to guarantee the faithfulness of the compressed prompt to the original one, and use a Transformer encoder as the base architecture to capture all essential information for prompt compression from the full bidirectional context. Our approach leads to lower latency by explicitly learning the compression objective with smaller models such as XLM-RoBERTa-large and mBERT.We evaluate our method on both in-domain and out-of-domain datasets, including MeetingBank, LongBench, ZeroScrolls, GSM8K, and BBH. Despite its small size, our model shows significant performance gains over strong baselines and demonstrates robust generalization ability across different LLMs. Additionally, our model is 3x-6x faster than existing prompt compression methods, while accelerating the end-to-end latency by 1.6x-2.9x with compression ratios of 2x-5x.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.57",
@@ -92,7 +92,7 @@
   {
     "paper_id": "ACL2024_1011",
     "title": "LMDX: Language Model-based Document Information Extraction and Localization",
-    "abstract": "Vincent Perot, Kai Kang, Florian Luisier, Guolong Su, Xiaoyu Sun, Ramya Sree Boppana, Zilong Wang, Zifeng Wang, Jiaqi Mu, Hao Zhang, Chen-Yu Lee, Nan Hua. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large Language Models (LLM) have revolutionized Natural Language Processing (NLP), improving state-of-the-art and exhibiting emergent capabilities across various tasks. However, their application in extracting information from visually rich documents, which is at the core of many document processing workflows and involving the extraction of key entities from semi-structured documents, has not yet been successful. The main obstacles to adopting LLMs for this task include the absence of layout encoding within LLMs, which is critical for high quality extraction, and the lack of a grounding mechanism to localize the predicted entities within the document. In this paper, we introduce Language Model-based Document Information EXtraction and Localization (LMDX), a methodology to reframe the document information extraction task for a LLM. LMDX enables extraction of singular, repeated, and hierarchical entities, both with and without training data, while providing grounding guarantees and localizing the entities within the document. Finally, we apply LMDX to the PaLM 2-S and Gemini Pro LLMs and evaluate it on VRDU and CORD benchmarks, setting a new state-of-the-art and showing how LMDX enables the creation of high quality, data-efficient parsers.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.899",
@@ -101,7 +101,7 @@
   {
     "paper_id": "ACL2024_1012",
     "title": "LLM2LLM: Boosting LLMs with Novel Iterative Data Enhancement",
-    "abstract": "Nicholas Lee, Thanakul Wattanawong, Sehoon Kim, Karttikeya Mangalam, Sheng Shen, Gopala Anumanchipalli, Michael Mahoney, Kurt Keutzer, Amir Gholami. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Pretrained large language models (LLMs) are currently state-of-the-art for solving the vast majority of natural language processing tasks. While many real-world applications still require fine-tuning to reach satisfactory levels of performance, many of them are in the low-data regime, making fine-tuning challenging. To address this, we propose LLM2LLM, a targeted and iterative data augmentation strategy that uses a teacher LLM to enhance a small seed dataset by augmenting additional data that can be used for fine-tuning on a specific task. LLM2LLM (1) fine-tunes a baseline student LLM on the initial seed data, (2) evaluates and extracts data points that the model gets wrong, and (3) uses a teacher LLM to generate synthetic data based on these incorrect data points, which are then added back into the training data. This approach amplifies the signal from incorrectly predicted data points by the LLM during training and reintegrates them into the dataset to focus on more challenging examples for the LLM. Our results show that LLM2LLM significantly enhances the performance of LLMs in the low-data regime, outperforming both traditional fine-tuning and other data augmentation baselines. LLM2LLM reduces the dependence on labor-intensive data curation and paves the way for more scalable and performant LLM solutions, allowing us to tackle data-constrained domains and tasks. We achieve improvements up to 24.2% on the GSM8K dataset, 32.6% on CaseHOLD, 32.0% on SNIPS, 52.6% on TREC and 39.8% on SST-2 over regular fine-tuning in the low-data regime using a Llama-2-7B student model. Our code is available at https://github.com/SqueezeAILab/LLM2LLM.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.388",
@@ -110,7 +110,7 @@
   {
     "paper_id": "ACL2024_1013",
     "title": "Decomposition for Enhancing Attention: Improving LLM-based Text-to-SQL through Workflow Paradigm",
-    "abstract": "Yuanzhen Xie, Xinzhou Jin, Tao Xie, Matrixmxlin Matrixmxlin, Liang Chen, Chenyun Yu, Cheng Lei, Chengxiang Zhuo, Bo Hu, Zang Li. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "In-context learning of large-language models (LLMs) has achieved remarkable success in the field of natural language processing, while extensive case studies reveal that the single-step chain-of-thought prompting approach faces challenges such as attention diffusion and inadequate performance in complex tasks like text-to-SQL. To improve the contextual learning capabilities of LLMs in text-to-SQL, a workflow paradigm method is proposed, aiming to enhance the attention and problem-solving scope of LLMs through decomposition. Specifically, the information determination module for eliminating redundant information and the brand-new prompt structure based on problem classification greatly enhance the model’s attention. Additionally, the inclusion of self-correction and active learning modules greatly expands the problem-solving scope of LLMs, hence improving the upper limit of LLM-based approaches. Extensive experiments conducted on three datasets demonstrate that our approach outperforms other methods by a significant margin. About 2-3 percentage point improvements compared to the existing baseline on the Spider Dev, Spider-Realistic, and Bird Dev datasets and new SOTA results on the Spider Test dataset are achieved. Our code is available on GitHub: https://github.com/FlyingFeather/DEA-SQL.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.641",
@@ -119,7 +119,7 @@
   {
     "paper_id": "ACL2024_1014",
     "title": "Graph Chain-of-Thought: Augmenting Large Language Models by Reasoning on Graphs",
-    "abstract": "Bowen Jin, Chulin Xie, Jiawei Zhang, Kashob Kumar Roy, Yu Zhang, Zheng Li, Ruirui Li, Xianfeng Tang, Suhang Wang, Yu Meng, Jiawei Han. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large language models (LLMs), while exhibiting exceptional performance, suffer from hallucinations, especially on knowledge-intensive tasks. Existing works propose to augment LLMs with individual text units retrieved from external knowledge corpora to alleviate the issue. However, in many domains, texts are interconnected (e.g., academic papers in a bibliographic graph are linked by citations and co-authorships) which form a (text-attributed) graph. The knowledge in such graphs is encoded not only in single texts/nodes but also in their associated connections. To facilitate the research of augmenting LLMs with graphs, we manually construct a Graph Reasoning Benchmark dataset called GRBench, containing 1,740 questions that can be answered with the knowledge from 10 domain graphs. Then, we propose a simple and effective framework called Graph Chain-of-thought (Graph-CoT) to augment LLMs with graphs by encouraging LLMs to reason on the graph iteratively. Each Graph-CoT iteration consists of three sub-steps: LLM reasoning, LLM-graph interaction, and graph execution. We conduct systematic experiments with three LLM backbones on GRBench, where Graph-CoT outperforms the baselines consistently. The code is available at https://github.com/PeterGriffinJin/Graph-CoT/.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.11",
@@ -128,7 +128,7 @@
   {
     "paper_id": "ACL2024_1015",
     "title": "MatPlotAgent: Method and Evaluation for LLM-Based Agentic Scientific Data Visualization",
-    "abstract": "Zhiyu Yang, Zihan Zhou, Shuo Wang, Xin Cong, Xu Han, Yukun Yan, Zhenghao Liu, Zhixing Tan, Pengyuan Liu, Dong Yu, Zhiyuan Liu, Xiaodong Shi, Maosong Sun. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Scientific data visualization plays a crucial role in research by enabling the direct display of complex information and assisting researchers in identifying implicit patterns. Despite its importance, the use of Large Language Models (LLMs) for scientific data visualization remains rather unexplored. In this study, we introduce MatPlotAgent, an efficient model-agnostic LLM agent framework designed to automate scientific data visualization tasks. Leveraging the capabilities of both code LLMs and multi-modal LLMs, MatPlotAgent consists of three core modules: query understanding, code generation with iterative debugging, and a visual feedback mechanism for error correction. To address the lack of benchmarks in this field, we present MatPlotBench, a high-quality benchmark consisting of 100 human-verified test cases. Additionally, we introduce a scoring approach that utilizes GPT-4V for automatic evaluation. Experimental results demonstrate that MatPlotAgent can improve the performance of various LLMs, including both commercial and open-source models. Furthermore, the proposed evaluation method shows a strong correlation with human-annotated scores.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.701",
@@ -137,7 +137,7 @@
   {
     "paper_id": "ACL2024_1016",
     "title": "Fact-Checking the Output of Large Language Models via Token-Level Uncertainty Quantification",
-    "abstract": "Ekaterina Fadeeva, Aleksandr Rubashevskii, Artem Shelmanov, Sergey Petrakov, Haonan Li, Hamdy Mubarak, Evgenii Tsymbalov, Gleb Kuzmin, Alexander Panchenko, Timothy Baldwin, Preslav Nakov, Maxim Panov. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large language models (LLMs) are notorious for hallucinating, i.e., producing erroneous claims in their output. Such hallucinations can be dangerous, as occasional factual inaccuracies in the generated text might be obscured by the rest of the output being generally factually correct, making it extremely hard for the users to spot them. Current services that leverage LLMs usually do not provide any means for detecting unreliable generations. Here, we aim to bridge this gap. In particular, we propose a novel fact-checking and hallucination detection pipeline based on token-level uncertainty quantification. Uncertainty scores leverage information encapsulated in the output of a neural network or its layers to detect unreliable predictions, and we show that they can be used to fact-check the atomic claims in the LLM output. Moreover, we present a novel token-level uncertainty quantification method that removes the impact of uncertainty about what claim to generate on the current step and what surface form to use. Our method Claim Conditioned Probability (CCP) measures only the uncertainty of a particular claim value expressed by the model. Experiments on the task of biography generation demonstrate strong improvements for CCP compared to the baselines for seven different LLMs and four languages. Human evaluation reveals that the fact-checking pipeline based on uncertainty quantification is competitive with a fact-checking tool that leverages external knowledge.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.558",
@@ -146,7 +146,7 @@
   {
     "paper_id": "ACL2024_1017",
     "title": "RadGraph-XL: A Large-Scale Expert-Annotated Dataset for Entity and Relation Extraction from Radiology Reports",
-    "abstract": "Jean-Benoit Delbrouck, Pierre Chambon, Zhihong Chen, Maya Varma, Andrew Johnston, Louis Blankemeier, Dave Van Veen, Tan Bui, Steven Truong, Curtis Langlotz. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "In order to enable extraction of structured clinical data from unstructured radiology reports, we introduce RadGraph-XL, a large-scale, expert-annotated dataset for clinical entity and relation extraction. RadGraph-XL consists of 2,300 radiology reports, which are annotated with over 410,000 entities and relations by board-certified radiologists. Whereas previous approaches focus solely on chest X-rays, RadGraph-XL includes data from four anatomy-modality pairs - chest CT, abdomen/pelvis CT, brain MR, and chest X-rays. Then, in order to automate structured information extraction, we use RadGraph-XL to train transformer-based models for clinical entity and relation extraction. Our evaluations include comprehensive ablation studies as well as an expert reader study that evaluates trained models on out-of-domain data. Results demonstrate that our model surpasses the performance of previous methods by up to 52% and notably outperforms GPT-4 in this domain. We release RadGraph-XL as well as our trained model to foster further innovation and research in structured clinical information extraction.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.765",
@@ -155,7 +155,7 @@
   {
     "paper_id": "ACL2024_1018",
     "title": "Found in the middle: Calibrating Positional Attention Bias Improves Long Context Utilization",
-    "abstract": "Cheng-Yu Hsieh, Yung-Sung Chuang, Chun-Liang Li, Zifeng Wang, Long Le, Abhishek Kumar, James Glass, Alexander Ratner, Chen-Yu Lee, Ranjay Krishna, Tomas Pfister. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large language models (LLMs), even when specifically trained to process long input contexts, struggle to capture relevant information located in the middle of their input. This phenomenon has been known as the lost-in-the-middle problem. In this work, we make three contributions. First, we set out to understand the factors that cause this phenomenon. In doing so, we establish a connection between lost-in-the-middle to LLMs’ intrinsic attention bias: LLMs exhibit an U-shaped attention bias where the tokens at the beginning and at the end of its input receive higher attention, regardless of their relevance. Second, we mitigate this positional bias through a calibration mechanism, found-in-the-middle, that allows the model to attend to contexts faithfully according to their relevance, even though when they are in the middle. Third, we show found-in-the-middle not only achieves better performance in locating relevant information within a long context, but also eventually leads to improved retrieval-augmented generation (RAG) performance across various tasks, outperforming existing methods by up to 10 percentage point. These findings open up future directions in understanding LLM attention bias and its potential consequences.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.890",
@@ -164,7 +164,7 @@
   {
     "paper_id": "ACL2024_1019",
     "title": "Call Me When Necessary: LLMs can Efficiently and Faithfully Reason over Structured Environments",
-    "abstract": "Sitao Cheng, Ziyuan Zhuang, Yong Xu, Fangkai Yang, Chaoyun Zhang, Xiaoting Qin, Xiang Huang, Ling Chen, Qingwei Lin, Dongmei Zhang, Saravan Rajmohan, Qi Zhang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large Language Models (LLMs) have shown potential in reasoning over structured environments, e.g., knowledge graphs and tables. Such tasks typically require multi-hop reasoning, i.e., match natural language utterance with instances in the environment. Previous works adopt LLMs to incrementally build a reasoning path, where LLMs either invoke tools or pick up items by step-by-step interacting with the environment. We propose Reasoning-Path-Editing (Readi), a novel framework where LLMs can efficiently and faithfully reason over structured environments. In Readi, LLMs initially generate a reasoning path given a query, and edit the path only when necessary. We instantiate the path on structured environments and provide feedback to edit the path if anything goes wrong. Experimental results on three KGQA and two TableQA datasets show the effectiveness of Readi, significantly surpassing previous LLM-based methods (by 9.1% Hit@1 on WebQSP, 12.4% on MQA-3H and 9.5% on WTQ), comparable with state-of-the-art fine-tuned methods (67% on CWQ and 74.7% on WebQSP) and substantially boosting the vanilla LLMs (by 14.9% on CWQ). Our code will be available on https://aka.ms/readi.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.254",
@@ -173,7 +173,7 @@
   {
     "paper_id": "ACL2024_1020",
     "title": "ArabicMMLU: Assessing Massive Multitask Language Understanding in Arabic",
-    "abstract": "Fajri Koto, Haonan Li, Sara Shatnawi, Jad Doughman, Abdelrahman Sadallah, Aisha Alraeesi, Khalid Almubarak, Zaid Alyafeai, Neha Sengupta, Shady Shehata, Nizar Habash, Preslav Nakov, Timothy Baldwin. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "The focus of language model evaluation has transitioned towards reasoning and knowledge-intensive tasks, driven by advancements in pretraining large models. While state-of-the-art models are partially trained on large Arabic texts, evaluating their performance in Arabic remains challenging due to the limited availability of relevant datasets. To bridge this gap, we present ArabicMMLU, the first multi-task language understanding benchmark for the Arabic language, sourced from school exams across diverse educational levels in different countries spanning North Africa, the Levant, and the Gulf regions. Our data comprises 40 tasks and 14,575 multiple-choice questions in Modern Standard Arabic (MSA) and is carefully constructed by collaborating with native speakers in the region. Our comprehensive evaluations of 35 models reveal substantial room for improvement, particularly among the best open-source models. Notably, BLOOMZ, mT0, LLama2, and Falcon struggle to achieve a score of 50%, while even the top-performing Arabic-centric model only achieves a score of 62.3%.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.334",
@@ -182,7 +182,7 @@
   {
     "paper_id": "ACL2024_1021",
     "title": "A Grounded Preference Model for LLM Alignment",
-    "abstract": "Tahira Naseem, Guangxuan Xu, Sarathkrishna Swaminathan, Asaf Yehudai, Subhajit Chaudhury, Radu Florian, Ram\u00f3n Astudillo, Asim Munawar. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Despite LLMs’ recent advancements, they still suffer from factual inconsistency and hallucination. An often-opted remedy is retrieval-augmented generation – however, there is no guarantee that the model will strictly adhere to retrieved grounding. Fundamentally, LLMs need to be aligned to be more faithful to grounding, which will require high-quality preference annotations. This paper investigates whether we can create high-quality grounded preference data for model alignment without using annotations from humans or large proprietary models. We experimented with existing entailment data and proposed approaches to generate synthetic grounded preference data, with which we train a Grounded Preference Model(GPM). We demonstrate through Proximal Policy Optimization(PPO) training of Mistral-7B-Instruct that our GPM model can successfully align powerful LLMs to generate much better grounded responses as judged by GPT4. Moreover, we show that our GPM is also a great faithfulness classifier, achieving SoTA in dialogue sub-tasks of the TRUE faithfulness Benchmark. We will release our GPM under the Apache 2.0 license.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.10",
@@ -191,7 +191,7 @@
   {
     "paper_id": "ACL2024_1022",
     "title": "MathBench: Evaluating the Theory and Application Proficiency of LLMs with a Hierarchical Mathematics Benchmark",
-    "abstract": "Hongwei Liu, Zilong Zheng, Yuxuan Qiao, Haodong Duan, Zhiwei Fei, Fengzhe Zhou, Wenwei Zhang, Songyang Zhang, Dahua Lin, Kai Chen. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Recent advancements in large language models (LLMs) have showcased significant improvements in mathematics. However, traditional math benchmarks like GSM8k offer a unidimensional perspective, which fall short in providing a holistic assessment of the LLMs’ math capabilities. To address this gap, we introduce MathBench, a new benchmark that rigorously assesses the mathematical capabilities of large language models. MathBench spans a wide range of mathematical disciplines, offering a detailed evaluation of both theoretical understanding and practical problem-solving skills. The benchmark progresses through five distinct stages, from basic arithmetic to college mathematics, and is structured to evaluate models at various depths of knowledge. Each stage includes theoretical questions and application problems, allowing us to measure a model’s mathematical proficiency and its ability to apply concepts in practical scenarios. MathBench aims to enhance the evaluation of LLMs’ mathematical abilities, providing a nuanced view of their knowledge understanding levels and problem solving skills in a bilingual context.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.411",
@@ -200,7 +200,7 @@
   {
     "paper_id": "ACL2024_1023",
     "title": "Benchmarking and Improving Long-Text Translation with Large Language Models",
-    "abstract": "Longyue Wang, Zefeng Du, Wenxiang Jiao, Chenyang Lyu, Jianhui Pang, Leyang Cui, Kaiqiang Song, Derek Wong, Shuming Shi, Zhaopeng Tu. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Recent studies have illuminated the promising capabilities of large language models (LLMs) in handling long texts. However, their performance in machine translation (MT) of long documents remains underexplored. This paper aims to shed light on how LLMs navigate this complex task, offering a comprehensive evaluation of their capabilities and limitations in long-text MT. First, we collect and construct an instruction-based benchmark dataset, specifically designed for the finetuning and evaluation of LLMs, encompassing multilingual, multi-domain, and document-level parallel data. Second, we conduct a comprehensive comparison between MT and LLM models concerning document-level translation. Our analysis uncovers that LLMs exhibit shortcomings in long-text domains, and their performance diminishes as document size escalates. By exploiting various extrapolation strategies, we enhance the capacity of LLMs to translate longer texts. We release data, code, and models at https://github.com/longyuewangdcu/Document-MT-LLM.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.428",
@@ -209,7 +209,7 @@
   {
     "paper_id": "ACL2024_1024",
     "title": "Code Needs Comments: Enhancing Code LLMs with Comment Augmentation",
-    "abstract": "Demin Song, Honglin Guo, Yunhua Zhou, Shuhao Xing, Yudong Wang, Zifan Song, Wenwei Zhang, Qipeng Guo, Hang Yan, Xipeng Qiu, Dahua Lin. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "The programming skill is one crucial ability for Large Language Models (LLMs), necessitating a deep understanding of programming languages (PLs) and their correlation with natural languages (NLs). We examine the impact of pre-training data on code-focused LLMs’ performance by assessing the comment density as a measure of PL-NL alignment. Given the scarcity of code-comment aligned data in pre-training corpora, we introduce a novel data augmentation method that generates comments for existing code, coupled with a data filtering strategy that filters out code data poorly correlated with natural language. We conducted experiments on three code-focused LLMs and observed consistent improvements in performance on two widely-used programming skill benchmarks. Notably, the model trained on the augmented data outperformed both the model used for generating comments and the model further trained on the data without augmentation.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.809",
@@ -218,7 +218,7 @@
   {
     "paper_id": "ACL2024_1025",
     "title": "Investigating the Impact of Data Contamination of Large Language Models in Text-to-SQL translation",
-    "abstract": "Federico Ranaldi, Elena Sofia Ruzzetti, Dario Onorati, Leonardo Ranaldi, Cristina Giannone, Andrea Favalli, Raniero Romagnoli, Fabio Massimo Zanzotto. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Understanding textual description to generate code seems to be an achieved capability of instruction-following Large Language Models (LLMs) in zero-shot scenario. However, there is a severe possibility that this translation ability may be influenced by having seen target textual descriptions and the related code. This effect is known as Data Contamination.In this study, we investigate the impact of Data Contamination on the performance of GPT-3.5 in the Text-to-SQL code-generating tasks. Hence, we introduce a novel method to detect Data Contamination in GPTs and examine GPT-3.5’s Text-to-SQL performances using the known Spider Dataset and our new unfamiliar dataset Termite. Furthermore, we analyze GPT-3.5’s efficacy on databases with modified information via an adversarial table disconnection (ATD) approach, complicating Text-to-SQL tasks by removing structural pieces of information from the database. Our results indicate a significant performance drop in GPT-3.5 on the unfamiliar Termite dataset, even with ATD modifications, highlighting the effect of Data Contamination on LLMs in Text-to-SQL translation tasks.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.827",
@@ -227,7 +227,7 @@
   {
     "paper_id": "ACL2024_1026",
     "title": "Learning Fine-Grained Grounded Citations for Attributed Large Language Models",
-    "abstract": "Lei Huang, Xiaocheng Feng, Weitao Ma, Yuxuan Gu, Weihong Zhong, Xiachong Feng, Weijiang Yu, Weihua Peng, Duyu Tang, Dandan Tu, Bing Qin. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Despite the impressive performance on information-seeking tasks, large language models (LLMs) still struggle with hallucinations. Attributed LLMs, which augment generated text with in-line citations, demonstrate potential in mitigating hallucinations and improving verifiability. However, current approaches suffer from suboptimal citation quality due to their reliance on in-context learning. Furthermore, the practice of merely citing document identifiers complicates the process for users to pinpoint specific supporting evidence. In this work, we introduce FRONT, a training framework that teaches LLMs to generate Fine-grained grounded citations. By initially grounding fine-grained supporting quotes, which then guide the generation process, these quotes not only provide supervision signals to improve citation quality but also serve as fine-grained attributions. Experiments on the ALCE benchmark demonstrate the efficacy of FRONT in generating superior grounded responses and highly supportive citations. With LLaMA-2-7B, the framework significantly outperforms all the baselines, achieving an average of 14.21% improvement in citation quality across all datasets, even surpassing ChatGPT.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.838",
@@ -236,7 +236,7 @@
   {
     "paper_id": "ACL2024_1027",
     "title": "Prompting open-source and commercial language models for grammatical error correction of English learner text",
-    "abstract": "Christopher Davis, Andrew Caines, \u00d8istein E. Andersen, Shiva Taslimipoor, Helen Yannakoudakis, Zheng Yuan, Christopher Bryant, Marek Rei, Paula Buttery. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Thanks to recent advances in generative AI, we are able to prompt large language models (LLMs) to produce texts which are fluent and grammatical. In addition, it has been shown that we can elicit attempts at grammatical error correction (GEC) from LLMs when prompted with ungrammatical input sentences. We evaluate how well LLMs can perform at GEC by measuring their performance on established benchmark datasets. We go beyond previous studies, which only examined GPT* models on a selection of English GEC datasets, by evaluating seven open-source and three commercial LLMs on four established GEC benchmarks. We investigate model performance and report results against individual error types. Our results indicate that LLMs do not always outperform supervised English GEC models except in specific contexts – namely commercial LLMs on benchmarks annotated with fluency corrections as opposed to minimal edits. We find that several open-source models outperform commercial ones on minimal edit benchmarks, and that in some settings zero-shot prompting is just as competitive as few-shot prompting.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.711",
@@ -245,7 +245,7 @@
   {
     "paper_id": "ACL2024_1028",
     "title": "Codec-SUPERB: An In-Depth Analysis of Sound Codec Models",
-    "abstract": "Haibin Wu, Ho-Lam Chung, Yi-Cheng Lin, Yuan-Kuei Wu, Xuanjun Chen, Yu-Chi Pai, Hsiu-Hsuan Wang, Kai-Wei Chang, Alexander Liu, Hung-yi Lee. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "The sound codec’s dual roles in minimizing data transmission latency and serving as tokenizers underscore its critical importance.Recent years have witnessed significant developments in codec models.The ideal sound codec should preserve content, paralinguistics, speakers, and audio information.However, the question of which codec achieves optimal sound information preservation remains unanswered, as in different papers, models are evaluated on their selected experimental settings.This study introduces Codec-SUPERB, an acronym for Codec sound processing Universal PERformance Benchmark.It is an ecosystem designed to assess codec models across representative sound applications and signal-level metrics rooted in sound domain knowledge.Codec-SUPERB simplifies result sharing through an online leaderboard, promoting collaboration within a community-driven benchmark database, thereby stimulating new development cycles for codecs.Furthermore, we undertake an in-depth analysis to offer insights into codec models from both application and signal perspectives, diverging from previous codec papers mainly concentrating on signal-level comparisons.Finally, we will release codes, the leaderboard, and data to accelerate progress within the community.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.616",
@@ -254,7 +254,7 @@
   {
     "paper_id": "ACL2024_1029",
     "title": "StyleDubber: Towards Multi-Scale Style Learning for Movie Dubbing",
-    "abstract": "Gaoxiang Cong, Yuankai Qi, Liang Li, Amin Beheshti, Zhedong Zhang, Anton Hengel, Ming-Hsuan Yang, Chenggang Yan, Qingming Huang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Given a script, the challenge in Movie Dubbing (Visual Voice Cloning, V2C) is to generate speech that aligns well with the video in both time and emotion, based on the tone of a reference audio track. Existing state-of-the-art V2C models break the phonemes in the script according to the divisions between video frames, which solves the temporal alignment problem but leads to incomplete phoneme pronunciation and poor identity stability. To address this problem, we propose StyleDubber, which switches dubbing learning from the frame level to phoneme level. It contains three main components: (1) A multimodal style adaptor operating at the phoneme level to learn pronunciation style from the reference audio, and generate intermediate representations informed by the facial emotion presented in the video; (2) An utterance-level style learning module, which guides both the mel-spectrogram decoding and the refining processes from the intermediate embeddings to improve the overall style expression; And (3) a phoneme-guided lip aligner to maintain lip sync. Extensive experiments on two of the primary benchmarks, V2C and Grid, demonstrate the favorable performance of the proposed method as compared to the current state-of-the-art. The code will be made available at https://github.com/GalaxyCong/StyleDubber.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.404",
@@ -263,7 +263,7 @@
   {
     "paper_id": "ACL2024_1030",
     "title": "DB-LLM: Accurate Dual-Binarization for Efficient LLMs",
-    "abstract": "Hong Chen, Chengtao Lv, Liang Ding, Haotong Qin, Xiabin Zhou, Yifu Ding, Xuebo Liu, Min Zhang, Jinyang Guo, Xianglong Liu, Dacheng Tao. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Large language models (LLMs) have significantly advanced the field of natural language processing, while the expensive memory and computation consumption impede their practical deployment. Quantization emerges as one of the most effective methods for improving the computational efficiency of LLMs. However, existing ultra-low-bit quantization always causes severe accuracy drops. In this paper, we empirically investigate the micro and macro characteristics of ultra-low bit quantization and present a novel Dual-Binarization method for LLMs, namely DB-LLM. For the micro-level, we take both the accuracy advantage of 2-bit-width and the efficiency advantage of binarization into account, introducing Flexible Dual Binarization (FDB). By splitting 2-bit quantized weights into two independent sets of binaries, FDB ensures the accuracy of representations and introduces flexibility, utilizing the efficient bitwise operations of binarization while retaining the inherent high sparsity of ultra-low bit quantization. For the macro-level, we find the distortion that exists in the prediction of LLM after quantization, which is specified as the deviations related to the ambiguity of samples. We propose the Deviation-Aware Distillation (DAD) method, enabling the model to focus differently on various samples. Comprehensive experiments show that our DB-LLM not only significantly surpasses the current State-of-The-Art (SoTA) in ultra-low bit quantization (, perplexity decreased from 9.64 to 7.23), but also achieves an additional 20% reduction in computational consumption compared to the SOTA method under the same bit-width. Our code is available at https://github.com/Hon-Chen/DB-LLM.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.516",
@@ -272,7 +272,7 @@
   {
     "paper_id": "ACL2024_1031",
     "title": "Exploring Ordinality in Text Classification: A Comparative Study of Explicit and Implicit Techniques",
-    "abstract": "Siva Rajesh Kasa, Aniket Goel, Karan Gupta, Sumegh Roychowdhury, Pattisapu Priyatam, Anish Bhanushali, Prasanna Srinivasa Murthy. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Ordinal Classification (OC) is a widely encountered challenge in Natural Language Processing (NLP), with applications in various domains such as sentiment analysis, rating prediction, and more. Previous approaches to tackle OC have primarily focused on modifying existing or creating novel loss functions that explicitly account for the ordinal nature of labels. However, with the advent of Pre-trained Language Models (PLMs), it became possible to tackle ordinality through the implicit semantics of the labels as well. This paper provides a comprehensive theoretical and empirical examination of both these approaches. Furthermore, we also offer strategic recommendations regarding the most effective approach to adopt based on specific settings.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.320",
@@ -281,7 +281,7 @@
   {
     "paper_id": "ACL2024_1032",
     "title": "DevEval: A Manually-Annotated Code Generation Benchmark Aligned with Real-World Code Repositories",
-    "abstract": "Jia Li, Ge Li, Yunfei Zhao, Yongmin Li, Huanyu Liu, Hao Zhu, Lecheng Wang, Kaibo Liu, Zheng Fang, Lanshen Wang, Jiazheng Ding, Xuanming Zhang, Yuqi Zhu, Yihong Dong, Zhi Jin, Binhua Li, Fei Huang, Yongbin Li, Bin Gu, Mengfei Yang. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "How to evaluate the coding abilities of Large Language Models (LLMs) remains an open question. We find that existing benchmarks are poorly aligned with real-world code repositories and are insufficient to evaluate the coding abilities of LLMs.To address the knowledge gap, we propose a new benchmark named DevEval, which has three advances. (1) DevEval aligns with real-world repositories in multiple dimensions, e.g., code and dependency distributions. (2) DevEval is annotated by 13 developers and contains comprehensive annotations (e.g., requirements, original repositories, reference code, and reference dependencies). (3) DevEval comprises 1,825 testing samples from 115 repositories, covering 10 popular domains (e.g., Internet, Database). Based on DevEval, we propose repository-level code generation and evaluate 8 popular LLMs on DevEval (e.g., gpt-4, gpt-3.5, StarCoder 2, DeepSeek Coder, CodeLLaMa). Our experiments reveal these LLMs’ coding abilities in real-world code repositories. For example, the highest Pass@1 of gpt-4 only is 53.04% in our experiments. We also analyze LLMs’ failed cases and summarize their shortcomings. We hope DevEval can facilitate the development of LLMs in real code repositories. DevEval, prompts, and LLMs’ predictions have been released.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.214",
@@ -290,7 +290,7 @@
   {
     "paper_id": "ACL2024_1033",
     "title": "Publicly Shareable Clinical Large Language Model Built on Synthetic Clinical Notes",
-    "abstract": "Sunjun Kweon, Junu Kim, Jiyoun Kim, Sujeong Im, Eunbyeol Cho, Seongsu Bae, Jungwoo Oh, Gyubok Lee, Jong Hak Moon, Seng Chan You, Seungjin Baek, Chang Hoon Han, Yoon Bin Jung, Yohan Jo, Edward Choi. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "The development of large language models tailored for handling patients’ clinical notes is often hindered by the limited accessibility and usability of these notes due to strict privacy regulations. To address these challenges, we first create synthetic large-scale clinical notes using publicly available case reports extracted from biomedical literature. We then use these synthetic notes to train our specialized clinical large language model, Asclepius. While Asclepius is trained on synthetic data, we assess its potential performance in real-world applications by evaluating it using real clinical notes. We benchmark Asclepius against several other large language models, including GPT-3.5-turbo and other open-source alternatives. To further validate our approach using synthetic notes, we also compare Asclepius with its variants trained on real clinical notes. Our findings convincingly demonstrate that synthetic clinical notes can serve as viable substitutes for real ones when constructing high-performing clinical language models. This conclusion is supported by detailed evaluations conducted by both GPT-4 and medical professionals. All resources—including weights, codes, and data—used in the development of Asclepius will be made publicly accessible for future research.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.305",
@@ -299,7 +299,7 @@
   {
     "paper_id": "ACL2024_1034",
     "title": "Debiasing In-Context Learning by Instructing LLMs How to Follow Demonstrations",
-    "abstract": "Lvxue Li, Jiaqi Chen, Xinyu Lu, Yaojie Lu, Hongyu Lin, Shuheng Zhou, Huijia Zhu, Weiqiang Wang, Zhongyi Liu, Xianpei Han, Le Sun. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "In-context learning(ICL) has gained considerable attention due to its data efficiency and task adaptability. Unfortunately, ICL suffers from the demonstration bias, i.e., its performance and robustness are severely affected by the selection and ordering of demonstrations. In this paper, we identify that such demonstration bias may primarily stem from the semantic ambiguity induced by demonstrations, i.e., a demonstration may indicate multiple input-to-label mappings and its mapping can be interpreted differently in different contexts by LLMs. Such semantic ambiguity disrupts task comprehension during ICL and results in performance fluctuations. To resolve the semantic ambiguity problem, this paper further proposes two de-biasing strategies to mitigate demonstration bias in in-context learning. Experiments on six datasets show that our methods can effectively alleviate demonstration bias and significantly improve task performance.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.430",
@@ -308,7 +308,7 @@
   {
     "paper_id": "ACL2024_1035",
     "title": "Generalized Category Discovery with Large Language Models in the Loop",
-    "abstract": "Wenbin An, Wenkai Shi, Feng Tian, Haonan Lin, QianYing Wang, Yaqiang Wu, Mingxiang Cai, Luyan Wang, Yan Chen, Haiping Zhu, Ping Chen. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Generalized Category Discovery (GCD) is a crucial task that aims to recognize both known and novel categories from a set of unlabeled data by utilizing a few labeled data with only known categories. Due to the lack of supervision and category information, current methods usually perform poorly on novel categories and struggle to reveal semantic meanings of the discovered clusters, which limits their applications in the real world. To mitigate the above issues, we propose Loop, an end-to-end active-learning framework that introduces Large Language Models (LLMs) into the training loop, which can boost model performance and generate category names without relying on any human efforts. Specifically, we first propose Local Inconsistent Sampling (LIS) to select samples that have a higher probability of falling to wrong clusters, based on neighborhood prediction consistency and entropy of cluster assignment probabilities. Then we propose a Scalable Query strategy to allow LLMs to choose true neighbors of the selected samples from multiple candidate samples. Based on the feedback from LLMs, we perform Refined Neighborhood Contrastive Learning (RNCL) to pull samples and their neighbors closer to learn clustering-friendly representations. Finally, we select representative samples from clusters corresponding to novel categories to allow LLMs to generate category names for them. Extensive experiments on three benchmark datasets show that Loop outperforms SOTA models by a large margin and generates accurate category names for the discovered clusters. Code and data are available at https://github.com/Lackel/LOOP.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.512",
@@ -317,7 +317,7 @@
   {
     "paper_id": "ACL2024_1036",
     "title": "An Experimental Design Framework for Label-Efficient Supervised Finetuning of Large Language Models",
-    "abstract": "Gantavya Bhatt, Yifang Chen, Arnav Das, Jifan Zhang, Sang Truong, Stephen Mussmann, Yinglun Zhu, Jeff Bilmes, Simon Du, Kevin Jamieson, Jordan Ash, Robert Nowak. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Supervised finetuning (SFT) on instruction datasets has played a crucial role in achieving the remarkable zero-shot generalization capabilities observed in modern large language models (LLMs). However, the annotation efforts required to produce high quality responses for instructions are becoming prohibitively expensive, especially as the number of tasks spanned by instruction datasets continues to increase. Active learning is effective in identifying useful subsets of samples to annotate from an unlabeled pool, but its high computational cost remains a barrier to its widespread applicability in the context of LLMs. To mitigate the annotation cost of SFT and circumvent the computational bottlenecks of active learning, we propose using experimental design. Experimental design techniques select the most informative samples to label, and typically maximize some notion of uncertainty and/or diversity. In our work, we implement a framework that evaluates several existing and novel experimental design techniques and find that these methods consistently yield significant gains in label efficiency with little computational overhead. On generative tasks, to reach the same generalization performance, our methods save 50% of the annotation cost compared to random sampling.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.390",
@@ -326,7 +326,7 @@
   {
     "paper_id": "ACL2024_1037",
     "title": "Evaluating Robustness of Generative Search Engine on Adversarial Factoid Questions",
-    "abstract": "Xuming Hu, Xiaochuan Li, Junzhe Chen, Yinghui Li, Yangning Li, Xiaoguang Li, Yasheng Wang, Qun Liu, Lijie Wen, Philip Yu, Zhijiang Guo. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Generative search engines have the potential to transform how people seek information online, but generated responses from existing large language models (LLMs)-backed generative search engines may not always be accurate. Nonetheless, retrieval-augmented generation exacerbates safety concerns, since adversaries may successfully evade the entire system by subtly manipulating the most vulnerable part of a claim. To this end, we propose evaluating the robustness of generative search engines in the realistic and high-risk setting, where adversaries have only black-box system access and seek to deceive the model into returning incorrect responses. Through a comprehensive human evaluation of various generative search engines, such as Bing Chat, PerplexityAI, and YouChat across diverse queries, we demonstrate the effectiveness of adversarial factual questions in inducing incorrect responses. Moreover, retrieval-augmented generation exhibits a higher susceptibility to factual errors compared to LLMs without retrieval. These findings highlight the potential security risks of these systems and emphasize the need for rigorous evaluation before deployment. The dataset and code will be publicly available.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.633",
@@ -335,7 +335,7 @@
   {
     "paper_id": "ACL2024_1038",
     "title": "Developing PUGG for Polish: A Modern Approach to KBQA, MRC, and IR Dataset Construction",
-    "abstract": "Albert Sawczyn, Katsiaryna Viarenich, Konrad Wojtasik, Aleksandra Domoga\u0142a, Marcin Oleksy, Maciej Piasecki, Tomasz Kajdanowicz. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Advancements in AI and natural language processing have revolutionized machine-human language interactions, with question answering (QA) systems playing a pivotal role. The knowledge base question answering (KBQA) task, utilizing structured knowledge graphs (KG), allows for handling extensive knowledge-intensive questions. However, a significant gap exists in KBQA datasets, especially for low-resource languages. Many existing construction pipelines for these datasets are outdated and inefficient in human labor, and modern assisting tools like Large Language Models (LLM) are not utilized to reduce the workload. To address this, we have designed and implemented a modern, semi-automated approach for creating datasets, encompassing tasks such as KBQA, Machine Reading Comprehension (MRC), and Information Retrieval (IR), tailored explicitly for low-resource environments. We executed this pipeline and introduced the PUGG dataset, the first Polish KBQA dataset, and novel datasets for MRC and IR. Additionally, we provide a comprehensive implementation, insightful findings, detailed statistics, and evaluation of baseline models.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.652",
@@ -344,7 +344,7 @@
   {
     "paper_id": "ACL2024_1039",
     "title": "CMoralEval: A Moral Evaluation Benchmark for Chinese Large Language Models",
-    "abstract": "Linhao Yu, Yongqi Leng, Yufei Huang, Shang Wu, Haixin Liu, Xinmeng Ji, Jiahui Zhao, Jinwang Song, Tingting Cui, Xiaoqing Cheng, Tao Liu, Deyi Xiong. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "What a large language model (LLM) would respond in ethically relevant context? In this paper, we curate a large benchmark CMoralEval for morality evaluation of Chinese LLMs. The data sources of CMoralEval are two-fold: 1) a Chinese TV program discussing Chinese moral norms with stories from the society and 2) a collection of Chinese moral anomies from various newspapers and academic papers on morality. With these sources, we aim to create a moral evaluation dataset characterized by diversity and authenticity. We develop a morality taxonomy and a set of fundamental moral principles that are not only rooted in traditional Chinese culture but also consistent with contemporary societal norms. To facilitate efficient construction and annotation of instances in CMoralEval, we establish a platform with AI-assisted instance generation to streamline the annotation process. These help us curate CMoralEval that encompasses both explicit moral scenarios (14,964 instances) and moral dilemma scenarios (15,424 instances), each with instances from different data sources. We conduct extensive experiments with CMoralEval to examine a variety of Chinese LLMs. Experiment results demonstrate that CMoralEval is a challenging benchmark for Chinese LLMs.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.703",
@@ -353,7 +353,7 @@
   {
     "paper_id": "ACL2024_1040",
     "title": "Mitigating Data Scarcity in Semantic Parsing across Languages with the Multilingual Semantic Layer and its Dataset",
-    "abstract": "Abelardo Carlos Martinez Lorenzo, Pere-Llu\u00eds Huguet Cabot, Karim Ghonim, Lu Xu, Hee-Soo Choi, Alberte Fern\u00e1ndez-Castro, Roberto Navigli. Findings of the Association for Computational Linguistics: ACL 2024. 2024.",
+    "abstract": "Data scarcity is a prevalent challenge in the era of Large Language Models (LLMs). The insatiable hunger of LLMs for large corpora becomes even more pronounced when dealing with non-English and low-resource languages. The issue is particularly exacerbated in Semantic Parsing (SP), i.e. the task of converting text into a formal representation. The complexity of semantic formalisms makes training human annotators and subsequent data annotation unfeasible on a large scale, especially across languages. To mitigate this, we first introduce the Multilingual Semantic Layer (MSL), a conceptual evolution of previous formalisms, which decouples from disambiguation and external inventories and simplifies the task. MSL provides the necessary tools to encode the meaning across languages, paving the way for developing a high-quality semantic parsing dataset across different languages in a semi-automatic strategy. Subsequently, we manually refine a portion of this dataset and fine-tune GPT-3.5 to propagate these refinements across the dataset. Then, we manually annotate 1,100 sentences in eleven languages, including low-resource ones. Finally, we assess our dataset’s quality, showcasing the performance gap reduction across languages in Semantic Parsing.",
     "year": 2024,
     "venue": "ACL 2024",
     "doi": "https://doi.org/10.18653/v1/2024.findings-acl.836",
