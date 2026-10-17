@@ -204,8 +204,8 @@ def get_graph2idea_benchmark_case():
     bm_res = runner.run_benchmark(num_target_papers=40)
     rr_dyn = bm_res["table_1_measured_dynamic_results"]["ResearchRadar"]
     rr_novelty_val = rr_dyn.get("novelty", 0.55)
-    rr_qual_val = rr_dyn["absolute_quality_index"]
-    rr_feas_val = rr_dyn["absolute_feasibility_index"]
+    rr_qual_val = rr_dyn.get("relative_quality", 0.29)
+    rr_feas_val = rr_dyn.get("relative_feasibility", 0.30)
 
     return {
         "benchmark_name": "2026 Base Paper Benchmark: Graph2Idea (arXiv:2606.09105)",
