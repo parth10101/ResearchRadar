@@ -492,12 +492,8 @@ export const HeroSection: React.FC<Props> = ({
 
   const handleExecuteSearch = (targetQuery?: string, targetDatasetId?: string) => {
     if (isExecuting || isRunning) return;
-    const q = (targetQuery !== undefined ? targetQuery : (isIeeeMode ? composedFullQuery : query)).trim();
+    const q = (targetQuery !== undefined ? targetQuery : (isIeeeMode ? composedFullQuery : (query.trim() ? query : composedFullQuery))).trim();
     if (!q) return;
-
-    if (!isIeeeMode && targetQuery === undefined) {
-      setQuery(q);
-    }
 
     const holdoutYear = temporalHoldout ? '-2023' : undefined;
 
@@ -577,327 +573,8 @@ export const HeroSection: React.FC<Props> = ({
 
         {/* Architectural Search Command Unit */}
         <div className="search-deck-unit" onClick={(e) => e.stopPropagation()}>
-          {/* Mode Switcher: Standard Inquiry vs IEEE Xplore 3-Bar Boolean */}
-          <div className="ieee-mode-bar">
-            <div className="ieee-mode-switch-group">
-              <button
-                type="button"
-                className={`ieee-mode-btn ${!isIeeeMode ? 'active' : ''}`}
-                onClick={() => handleToggleIeeeMode(false)}
-              >
-                <Search className="h-3 w-3" />
-                <span>Standard Search (1 Bar)</span>
-              </button>
-              <button
-                type="button"
-                className={`ieee-mode-btn ${isIeeeMode ? 'active' : ''}`}
-                onClick={() => handleToggleIeeeMode(true)}
-              >
-                <Compass className="h-3 w-3 text-[#ff4300]" />
-                <span>Main Bar + 3 Condition Bars</span>
-                <span className="ieee-badge">AND / OR / NOT</span>
-              </button>
-            </div>
-
-            {isIeeeMode && (
-              <span className="text-[10px] font-mono tracking-wider text-zinc-400">
-                ALL FILLED BARS DELIVERED DIRECTLY TO S2
-              </span>
-            )}
-          </div>
-
-          {isIeeeMode ? (
-            /* 4-Bar IEEE Boolean Search Deck (Main Query + 3 Optional Condition Bars) */
-            <div className="ieee-deck-container">
-              {/* Row 0: Main Search Bar (Primary Query) */}
-              <div className="ieee-row border-white/20 bg-white/[0.05]">
-                <div className="ieee-row-prefix text-[#ff4300] font-bold">MAIN BAR</div>
-                <input
-                  type="text"
-                  className="ieee-input-field font-medium text-white placeholder:text-zinc-500"
-                  placeholder="Main research topic or inquiry (e.g. Federated Learning)..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  disabled={isExecuting}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
-                      e.preventDefault();
-                      handleExecuteSearch(composedFullQuery);
-                    }
-                  }}
-                />
-                {query && (
-                  <button
-                    type="button"
-                    onClick={() => setQuery('')}
-                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
-                    title="Clear Main Bar"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Optional Condition Bars Divider */}
-              <div className="flex items-center justify-between text-[10px] font-mono tracking-wider px-1 py-0.5 text-zinc-400">
-                <span>3 OPTIONAL CONDITION BARS (NONE COMPULSORY)</span>
-                <span className="text-zinc-500">SELECT 1, 2, OR 3 TO REFINE</span>
-              </div>
-
-              {/* Row 1: Operator 0 + Condition Term 1 */}
-              <div className="ieee-row">
-                <select
-                  className="ieee-operator-dropdown"
-                  value={ieeeOp0}
-                  onChange={(e) => setIeeeOp0(e.target.value as any)}
-                  disabled={isExecuting}
-                  title="Select Boolean Operator for Condition Bar 1 (AND / OR / NOT)"
-                >
-                  <option value="AND">AND</option>
-                  <option value="OR">OR</option>
-                  <option value="NOT">NOT</option>
-                </select>
-                <input
-                  type="text"
-                  className="ieee-input-field"
-                  placeholder="Condition 1 (Optional, e.g. Differential Privacy)"
-                  value={ieeeTerm1}
-                  onChange={(e) => setIeeeTerm1(e.target.value)}
-                  disabled={isExecuting}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
-                      e.preventDefault();
-                      handleExecuteSearch(composedFullQuery);
-                    }
-                  }}
-                />
-                {ieeeTerm1 && (
-                  <button
-                    type="button"
-                    onClick={() => setIeeeTerm1('')}
-                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
-                    title="Clear Condition 1"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Row 2: Operator 1 + Condition Term 2 */}
-              <div className="ieee-row">
-                <select
-                  className="ieee-operator-dropdown"
-                  value={ieeeOp1}
-                  onChange={(e) => setIeeeOp1(e.target.value as any)}
-                  disabled={isExecuting}
-                  title="Select Boolean Operator for Condition Bar 2 (AND / OR / NOT)"
-                >
-                  <option value="AND">AND</option>
-                  <option value="OR">OR</option>
-                  <option value="NOT">NOT</option>
-                </select>
-                <input
-                  type="text"
-                  className="ieee-input-field"
-                  placeholder="Condition 2 (Optional, e.g. Edge devices)"
-                  value={ieeeTerm2}
-                  onChange={(e) => setIeeeTerm2(e.target.value)}
-                  disabled={isExecuting}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
-                      e.preventDefault();
-                      handleExecuteSearch(composedFullQuery);
-                    }
-                  }}
-                />
-                {ieeeTerm2 && (
-                  <button
-                    type="button"
-                    onClick={() => setIeeeTerm2('')}
-                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
-                    title="Clear Condition 2"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Row 3: Operator 2 + Condition Term 3 */}
-              <div className="ieee-row">
-                <select
-                  className="ieee-operator-dropdown"
-                  value={ieeeOp2}
-                  onChange={(e) => setIeeeOp2(e.target.value as any)}
-                  disabled={isExecuting}
-                  title="Select Boolean Operator for Condition Bar 3 (AND / OR / NOT)"
-                >
-                  <option value="NOT">NOT</option>
-                  <option value="AND">AND</option>
-                  <option value="OR">OR</option>
-                </select>
-                <input
-                  type="text"
-                  className="ieee-input-field"
-                  placeholder="Condition 3 (Optional, e.g. Medical / Healthcare)"
-                  value={ieeeTerm3}
-                  onChange={(e) => setIeeeTerm3(e.target.value)}
-                  disabled={isExecuting}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
-                      e.preventDefault();
-                      handleExecuteSearch(composedFullQuery);
-                    }
-                  }}
-                />
-                {ieeeTerm3 && (
-                  <button
-                    type="button"
-                    onClick={() => setIeeeTerm3('')}
-                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
-                    title="Clear Condition 3"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Real-time Boolean Expression Preview */}
-              <div className="ieee-preview-strip">
-                <span className="ieee-preview-label">Expression sent to S2:</span>
-                <span className="ieee-preview-formula">
-                  {composedFullQuery || '(Enter main topic or optional conditions above)'}
-                </span>
-              </div>
-
-              {/* Footer Controls */}
-              <div className="ieee-footer-actions">
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    className={`ieee-clear-btn flex items-center gap-1.5 transition-colors ${
-                      temporalHoldout 
-                        ? 'border-emerald-500/50 text-emerald-400 bg-emerald-500/10 hover:border-emerald-400' 
-                        : 'hover:text-zinc-300'
-                    }`}
-                    onClick={() => setTemporalHoldout(!temporalHoldout)}
-                    disabled={isExecuting}
-                    title="Constrain training corpus strictly to literature <= 2023 for empirical realization proof"
-                  >
-                    <span className={`inline-block w-1.5 h-1.5 rounded-full ${temporalHoldout ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-600'}`} />
-                    <span>Temporal Holdout (≤ 2023)</span>
-                  </button>
-                  <button
-                    type="button"
-                    className="ieee-clear-btn"
-                    onClick={() => {
-                      setQuery('');
-                      setIeeeTerm1('');
-                      setIeeeTerm2('');
-                      setIeeeTerm3('');
-                    }}
-                    disabled={isExecuting}
-                  >
-                    Clear All 4 Bars
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  {/* Corpus Retrieval Depth Selector */}
-                  <div className="corpus-anchor-wrap">
-                    <button
-                      type="button"
-                      className={`corpus-tier-trigger-btn ${corpusMenuOpen ? 'active' : ''}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCorpusMenuOpen(!corpusMenuOpen);
-                        setDropOpen(false);
-                        setFieldMenuOpen(false);
-                      }}
-                      title="Configure target corpus retrieval depth"
-                    >
-                      <SlidersHorizontal className="h-3 w-3 text-[#ff4300]" />
-                      <span className="corpus-pill-val">{currentTier.label}</span>
-                      <span className="corpus-k-hint">⌘K</span>
-                      <ChevronDown className="h-3 w-3 opacity-60" />
-                    </button>
-
-                    {corpusMenuOpen && (
-                      <div
-                        className="corpus-tiers-tray overflow-y-auto custom-scrollbar"
-                        data-scrollable
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <div className="corpus-tray-header">
-                          <span>CORPUS RETRIEVAL DEPTH</span>
-                          <span className="corpus-current-badge">{selectedCorpus} papers</span>
-                        </div>
-
-                        <div className="corpus-tiers-list">
-                          {CORPUS_TIERS.map((tier) => {
-                            const isSelected = selectedCorpus === tier.value;
-                            const isRecommended = recommendedCorpusValue === tier.value;
-
-                            return (
-                              <div
-                                key={tier.value}
-                                className={`corpus-tier-row ${isSelected ? 'selected' : ''} ${isRecommended ? 'recommended' : ''}`}
-                                onClick={() => {
-                                  setSelectedCorpus(tier.value);
-                                  setCorpusMenuOpen(false);
-                                }}
-                              >
-                                <div className="tier-left">
-                                  <span className="tier-number">{tier.label}</span>
-                                  <div className="tier-meta">
-                                    <span className="tier-name">{tier.name}</span>
-                                    <span className="tier-time">{tier.estTime}</span>
-                                  </div>
-                                </div>
-
-                                <div className="tier-right">
-                                  {isRecommended && (
-                                    <span className="recommended-flag">
-                                      <Zap className="h-2.5 w-2.5" />
-                                      <span>Recommended</span>
-                                    </span>
-                                  )}
-                                  {isSelected && <Check className="h-3.5 w-3.5 text-[#ff4300]" />}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <button
-                    type="button"
-                    className="ieee-search-submit-btn"
-                    onClick={() => {
-                      if (composedFullQuery) {
-                        handleExecuteSearch(composedFullQuery);
-                      }
-                    }}
-                    disabled={isExecuting || !composedFullQuery}
-                  >
-                    {isExecuting ? (
-                      <>
-                        <RotateCw className="h-3.5 w-3.5 animate-spin text-white" />
-                        <span>Fetching Papers...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Search className="h-3.5 w-3.5" />
-                        <span>Fetch Papers</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="search-input-shell">
+          {/* Main Search Bar - Always Visible and Editable */}
+          <div className="search-input-shell">
             {/* Presets Trigger */}
             <div className="presets-select-anchor">
               <button
@@ -914,149 +591,333 @@ export const HeroSection: React.FC<Props> = ({
                 <span className="caret">▾</span>
               </button>
 
-                {dropOpen && (
-                  <div
-                    className="presets-floating-tray overflow-y-auto custom-scrollbar"
-                    data-scrollable
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="tray-hdr">CURATED SOTA CORPORA</div>
-                    {PRESETS.map((p) => (
-                      <div
-                        key={p.value}
-                        className="tray-row"
-                        onClick={() => {
-                          setQuery(p.value);
-                          setDropOpen(false);
-                          handleExecuteSearch(p.value, p.datasetId);
-                        }}
-                      >
-                        <span className="row-label">{p.label}</span>
-                        <span className="row-meta">{p.count} papers</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="bar-v-sep" />
-
-              {/* Input */}
-              <input
-                type="text"
-                className="search-field"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                disabled={isExecuting}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !isExecuting && query.trim()) {
-                    e.preventDefault();
-                    handleExecuteSearch();
-                  }
-                }}
-                placeholder="Search topic, paper title, author, or DOI..."
-              />
-
-              {query && !isExecuting && (
-                <button
-                  type="button"
-                  onClick={() => setQuery('')}
-                  className="px-2 py-1 text-zinc-500 hover:text-white font-mono text-xs cursor-pointer transition-colors"
-                  title="Clear input"
+              {dropOpen && (
+                <div
+                  className="presets-floating-tray overflow-y-auto custom-scrollbar"
+                  data-scrollable
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  ✕
-                </button>
-              )}
-
-              {/* Interactive Corpus Depth Selector Button (100 to 3k) */}
-              <div className="corpus-anchor-wrap">
-                <button
-                  className={`corpus-tier-trigger-btn ${corpusMenuOpen ? 'active' : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCorpusMenuOpen(!corpusMenuOpen);
-                    setDropOpen(false);
-                    setFieldMenuOpen(false);
-                  }}
-                  title="Configure target corpus retrieval depth"
-                >
-                  <SlidersHorizontal className="h-3 w-3 text-[#ff4300]" />
-                  <span className="corpus-pill-val">{currentTier.label}</span>
-                  <span className="corpus-k-hint">⌘K</span>
-                  <ChevronDown className="h-3 w-3 opacity-60" />
-                </button>
-
-                {/* Floating Corpus Tiers Popover */}
-                {corpusMenuOpen && (
-                  <div
-                    className="corpus-tiers-tray overflow-y-auto custom-scrollbar"
-                    data-scrollable
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="corpus-tray-header">
-                      <span>CORPUS RETRIEVAL DEPTH</span>
-                      <span className="corpus-current-badge">{selectedCorpus} papers</span>
+                  <div className="tray-hdr">CURATED SOTA CORPORA</div>
+                  {PRESETS.map((p) => (
+                    <div
+                      key={p.value}
+                      className="tray-row"
+                      onClick={() => {
+                        setQuery(p.value);
+                        setDropOpen(false);
+                        handleExecuteSearch(p.value, p.datasetId);
+                      }}
+                    >
+                      <span className="row-label">{p.label}</span>
+                      <span className="row-meta">{p.count} papers</span>
                     </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
-                    <div className="corpus-tiers-list">
-                      {CORPUS_TIERS.map((tier) => {
-                        const isSelected = selectedCorpus === tier.value;
-                        const isRecommended = recommendedCorpusValue === tier.value;
+            <div className="bar-v-sep" />
 
-                        return (
-                          <div
-                            key={tier.value}
-                            className={`corpus-tier-row ${isSelected ? 'selected' : ''} ${isRecommended ? 'recommended' : ''}`}
-                            onClick={() => {
-                              setSelectedCorpus(tier.value);
-                              setCorpusMenuOpen(false);
-                            }}
-                          >
-                            <div className="tier-left">
-                              <span className="tier-number">{tier.label}</span>
-                              <div className="tier-meta">
-                                <span className="tier-name">{tier.name}</span>
-                                <span className="tier-time">{tier.estTime}</span>
-                              </div>
-                            </div>
+            {/* Main Search Input */}
+            <input
+              type="text"
+              className="search-field"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              disabled={isExecuting}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !isExecuting && composedFullQuery.trim()) {
+                  e.preventDefault();
+                  handleExecuteSearch(composedFullQuery);
+                }
+              }}
+              placeholder="Search main topic, paper title, author, or DOI..."
+            />
 
-                            <div className="tier-right">
-                              {isRecommended && (
-                                <span className="recommended-flag">
-                                  <Zap className="h-2.5 w-2.5" />
-                                  <span>Recommended</span>
-                                </span>
-                              )}
-                              {isSelected && <Check className="h-3.5 w-3.5 text-[#ff4300]" />}
+            {query && !isExecuting && (
+              <button
+                type="button"
+                onClick={() => setQuery('')}
+                className="px-2 py-1 text-zinc-500 hover:text-white font-mono text-xs cursor-pointer transition-colors"
+                title="Clear main input"
+              >
+                ✕
+              </button>
+            )}
+
+            {/* Toggle for 3 Optional Condition Bars */}
+            <button
+              type="button"
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 border cursor-pointer select-none ${
+                isIeeeMode
+                  ? 'bg-[#ff4300]/15 text-[#ff8a50] border-[#ff4300]/40'
+                  : 'bg-white/[0.04] text-zinc-400 border-white/10 hover:text-white hover:border-white/20'
+              }`}
+              onClick={() => setIsIeeeMode(!isIeeeMode)}
+              title="Toggle 3 optional condition bars (AND / OR / NOT)"
+            >
+              <span>{isIeeeMode ? '− Hide Conditions' : '+ Conditions (AND / OR / NOT)'}</span>
+              {(ieeeTerm1.trim() || ieeeTerm2.trim() || ieeeTerm3.trim()) && (
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ff4300]" />
+              )}
+            </button>
+
+            {/* Interactive Corpus Depth Selector Button (100 to 3k) */}
+            <div className="corpus-anchor-wrap">
+              <button
+                className={`corpus-tier-trigger-btn ${corpusMenuOpen ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCorpusMenuOpen(!corpusMenuOpen);
+                  setDropOpen(false);
+                  setFieldMenuOpen(false);
+                }}
+                title="Configure target corpus retrieval depth"
+              >
+                <SlidersHorizontal className="h-3 w-3 text-[#ff4300]" />
+                <span className="corpus-pill-val">{currentTier.label}</span>
+                <span className="corpus-k-hint">⌘K</span>
+                <ChevronDown className="h-3 w-3 opacity-60" />
+              </button>
+
+              {/* Floating Corpus Tiers Popover */}
+              {corpusMenuOpen && (
+                <div
+                  className="corpus-tiers-tray overflow-y-auto custom-scrollbar"
+                  data-scrollable
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="corpus-tray-header">
+                    <span>CORPUS RETRIEVAL DEPTH</span>
+                    <span className="corpus-current-badge">{selectedCorpus} papers</span>
+                  </div>
+
+                  <div className="corpus-tiers-list">
+                    {CORPUS_TIERS.map((tier) => {
+                      const isSelected = selectedCorpus === tier.value;
+                      const isRecommended = recommendedCorpusValue === tier.value;
+
+                      return (
+                        <div
+                          key={tier.value}
+                          className={`corpus-tier-row ${isSelected ? 'selected' : ''} ${isRecommended ? 'recommended' : ''}`}
+                          onClick={() => {
+                            setSelectedCorpus(tier.value);
+                            setCorpusMenuOpen(false);
+                          }}
+                        >
+                          <div className="tier-left">
+                            <span className="tier-number">{tier.label}</span>
+                            <div className="tier-meta">
+                              <span className="tier-name">{tier.name}</span>
+                              <span className="tier-time">{tier.estTime}</span>
                             </div>
                           </div>
-                        );
-                      })}
-                    </div>
+
+                          <div className="tier-right">
+                            {isRecommended && (
+                              <span className="recommended-flag">
+                                <Zap className="h-2.5 w-2.5" />
+                                <span>Recommended</span>
+                              </span>
+                            )}
+                            {isSelected && <Check className="h-3.5 w-3.5 text-[#ff4300]" />}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
+                </div>
+              )}
+            </div>
+
+            {/* Action Button */}
+            <button
+              className={`search-act-btn ${isExecuting ? 'opacity-90 cursor-wait' : ''}`}
+              onClick={() => {
+                if (composedFullQuery.trim()) {
+                  handleExecuteSearch(composedFullQuery);
+                }
+              }}
+              disabled={isExecuting || !composedFullQuery.trim()}
+            >
+              {isExecuting ? (
+                <>
+                  <RotateCw className="h-3.5 w-3.5 animate-spin text-white" />
+                  <span>Fetching Papers...</span>
+                </>
+              ) : (
+                <>
+                  <Search className="h-3.5 w-3.5" />
+                  <span>Fetch Papers</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* 3 Optional Condition Bars Tray (Directly Below Main Search Bar) */}
+          {isIeeeMode && (
+            <div className="ieee-deck-container mt-2 animate-fadeIn">
+              <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 px-1 pb-1">
+                <span className="font-semibold text-zinc-300">3 OPTIONAL CONDITION BARS (NONE COMPULSORY)</span>
+                <span className="text-[#ff8a50]">ALL FILLED BARS SENT TO S2</span>
+              </div>
+
+              {/* Condition Bar 1 */}
+              <div className="ieee-row">
+                <select
+                  className="ieee-operator-dropdown"
+                  value={ieeeOp0}
+                  onChange={(e) => setIeeeOp0(e.target.value as any)}
+                  disabled={isExecuting}
+                  title="Select Boolean Operator for Condition Bar 1 (AND / OR / NOT)"
+                >
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                <input
+                  type="text"
+                  className="ieee-input-field"
+                  placeholder="Condition 1 (Optional — e.g. Differential Privacy)"
+                  value={ieeeTerm1}
+                  onChange={(e) => setIeeeTerm1(e.target.value)}
+                  disabled={isExecuting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isExecuting && composedFullQuery.trim()) {
+                      e.preventDefault();
+                      handleExecuteSearch(composedFullQuery);
+                    }
+                  }}
+                />
+                {ieeeTerm1 && (
+                  <button
+                    type="button"
+                    onClick={() => setIeeeTerm1('')}
+                    className="text-zinc-500 hover:text-white font-mono text-xs px-1.5 py-0.5 rounded hover:bg-white/10"
+                    title="Clear Condition 1"
+                  >
+                    ✕
+                  </button>
                 )}
               </div>
 
-              {/* Action Button */}
-              <button
-                className={`search-act-btn ${isExecuting ? 'opacity-90 cursor-wait' : ''}`}
-                onClick={() => handleExecuteSearch()}
-                disabled={isExecuting || !query.trim()}
-              >
-                {isExecuting ? (
-                  <>
-                    <RotateCw className="h-3.5 w-3.5 animate-spin text-white" />
-                    <span>Fetching Papers...</span>
-                  </>
-                ) : (
-                  <>
-                    <Search className="h-3.5 w-3.5" />
-                    <span>Fetch Papers</span>
-                  </>
+              {/* Condition Bar 2 */}
+              <div className="ieee-row">
+                <select
+                  className="ieee-operator-dropdown"
+                  value={ieeeOp1}
+                  onChange={(e) => setIeeeOp1(e.target.value as any)}
+                  disabled={isExecuting}
+                  title="Select Boolean Operator for Condition Bar 2 (AND / OR / NOT)"
+                >
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                <input
+                  type="text"
+                  className="ieee-input-field"
+                  placeholder="Condition 2 (Optional — e.g. Edge devices)"
+                  value={ieeeTerm2}
+                  onChange={(e) => setIeeeTerm2(e.target.value)}
+                  disabled={isExecuting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isExecuting && composedFullQuery.trim()) {
+                      e.preventDefault();
+                      handleExecuteSearch(composedFullQuery);
+                    }
+                  }}
+                />
+                {ieeeTerm2 && (
+                  <button
+                    type="button"
+                    onClick={() => setIeeeTerm2('')}
+                    className="text-zinc-500 hover:text-white font-mono text-xs px-1.5 py-0.5 rounded hover:bg-white/10"
+                    title="Clear Condition 2"
+                  >
+                    ✕
+                  </button>
                 )}
-              </button>
+              </div>
+
+              {/* Condition Bar 3 */}
+              <div className="ieee-row">
+                <select
+                  className="ieee-operator-dropdown"
+                  value={ieeeOp2}
+                  onChange={(e) => setIeeeOp2(e.target.value as any)}
+                  disabled={isExecuting}
+                  title="Select Boolean Operator for Condition Bar 3 (AND / OR / NOT)"
+                >
+                  <option value="NOT">NOT</option>
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                </select>
+                <input
+                  type="text"
+                  className="ieee-input-field"
+                  placeholder="Condition 3 (Optional — e.g. Medical / Healthcare)"
+                  value={ieeeTerm3}
+                  onChange={(e) => setIeeeTerm3(e.target.value)}
+                  disabled={isExecuting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isExecuting && composedFullQuery.trim()) {
+                      e.preventDefault();
+                      handleExecuteSearch(composedFullQuery);
+                    }
+                  }}
+                />
+                {ieeeTerm3 && (
+                  <button
+                    type="button"
+                    onClick={() => setIeeeTerm3('')}
+                    className="text-zinc-500 hover:text-white font-mono text-xs px-1.5 py-0.5 rounded hover:bg-white/10"
+                    title="Clear Condition 3"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Expression Preview & Actions */}
+              <div className="ieee-preview-strip">
+                <div className="flex items-center gap-2 overflow-hidden flex-1">
+                  <span className="ieee-preview-label shrink-0">Expression sent to S2:</span>
+                  <span className="ieee-preview-formula truncate">
+                    {composedFullQuery || '(Enter main topic or conditions)'}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <button
+                    type="button"
+                    className={`text-xs font-mono transition-colors flex items-center gap-1.5 ${
+                      temporalHoldout
+                        ? 'text-emerald-400'
+                        : 'text-zinc-400 hover:text-zinc-200'
+                    }`}
+                    onClick={() => setTemporalHoldout(!temporalHoldout)}
+                    title="Constrain training corpus strictly to literature <= 2023"
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${temporalHoldout ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-600'}`} />
+                    <span>≤ 2023 Holdout</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+                    onClick={() => {
+                      setIeeeTerm1('');
+                      setIeeeTerm2('');
+                      setIeeeTerm3('');
+                    }}
+                  >
+                    Clear Conditions
+                  </button>
+                </div>
+              </div>
             </div>
           )}
+
 
             {/* Real-time Boolean Conjunction Audit Pill */}
             {booleanAudit && (

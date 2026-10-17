@@ -11,28 +11,25 @@ import time
 from pathlib import Path
 from filelock import FileLock
 
-STATE_PATH = Path.cwd() / "data" / "cache" / ".s2_rate_state.json"
-LOCK_PATH = Path.cwd() / "data" / "cache" / ".s2_rate.lock"
+ROOT_DIR = Path(__file__).resolve().parent.parent
+STATE_PATH = ROOT_DIR / "data" / "cache" / ".s2_rate_state.json"
+LOCK_PATH = ROOT_DIR / "data" / "cache" / ".s2_rate.lock"
 
-BASE_DELAY = 2.0       # calibrated gap between S2 bulk requests
-MIN_DELAY = 2.0        # safe floor for S2 /paper/search/bulk (prevents 429 cascades)
-MAX_DELAY = 4.0        # hard ceiling
-DECAY = 0.95           # multiplicative decrease on success
-GROWTH = 1.2           # mild increase on transient 429
+BASE_DELAY = 1.15       # calibrated gap between S2 requests (safely within S2 key rate)
+MIN_DELAY = 1.0         # safe floor
+MAX_DELAY = 3.0         # hard ceiling
+DECAY = 0.95            # multiplicative decrease on success
+GROWTH = 1.25           # mild increase on transient 429
 
 CIRCUIT_WINDOW = 20.0   # seconds
-CIRCUIT_THRESHOLD = 10  # 429s before brief pause
-CIRCUIT_COOLDOWN = 3.0  # seconds to pause if triggered
+CIRCUIT_THRESHOLD = 5   # 429s before brief pause
+CIRCUIT_COOLDOWN = 4.0  # seconds to pause if triggered
 
 
 class RateState:
     def __init__(self):
         STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
         self.lock = FileLock(str(LOCK_PATH), timeout=10)
-        # C2-fix: Only reset state when it is stale (>60s since last request) or structurally
-        # malformed. Previously this block reset last=0.0 unconditionally on every pipeline run,
-        # wiping the inter-request timestamp from the prior run. The next run's first request
-        # then fired immediately with 0s gap — a guaranteed 429 on back-to-back runs without cache.
         try:
             with self.lock:
                 existing = self._load()
@@ -47,7 +44,6 @@ class RateState:
                 )
                 if is_stale:
                     self._save_atomic({"delay": BASE_DELAY, "last": 0.0, "fail_times": [], "circuit_until": 0.0})
-                # else: preserve fresh state — back-to-back run pacing continuity maintained
         except Exception:
             pass
 
@@ -70,15 +66,13 @@ class RateState:
             state = self._load()
             now = time.time()
             circuit_until = state.get("circuit_until", 0.0)
+            delay = state.get("delay", BASE_DELAY)
+            last_time = state.get("last", 0.0)
 
-            # 1. Check circuit breaker freeze
-            wait_circuit = max(0.0, circuit_until - now)
+            # Earliest safe slot is either after circuit cooldown or after last request + delay
+            earliest_safe_time = max(last_time + delay, circuit_until)
+            scheduled_time = max(now, earliest_safe_time)
 
-            # 2. Compute pacing delay from last reserved time
-            last_time = max(state.get("last", 0.0), now)
-            scheduled_time = max(now + wait_circuit, last_time + state.get("delay", BASE_DELAY))
-
-            # 3. Reserve slot atomically before releasing lock
             state["last"] = scheduled_time
             self._save_atomic(state)
 
@@ -87,7 +81,7 @@ class RateState:
         if sleep_duration > 0:
             time.sleep(sleep_duration)
 
-        return state.get("delay", BASE_DELAY)
+        return delay
 
     def report_success(self) -> None:
         with self.lock:

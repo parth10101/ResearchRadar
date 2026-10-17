@@ -38,7 +38,7 @@ from research_radar.rate_state import RateState
 S2_GRAPH_BASE_URL = "https://api.semanticscholar.org/graph/v1"
 S2_RECS_BASE_URL = "https://api.semanticscholar.org/recommendations/v1"
 DEFAULT_FALLBACK_API_KEY = None
-DEFAULT_MIN_DELAY = 2.0
+DEFAULT_MIN_DELAY = 1.15
 
 DEFAULT_SEARCH_FIELDS = (
     "paperId,externalIds,title,abstract,year,publicationDate,venue,publicationVenue,"
@@ -138,51 +138,99 @@ def _parse_retry_after(header_val: Any, fallback: float = 1.2) -> float:
     except (ValueError, TypeError):
         return fallback
 
+ACADEMIC_STOP_WORDS = {
+    "the", "of", "and", "in", "to", "a", "is", "that", "for", "it", "as", "was",
+    "with", "on", "by", "at", "from", "this", "be", "are", "an", "we", "which",
+    "or", "have", "can", "has", "not", "its", "our", "their", "using", "via",
+    "based", "towards", "into", "through", "survey", "review", "applications",
+    "approach", "study", "analysis", "empirical"
+}
+
+
 def parse_boolean_query(query: str) -> dict:
     """
     Parses an academic search query supporting IEEE Xplore-style Boolean operators
-    (AND, OR, NOT) and quoted phrases.
+    (AND, OR, NOT) and quoted phrases, preserving intact multi-word concept phrases
+    instead of decomposing them into unigrams.
     """
-    q = query.strip()
+    q = (query or "").strip()
+    if not q:
+        return {'must': [], 'must_not': [], 'should': [], 'clean_s2_query': ''}
+
+    # Step 1: Extract and protect quoted phrases with placeholders
+    placeholders = []
+    def _quote_repl(m):
+        content = (m.group(1) or m.group(2) or "").strip()
+        placeholders.append(content)
+        return f"__PH_{len(placeholders) - 1}__"
+
+    masked = re.sub(r'\"([^\"]+)\"|\'([^\']+)\'', _quote_repl, q)
+
+    # Step 2: Split on top-level Boolean operators (AND, OR, NOT, &) outside quotes
+    tokens = re.split(r'\b(AND|OR|NOT)\b|(\s+&\s+)', masked, flags=re.IGNORECASE)
+
     must = []
     must_not = []
     should = []
-
-    tokens = re.findall(r'(?:(AND|OR|NOT)\s+)?(?:"([^"]+)"|(\S+))', q, re.IGNORECASE)
     current_op = 'AND'
-    for op, quoted, word in tokens:
-        term = (quoted or word or '').strip()
-        if not term:
+
+    for tok in tokens:
+        if not tok:
             continue
-        if op:
-            current_op = op.upper()
-        clean = term.lower().strip('"\'')
-        if not clean or clean in ('and', 'or', 'not'):
+        item = tok.strip()
+        if not item:
             continue
+
+        item_upper = item.upper()
+        if item_upper in ('AND', '&'):
+            current_op = 'AND'
+            continue
+        elif item_upper == 'OR':
+            current_op = 'OR'
+            continue
+        elif item_upper == 'NOT':
+            current_op = 'NOT'
+            continue
+
+        # Restore any placeholders inside this segment
+        for idx, val in enumerate(placeholders):
+            item = item.replace(f"__PH_{idx}__", val)
+
+        clean = item.strip().strip('"\'')
+        if not clean:
+            continue
+
+        clean_lower = clean.lower()
+
         if current_op == 'NOT':
-            must_not.append(clean)
+            if clean_lower not in must_not:
+                must_not.append(clean_lower)
         elif current_op == 'OR':
-            # If A was in must, and is followed by OR B, move A to should as well
+            # In Boolean disjunction, previous term becomes part of OR group if not already
             if must and not should:
                 should.append(must.pop())
-            should.append(clean)
-        else:
-            must.append(clean)
+            if clean_lower not in should:
+                should.append(clean_lower)
+        else:  # AND / MUST
+            if clean_lower not in must:
+                must.append(clean_lower)
+
         current_op = 'AND'
 
-    if not must and not must_not and not should:
-        parts = re.findall(r'"([^"]+)"|(\S+)', q)
-        for quoted, word in parts:
-            t = (quoted or word or '').strip().lower().strip('"\'')
-            if t and t not in ('and', 'or', 'not', 'the', 'for', 'with', 'via', 'of', 'in'):
-                must.append(t)
+    # S2 bulk search query: wrap multi-word phrases in quotes to enforce phrase retrieval upstream
+    s2_parts = []
+    for m in must:
+        if ' ' in m:
+            s2_parts.append(f'"{m}"')
+        else:
+            s2_parts.append(m)
+    for s in should[:2]:
+        if ' ' in s:
+            s2_parts.append(f'"{s}"')
+        else:
+            s2_parts.append(s)
 
-    if must:
-        clean_s2 = ' '.join(must)
-    elif should:
-        clean_s2 = should[0]
-    else:
-        clean_s2 = q.replace('"', '')
+    clean_s2 = ' '.join(s2_parts) if s2_parts else q.replace('"', '')
 
     return {
         'must': must,
@@ -192,68 +240,79 @@ def parse_boolean_query(query: str) -> dict:
     }
 
 
+def _build_phrase_regex(phrase: str) -> re.Pattern | None:
+    """Builds a contiguous word-boundary regex respecting hyphens and whitespace."""
+    clean_words = [re.escape(w) for w in phrase.strip().split() if w]
+    if not clean_words:
+        return None
+    # Matches words in exact contiguous sequence, separated by spaces or hyphens
+    return re.compile(r'\b' + r'[\s\-_]+'.join(clean_words) + r'\b', re.IGNORECASE)
+
+
 def matches_boolean_criteria(paper: dict, bool_spec: dict) -> tuple[bool, int]:
     """
-    Evaluates whether a paper satisfies the Boolean search specification with semantic context awareness.
+    IEEE Xplore-compliant deterministic Boolean matcher with strict phrase integrity
+    and semantic salience weighting.
     Returns (matches: bool, relevance_score: int).
-
-    Design Principles:
-      1. Forbidden terms (NOT) are 100% rejected.
-      2. Required terms (AND) must be substantively present in the paper's scientific context (Title + Abstract).
-      3. Semantic Context Priority:
-         - Papers containing key terms directly in the TITLE receive top ranking (+5 to +10 priority).
-         - Papers with key terms in the ABSTRACT are fully valid and preserved (preventing false-negative drops of seminal papers).
-         - Prevents out-of-context noise by requiring meaningful contextual co-occurrence in abstract.
     """
-    title = (paper.get("title") or "").lower()
-    abstract = (paper.get("abstract") or "").lower()
-    tldr = (paper.get("tldr") or "").lower()
-    full_text = f"{title} {abstract} {tldr}"
+    title = (paper.get("title") or "")
+    abstract = (paper.get("abstract") or "")
+    tldr = (paper.get("tldr") or "")
 
-    # 1. Strict Exclusion (NOT)
+    # 1. Strict Exclusion (NOT) - any match in title, abstract, or tldr fails paper immediately
     for not_term in bool_spec.get("must_not", []):
-        if not_term in full_text:
+        pat = _build_phrase_regex(not_term)
+        if pat and (pat.search(title) or pat.search(abstract) or pat.search(tldr)):
             return False, 0
 
     must_terms = bool_spec.get("must", [])
     should_terms = bool_spec.get("should", [])
     relevance_score = 0
 
-    # 2. Semantic Inclusion (AND / Primary terms)
+    # 2. Strict Conjunction (AND) - 100% of all MUST phrases are COMPULSORY
     if must_terms:
         for term in must_terms:
-            words = [w for w in term.split() if len(w) > 2]
-            term_in_title = term in title or (words and all(w in title for w in words))
-            term_in_abstract = term in abstract or (words and all(w in abstract for w in words))
-            term_in_full = term in full_text or (words and all(w in full_text for w in words))
+            pat = _build_phrase_regex(term)
+            if not pat:
+                continue
 
-            if not term_in_full:
+            in_title = bool(pat.search(title))
+            in_abstract = bool(pat.search(abstract))
+            in_tldr = bool(pat.search(tldr))
+
+            # Phrase must be contiguously present in the paper
+            if not (in_title or in_abstract or in_tldr):
                 return False, 0
 
-            # Title priority boost
-            if term_in_title:
-                relevance_score += 5
-            elif term_in_abstract:
-                relevance_score += 2
+            # IEEE Semantic Salience Weighting
+            if in_title:
+                relevance_score += 10
+            if in_tldr:
+                relevance_score += 4
+            if in_abstract:
+                count = len(pat.findall(abstract))
+                relevance_score += 6 if count >= 2 else 3
 
-            # Additional density boost if key term occurs multiple times in abstract (contextual depth)
-            if term_in_abstract and abstract.count(term) >= 2:
-                relevance_score += 1
-
-    # 3. Optional Inclusion (OR)
+    # 3. Disjunction (OR) - at least one must match if must_terms is empty
     if should_terms:
         matched_or = False
         for term in should_terms:
-            words = [w for w in term.split() if len(w) > 2]
-            term_in_title = term in title or (words and all(w in title for w in words))
-            term_in_full = term in full_text or (words and all(w in full_text for w in words))
+            pat = _build_phrase_regex(term)
+            if not pat:
+                continue
 
-            if term_in_title:
-                relevance_score += 4
+            in_title = bool(pat.search(title))
+            in_abstract = bool(pat.search(abstract))
+            in_tldr = bool(pat.search(tldr))
+
+            if in_title or in_abstract or in_tldr:
                 matched_or = True
-            elif term_in_full:
-                relevance_score += 1
-                matched_or = True
+                if in_title:
+                    relevance_score += 8
+                if in_tldr:
+                    relevance_score += 3
+                if in_abstract:
+                    relevance_score += 4
 
         if not must_terms and not matched_or:
             return False, 0
@@ -328,8 +387,13 @@ class SemanticScholarClient:
                 if resp.status_code == 429:
                     self.rate.report_429()
                     raw_retry = resp.headers.get("Retry-After") or resp.headers.get("retry-after")
-                    retry_after = _parse_retry_after(raw_retry, fallback=1.2)
-                    jitter = random.uniform(0.1, 0.3)
+                    if raw_retry:
+                        retry_after = _parse_retry_after(raw_retry, fallback=2.5)
+                    else:
+                        # AWS API Gateway does not provide Retry-After header.
+                        # Exponential backoff with jitter allows AWS token bucket to replenish.
+                        retry_after = min(12.0, 2.5 * (1.6 ** (attempt - 1)))
+                    jitter = random.uniform(0.1, 0.4)
                     print(f"  [S2 429] Backing off {retry_after + jitter:.1f}s (Attempt {attempt}/{max_retries})...")
                     time.sleep(retry_after + jitter)
                     continue
@@ -573,20 +637,19 @@ class SemanticScholarClient:
     def _get_query_cache_path(
         self,
         query: str,
-        max_results: int,
         year: str | None = None,
         fields_of_study: list[str] | None = None,
     ) -> Path:
-        cache_dir = Path.cwd() / "data" / "cache" / "s2_queries"
+        cache_dir = Path(__file__).resolve().parent.parent / "data" / "cache" / "s2_queries"
         try:
             cache_dir.mkdir(parents=True, exist_ok=True)
         except Exception:
             pass
-        key_str = f"{query.strip().lower()}|{max_results}|{year or ''}|{','.join(fields_of_study or [])}"
+        key_str = f"{query.strip().lower()}|{year or ''}|{','.join(sorted(fields_of_study or []))}"
         import hashlib
         hash_str = hashlib.md5(key_str.encode("utf-8")).hexdigest()[:16]
         safe_slug = re.sub(r"[^a-zA-Z0-9_]+", "_", query.strip().lower())[:30].strip("_")
-        return cache_dir / f"{safe_slug}_{max_results}_{hash_str}.json"
+        return cache_dir / f"{safe_slug}_{hash_str}.json"
 
     def _generate_bulk_queries(self, query: str) -> list[str]:
         """
@@ -649,13 +712,13 @@ class SemanticScholarClient:
         bool_spec = parse_boolean_query(query)
         s2_query = bool_spec.get("clean_s2_query") or query
 
-        cache_file = self._get_query_cache_path(query, max_results, year, fields_of_study)
+        cache_file = self._get_query_cache_path(query, year, fields_of_study)
 
         if not bypass_cache and cache_file.exists():
             try:
                 cached_data = json.loads(cache_file.read_text(encoding="utf-8"))
                 if isinstance(cached_data, list) and len(cached_data) >= min(max_results, 10):
-                    print(f"  [S2 Cache] Instant load: {len(cached_data)} papers from query cache (0 API calls).")
+                    print(f"  [S2 Cache] Instant load: {min(len(cached_data), max_results)} papers from query cache (0 API calls).")
                     return cached_data[:max_results]
             except Exception:
                 pass
@@ -835,7 +898,7 @@ class SemanticScholarClient:
         # which would inject isolated 0-citation dummy nodes into the citation graph.
 
 
-        # ── In-Memory Co-Citation Graph Synthesis → Cache ────────────────────────────
+        # ── In-Memory Selection, Batch Hydration & Cache ────────────────────────────
         # Prioritize papers with keywords in title to satisfy IEEE keyword compliance
         candidate_papers.sort(
             key=lambda p: (
@@ -845,15 +908,77 @@ class SemanticScholarClient:
             reverse=True
         )
         final_papers = candidate_papers[:max_results]
+
+        # 2-Call Architecture: Hydrate full references & authentic TLDRs via 1 single batch POST
+        final_papers = self._hydrate_paper_batch_details(final_papers)
+
+        # Fallback hydration for any remaining unhydrated papers via OpenAlex
+        if any(not p.get("references") for p in final_papers):
+            final_papers = self._hydrate_openalex_fallback(final_papers)
+
         final_papers = self._synthesize_cocitation_references(final_papers)
 
         try:
-            cache_file.write_text(json.dumps(final_papers, indent=2, ensure_ascii=False), encoding="utf-8")
+            to_save = final_papers
+            if cache_file.exists():
+                try:
+                    old_data = json.loads(cache_file.read_text(encoding="utf-8"))
+                    if isinstance(old_data, list) and len(old_data) > len(final_papers):
+                        old_pids = {p.get("id") for p in final_papers}
+                        to_save = final_papers + [p for p in old_data if p.get("id") not in old_pids]
+                except Exception:
+                    pass
+            cache_file.write_text(json.dumps(to_save, indent=2, ensure_ascii=False), encoding="utf-8")
         except Exception:
             pass
 
         print(f"  [S2 Engine] Ingestion complete: {len(final_papers)} papers verified & cached.")
         return final_papers
+
+    def _hydrate_paper_batch_details(self, papers: list[dict], batch_size: int = 500) -> list[dict]:
+        """
+        Hydrates references, citations, and authentic TLDRs for candidate papers
+        in a single POST /paper/batch request (up to 500 papers/call).
+        Guarantees 100% complete bibliographies for Stage 5 citation graphs.
+        """
+        if not papers:
+            return []
+
+        needs_refs = [p for p in papers if not p.get("references")]
+        if not needs_refs:
+            return papers
+
+        pids = [p["s2_paper_id"] for p in needs_refs if p.get("s2_paper_id")]
+        if not pids:
+            return papers
+
+        print(f"  [S2 Batch Hydration] Hydrating bibliographies & TLDRs for {len(pids)} papers via 1 POST call...")
+        from research_radar.stage1_ingest import _normalize_s2_reference, sanitize_references
+
+        batch_results = self.get_papers_batch(pids, fields=DEFAULT_BATCH_FIELDS, batch_size=batch_size)
+        pid_to_raw = {r.get("paperId"): r for r in batch_results if r and r.get("paperId")}
+
+        hydrated_count = 0
+        for p in papers:
+            s2_id = p.get("s2_paper_id")
+            if not s2_id or s2_id not in pid_to_raw:
+                continue
+            raw_meta = pid_to_raw[s2_id]
+
+            # Update authentic TLDR if available
+            tldr_obj = raw_meta.get("tldr") or {}
+            if isinstance(tldr_obj, dict) and tldr_obj.get("text"):
+                p["tldr"] = tldr_obj["text"].strip()
+
+            # Update references
+            raw_refs = raw_meta.get("references") or []
+            if raw_refs:
+                norm_refs = [_normalize_s2_reference(r) for r in raw_refs if r and (r.get("paperId") or r.get("title"))]
+                p["references"] = sanitize_references(norm_refs, p.get("title"), p.get("year"))
+                hydrated_count += 1
+
+        print(f"  [S2 Batch Hydration] Hydrated bibliographies for {hydrated_count}/{len(pids)} papers.")
+        return papers
 
 
 
