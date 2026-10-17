@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  X, Check, AlertTriangle, ShieldCheck, Play, ExternalLink, 
-  Terminal, Sparkles, Sliders, ArrowRight, BookOpen, Layers,
-  Copy, RefreshCw, Cpu, Award, Zap, Activity, Search, Filter
+  X, Check, ShieldCheck, ExternalLink, 
+  Sparkles, BookOpen, Cpu, Award, Zap, Activity, Search, Filter
 } from 'lucide-react';
 
 interface BenchmarkModalProps {
@@ -11,37 +10,20 @@ interface BenchmarkModalProps {
 }
 
 export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<'graph2idea' | 'temporal' | 'terminal' | 'scimon'>('graph2idea');
+  const [activeTab, setActiveTab] = useState<'graph2idea' | 'scimon'>('graph2idea');
   const [loading, setLoading] = useState(false);
   const [graph2ideaData, setGraph2ideaData] = useState<any>(null);
   const [scimonData, setScimonData] = useState<any>(null);
-  const [natureData, setNatureData] = useState<any>(null);
-  const [saturationYear, setSaturationYear] = useState<number>(2017);
-  const [saturationResults, setSaturationResults] = useState<any>(null);
 
   // 40 Ideas Filter State
   const [ideaFilter, setIdeaFilter] = useState<'all' | 'novel' | 'not_novel'>('all');
   const [ideaSearch, setIdeaSearch] = useState('');
-
-  // Terminal Runner State
-  const [selectedProof, setSelectedProof] = useState<'graph2idea' | 'temporal_gat'>('graph2idea');
-  const [terminalLogs, setTerminalLogs] = useState<any[]>([]);
-  const [isTerminalRunning, setIsTerminalRunning] = useState(false);
-  const [terminalProgress, setTerminalProgress] = useState(0);
-  const [copiedAudit, setCopiedAudit] = useState(false);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen && !graph2ideaData) {
       loadGraph2Idea();
     }
   }, [isOpen]);
-
-  useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [terminalLogs]);
 
   if (!isOpen) return null;
 
@@ -71,88 +53,6 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
     }
   };
 
-  const loadNature = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/benchmark/nature-mi');
-      const data = await res.json();
-      setNatureData(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const runSaturationTest = (year: number) => {
-    setSaturationYear(year);
-    if (year <= 2017) {
-      setSaturationResults({
-        cutoff_year: 2017,
-        papers_count: 28,
-        gap_status: 'ACTIVE UNEXPLORED FRONTIER',
-        gap_title: 'Anisotropic Self-Attention on Inductive Graph Networks',
-        c_obs: 0,
-        uzzi_z: '+3.42σ',
-        verdict: 'Flagged as High-Priority Research Gap at T <= 2017',
-        details: 'Zero papers connected Self-Attention to Graph Networks prior to 2018 (C_obs = 0).',
-      });
-    } else {
-      setSaturationResults({
-        cutoff_year: 2024,
-        papers_count: 521,
-        gap_status: 'CLOSED / SATURATED (ERASED FROM ACTIVE GAPS)',
-        gap_title: 'Anisotropic Self-Attention on Inductive Graph Networks',
-        c_obs: 54,
-        uzzi_z: '-0.04σ (Saturated)',
-        verdict: 'Automatically Vanished from Active Gaps (Filled by GAT 2018-2024)',
-        details: 'Subsequent literature published 50+ papers on Graph Attention, proving zero hardcoding.',
-      });
-    }
-  };
-
-  const runLiveProofTerminal = async () => {
-    setIsTerminalRunning(true);
-    setTerminalLogs([]);
-    setTerminalProgress(5);
-
-    try {
-      const res = await fetch('/api/benchmark/run-proof-terminal', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ proof_id: selectedProof }),
-      });
-      const data = await res.json();
-      const allLogs = data.terminal_output || [];
-
-      // Animate logs streaming line by line
-      for (let i = 0; i < allLogs.length; i++) {
-        await new Promise((r) => setTimeout(r, 65));
-        setTerminalLogs((prev) => [...prev, allLogs[i]]);
-        setTerminalProgress(Math.round(((i + 1) / allLogs.length) * 100));
-      }
-    } catch (e) {
-      console.error(e);
-      setTerminalLogs((prev) => [
-        ...prev,
-        { stage: 'ERROR', level: 'ERROR', msg: `Proof execution error: ${e}` },
-      ]);
-    } finally {
-      setIsTerminalRunning(false);
-      setTerminalProgress(100);
-    }
-  };
-
-  const copyAuditTranscript = () => {
-    if (!terminalLogs.length) return;
-    const text = terminalLogs
-      .map((l) => `[${l.stage}] [${l.level}] ${l.msg}`)
-      .join('\n');
-    navigator.clipboard.writeText(text);
-    setCopiedAudit(true);
-    setTimeout(() => setCopiedAudit(false), 2000);
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto">
       <div className="relative w-full max-w-5xl rounded-2xl border border-white/15 bg-[#0b0f19] shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
@@ -171,7 +71,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                 </span>
               </h2>
               <p className="text-xs text-slate-400">
-                Rigorous line-by-line verification against Graph2Idea (June 2026) & Nature MI benchmarks.
+                Rigorous line-by-line verification against Graph2Idea (June 2026) & SciMON (ACL 2024).
               </p>
             </div>
           </div>
@@ -197,28 +97,6 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
             1. 🏆 2026 Base Paper Proof (Graph2Idea)
           </button>
           <button
-            onClick={() => { setActiveTab('temporal'); if (!natureData) loadNature(); runSaturationTest(2017); }}
-            className={`py-3 px-4 text-xs font-mono font-semibold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap cursor-pointer ${
-              activeTab === 'temporal'
-                ? 'text-emerald-400 border-emerald-500 bg-emerald-500/5'
-                : 'text-slate-400 border-transparent hover:text-white'
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" />
-            2. ⏳ Temporal Holdout Proof (GAT Realization)
-          </button>
-          <button
-            onClick={() => { setActiveTab('terminal'); if (!terminalLogs.length) runLiveProofTerminal(); }}
-            className={`py-3 px-4 text-xs font-mono font-semibold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap cursor-pointer ${
-              activeTab === 'terminal'
-                ? 'text-emerald-400 border-emerald-500 bg-emerald-500/5'
-                : 'text-slate-400 border-transparent hover:text-white'
-            }`}
-          >
-            <Terminal className="w-3.5 h-3.5" />
-            3. 💻 Live Terminal & Scrutiny Console
-          </button>
-          <button
             onClick={() => { setActiveTab('scimon'); if (!scimonData) loadScimon(); }}
             className={`py-3 px-4 text-xs font-mono font-semibold transition-all border-b-2 flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'scimon'
@@ -227,7 +105,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
-            4. 🔬 ACL 2024 SciMON Case Study
+            2. 🔬 ACL 2024 SciMON Case Study
           </button>
         </div>
 
@@ -507,199 +385,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
             </div>
           )}
 
-          {/* TAB 2: TEMPORAL HOLDOUT PROOF */}
-          {activeTab === 'temporal' && (
-            <div className="space-y-5">
-              <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <div className="font-semibold text-emerald-400 text-sm">
-                    Nature Machine Intelligence Science4Cast Temporal Holdout Proof
-                  </div>
-                  <div className="text-slate-400 text-xs mt-0.5">
-                    Krenn et al. (Nature MI 2023) · Strict Pre-2018 Temporal Cutoff vs Realized Breakthrough
-                  </div>
-                </div>
-                <span className="px-3 py-1 rounded bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold shrink-0">
-                  +90.9x Statistical Lift
-                </span>
-              </div>
-
-              {/* The Coincidence / Cherry-Picking Defense Card */}
-              <div className="p-4 rounded-xl bg-[#0f1422] border border-blue-500/30 space-y-2">
-                <div className="text-blue-400 font-mono font-bold text-xs flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4" />
-                  Empirical Validation: "Elimination of Selection Bias & Serendipity"
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-300 font-mono text-[11px] pt-1">
-                  <div className="p-2.5 rounded bg-black/40 border border-white/5 space-y-1">
-                    <span className="text-emerald-400 font-bold">1. Zero Manual Paper Picking</span>
-                    <p className="text-slate-400 text-[10px]">
-                      We sent an automated query to Semantic Scholar API for "Graph Neural Networks" and retrieved 500 uncurated raw papers.
-                    </p>
-                  </div>
-                  <div className="p-2.5 rounded bg-black/40 border border-white/5 space-y-1">
-                    <span className="text-emerald-400 font-bold">2. Price's Law & SPLC Main Path</span>
-                    <p className="text-slate-400 text-[10px]">
-                      In a field of 50,000 papers, the top 500 citation-ranked papers capture &gt;85% of domain lineage. Hummon & Doreian SPLC identified the Vaswani/Kipf spine nodes algorithmically.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Table 1 Nature MI Comparison */}
-              <div className="space-y-2">
-                <span className="font-mono text-slate-300 text-xs font-semibold">
-                  Nature Machine Intelligence Table 1 Comparative Metrics:
-                </span>
-                <div className="rounded-xl border border-white/10 bg-[#0e1320] overflow-hidden">
-                  <table className="w-full text-left font-mono text-xs">
-                    <thead className="bg-white/5 text-slate-400 border-b border-white/10">
-                      <tr>
-                        <th className="p-2.5">Evaluation Standard</th>
-                        <th className="p-2.5">Precision@10</th>
-                        <th className="p-2.5">Hardware & Compute</th>
-                        <th className="p-2.5">Statistical Precision Lift</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/5 text-slate-300">
-                      <tr>
-                        <td className="p-2.5 font-sans font-medium text-slate-400">1. Random Combinatorial Null</td>
-                        <td className="p-2.5 text-slate-400">0.495%</td>
-                        <td className="p-2.5 text-slate-500">&lt; 0.01s (CPU)</td>
-                        <td className="p-2.5 text-slate-500">1.00x Base Rate</td>
-                      </tr>
-                      <tr>
-                        <td className="p-2.5 font-sans font-medium">2. Nature MI SOTA (Model M1)</td>
-                        <td className="p-2.5 text-emerald-400">46.00%</td>
-                        <td className="p-2.5 text-slate-400">Hours (GPU Cluster)</td>
-                        <td className="p-2.5 text-emerald-400">+92.93x Lift</td>
-                      </tr>
-                      <tr className="bg-emerald-500/10 text-emerald-300 font-bold">
-                        <td className="p-2.5 font-sans flex items-center gap-1.5">
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          3. ResearchRadar (Our System)
-                        </td>
-                        <td className="p-2.5 text-emerald-400">45.00%</td>
-                        <td className="p-2.5 text-emerald-400">4.28s on Single Laptop CPU</td>
-                        <td className="p-2.5 text-emerald-400">+90.91x Lift (On-Par at 1,000x Lower Compute)</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* Realization Card */}
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
-                <div>
-                  <div className="font-mono text-emerald-400 font-bold text-xs">
-                    [✓] HISTORICALLY REALIZED BREAKTHROUGH
-                  </div>
-                  <div className="text-slate-200 mt-1 font-medium">
-                    "Graph Attention Networks (GAT)" (Veličković, Bengio et al., ICLR 2018)
-                  </div>
-                  <div className="text-slate-400 text-[11px] mt-0.5">
-                    Flagged at T &le; 2017 with C_obs = 0 and Uzzi z = +3.42σ. 100% realized in ICLR 2018.
-                  </div>
-                </div>
-                <a
-                  href="https://arxiv.org/abs/1710.10903"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5 text-xs font-mono shrink-0 cursor-pointer"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  View ICLR Paper
-                </a>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 3: LIVE TERMINAL & SCRUTINY CONSOLE */}
-          {activeTab === 'terminal' && (
-            <div className="space-y-4">
-              {/* Controls Bar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[#0f1422] border border-white/10">
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs text-slate-400 font-semibold">Select Proof Target:</span>
-                  <select
-                    value={selectedProof}
-                    onChange={(e: any) => setSelectedProof(e.target.value)}
-                    disabled={isTerminalRunning}
-                    className="rounded-lg bg-black/40 border border-white/15 px-3 py-1.5 font-mono text-xs text-white focus:outline-none focus:border-emerald-500"
-                  >
-                    <option value="graph2idea">Proof 1: 2026 Base Paper Case Study (SciMON Figure 2)</option>
-                    <option value="graph2idea_40papers">Proof 2: Exact 40-Target-Paper Cohort &amp; Swiss Tournament (Table 1)</option>
-                    <option value="temporal_gat">Proof 3: Temporal Holdout (T &le; 2017 &rarr; GAT 2018)</option>
-                  </select>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={copyAuditTranscript}
-                    disabled={!terminalLogs.length}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 flex items-center gap-1.5 font-mono text-xs cursor-pointer transition-all disabled:opacity-40"
-                    title="Copy complete line-by-line verification audit transcript"
-                  >
-                    {copiedAudit ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedAudit ? 'Copied to Clipboard!' : 'Copy Audit Transcript'}</span>
-                  </button>
-                  <button
-                    onClick={runLiveProofTerminal}
-                    disabled={isTerminalRunning}
-                    className="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold flex items-center gap-2 cursor-pointer shadow-lg shadow-emerald-600/20 transition-all disabled:opacity-50"
-                  >
-                    {isTerminalRunning ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Play className="w-3.5 h-3.5 fill-current" />}
-                    <span>{isTerminalRunning ? 'Executing Proof...' : '▶ Run Live Proof Engine'}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              {isTerminalRunning && (
-                <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
-                  <div
-                    className="bg-emerald-500 h-full transition-all duration-100 ease-out"
-                    style={{ width: `${terminalProgress}%` }}
-                  />
-                </div>
-              )}
-
-              {/* Dark Terminal Window */}
-              <div className="rounded-xl border border-white/15 bg-[#050811] shadow-2xl p-4 font-mono text-[11px] leading-relaxed max-h-[420px] overflow-y-auto space-y-1 text-slate-300">
-                <div className="text-slate-500 text-[10px] pb-2 border-b border-white/5 flex items-center justify-between">
-                  <span>RESEARCHRADAR SCIENTIFIC SCRUTINY CONSOLE · v2.4 (LIVE PROOF EXECUTION)</span>
-                  <span className="text-emerald-400">{terminalLogs.length} LINES GENERATED</span>
-                </div>
-
-                {!terminalLogs.length && (
-                  <div className="text-slate-500 py-12 text-center">
-                    Click "▶ Run Live Proof Engine" to start step-by-step mathematical execution.
-                  </div>
-                )}
-
-                {terminalLogs.map((log, idx) => {
-                  let badgeColor = 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-                  if (log.level === 'SUCCESS' || log.level === 'PASS') badgeColor = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-                  if (log.level === 'MATH') badgeColor = 'bg-purple-500/20 text-purple-300 border-purple-500/30';
-                  if (log.level === 'METRIC') badgeColor = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
-                  if (log.level === 'DEFENSE') badgeColor = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30';
-
-                  return (
-                    <div key={idx} className="flex items-start gap-2 py-0.5 hover:bg-white/[0.02] px-1 rounded transition-colors">
-                      <span className="text-slate-600 select-none shrink-0 w-6 text-right">{idx + 1}</span>
-                      <span className={`px-1.5 py-0.2 rounded border text-[9px] font-bold shrink-0 ${badgeColor}`}>
-                        {log.stage}
-                      </span>
-                      <span className="text-slate-200 break-words">{log.msg}</span>
-                    </div>
-                  );
-                })}
-                <div ref={terminalEndRef} />
-              </div>
-            </div>
-          )}
-
-          {/* TAB 4: SCIMON ACL 2024 */}
+          {/* TAB 2: SCIMON ACL 2024 */}
           {activeTab === 'scimon' && (
             <div className="space-y-4">
               <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/20 flex items-start justify-between">
