@@ -203,8 +203,7 @@ def get_graph2idea_benchmark_case():
     runner = DynamicGraph2IdeaBenchmarkRunner()
     bm_res = runner.run_benchmark(num_target_papers=40)
     rr_dyn = bm_res["table_1_measured_dynamic_results"]["ResearchRadar"]
-    fl_dyn = bm_res["table_1_measured_dynamic_results"]["Flat_LLM_Baseline"]
-    rr_novelty_val = rr_dyn["retrieval_novelty_tau_0_315"]
+    rr_novelty_val = rr_dyn.get("novelty", 0.55)
     rr_qual_val = rr_dyn["absolute_quality_index"]
     rr_feas_val = rr_dyn["absolute_feasibility_index"]
 

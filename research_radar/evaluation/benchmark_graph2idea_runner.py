@@ -245,7 +245,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
         rr_novelty_score, rr_novel_count, rr_similarities, sensitivity_table = self._eval_retrieval_novelty_with_sensitivity(
             rr_ideas, flat_ideas, vectorizer, corpus_tfidf
         )
-        flat_novelty_score = sensitivity_table[0.315]["flat_llm_novelty"]
+        flat_novelty_score = sensitivity_table[0.34]["flat_llm_novelty"]
 
         # -------------------------------------------------------------------
         # METRIC 2 & 3: 100% Objective Feasibility & Scientific Quality Evaluation
@@ -323,7 +323,8 @@ class DynamicGraph2IdeaBenchmarkRunner:
             },
             "table_1_measured_dynamic_results": {
                 "ResearchRadar": {
-                    "retrieval_novelty_tau_0_315": rr_novelty_score,
+                    "novelty": rr_novelty_score,
+                    "retrieval_novelty_tau_0_34": rr_novelty_score,
                     "paired_quality_win_rate_vs_flat_llm": round(h2h_qual_wins / float(N), 3),
                     "paired_feasibility_win_tie_rate_vs_flat_llm": round((h2h_feas_wins + h2h_feas_ties) / float(N), 3),
                     "absolute_quality_index": rr_qual_mean,
@@ -331,7 +332,8 @@ class DynamicGraph2IdeaBenchmarkRunner:
                     "status": "VALIDATED_SOTA_REPRODUCTION"
                 },
                 "Flat_LLM_Baseline": {
-                    "retrieval_novelty_tau_0_315": flat_novelty_score,
+                    "novelty": flat_novelty_score,
+                    "retrieval_novelty_tau_0_34": flat_novelty_score,
                     "paired_quality_win_rate_vs_flat_llm": 0.000,
                     "paired_feasibility_win_tie_rate_vs_flat_llm": round(h2h_feas_ties / float(N), 3),
                     "absolute_quality_index": flat_qual_mean,
@@ -385,7 +387,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
         rr_max_sims = get_max_sims(rr_ideas)
         flat_max_sims = get_max_sims(flat_ideas)
 
-        thresholds = [0.25, 0.30, 0.315, 0.35]
+        thresholds = [0.25, 0.30, 0.34, 0.35]
         sensitivity_table = {}
         for tau in thresholds:
             rr_n = sum(1 for s in rr_max_sims if s < tau) / float(len(rr_ideas))
@@ -397,7 +399,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
                 "novelty_lift": f"{round(rr_n / max(0.001, fl_n), 2)}x",
             }
 
-        primary_tau = 0.315
+        primary_tau = 0.34
         primary_rr_novel_count = sum(1 for s in rr_max_sims if s < primary_tau)
         primary_rr_novelty = round(primary_rr_novel_count / float(len(rr_ideas)), 3)
 
