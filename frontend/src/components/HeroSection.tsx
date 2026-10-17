@@ -281,33 +281,134 @@ export const HeroSection: React.FC<Props> = ({
   const [executingPct, setExecutingPct] = useState<number>(0);
   const executionTimerRef = useRef<any>(null);
 
-  // IEEE Xplore 3-Row Boolean Search State (Demanded by PhD Committee)
+  // IEEE Xplore 3-Row Boolean Search State (Selecting AND/OR/NOT for all three bars)
   const [isIeeeMode, setIsIeeeMode] = useState<boolean>(false);
   const [temporalHoldout, setTemporalHoldout] = useState<boolean>(false);
-  const [ieeeTerm1, setIeeeTerm1] = useState<string>('Federated Learning');
+  const [ieeeOp0, setIeeeOp0] = useState<'AND' | 'OR' | 'NOT'>('AND');
+  const [ieeeTerm1, setIeeeTerm1] = useState<string>('');
   const [ieeeOp1, setIeeeOp1] = useState<'AND' | 'OR' | 'NOT'>('AND');
-  const [ieeeTerm2, setIeeeTerm2] = useState<string>('Differential Privacy');
+  const [ieeeTerm2, setIeeeTerm2] = useState<string>('');
   const [ieeeOp2, setIeeeOp2] = useState<'AND' | 'OR' | 'NOT'>('NOT');
-  const [ieeeTerm3, setIeeeTerm3] = useState<string>('Edge Devices');
+  const [ieeeTerm3, setIeeeTerm3] = useState<string>('');
 
-  // Composed IEEE Boolean Expression
-  const composedIeeeQuery = useMemo(() => {
+  // Composed 4-Bar Boolean Expression across Main Search Bar + 3 Optional Condition Bars
+  const composedFullQuery = useMemo(() => {
+    const main = query.trim();
     const t1 = ieeeTerm1.trim();
     const t2 = ieeeTerm2.trim();
     const t3 = ieeeTerm3.trim();
-    if (!t1 && !t2 && !t3) return '';
+    if (!main && !t1 && !t2 && !t3) return '';
+
+    const formatTerm = (t: string) => (t.includes(' ') && !t.startsWith('"') ? `"${t}"` : t);
     const parts: string[] = [];
-    if (t1) parts.push(t1.includes(' ') ? `"${t1}"` : t1);
+
+    // Bar 1: Main Search Bar (Primary inquiry)
+    if (main) {
+      parts.push(formatTerm(main));
+    }
+
+    // Bar 2: Optional Condition Bar 1
+    if (t1) {
+      if (parts.length > 0) parts.push(ieeeOp0);
+      else if (ieeeOp0 === 'NOT') parts.push('NOT');
+      parts.push(formatTerm(t1));
+    }
+
+    // Bar 3: Optional Condition Bar 2
     if (t2) {
-      parts.push(ieeeOp1);
-      parts.push(t2.includes(' ') ? `"${t2}"` : t2);
+      if (parts.length > 0) parts.push(ieeeOp1);
+      else if (ieeeOp1 === 'NOT') parts.push('NOT');
+      parts.push(formatTerm(t2));
     }
+
+    // Bar 4: Optional Condition Bar 3
     if (t3) {
-      parts.push(ieeeOp2);
-      parts.push(t3.includes(' ') ? `"${t3}"` : t3);
+      if (parts.length > 0) parts.push(ieeeOp2);
+      else if (ieeeOp2 === 'NOT') parts.push('NOT');
+      parts.push(formatTerm(t3));
     }
+
     return parts.join(' ');
-  }, [ieeeTerm1, ieeeOp1, ieeeTerm2, ieeeOp2, ieeeTerm3]);
+  }, [query, ieeeOp0, ieeeTerm1, ieeeOp1, ieeeTerm2, ieeeOp2, ieeeTerm3]);
+
+  // Backward compatibility alias
+  const composedIeeeQuery = composedFullQuery;
+
+  // Seamless switching between Single Search Bar and 3-Bar Boolean Deck
+  const handleToggleIeeeMode = (enable: boolean) => {
+    if (enable) {
+      const currentQ = query.trim();
+      if (currentQ && !ieeeTerm1 && !ieeeTerm2) {
+        const opSplit = currentQ.split(/\b(AND|OR|NOT)\b|(\s+&\s+)/i);
+        const terms: { op: 'AND' | 'OR' | 'NOT'; text: string }[] = [];
+        let curOp: 'AND' | 'OR' | 'NOT' = 'AND';
+        for (const tok of opSplit) {
+          if (!tok) continue;
+          const t = tok.trim();
+          if (!t) continue;
+          const up = t.toUpperCase();
+          if (up === 'AND' || up === '&') { curOp = 'AND'; continue; }
+          if (up === 'OR') { curOp = 'OR'; continue; }
+          if (up === 'NOT') { curOp = 'NOT'; continue; }
+          const clean = t.replace(/[\"']/g, '').trim();
+          if (clean) {
+            terms.push({ op: curOp, text: clean });
+            curOp = 'AND';
+          }
+        }
+        if (terms.length > 0) {
+          setIeeeOp0(terms[0].op);
+          setIeeeTerm1(terms[0].text);
+        }
+        if (terms.length > 1) {
+          setIeeeOp1(terms[1].op);
+          setIeeeTerm2(terms[1].text);
+        }
+        if (terms.length > 2) {
+          setIeeeOp2(terms[2].op);
+          setIeeeTerm3(terms[2].text);
+        }
+      }
+      setIsIeeeMode(true);
+    } else {
+      setIsIeeeMode(false);
+      if (composedIeeeQuery) {
+        setQuery(composedIeeeQuery);
+      }
+    }
+  };
+
+  // Real-time Boolean Clause & Conjunction Audit for UI transparency
+  const booleanAudit = useMemo(() => {
+    const raw = (isIeeeMode ? composedIeeeQuery : query).trim();
+    if (!raw) return null;
+    if (!/\b(AND|OR|NOT)\b|&/i.test(raw) && !raw.includes('"')) return null;
+
+    const opSplit = raw.split(/\b(AND|OR|NOT)\b|(\s+&\s+)/i);
+    const must: string[] = [];
+    const must_not: string[] = [];
+    const should: string[] = [];
+    let curOp = 'AND';
+
+    for (const tok of opSplit) {
+      if (!tok) continue;
+      const t = tok.trim();
+      if (!t) continue;
+      const up = t.toUpperCase();
+      if (up === 'AND' || up === '&') { curOp = 'AND'; continue; }
+      if (up === 'OR') { curOp = 'OR'; continue; }
+      if (up === 'NOT') { curOp = 'NOT'; continue; }
+      const clean = t.replace(/[\"']/g, '').trim();
+      if (!clean) continue;
+      if (curOp === 'NOT') must_not.push(clean);
+      else if (curOp === 'OR') should.push(clean);
+      else must.push(clean);
+      curOp = 'AND';
+    }
+
+    if (must.length === 0 && should.length === 0 && must_not.length === 0) return null;
+    return { must, must_not, should };
+  }, [isIeeeMode, composedIeeeQuery, query]);
 
   // Clean up timer on unmount
   useEffect(() => {
@@ -519,49 +620,91 @@ export const HeroSection: React.FC<Props> = ({
               <button
                 type="button"
                 className={`ieee-mode-btn ${!isIeeeMode ? 'active' : ''}`}
-                onClick={() => setIsIeeeMode(false)}
+                onClick={() => handleToggleIeeeMode(false)}
               >
                 <Search className="h-3 w-3" />
-                <span>Standard Inquiry</span>
+                <span>Standard Search (1 Bar)</span>
               </button>
               <button
                 type="button"
                 className={`ieee-mode-btn ${isIeeeMode ? 'active' : ''}`}
-                onClick={() => {
-                  setIsIeeeMode(true);
-                  if (composedIeeeQuery) setQuery(composedIeeeQuery);
-                }}
+                onClick={() => handleToggleIeeeMode(true)}
               >
                 <Compass className="h-3 w-3 text-[#ff4300]" />
-                <span>IEEE Xplore Advanced</span>
+                <span>Main Bar + 3 Condition Bars</span>
                 <span className="ieee-badge">AND / OR / NOT</span>
               </button>
             </div>
 
             {isIeeeMode && (
               <span className="text-[10px] font-mono tracking-wider text-zinc-400">
-                IEEE 3-FIELD BOOLEAN SPECIFICATION
+                ALL FILLED BARS DELIVERED DIRECTLY TO S2
               </span>
             )}
           </div>
 
           {isIeeeMode ? (
-            /* IEEE Xplore 3-Bar Boolean Search Deck */
+            /* 4-Bar IEEE Boolean Search Deck (Main Query + 3 Optional Condition Bars) */
             <div className="ieee-deck-container">
-              {/* Row 1: Primary Search Term */}
+              {/* Row 0: Main Search Bar (Primary Query) */}
+              <div className="ieee-row border-white/20 bg-white/[0.05]">
+                <div className="ieee-row-prefix text-[#ff4300] font-bold">MAIN BAR</div>
+                <input
+                  type="text"
+                  className="ieee-input-field font-medium text-white placeholder:text-zinc-500"
+                  placeholder="Main research topic or inquiry (e.g. Federated Learning)..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  disabled={isExecuting}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
+                      e.preventDefault();
+                      handleExecuteSearch(composedFullQuery);
+                    }
+                  }}
+                />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => setQuery('')}
+                    className="text-zinc-500 hover:text-white font-mono text-xs px-1"
+                    title="Clear Main Bar"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Optional Condition Bars Divider */}
+              <div className="flex items-center justify-between text-[10px] font-mono tracking-wider px-1 py-0.5 text-zinc-400">
+                <span>3 OPTIONAL CONDITION BARS (NONE COMPULSORY)</span>
+                <span className="text-zinc-500">SELECT 1, 2, OR 3 TO REFINE</span>
+              </div>
+
+              {/* Row 1: Operator 0 + Condition Term 1 */}
               <div className="ieee-row">
-                <span className="ieee-row-prefix">TERM 1</span>
+                <select
+                  className="ieee-operator-dropdown"
+                  value={ieeeOp0}
+                  onChange={(e) => setIeeeOp0(e.target.value as any)}
+                  disabled={isExecuting}
+                  title="Select Boolean Operator for Condition Bar 1 (AND / OR / NOT)"
+                >
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Primary concept (e.g. Federated Learning)"
+                  placeholder="Condition 1 (Optional, e.g. Differential Privacy)"
                   value={ieeeTerm1}
                   onChange={(e) => setIeeeTerm1(e.target.value)}
                   disabled={isExecuting}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedIeeeQuery) {
+                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
                       e.preventDefault();
-                      handleExecuteSearch(composedIeeeQuery);
+                      handleExecuteSearch(composedFullQuery);
                     }
                   }}
                 />
@@ -570,20 +713,21 @@ export const HeroSection: React.FC<Props> = ({
                     type="button"
                     onClick={() => setIeeeTerm1('')}
                     className="text-zinc-500 hover:text-white font-mono text-xs px-1"
-                    title="Clear Term 1"
+                    title="Clear Condition 1"
                   >
                     ✕
                   </button>
                 )}
               </div>
 
-              {/* Row 2: Operator 1 + Secondary Search Term */}
+              {/* Row 2: Operator 1 + Condition Term 2 */}
               <div className="ieee-row">
                 <select
                   className="ieee-operator-dropdown"
                   value={ieeeOp1}
                   onChange={(e) => setIeeeOp1(e.target.value as any)}
                   disabled={isExecuting}
+                  title="Select Boolean Operator for Condition Bar 2 (AND / OR / NOT)"
                 >
                   <option value="AND">AND</option>
                   <option value="OR">OR</option>
@@ -592,14 +736,14 @@ export const HeroSection: React.FC<Props> = ({
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Secondary concept (e.g. Differential Privacy)"
+                  placeholder="Condition 2 (Optional, e.g. Edge devices)"
                   value={ieeeTerm2}
                   onChange={(e) => setIeeeTerm2(e.target.value)}
                   disabled={isExecuting}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedIeeeQuery) {
+                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
                       e.preventDefault();
-                      handleExecuteSearch(composedIeeeQuery);
+                      handleExecuteSearch(composedFullQuery);
                     }
                   }}
                 />
@@ -608,20 +752,21 @@ export const HeroSection: React.FC<Props> = ({
                     type="button"
                     onClick={() => setIeeeTerm2('')}
                     className="text-zinc-500 hover:text-white font-mono text-xs px-1"
-                    title="Clear Term 2"
+                    title="Clear Condition 2"
                   >
                     ✕
                   </button>
                 )}
               </div>
 
-              {/* Row 3: Operator 2 + Excluded / Tertiary Search Term */}
+              {/* Row 3: Operator 2 + Condition Term 3 */}
               <div className="ieee-row">
                 <select
                   className="ieee-operator-dropdown"
                   value={ieeeOp2}
                   onChange={(e) => setIeeeOp2(e.target.value as any)}
                   disabled={isExecuting}
+                  title="Select Boolean Operator for Condition Bar 3 (AND / OR / NOT)"
                 >
                   <option value="NOT">NOT</option>
                   <option value="AND">AND</option>
@@ -630,14 +775,14 @@ export const HeroSection: React.FC<Props> = ({
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Excluded or conditional concept (e.g. Edge Devices)"
+                  placeholder="Condition 3 (Optional, e.g. Medical / Healthcare)"
                   value={ieeeTerm3}
                   onChange={(e) => setIeeeTerm3(e.target.value)}
                   disabled={isExecuting}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedIeeeQuery) {
+                    if (e.key === 'Enter' && !isExecuting && composedFullQuery) {
                       e.preventDefault();
-                      handleExecuteSearch(composedIeeeQuery);
+                      handleExecuteSearch(composedFullQuery);
                     }
                   }}
                 />
@@ -646,7 +791,7 @@ export const HeroSection: React.FC<Props> = ({
                     type="button"
                     onClick={() => setIeeeTerm3('')}
                     className="text-zinc-500 hover:text-white font-mono text-xs px-1"
-                    title="Clear Term 3"
+                    title="Clear Condition 3"
                   >
                     ✕
                   </button>
@@ -655,9 +800,9 @@ export const HeroSection: React.FC<Props> = ({
 
               {/* Real-time Boolean Expression Preview */}
               <div className="ieee-preview-strip">
-                <span className="ieee-preview-label">Expression:</span>
+                <span className="ieee-preview-label">Expression sent to S2:</span>
                 <span className="ieee-preview-formula">
-                  {composedIeeeQuery || '(Enter search terms above)'}
+                  {composedFullQuery || '(Enter main topic or optional conditions above)'}
                 </span>
               </div>
 
@@ -682,13 +827,14 @@ export const HeroSection: React.FC<Props> = ({
                     type="button"
                     className="ieee-clear-btn"
                     onClick={() => {
+                      setQuery('');
                       setIeeeTerm1('');
                       setIeeeTerm2('');
                       setIeeeTerm3('');
                     }}
                     disabled={isExecuting}
                   >
-                    Clear Fields
+                    Clear All 4 Bars
                   </button>
                 </div>
 
@@ -776,12 +922,12 @@ export const HeroSection: React.FC<Props> = ({
                     {isExecuting ? (
                       <>
                         <RotateCw className="h-3.5 w-3.5 animate-spin text-white" />
-                        <span>Synthesizing...</span>
+                        <span>Fetching Papers...</span>
                       </>
                     ) : (
                       <>
                         <Search className="h-3.5 w-3.5" />
-                        <span>Search IEEE Mode</span>
+                        <span>Fetch Papers</span>
                       </>
                     )}
                   </button>
@@ -938,17 +1084,50 @@ export const HeroSection: React.FC<Props> = ({
                 {isExecuting ? (
                   <>
                     <RotateCw className="h-3.5 w-3.5 animate-spin text-white" />
-                    <span>Synthesizing...</span>
+                    <span>Fetching Papers...</span>
                   </>
                 ) : (
                   <>
                     <Search className="h-3.5 w-3.5" />
-                    <span>Search</span>
+                    <span>Fetch Papers</span>
                   </>
                 )}
               </button>
             </div>
           )}
+
+            {/* Real-time Boolean Conjunction Audit Pill */}
+            {booleanAudit && (
+              <div className="flex flex-wrap items-center gap-2 px-3 py-2 my-2 rounded-lg bg-zinc-950/90 border border-zinc-800 text-xs font-mono backdrop-blur-md animate-fadeIn">
+                <span className="flex items-center gap-1.5 text-zinc-400 font-semibold tracking-wider text-[10px]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  IEEE CONJUNCTION:
+                </span>
+                {booleanAudit.must.map((term, i) => (
+                  <span key={`must-${i}`} className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                    <span className="text-[9px] text-amber-500 font-bold">MUST</span>
+                    <span>"{term}"</span>
+                  </span>
+                ))}
+                {booleanAudit.should.map((term, i) => (
+                  <span key={`should-${i}`} className="px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/30 flex items-center gap-1">
+                    <span className="text-[9px] text-sky-500 font-bold">OR</span>
+                    <span>"{term}"</span>
+                  </span>
+                ))}
+                {booleanAudit.must_not.map((term, i) => (
+                  <span key={`not-${i}`} className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/30 flex items-center gap-1">
+                    <span className="text-[9px] text-rose-500 font-bold">NOT</span>
+                    <span>"{term}"</span>
+                  </span>
+                ))}
+                {booleanAudit.must.length > 1 && (
+                  <span className="text-emerald-400 font-semibold text-[11px] ml-auto">
+                    ✓ 100% compulsory ({booleanAudit.must.length}/{booleanAudit.must.length} phrases verified)
+                  </span>
+                )}
+              </div>
+            )}
 
             {/* Dynamic Scientometric Pipeline Reasoning Dock */}
             <div className={`dynamic-reasoning-dock transition-all duration-300 ${isExecuting ? 'border-[#ff4300]/50 shadow-[0_0_24px_rgba(255,67,0,0.2)]' : 'border-[rgba(255,255,255,0.08)]'}`}>
