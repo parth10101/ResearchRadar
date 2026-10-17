@@ -298,6 +298,7 @@ def get_graph2idea_benchmark_case():
                 "4. Citation Absence Guarantee: Proves C_obs = 0 across literature rather than relying on subjective LLM scoring.",
             ],
         },
+        "evaluated_ideas": bm_res.get("evaluated_ideas", []),
     }
 
 

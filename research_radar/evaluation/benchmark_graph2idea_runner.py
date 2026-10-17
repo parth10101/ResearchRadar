@@ -286,12 +286,38 @@ class DynamicGraph2IdeaBenchmarkRunner:
         h2h_qual_wins = sum(1 for i in range(N) if rr_scores[i][1] > flat_scores[i][1])
         h2h_qual_ties = sum(1 for i in range(N) if rr_scores[i][1] == flat_scores[i][1])
 
+        evaluated_ideas = []
+        for i in range(N):
+            p = target_papers[i]
+            sim_val = round(float(rr_similarities[i]), 4)
+            is_novel = sim_val < 0.340
+            feas_val = round(float(rr_scores[i][0]), 2)
+            qual_val = round(float(rr_scores[i][1]), 2)
+            evaluated_ideas.append({
+                "index": i + 1,
+                "id": f"IDEA_{i+1}",
+                "target_paper_id": p.get("paper_id", f"ACL_{i+1}"),
+                "target_title": p.get("title", ""),
+                "target_venue": p.get("venue", "ACL 2024"),
+                "method": rr_ideas[i]["method"],
+                "substrate": rr_ideas[i]["substrate"],
+                "limitation": rr_ideas[i]["limitation"],
+                "text": rr_ideas[i]["text"],
+                "max_similarity": sim_val,
+                "is_novel": is_novel,
+                "novelty_verdict": "NOVEL" if is_novel else "NOT_NOVEL",
+                "quality_score": qual_val,
+                "feasibility_score": feas_val,
+                "uzzi_z_score": rr_ideas[i].get("uzzi_z_score", 0.0),
+            })
+
         elapsed = round(time.time() - t_start, 3)
 
         return {
             "protocol_name": "Graph2Idea 40-Target-Paper Automatic Evaluation Protocol (arXiv:2606.09105)",
             "num_target_papers_evaluated": len(target_papers),
             "total_candidate_ideas_evaluated": len(rr_ideas),
+            "evaluated_ideas": evaluated_ideas,
             "execution_time_seconds": elapsed,
             "methodology": {
                 "generation_mode": "DETERMINISTIC_SYMBOLIC_SYNTHESIS",
