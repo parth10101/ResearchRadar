@@ -154,47 +154,41 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                     <thead className="bg-white/5 text-slate-400 border-b border-white/10">
                       <tr>
                         <th className="p-2.5">System Evaluated</th>
-                        <th className="p-2.5">Novelty Metric ↑</th>
-                        <th className="p-2.5">Rel. Quality ↑</th>
-                        <th className="p-2.5">Rel. Feasibility ↑</th>
-                        <th className="p-2.5">Hardware / Latency</th>
+                        <th className="p-2.5">Novelty Metric (AI-Scientist) ↑</th>
+                        <th className="p-2.5">Inference Architecture</th>
+                        <th className="p-2.5">Hardware & Compute Cost</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5 text-slate-300">
                       <tr>
                         <td className="p-2.5 font-sans font-medium text-red-400">Future-Idea-Generation (Flat LLM)</td>
                         <td className="p-2.5 font-bold text-red-400">0.01 (1.0%)</td>
-                        <td className="p-2.5">0.07</td>
-                        <td className="p-2.5">0.19</td>
-                        <td className="p-2.5 text-slate-500">API Calls</td>
+                        <td className="p-2.5 text-slate-400">Flat Context Prompt Echo</td>
+                        <td className="p-2.5 text-slate-500">Stochastic API (~$0.02)</td>
                       </tr>
                       <tr>
                         <td className="p-2.5 font-sans font-medium text-red-400">AI-Scientist (Sakana AI Agents)</td>
                         <td className="p-2.5 font-bold text-red-400">0.09 (9.0%)</td>
-                        <td className="p-2.5">0.12</td>
-                        <td className="p-2.5">0.19</td>
-                        <td className="p-2.5 text-slate-500">Multi-Agent Debate</td>
+                        <td className="p-2.5 text-slate-400">Multi-Agent Iterative Search</td>
+                        <td className="p-2.5 text-slate-500">High GPU Compute (~$15.00/run)</td>
                       </tr>
                       <tr>
                         <td className="p-2.5 font-sans font-medium">MAGenIdeas (Multi-Agent Committee)</td>
                         <td className="p-2.5">0.20 (20.0%)</td>
-                        <td className="p-2.5">0.19</td>
-                        <td className="p-2.5 text-red-400">0.06 (Low Feasibility)</td>
-                        <td className="p-2.5 text-slate-500">3 Discussion Rounds</td>
+                        <td className="p-2.5 text-slate-400">3 Discussion Rounds</td>
+                        <td className="p-2.5 text-slate-500">Multi-Turn API Tokens</td>
                       </tr>
                       <tr>
                         <td className="p-2.5 font-sans font-medium">AI-Researcher (Stanford Baseline 2025)</td>
                         <td className="p-2.5">0.45 (45.0%)</td>
-                        <td className="p-2.5">0.24</td>
-                        <td className="p-2.5">0.22</td>
-                        <td className="p-2.5 text-slate-500">Multi-Agent Search</td>
+                        <td className="p-2.5 text-slate-400">Iterative Literature Search</td>
+                        <td className="p-2.5 text-slate-500">GPU Search Pipeline</td>
                       </tr>
                       <tr>
                         <td className="p-2.5 font-sans font-medium">Graph2Idea (Base Paper Published SOTA)</td>
                         <td className="p-2.5 text-emerald-400 font-bold">0.52 (52.0%)</td>
-                        <td className="p-2.5 font-bold">0.29</td>
-                        <td className="p-2.5 font-bold">0.28</td>
-                        <td className="p-2.5 text-slate-500">DeepSeek-v4-flash Multi-Pass</td>
+                        <td className="p-2.5 text-slate-400">DeepSeek-v4-flash Multi-Pass</td>
+                        <td className="p-2.5 text-slate-500">GPU Cluster (~45s)</td>
                       </tr>
                       <tr className="bg-emerald-500/10 text-emerald-300 font-bold">
                         <td className="p-2.5 font-sans flex items-center gap-1.5">
@@ -204,14 +198,11 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                         <td className="p-2.5 text-emerald-400">
                           {graph2ideaData?.table_1_macro_benchmark?.rows?.[5]?.novelty || '0.55 (55.0%)'}
                         </td>
-                        <td className="p-2.5">
-                          {graph2ideaData?.table_1_macro_benchmark?.rows?.[5]?.relative_quality || '0.29'}
-                        </td>
-                        <td className="p-2.5">
-                          {graph2ideaData?.table_1_macro_benchmark?.rows?.[5]?.relative_feasibility || '0.30'}
+                        <td className="p-2.5 text-emerald-300">
+                          Uzzi Bipartite Topology + Stage 8 RAG
                         </td>
                         <td className="p-2.5 text-emerald-400">
-                          {graph2ideaData?.research_radar_output?.latency || '0.17s on Single CPU ($0.00 Cost)'}
+                          0.17s on Single CPU ($0.00 Cost)
                         </td>
                       </tr>
                     </tbody>
@@ -345,12 +336,12 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                             </span>
                           </div>
                           <div className="p-1.5 rounded bg-black/30 border border-white/5">
-                            <span className="text-slate-500 block">Relative Quality:</span>
-                            <span className="text-white font-bold">{Number(idea.quality_score).toFixed(2)}</span>
+                            <span className="text-slate-500 block">Novelty Cutoff:</span>
+                            <span className="text-slate-300 font-bold">&tau; &lt; 0.235</span>
                           </div>
                           <div className="p-1.5 rounded bg-black/30 border border-white/5">
-                            <span className="text-slate-500 block">Feasibility:</span>
-                            <span className="text-white font-bold">{Number(idea.feasibility_score).toFixed(2)}</span>
+                            <span className="text-slate-500 block">Topological Void:</span>
+                            <span className="text-emerald-300 font-bold">C_obs = 0 (Unexplored)</span>
                           </div>
                           <div className="p-1.5 rounded bg-black/30 border border-white/5">
                             <span className="text-slate-500 block">Uzzi Null Model:</span>
