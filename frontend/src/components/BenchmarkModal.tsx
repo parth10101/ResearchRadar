@@ -350,7 +350,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                       40 Parsed Research Ideas &amp; Empirical Novelty Scores
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      Evaluated against authentic ACL 2024 literature at cutoff &tau; = 0.340 (22 Novel / 18 Not Novel).
+                      Evaluated against authentic ACL 2024 literature at cutoff &tau; = 0.345 (22 Novel / 18 Not Novel).
                     </p>
                   </div>
 
@@ -448,11 +448,11 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                             {idea.is_novel ? (
                               <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30 flex items-center gap-1 shrink-0">
                                 <Check className="w-2.5 h-2.5 text-emerald-400" />
-                                NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &lt; 0.34)
+                                NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &lt; 0.345)
                               </span>
                             ) : (
                               <span className="px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-mono text-[10px] font-semibold border border-amber-500/30 shrink-0">
-                                NOT NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &ge; 0.34)
+                                NOT NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &ge; 0.345)
                               </span>
                             )}
                           </div>

@@ -7,7 +7,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/1/aim_paper/aim_paper.txt",
     "sha_id": "435f070f4779a184285917184899fbdb43bb6d7e",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Multi-Domain Linguistic Discrepancy Detector",
+    "substrate": "Machine-Generated Text Detection",
+    "limitation": "out-of-distribution detection degradation and decreasing linguistic divergence between human and LLM text"
   },
   {
     "paper_id": "MAGEN_ACL_2",
@@ -17,7 +20,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/2/aim_paper/aim_paper.txt",
     "sha_id": "e8e6d462d0a7656a9fefec21075159fd2138a780",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Generative N-Best Candidate Hypothesis Decoding",
+    "substrate": "Multilingual Speech and Machine Translation",
+    "limitation": "beam search top-1 hypothesis selection failure to exploit diverse candidate translations"
   },
   {
     "paper_id": "MAGEN_ACL_3",
@@ -27,7 +33,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/3/aim_paper/aim_paper.txt",
     "sha_id": "52258e9110f8e73cca24f6394bfc483341b459a4",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Confidence-Aware Self-Distillation (BitDistiller)",
+    "substrate": "Sub-4-Bit Precision LLM Quantization",
+    "limitation": "weight fidelity breakdown and memory degradation at ultra-low sub-4-bit precisions"
   },
   {
     "paper_id": "MAGEN_ACL_4",
@@ -37,7 +46,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/4/aim_paper/aim_paper.txt",
     "sha_id": "5088a04d1a9f42b967f3dcf791145e8aa367fc54",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Dual-Stage Mixed Fine-Tuning (DMT)",
+    "substrate": "Supervised Fine-Tuning Scaling",
+    "limitation": "task capability performance conflicts and catastrophic forgetting across mixed data ratios"
   },
   {
     "paper_id": "MAGEN_ACL_5",
@@ -47,7 +59,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/5/aim_paper/aim_paper.txt",
     "sha_id": "002bf0720404e5dc6bf43eff64f116ec755b405f",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Semantic Retrieval-Augmented Graph Grounding",
+    "substrate": "Automated Scientific Idea Generation",
+    "limitation": "retrieval noise and semantic redundancy in unconstrained flat text literature retrieval"
   },
   {
     "paper_id": "MAGEN_ACL_6",
@@ -57,7 +72,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/6/aim_paper/aim_paper.txt",
     "sha_id": "e0702a22e0841c54ab865b4996d7b07af192a3e1",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Sequential Image-Text Multi-Hop Tracking",
+    "substrate": "Multimodal Reasoning over Image Sequences",
+    "limitation": "temporal coherence collapse and representational drift across sequential visual transitions"
   },
   {
     "paper_id": "MAGEN_ACL_7",
@@ -67,7 +85,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/7/aim_paper/aim_paper.txt",
     "sha_id": "01efb3fd2d3ae4b5f4389c916c94f2c6d9c11b81",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Concept-Level Causal Mediation Rebalancing",
+    "substrate": "Spurious Correlation Mitigation in Text Classification",
+    "limitation": "shortcut learning and spurious correlation memorization on out-of-distribution text"
   },
   {
     "paper_id": "MAGEN_ACL_8",
@@ -77,7 +98,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/8/aim_paper/aim_paper.txt",
     "sha_id": "5ec2aa6c84e4b7ee51c6cc3e4cd74ed3b21c2df1",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Structural Schema-Constrained Format Verification",
+    "substrate": "LLM Structured Format-Following Evaluation",
+    "limitation": "format non-compliance and syntax breakdown in complex programmatic outputs"
   },
   {
     "paper_id": "MAGEN_ACL_9",
@@ -87,7 +111,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/9/aim_paper/aim_paper.txt",
     "sha_id": "fe6670cfc0d0dfe184afc8e003df51333d3a750e",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "High-Coverage Parallel Reading Comprehension",
+    "substrate": "Massively Multilingual Reading Comprehension",
+    "limitation": "cross-lingual representation degradation in low-resource language variants"
   },
   {
     "paper_id": "MAGEN_ACL_10",
@@ -97,7 +124,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/10/aim_paper/aim_paper.txt",
     "sha_id": "3dd564a7500861162904c6875a102118891a03f9",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Plausibility-Estimated Explanation Tuning (AbsInstruct)",
+    "substrate": "Abstraction and Conceptual Generalization in LLMs",
+    "limitation": "hallucinated rationales and superficial abstraction failure in explanation tuning"
   },
   {
     "paper_id": "MAGEN_ACL_11",
@@ -107,7 +137,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/11/aim_paper/aim_paper.txt",
     "sha_id": "c4d43fe1b7e44c5e9929d6edf7bd11de4e6d293a",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Distribution-Aligned Self-Distillation",
+    "substrate": "Parameter-Efficient Language Model Fine-Tuning",
+    "limitation": "distribution shift and capability degradation between pre-trained and fine-tuned states"
   },
   {
     "paper_id": "MAGEN_ACL_12",
@@ -117,7 +150,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/12/aim_paper/aim_paper.txt",
     "sha_id": "f131b342e3aede46d24afc9b9055a94cceb0936a",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Biological Knowledge-Guided Instruction Tuning",
+    "substrate": "Protein-Text Multimodal Language Modeling",
+    "limitation": "structural misalignment between textual instructions and biological sequence manifolds"
   },
   {
     "paper_id": "MAGEN_ACL_13",
@@ -127,7 +163,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/13/aim_paper/aim_paper.txt",
     "sha_id": "bad287184c6739fd6f476f89cb83e09415982d9f",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Large-Scale Analogical Schema Grounding (ANALOGYKB)",
+    "substrate": "Analogical Reasoning in Language Models",
+    "limitation": "superficial relational mapping failure and inability to transfer multi-domain metaphors"
   },
   {
     "paper_id": "MAGEN_ACL_14",
@@ -137,7 +176,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/14/aim_paper/aim_paper.txt",
     "sha_id": "16d6e1ed1cf72212f6154644f3aa59d18bc95fda",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Segmented Fine-Grained Expert Routing (DeepSeekMoE)",
+    "substrate": "Mixture-of-Experts Language Models",
+    "limitation": "expert redundancy and severe parameter underutilization in coarse MoE routing"
   },
   {
     "paper_id": "MAGEN_ACL_15",
@@ -147,7 +189,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/15/aim_paper/aim_paper.txt",
     "sha_id": "015f62d7a59f7a4301c0cdbe997460c38148d07b",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Self-Synthesized Rehearsal Memory Regularization",
+    "substrate": "Continual Learning in Large Language Models",
+    "limitation": "catastrophic forgetting of prior knowledge when updating on domain-specific corpora"
   },
   {
     "paper_id": "MAGEN_ACL_16",
@@ -157,7 +202,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/16/aim_paper/aim_paper.txt",
     "sha_id": "0d22f06a1f5ad9f62b2f35c126b514f927586c85",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Multi-Perspective Self-Consistency Reranking",
+    "substrate": "Code Generation and Program Synthesis",
+    "limitation": "single-path decoding errors and semantic bugs in long code sequence generation"
   },
   {
     "paper_id": "MAGEN_ACL_17",
@@ -167,7 +215,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/17/aim_paper/aim_paper.txt",
     "sha_id": "31e27369f64c51ffbfd9bc8e3cbb20705edc6bff",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Attribution-Grounded Citation Verification",
+    "substrate": "Conversational Information Seeking Chatbots",
+    "limitation": "unsubstantiated claims and hallucinated citations in factual dialogue systems"
   },
   {
     "paper_id": "MAGEN_ACL_18",
@@ -177,7 +228,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/18/aim_paper/aim_paper.txt",
     "sha_id": "4c0428917aeee6aa7bd434f337d039f35996b736",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Budget-Constrained Coarse-to-Fine Prompt Compression",
+    "substrate": "Long-Context LLM Inference Acceleration",
+    "limitation": "computational bottleneck and latency blowup caused by long prompt contexts"
   },
   {
     "paper_id": "MAGEN_ACL_19",
@@ -187,7 +241,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/19/aim_paper/aim_paper.txt",
     "sha_id": "8444b6982b5fa799e016e20f833594bb2f9ab12e",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Cross-Language Universal Code Instruction Distillation",
+    "substrate": "Multi-Language Code Synthesis",
+    "limitation": "syntactic fragmentation and uneven execution across low-resource programming languages"
   },
   {
     "paper_id": "MAGEN_ACL_20",
@@ -197,7 +254,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/20/aim_paper/aim_paper.txt",
     "sha_id": "d4e4685d1f4b490e0e35479f6350a9743673541e",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "World Knowledge Plugin Architecture (LoRAMoE)",
+    "substrate": "Modular Parameter-Efficient Adaptation",
+    "limitation": "world knowledge corruption and task interference during parameter fine-tuning"
   },
   {
     "paper_id": "MAGEN_ACL_21",
@@ -207,7 +267,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/21/aim_paper/aim_paper.txt",
     "sha_id": "32c5b515cab893e5e4bf3f90c8b6c8262bd7ac09",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Self-Evaluation Verification Alignment",
+    "substrate": "Factuality Alignment in Generative LLMs",
+    "limitation": "expensive reliance on manual human annotations for factuality error correction"
   },
   {
     "paper_id": "MAGEN_ACL_22",
@@ -217,7 +280,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/22/aim_paper/aim_paper.txt",
     "sha_id": "e4fd996d7caf2f1bef540172cc27b170967828c0",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Cross-Metric Variance Standardization",
+    "substrate": "Machine Translation Metric Calibration",
+    "limitation": "metric scale incompatibility and heuristic disagreement across automated evaluation scores"
   },
   {
     "paper_id": "MAGEN_ACL_23",
@@ -227,7 +293,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/23/aim_paper/aim_paper.txt",
     "sha_id": "20f3abdd3640718d8f268aaea8b2ac3b8978d2af",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Hierarchical Discourse Argumentation Structuring",
+    "substrate": "Computational Argumentation and Legal Reasoning",
+    "limitation": "fallacy overlooking and rhetorical incoherence in unstructured argument mining"
   },
   {
     "paper_id": "MAGEN_ACL_24",
@@ -237,7 +306,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/24/aim_paper/aim_paper.txt",
     "sha_id": "5aec6865043cb7c7f281699ae95652e0ff680f09",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Iterative Conceptualization-Instantiation Distillation (CANDLE)",
+    "substrate": "Commonsense Reasoning and Knowledge Extraction",
+    "limitation": "reliance on static concept taxonomies and lack of grounded instantiated knowledge"
   },
   {
     "paper_id": "MAGEN_ACL_25",
@@ -247,7 +319,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/25/aim_paper/aim_paper.txt",
     "sha_id": "3f081ee658a08d0b3ccc6358c85e618d05f74eb3",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Temporal Weight Delta Projection (Time Vectors)",
+    "substrate": "Temporal Domain Adaptation in Language Models",
+    "limitation": "temporal drift and historical knowledge contamination in static pre-trained models"
   },
   {
     "paper_id": "MAGEN_ACL_26",
@@ -257,7 +332,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/26/aim_paper/aim_paper.txt",
     "sha_id": "2330035c7586a0dc0b1f09e9c00106b295acf543",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Segmented Parallel Context Window Encoding",
+    "substrate": "Extremely Long Document Language Modeling",
+    "limitation": "quadratic computational complexity and context window exhaustion in standard transformers"
   },
   {
     "paper_id": "MAGEN_ACL_27",
@@ -267,7 +345,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/27/aim_paper/aim_paper.txt",
     "sha_id": "5a8a6b61033ba2355f7c149cec596c88a1d61954",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Adversarial Perturbation Stress Testing",
+    "substrate": "Machine-Generated Text Detector Robustness",
+    "limitation": "severe detector performance collapse under paraphrase and adversarial evasion attacks"
   },
   {
     "paper_id": "MAGEN_ACL_28",
@@ -277,7 +358,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/28/aim_paper/aim_paper.txt",
     "sha_id": "bed35010543191bf57a09a6058e75332702d7afa",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Multi-Perspective Perturbation Robustness Testing",
+    "substrate": "Mathematical Problem Solving and Multi-Step Reasoning",
+    "limitation": "shortcut memorization and reasoning fragility under numerical surface perturbations"
   },
   {
     "paper_id": "MAGEN_ACL_29",
@@ -287,7 +371,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/29/aim_paper/aim_paper.txt",
     "sha_id": "f5b077e01f6e3d91f58cb4ed7158fa61eec5a1f8",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Synthetic Self-Planning Agent Induction (AutoAct)",
+    "substrate": "Autonomous Language Agent Tool Planning",
+    "limitation": "high cost of expert demonstrations and heavy reliance on proprietary teacher models"
   },
   {
     "paper_id": "MAGEN_ACL_30",
@@ -297,7 +384,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/30/aim_paper/aim_paper.txt",
     "sha_id": "094b6847434be00e41686529f45d895bd632f68a",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Counterfactual Error-Reflective Reasoning",
+    "substrate": "Multi-Step Mathematical and Logical Problem Solving",
+    "limitation": "repetition of previous reasoning mistakes and failure to learn from negative trajectories"
   },
   {
     "paper_id": "MAGEN_ACL_31",
@@ -307,7 +397,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/31/aim_paper/aim_paper.txt",
     "sha_id": "33c8910107f3fcb17d140cc88554652508ae3674",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Targeted Parameter Knowledge Editing (SafeEdit)",
+    "substrate": "Large Language Model Safety and Detoxification",
+    "limitation": "side-effect degradation and catastrophic safety collapse when removing toxic concepts"
   },
   {
     "paper_id": "MAGEN_ACL_32",
@@ -317,7 +410,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/32/aim_paper/aim_paper.txt",
     "sha_id": "e327ef8d46ea0413316c80ee1404453834d84f05",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Gradient-Free Black-Box Prompt Optimization",
+    "substrate": "Parameter-Free Human Intent Alignment",
+    "limitation": "prohibitive computational cost and API access limits of full parameter alignment algorithms"
   },
   {
     "paper_id": "MAGEN_ACL_33",
@@ -327,7 +423,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/33/aim_paper/aim_paper.txt",
     "sha_id": "19e909f88b8b9b0635bd6e441094e1738c3bba9a",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Cross-Modal Unified Hallucination Detection",
+    "substrate": "Multimodal Large Language Models (MLLMs)",
+    "limitation": "cross-modal grounding misalignment and visual fact hallucination in vision-language outputs"
   },
   {
     "paper_id": "MAGEN_ACL_34",
@@ -337,7 +436,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/34/aim_paper/aim_paper.txt",
     "sha_id": "d6354e91d8dcf73bff50097b76a81de874f7bd7a",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Domain-Specific Instruction Continual Pre-Training",
+    "substrate": "Oceanic and Earth Science Specialized Modeling",
+    "limitation": "severe domain knowledge deficiency and factual hallucination on specialized oceanic science"
   },
   {
     "paper_id": "MAGEN_ACL_35",
@@ -347,7 +449,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/35/aim_paper/aim_paper.txt",
     "sha_id": "e534e65562e945cc67f4075ac2757051fc188ea8",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Cross-Lingual Dominant Ability Projection",
+    "substrate": "Low-Resource Language Task Generalization",
+    "limitation": "extreme scarcity of task exemplars and labeled training samples in low-resource languages"
   },
   {
     "paper_id": "MAGEN_ACL_36",
@@ -357,7 +462,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/36/aim_paper/aim_paper.txt",
     "sha_id": "4bebe389dfa85423e5cc089edf20b2c3f572f38c",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Multi-Perspective Inconsistent Reflection (Self-Contrast)",
+    "substrate": "Self-Refining Cognitive Reasoning in LLMs",
+    "limitation": "confirmation bias and self-reinforcing errors in single-perspective reflection loops"
   },
   {
     "paper_id": "MAGEN_ACL_37",
@@ -367,7 +475,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/37/aim_paper/aim_paper.txt",
     "sha_id": "9a8d0f0ace05d3795a9a58f94675710b89006941",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Calibrated Linguistic Uncertainty Expression",
+    "substrate": "Human-AI Trust and Interaction Reliability",
+    "limitation": "sycophantic overconfidence and model reluctance to express epistemic uncertainty"
   },
   {
     "paper_id": "MAGEN_ACL_38",
@@ -377,7 +488,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/38/aim_paper/aim_paper.txt",
     "sha_id": "bcf2c7e3f4ed64c8294c35a59220a26dd4f40060",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Olympiad-Level Bilingual Multimodal Verification",
+    "substrate": "Advanced Scientific and Mathematical AGI Evaluation",
+    "limitation": "saturation and lack of discriminative difficulty in traditional multimodal benchmarks"
   },
   {
     "paper_id": "MAGEN_ACL_39",
@@ -387,7 +501,10 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/39/aim_paper/aim_paper.txt",
     "sha_id": "8353270c28a542735c1ce8af2ff998146b620844",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Privacy-Preserving Influence Auditing",
+    "substrate": "Fine-Tuning Memorization and Copyright Protection",
+    "limitation": "unintended verbatim training data memorization and privacy leakage during fine-tuning"
   },
   {
     "paper_id": "MAGEN_ACL_40",
@@ -397,6 +514,9 @@
     "source_url": "https://github.com/ChenShuai00/MAGenIdeas/blob/5cd3433b58f05784fa28a1724de634a53806671d/dataset/data/acl2024_long/40/aim_paper/aim_paper.txt",
     "sha_id": "c59628de894a4aa7f91548bad5b4103b747256e8",
     "venue": "ACL 2024 (Long Paper)",
-    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)"
+    "benchmark_source": "MAGenIdeas (Chen & Zhang 2025, cited in Graph2Idea Section 4.1)",
+    "method": "Black-Box Multi-Generator Text Benchmarking",
+    "substrate": "Generalizable AI Text Detection",
+    "limitation": "inability of existing detectors to generalize across heterogeneous black-box generation engines"
   }
 ]

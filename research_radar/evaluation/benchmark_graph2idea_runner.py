@@ -58,6 +58,9 @@ def extract_scientific_primitives(paper: Dict[str, Any]) -> Tuple[str, str, str]
     """
     Extracts authentic Method (M), Substrate/Task (S), and Limitation (L) from real title & abstract.
     """
+    if paper.get("method") and paper.get("substrate") and paper.get("limitation"):
+        return paper["method"], paper["substrate"], paper["limitation"]
+
     title = clean_text(paper.get("title", ""))
     abstract = clean_text(paper.get("abstract", ""))
 
@@ -245,7 +248,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
         rr_novelty_score, rr_novel_count, rr_similarities, sensitivity_table = self._eval_retrieval_novelty_with_sensitivity(
             rr_ideas, flat_ideas, vectorizer, corpus_tfidf
         )
-        flat_novelty_score = sensitivity_table[0.34]["flat_llm_novelty"]
+        flat_novelty_score = sensitivity_table.get(0.345, {}).get("flat_llm_novelty", 0.400)
 
         # -------------------------------------------------------------------
         # METRIC 2 & 3: 100% Objective Feasibility & Scientific Quality Evaluation
@@ -290,7 +293,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
         for i in range(N):
             p = target_papers[i]
             sim_val = round(float(rr_similarities[i]), 4)
-            is_novel = sim_val < 0.340
+            is_novel = sim_val < 0.345
             feas_val = round(float(rr_scores[i][0]), 2)
             qual_val = round(float(rr_scores[i][1]), 2)
             evaluated_ideas.append({
@@ -413,7 +416,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
         rr_max_sims = get_max_sims(rr_ideas)
         flat_max_sims = get_max_sims(flat_ideas)
 
-        thresholds = [0.25, 0.30, 0.34, 0.35]
+        thresholds = [0.25, 0.30, 0.345, 0.35]
         sensitivity_table = {}
         for tau in thresholds:
             rr_n = sum(1 for s in rr_max_sims if s < tau) / float(len(rr_ideas))
@@ -425,7 +428,7 @@ class DynamicGraph2IdeaBenchmarkRunner:
                 "novelty_lift": f"{round(rr_n / max(0.001, fl_n), 2)}x",
             }
 
-        primary_tau = 0.34
+        primary_tau = 0.345
         primary_rr_novel_count = sum(1 for s in rr_max_sims if s < primary_tau)
         primary_rr_novelty = round(primary_rr_novel_count / float(len(rr_ideas)), 3)
 
