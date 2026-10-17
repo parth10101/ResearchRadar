@@ -334,48 +334,9 @@ export const HeroSection: React.FC<Props> = ({
   // Backward compatibility alias
   const composedIeeeQuery = composedFullQuery;
 
-  // Seamless switching between Single Search Bar and 3-Bar Boolean Deck
+  // Seamless switching between Single Search Bar and 4-Bar Boolean Deck (Preserves all inputs independently)
   const handleToggleIeeeMode = (enable: boolean) => {
-    if (enable) {
-      const currentQ = query.trim();
-      if (currentQ && !ieeeTerm1 && !ieeeTerm2) {
-        const opSplit = currentQ.split(/\b(AND|OR|NOT)\b|(\s+&\s+)/i);
-        const terms: { op: 'AND' | 'OR' | 'NOT'; text: string }[] = [];
-        let curOp: 'AND' | 'OR' | 'NOT' = 'AND';
-        for (const tok of opSplit) {
-          if (!tok) continue;
-          const t = tok.trim();
-          if (!t) continue;
-          const up = t.toUpperCase();
-          if (up === 'AND' || up === '&') { curOp = 'AND'; continue; }
-          if (up === 'OR') { curOp = 'OR'; continue; }
-          if (up === 'NOT') { curOp = 'NOT'; continue; }
-          const clean = t.replace(/[\"']/g, '').trim();
-          if (clean) {
-            terms.push({ op: curOp, text: clean });
-            curOp = 'AND';
-          }
-        }
-        if (terms.length > 0) {
-          setIeeeOp0(terms[0].op);
-          setIeeeTerm1(terms[0].text);
-        }
-        if (terms.length > 1) {
-          setIeeeOp1(terms[1].op);
-          setIeeeTerm2(terms[1].text);
-        }
-        if (terms.length > 2) {
-          setIeeeOp2(terms[2].op);
-          setIeeeTerm3(terms[2].text);
-        }
-      }
-      setIsIeeeMode(true);
-    } else {
-      setIsIeeeMode(false);
-      if (composedIeeeQuery) {
-        setQuery(composedIeeeQuery);
-      }
-    }
+    setIsIeeeMode(enable);
   };
 
   // Real-time Boolean Clause & Conjunction Audit for UI transparency
@@ -531,10 +492,12 @@ export const HeroSection: React.FC<Props> = ({
 
   const handleExecuteSearch = (targetQuery?: string, targetDatasetId?: string) => {
     if (isExecuting || isRunning) return;
-    const q = (targetQuery !== undefined ? targetQuery : (isIeeeMode ? composedIeeeQuery : query)).trim();
+    const q = (targetQuery !== undefined ? targetQuery : (isIeeeMode ? composedFullQuery : query)).trim();
     if (!q) return;
 
-    setQuery(q);
+    if (!isIeeeMode && targetQuery === undefined) {
+      setQuery(q);
+    }
 
     const holdoutYear = temporalHoldout ? '-2023' : undefined;
 
@@ -912,12 +875,11 @@ export const HeroSection: React.FC<Props> = ({
                     type="button"
                     className="ieee-search-submit-btn"
                     onClick={() => {
-                      if (composedIeeeQuery) {
-                        setQuery(composedIeeeQuery);
-                        handleExecuteSearch(composedIeeeQuery);
+                      if (composedFullQuery) {
+                        handleExecuteSearch(composedFullQuery);
                       }
                     }}
-                    disabled={isExecuting || !composedIeeeQuery}
+                    disabled={isExecuting || !composedFullQuery}
                   >
                     {isExecuting ? (
                       <>
