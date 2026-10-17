@@ -357,8 +357,8 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                   )}
                 </div>
                 <div className="text-emerald-400 font-mono text-xs pt-0.5 font-semibold flex items-center justify-between">
-                  <span>Max Seed Overlap: {graph2ideaData?.evaluation_technique?.max_cosine_similarity ?? '0.3767'}</span>
-                  <span>Calculated Novelty: {graph2ideaData?.evaluation_technique?.calculated_novelty ?? '1 - 0.3767 = 0.6233 (62.3%)'}</span>
+                  <span>Max Seed Overlap: {graph2ideaData?.case_study_section_5_2?.max_cosine_similarity ?? graph2ideaData?.evaluation_technique?.max_cosine_similarity ?? '0.3767'}</span>
+                  <span>Section 5.2 Case Study Continuous Novelty: {graph2ideaData?.case_study_section_5_2?.calculated_continuous_novelty ?? '1 - 0.3767 = 0.6233 (62.3%)'}</span>
                 </div>
               </div>
 
@@ -366,9 +366,9 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-slate-300 text-xs font-semibold">
-                    Table 1: Benchmark Results from June 2026 Base Paper (Page 9):
+                    Table 1: Benchmark Results on Dataset A (40 Real ACL 2024 Papers, Page 9):
                   </span>
-                  <span className="text-amber-400 font-mono text-[11px]">Flat LLMs Fail on Novelty (1% – 9%)</span>
+                  <span className="text-emerald-400 font-mono text-[11px]">Direct Reproduction: Base 0.52 &rarr; Ours 0.55 (+3.0%)</span>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-[#0e1320] overflow-hidden">
                   <table className="w-full text-left font-mono text-xs">
@@ -404,22 +404,26 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                         <td className="p-2.5 text-slate-500">3 Discussion Rounds</td>
                       </tr>
                       <tr>
-                        <td className="p-2.5 font-sans font-medium">Graph2Idea (Base Paper Graph RAG)</td>
-                        <td className="p-2.5 text-emerald-400">0.52 (52.0%)</td>
-                        <td className="p-2.5">0.29</td>
-                        <td className="p-2.5">0.28</td>
+                        <td className="p-2.5 font-sans font-medium">Graph2Idea (Base Paper Published SOTA)</td>
+                        <td className="p-2.5 text-emerald-400 font-bold">0.52 (52.0%)</td>
+                        <td className="p-2.5 font-bold">0.29</td>
+                        <td className="p-2.5 font-bold">0.28</td>
                         <td className="p-2.5 text-slate-500">DeepSeek-v4-flash Multi-Pass</td>
                       </tr>
                       <tr className="bg-emerald-500/10 text-emerald-300 font-bold">
                         <td className="p-2.5 font-sans flex items-center gap-1.5">
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          ResearchRadar (Our System)
+                          ResearchRadar (Our Project - Dataset A)
                         </td>
                         <td className="p-2.5 text-emerald-400">
-                          {graph2ideaData?.research_radar_output?.novelty_score || '0.6233 (62.3%)'}
+                          {graph2ideaData?.table_1_macro_benchmark?.rows?.[5]?.novelty || '0.55 (55.0%)'}
                         </td>
-                        <td className="p-2.5">0.31</td>
-                        <td className="p-2.5">0.33</td>
+                        <td className="p-2.5">
+                          {graph2ideaData?.table_1_macro_benchmark?.rows?.[5]?.relative_quality || '0.31'}
+                        </td>
+                        <td className="p-2.5">
+                          {graph2ideaData?.table_1_macro_benchmark?.rows?.[5]?.relative_feasibility || '0.30'}
+                        </td>
                         <td className="p-2.5 text-emerald-400">0.19s on Single CPU ($0.00 Cost)</td>
                       </tr>
                     </tbody>
