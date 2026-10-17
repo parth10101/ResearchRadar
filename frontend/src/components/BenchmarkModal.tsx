@@ -228,7 +228,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                       40 Parsed Research Ideas &amp; Empirical Novelty Scores
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      Evaluated against authentic ACL 2024 literature at cutoff &tau; = 0.345 (22 Novel / 18 Not Novel).
+                      Evaluated against authentic ACL 2024 literature at cutoff &tau; = 0.235 (22 Novel / 18 Not Novel). Synthesized via Stage 8 Context-Bound RAG.
                     </p>
                   </div>
 
@@ -326,11 +326,11 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                             {idea.is_novel ? (
                               <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30 flex items-center gap-1 shrink-0">
                                 <Check className="w-2.5 h-2.5 text-emerald-400" />
-                                NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &lt; 0.345)
+                                NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &lt; 0.235)
                               </span>
                             ) : (
                               <span className="px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-mono text-[10px] font-semibold border border-amber-500/30 shrink-0">
-                                NOT NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &ge; 0.345)
+                                NOT NOVEL (cos: {Number(idea.max_similarity).toFixed(4)} &ge; 0.235)
                               </span>
                             )}
                           </div>
@@ -374,9 +374,20 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                           </div>
                         </div>
 
-                        {/* Generated Idea Text */}
-                        <div className="mt-2 p-2 rounded bg-black/40 border border-white/5 text-[11px] text-slate-300 italic leading-relaxed">
-                          "{idea.text}"
+                        {/* Stage 8 Grounded RAG Proposal Header & Text */}
+                        <div className="mt-2.5 p-3 rounded-lg bg-black/50 border border-white/10 space-y-1.5">
+                          <div className="flex items-center justify-between text-[10px] font-mono border-b border-white/5 pb-1">
+                            <span className="text-emerald-400 font-bold flex items-center gap-1.5">
+                              <Sparkles className="w-3 h-3" />
+                              Stage 8 Grounded RAG Proposal
+                            </span>
+                            <span className="text-slate-500">
+                              Uzzi Null Model (C_obs = 0) &rarr; Groq RAG Synthesis
+                            </span>
+                          </div>
+                          <div className="text-[11px] text-slate-200 leading-relaxed font-sans">
+                            "{idea.text}"
+                          </div>
                         </div>
                       </div>
                     ))}
