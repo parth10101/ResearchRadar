@@ -63,10 +63,15 @@ def save_papers(corpus_id: str, papers: List[Dict[str, Any]]):
         session.exec(delete(PaperRecord).where(PaperRecord.corpus_id == corpus_id))
         
         records = []
+        seen_ids = set()
         for p in papers:
-            p_id = str(p.get("id") or p.get("paper_id") or p.get("arxiv_id") or "")
-            if not p_id:
+            raw_id = str(p.get("id") or p.get("paper_id") or p.get("arxiv_id") or "")
+            if not raw_id:
                 continue
+            p_id = f"{corpus_id}#{raw_id}"
+            if p_id in seen_ids:
+                continue
+            seen_ids.add(p_id)
             
             authors = p.get("authors") or []
             authors_str = json.dumps(authors) if isinstance(authors, list) else str(authors)

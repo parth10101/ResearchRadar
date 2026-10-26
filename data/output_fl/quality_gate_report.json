@@ -1,7 +1,0 @@
-[
-  {
-    "paper_id": "1907.09173",
-    "title": "FedHealth: A Federated Transfer Learning Framework for Wearable Healthcare",
-    "reason": "Near-duplicate (cosine similarity 0.9938 >= 0.98 with W3018464563)"
-  }
-]

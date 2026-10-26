@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath("."))
 import unittest
 from research_radar.s2_client import parse_boolean_query, matches_boolean_criteria
 

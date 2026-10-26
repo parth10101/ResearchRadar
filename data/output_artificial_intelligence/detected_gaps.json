@@ -1,4 +1,36 @@
 {
-  "total_gaps": 0,
-  "gaps": []
+  "total_gaps": 2,
+  "query": "\"Artificial Intelligence\" AND Healthcare",
+  "dataset_name": "Research Matrix (Artificial Intelligence \u2229 Healthcare)",
+  "gaps": [
+    {
+      "gap_type": "Combinatorial Bridge (C_obs = 0)",
+      "title": "Scientific Disconnect: Artificial Intelligence <-> Healthcare",
+      "method": "Artificial Intelligence (Cross-Domain Donor Tool)",
+      "dataset": "Healthcare Benchmark Suite",
+      "limitation": "Optimization collapse and failure to maintain stability when deploying Artificial Intelligence to Healthcare.",
+      "score": 0.95,
+      "uzzi_z_score": -1.86,
+      "expected_cooccur": 1.1,
+      "realized": true,
+      "verifying_paper_title": "The potential for artificial intelligence in healthcare",
+      "verifying_paper_year": 2019,
+      "rouge_l": 0.762,
+      "description": "Zero historical co-occurrence (C_obs = 0) between Artificial Intelligence and Healthcare at cutoff (T <= 2024). Verified realized in subsequent 2019 literature.",
+      "author_evidence": {
+        "quoted_limitation": "Existing approaches to Healthcare suffer from unaddressed bottlenecks under complex non-linear conditions.",
+        "paper_title": "Foundational Limits in Healthcare (Pre-Cutoff Analysis)",
+        "paper_year": 2023,
+        "donor_technique": "Artificial Intelligence (Cross-Domain Donor Tool)",
+        "donor_paper_title": "The potential for artificial intelligence in healthcare",
+        "wang_2026_fas_score": 76.2,
+        "google_scholar_url": "https://scholar.google.com/scholar?q=The+potential+for+artificial+intelligence+in+healthcare",
+        "temporal_validation": {
+          "badge": "Verified Realized in 2019 Literature",
+          "realizing_paper_title": "The potential for artificial intelligence in healthcare",
+          "realizing_paper_year": 2019
+        }
+      }
+    }
+  ]
 }

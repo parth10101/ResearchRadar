@@ -8,6 +8,7 @@ interface HeaderProps {
   onReturnToHero: () => void;
   onLaunchStudio?: () => void;
   onOpenBenchmark?: () => void;
+  skipDomainClusters?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -15,12 +16,18 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectTab,
   onReturnToHero,
   onOpenBenchmark,
+  skipDomainClusters = false,
 }) => {
-  const navTabs = [
-    { id: 'archipelago', idx: '01', label: 'Domain Clusters' },
-    { id: 'timeline', idx: '02', label: 'Citations' },
-    { id: 'grant', idx: '03', label: 'Gap Analysis' },
-  ];
+  const navTabs = skipDomainClusters
+    ? [
+        { id: 'timeline', idx: '01', label: 'Citations' },
+        { id: 'grant', idx: '02', label: 'Gap Analysis' },
+      ]
+    : [
+        { id: 'archipelago', idx: '01', label: 'Domain Clusters' },
+        { id: 'timeline', idx: '02', label: 'Citations' },
+        { id: 'grant', idx: '03', label: 'Gap Analysis' },
+      ];
 
   const isHome = activeTab === 'hero';
 

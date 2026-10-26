@@ -1,445 +1,1469 @@
 [
   {
-    "id": "0000a190fba2438add1cc2a8863fa6ca9403e161",
-    "s2_paper_id": "0000a190fba2438add1cc2a8863fa6ca9403e161",
-    "title": "Spacecraft Pose Estimation Using a Monocular Camera",
+    "id": "8bb7bcef0d12",
+    "title": "A comprehensive review of advances in physics-informed neural networks and their applications in complex fluid dynamics",
+    "year": 2024,
+    "venue": "Physics of Fluids",
+    "citationCount": 205,
+    "influentialCitationCount": 30,
     "authors": [
-      "Jian-Feng Shi"
+      {
+        "name": "Chi Zhao"
+      },
+      {
+        "name": "Feifei Zhang"
+      },
+      {
+        "name": "Wenqiang Lou"
+      },
+      {
+        "name": "Xi Wang"
+      },
+      {
+        "name": "Jianyong Yang"
+      }
     ],
-    "year": 2019,
-    "doi": "10.22215/etd/2019-13472",
-    "source": "semanticscholar",
-    "abstract": "Spacecraft pose estimation is an essential input to the Guidance, Navigation and Control process. Pose estimation based on monocular camera images does not require modifications to the target vehicle and has fewer resource requirements than LIDAR systems. We provide a comprehensive investigation and novel contributions in foreground recognition and extraction, image feature generation, and pose estimation. We evaluated $12$ image feature detector and descriptor performances and proposed a new biologically inspired image descriptor. We also assessed the bag of visual words codebook technique for object localisation and evaluated linear, non-linear and non-parametric classifiers. We tested the ResNet and Inception-ResNet convolutional neural networks on target localisation. We developed compact semantic segmentation autoencoders based on AlexNet, U-Net and VGG. We made several new contributions in the image saliency generation. First, we developed a novel principal component analysis based formula for graph manifold ranking Optimal Affinity Matrix inversion which reduces computation time and stabilises the ranking inversion process. We developed a novel weighted gradient orientation histogram feature for monochromatic image superpixel identification and provided three enhanced versions of the graph manifold ranking tested on $32,536$ images. Our technique out-performs the state-of-the-art saliency method in precision and our fastest method is $12{\\times}$ faster than the original graph manifold ranking technique. We introduce an innovative false-coloured high-frequency salient feature image to enhance foreground and background pixel histogram distinction. We propose a novel space background classification scheme using pixel statistics to detect Earth passage. We evaluated appearance based pose matching using principal components analysis, SoftPOSIT and $e$P$n$P for pose estimation. We propose a novel homography transform projection method that simplifies the perspective-$n$-point correspondence. We introduce improvements to the SoftPOSIT initiation to reduce the effects of local minimum trapping using centroid matching. We developed region-based pose estimation using level-set segmentation and pixel statistics. Our tests show the region-based method out-performs the appearance-based and point-based methods in speed, precision and stability.",
-    "tldr": "We developed compact semantic segmentation autoencoders based on AlexNet, U-Net and VGG.",
-    "citation_count": 19,
-    "influential_citation_count": 0,
-    "venue": null,
-    "publication_types": [],
-    "s2_fields_of_study": [
-      "Computer Science",
-      "Engineering"
+    "abstract": "Physics-informed neural networks (PINNs) represent an emerging computational paradigm that incorporates observed data patterns and the fundamental physical laws of a given problem domain. This approach provides significant advantages in addressing diverse difficulties in the field of complex fluid dynamics. We thoroughly investigated the design of the model architecture, the optimization of the convergence rate, and the development of computational modules for PINNs. However, efficiently and accurately utilizing PINNs to resolve complex fluid dynamics problems remain an enormous barrier. For instance, rapidly deriving surrogate models for turbulence from known data and accurately characterizing flow details in multiphase flow fields present substantial difficulties. Additionally, the prediction of parameters in multi-physics coupled models, achieving balance across all scales in multiscale modeling, and developing standardized test sets encompassing complex fluid dynamic problems are urgent technical breakthroughs needed. This paper discusses the latest advancements in PINNs and their potential applications in complex fluid dynamics, including turbulence, multiphase flows, multi-field coupled flows, and multiscale flows. Furthermore, we analyze the challenges that PINNs face in addressing these fluid dynamics problems and outline future trends in their growth. Our objective is to enhance the integration of deep learning and complex fluid dynamics, facilitating the resolution of more realistic and complex flow problems.",
+    "tldr": "Physics-informed neural networks (PINNs) represent an emerging computational paradigm that incorporates observed data patterns and the fundamental physical laws of a given problem domain. This approach provides significant advantages in addressing diverse difficulties in the fiel...",
+    "fieldsOfStudy": [
+      "Physics",
+      "Fluid dynamics",
+      "Statistical physics"
     ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": "http://repository.library.carleton.ca/downloads/qn59q4937"
+    "doi": "https://doi.org/10.1063/5.0226562",
+    "url": "https://doi.org/https://doi.org/10.1063/5.0226562",
+    "pdf_url": null,
+    "openalex_id": "W4403069620",
+    "references": [
+      {
+        "paperId": "W1522301498",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1594555157",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2028476052",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2051434435",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2073897969",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2124098451",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2271840356",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2277172374",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2772097715",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2890968382",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2899283552",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2900369848",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2900501930",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2920959147",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2947510605",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2948230027",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2948551291",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2957969499",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2970971581",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2973886134",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2975003945",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2977109506",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2979786244",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2989521711",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2992541290",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.5
   },
   {
-    "id": "2501.03113",
-    "s2_paper_id": "0000b6bbb07f9439e5c90108c42701b881ce2237",
-    "title": "Balancing Efficiency and Expressiveness: Subgraph GNNs with Walk-Based Centrality",
+    "id": "24d46b7ab930",
+    "title": "Hybrid quantum physics-informed neural networks for simulating computational fluid dynamics in complex shapes",
+    "year": 2024,
+    "venue": "Machine Learning Science and Technology",
+    "citationCount": 38,
+    "influentialCitationCount": 5,
     "authors": [
-      "Joshua Southern",
-      "Yam Eitan",
-      "Guy Bar-Shalom",
-      "Michael M. Bronstein",
-      "Haggai Maron",
-      "Fabrizio Frasca"
+      {
+        "name": "Alexandr Sedykh"
+      },
+      {
+        "name": "Maninadh Podapaka"
+      },
+      {
+        "name": "Asel Sagingalieva"
+      },
+      {
+        "name": "Karan Pinto"
+      },
+      {
+        "name": "Markus Pflitsch"
+      },
+      {
+        "name": "Alexey A. Melnikov"
+      }
     ],
+    "abstract": "Abstract Finding the distribution of the velocities and pressures of a fluid by solving the Navier–Stokes equations is a principal task in the chemical, energy, and pharmaceutical industries, as well as in mechanical engineering and in design of pipeline systems. With existing solvers, such as OpenFOAM and Ansys, simulations of fluid dynamics in intricate geometries are computationally expensive and require re-simulation whenever the geometric parameters or the initial and boundary conditions are altered. Physics-informed neural networks (PINNs) are a promising tool for simulating fluid flows in complex geometries, as they can adapt to changes in the geometry and mesh definitions, allowing for generalization across fluid parameters and transfer learning across different shapes. We present a hybrid quantum PINN (HQPINN) that simulates laminar fluid flow in 3D Y -shaped mixers. Our approach combines the expressive power of a quantum model with the flexibility of a PINN, resulting in a 21% higher accuracy compared to a purely classical neural network. Our findings highlight the potential of machine learning approaches, and in particular HQPINN, for complex shape optimization tasks in computational fluid dynamics. By improving the accuracy of fluid simulations in complex geometries, our research using hybrid quantum models contributes to the development of more efficient and reliable fluid dynamics solvers.",
+    "tldr": "Abstract Finding the distribution of the velocities and pressures of a fluid by solving the Navier–Stokes equations is a principal task in the chemical, energy, and pharmaceutical industries, as well as in mechanical engineering and in design of pipeline systems. With existing so...",
+    "fieldsOfStudy": [
+      "Artificial neural network",
+      "Statistical physics",
+      "Dynamics (music)"
+    ],
+    "doi": "https://doi.org/10.1088/2632-2153/ad43b2",
+    "url": "https://doi.org/https://doi.org/10.1088/2632-2153/ad43b2",
+    "pdf_url": "https://doi.org/10.1088/2632-2153/ad43b2",
+    "openalex_id": "W4395481408",
+    "references": [
+      {
+        "paperId": "W1498436455",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1522301498",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1853291804",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2036029762",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2067529211",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2103956991",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2137983211",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2187345578",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2523246573",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2781738013",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2792315573",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2796293949",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2899283552",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2901306828",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2923153053",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2962727772",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2962834855",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2963198496",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2964330890",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2970710628",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2995742898",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2997326604",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3007913393",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3040543265",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3042830018",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.5
+  },
+  {
+    "id": "8da86129d8a3",
+    "title": "Advancing fluid dynamics simulations: A comprehensive approach to optimizing physics-informed neural networks",
+    "year": 2024,
+    "venue": "Physics of Fluids",
+    "citationCount": 37,
+    "influentialCitationCount": 5,
+    "authors": [
+      {
+        "name": "Wen Zhou"
+      },
+      {
+        "name": "Shuichiro Miwa"
+      },
+      {
+        "name": "Koji Okamoto"
+      }
+    ],
+    "abstract": "Flow modeling based on physics-informed neural networks (PINNs) is emerging as a potential artificial intelligence (AI) technique for solving fluid dynamics problems. However, conventional PINNs encounter inherent limitations when simulating incompressible fluids, such as difficulties in selecting the sampling points, balancing the loss items, and optimizing the hyperparameters. These limitations often lead to non-convergence of PINNs. To overcome these issues, an improved and generic PINN for fluid dynamic analysis is proposed. This approach incorporates three key improvements: residual-based adaptive sampling, which automatically samples points in areas with larger residuals; adaptive loss weights, which balance the loss terms effectively; and utilization of the differential evolution optimization algorithm. Then, three case studies at low Reynolds number, Kovasznay flow, vortex shedding past a cylinder, and Beltrami flow are employed to validate the improved PINNs. The contribution of each improvement to the final simulation results is investigated and quantified. The simulation results demonstrate good agreement with both analytical solutions and benchmarked computational fluid dynamics (CFD) calculation results, showcasing the efficiency and validity of the improved PINNs. These PINNs have the potential to reduce the reliance on CFD simulations for solving fluid dynamics problems.",
+    "tldr": "Flow modeling based on physics-informed neural networks (PINNs) is emerging as a potential artificial intelligence (AI) technique for solving fluid dynamics problems. However, conventional PINNs encounter inherent limitations when simulating incompressible fluids, such as difficu...",
+    "fieldsOfStudy": [
+      "Computational fluid dynamics",
+      "Fluid dynamics",
+      "Convergence (economics)"
+    ],
+    "doi": "https://doi.org/10.1063/5.0180770",
+    "url": "https://doi.org/https://doi.org/10.1063/5.0180770",
+    "pdf_url": null,
+    "openalex_id": "W4390988447",
+    "references": [
+      {
+        "paperId": "W1595159159",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2049716918",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2106467688",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2626542998",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2804823968",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2899283552",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2904260561",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2970971581",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2986795381",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3010839048",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3044708378",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3095154255",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3096832029",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3102254925",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3118297026",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3118391542",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3126393581",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3128704025",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3133608513",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3159951847",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3169719976",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3185095713",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3209909540",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4205821411",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4211029392",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.5
+  },
+  {
+    "id": "48e5659d1058",
+    "title": "Fluid–structure interaction analysis of pulsatile flow in arterial aneurysms with physics-informed neural networks and computational fluid dynamics",
     "year": 2025,
-    "doi": "10.48550/arXiv.2501.03113",
-    "source": "semanticscholar",
-    "abstract": "Subgraph GNNs have emerged as promising architectures that overcome the expressiveness limitations of Graph Neural Networks (GNNs) by processing bags of subgraphs. Despite their compelling empirical performance, these methods are afflicted by a high computational complexity: they process bags whose size grows linearly in the number of nodes, hindering their applicability to larger graphs. In this work, we propose an effective and easy-to-implement approach to dramatically alleviate the computational cost of Subgraph GNNs and unleash broader applications thereof. Our method, dubbed HyMN, leverages walk-based centrality measures to sample a small number of relevant subgraphs and drastically reduce the bag size. By drawing a connection to perturbation analysis, we highlight the strength of the proposed centrality-based subgraph sampling, and further prove that these walk-based centralities can be additionally used as Structural Encodings for improved discriminative power. A comprehensive set of experimental results demonstrates that HyMN provides an effective synthesis of expressiveness, efficiency, and downstream performance, unlocking the application of Subgraph GNNs to dramatically larger graphs. Not only does our method outperform more sophisticated subgraph sampling approaches, it is also competitive, and sometimes better, than other state-of-the-art approaches for a fraction of their runtime.",
-    "tldr": "In this work, we propose an effective and easy-to-implement approach to dramatically alleviate the computational cost of Subgraph GNNs and unleash broader applications thereof.",
-    "citation_count": 7,
-    "influential_citation_count": 0,
-    "venue": "International Conference on Machine Learning",
-    "publication_types": [
-      "JournalArticle",
-      "Conference"
+    "venue": "Physics of Fluids",
+    "citationCount": 24,
+    "influentialCitationCount": 3,
+    "authors": [
+      {
+        "name": "Muhammad Abaid Ur Rehman"
+      },
+      {
+        "name": "Özgür Ekici"
+      },
+      {
+        "name": "M. Asif Farooq"
+      },
+      {
+        "name": "Khayam Butt"
+      },
+      {
+        "name": "Michael Ajao-Olarinoye"
+      },
+      {
+        "name": "Zhen Wang"
+      },
+      {
+        "name": "Haipeng Liu"
+      }
     ],
-    "s2_fields_of_study": [
-      "Computer Science",
-      "Mathematics"
+    "abstract": "Marfan syndrome (MS) is a genetic disorder often associated with the development of aortic aneurysms, leading to severe vascular complications. The progression of this condition is intricately linked to hemodynamic factors such as wall shear stress (WSS) and von Mises stress, as abnormal distributions can contribute to thrombus formation, endothelial damage, and the worsening of aneurysmal conditions. In this study, six vascular models were analyzed: four representing diseased aortas with Marfan syndrome aneurysms and two healthy aortic models for comparison. The models were sourced from Vascular Model Repository, and computational fluid dynamics (CFD) simulations were conducted using a Newtonian fluid model and the shear stress transport (SST) k–ω turbulent transitional model to evaluate WSS and von Mises stress. Fluid–structure interaction was employed to incorporate vessel wall interaction, and pulsatile inlet velocity profiles were used to simulate physiological blood flow, capturing time-dependent hemodynamic variations. The results revealed significant differences between healthy and diseased aortic models. In healthy models, WSS was uniformly distributed, with values consistently below 40 Pa, reflecting stable vascular conditions. Conversely, the diseased models exhibited highly non-uniform WSS distributions, with notably lower values in aneurysmal regions, contributing to thrombus formation, with elevated WSS in areas like the carotid and subclavian arteries due to geometric and hemodynamic complexities. The von Mises stress analysis identified regions of heightened rupture risk, particularly on the superior side of case MS1, where both von Mises stress and WSS reached their highest values among all cases. Physics-informed neural networks demonstrated strong agreement with CFD results while significantly reducing computational cost, highlighting their potential for real-time clinical applications. These findings underscore the critical role of hemodynamic factors in aneurysm progression and rupture risk, offering valuable insights for optimizing diagnostic and therapeutic strategies in vascular diseases.",
+    "tldr": "Marfan syndrome (MS) is a genetic disorder often associated with the development of aortic aneurysms, leading to severe vascular complications. The progression of this condition is intricately linked to hemodynamic factors such as wall shear stress (WSS) and von Mises stress, as ...",
+    "fieldsOfStudy": [
+      "Physics",
+      "Pulsatile flow",
+      "Fluid dynamics"
     ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
+    "doi": "https://doi.org/10.1063/5.0259296",
+    "url": "https://doi.org/https://doi.org/10.1063/5.0259296",
+    "pdf_url": "https://doi.org/10.1063/5.0259296",
+    "openalex_id": "W4408362662",
+    "references": [
+      {
+        "paperId": "W1608845451",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1677182931",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1983406676",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1984794700",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1992736458",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2012595079",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2018060978",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2060947741",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2094013561",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2100392330",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2118951490",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2130744279",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2137913387",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2146601191",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2342617146",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2471053470",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2756354279",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2883464116",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2899283552",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2900031150",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2908510526",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2942173913",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2947720347",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2970971581",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2973119841",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.5
   },
   {
-    "id": "0001dd2dd42dbfcf462b0728f41457ab9b63e297",
-    "s2_paper_id": "0001dd2dd42dbfcf462b0728f41457ab9b63e297",
-    "title": "Dual‐Objective Adversarial Attack on Wind Power Forecasting: Balancing Destructiveness and Stealthiness",
-    "authors": [
-      "Chenghao Liang",
-      "Gaoqi Liang",
-      "Xing-Yu Zhu",
-      "Ting Wu",
-      "Jia-Qi Ruan",
-      "Guolong Liu"
-    ],
-    "year": 2026,
-    "doi": "10.1049/stg2.70087",
-    "source": "semanticscholar",
-    "abstract": "As inputs to wind power forecasting models, meteorological factors are vulnerable to adversarial attacks, leading to deviations in forecasted wind power. Existing research on adversarial attacks against renewable energy forecasting models mostly focuses on a single destructive objective, neglecting attack stealthiness. This makes it challenging to achieve actual destructive effects in scenarios where example detection mechanisms are deployed. Therefore, this paper proposes a Dual‐Objective Adversarial Attack (DOAA) algorithm that balances attack destructiveness and stealthiness to achieve the joint optimisation of both. First, a wind power forecasting model based on deep neural network is constructed, which accurately captures the complex coupling relationships between meteorological factors and wind power. Second, a graph autoencoder (GAE) model suitable for time‐series example detection is designed, which fuses the temporal correlations of data from adjacent time periods using graph structures and realises the detection of adversarial examples through reconstruction loss. Finally, the above models are integrated to construct the DOAA algorithm based on Projected Gradient Descent. By adjusting the coefficient of the reconstruction loss term, the preference for attack destructiveness or stealthiness can be achieved. Experimental results verify that the proposed DOAA algorithm achieves a favourable balance between attack destructiveness and stealthiness.",
-    "tldr": "As inputs to wind power forecasting models, meteorological factors are vulnerable to adversarial attacks, leading to deviations in forecasted wind power.",
-    "citation_count": 0,
-    "influential_citation_count": 0,
-    "venue": "IET Smart Grid",
-    "publication_types": [
-      "JournalArticle"
-    ],
-    "s2_fields_of_study": [
-      "Environmental Science",
-      "Engineering",
-      "Computer Science"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": "https://doi.org/10.1049/stg2.70087"
-  },
-  {
-    "id": "00020053f02ed4070cad185fbeddd38cc97556ec",
-    "s2_paper_id": "00020053f02ed4070cad185fbeddd38cc97556ec",
-    "title": "A Method for the Intelligent Identification of the Operating Conditions of Deep-Sea Submersibles and Its Application",
-    "authors": [
-      "Yi Zhang",
-      "Zihao Li",
-      "Jialing Tang",
-      "Kaixun He"
-    ],
+    "id": "34625c862820",
+    "title": "Physics-Informed Neural Networks: A New Paradigm in Computational Fluid Dynamics",
     "year": 2025,
-    "doi": "10.3390/s25226904",
-    "source": "semanticscholar",
-    "abstract": "The precise identification of operating conditions is a critical prerequisite for ensuring the safety of manned deep-sea submersibles, a task complicated by extreme environments and tightly coupled subsystems. Traditional methods, which often overlook the latent correlations among monitoring variables, are frequently insufficient for this high-stakes application. To address these issues, this paper proposes a novel working condition identification method tailored to the challenges of the deep-sea environment, which leverages graph neural networks to explicitly model the relationships between sensor variables. The proposed framework first dynamically constructs a graph structure from multi-sensor snapshots using the K-Nearest Neighbor (K-NN) algorithm, where edges represent high similarity in the submersible’s operational state. Subsequently, a graph neural network is employed to learn from this relational data. Furthermore, a model update strategy is introduced to enable the adaptive recognition of new, emerging operational conditions. A case analysis using real operational data from a manned deep-sea submersible demonstrates that the proposed method significantly enhances identification accuracy. Moreover, interpretability analysis reveals that the model learns physically meaningful patterns consistent with the submersible’s engineering principles, enhancing its trustworthiness.",
-    "tldr": "The precise identification of operating conditions is a critical prerequisite for ensuring the safety of manned deep-sea submersibles, a task complicated by extreme environments and tightly coupled subsystems.",
-    "citation_count": 0,
-    "influential_citation_count": 0,
-    "venue": "Italian National Conference on Sensors",
-    "publication_types": [
-      "JournalArticle"
+    "venue": "Applied Physics",
+    "citationCount": 1,
+    "influentialCitationCount": 0,
+    "authors": [
+      {
+        "name": "卓 李"
+      }
     ],
-    "s2_fields_of_study": [
-      "Medicine",
-      "Engineering",
-      "Environmental Science",
-      "Computer Science"
+    "abstract": "流体动力学以Navier-Stokes方程为核心，在航空航天、生物医学及环境科学等领域发挥关键作用。传统计算流体动力学(CFD)通过离散化方法求解复杂流动问题，然而在高维、高雷诺数场景下，网格依赖导致计算成本剧增，且在噪声数据或逆问题中精度受限。物理信息神经网络(PINNs)通过将物理定律嵌入深度学习框架，开辟了流体力学计算的新范式。其无网格特性与高数据效率突破了传统方法的局限，为正向预测与逆向推断提供了统一工具。本文综述了PINNs在流体力学中的最新进展，聚焦其在稀疏数据流场重构、多尺度特征捕捉及复杂几何问题中的应用，如三维尾流模拟、超声速激波捕获及血流动力学分析。域分解、自适应采样与损失函数优化等技术显著提升了计算效率与鲁棒性，使PINNs在多物理场耦合及非牛顿流体模拟中展现潜力。然而，高雷诺数湍流的训练稳定性、计算资源需求及模型可解释性仍为瓶颈。未来通过算法优化、不确定性量化及与实验数据的深度融合，PINNs有望超越传统CFD，成为流体力学计算的高效新范式，推动该领域向智能化、精确化迈进。Fluid dynamics, anchored in the Navier-Stokes equations, is pivotal to aerospace, biomedical engineering, and environmental science. Traditional computational fluid dynamics (CFD) relies on discretization techniques to address complex flows, yet struggles with escalating computational costs in high-dimensional, high-Reynolds-number scenarios, where mesh dependency limits efficiency, and accuracy falters with noisy data or inverse problems. Physics-Informed Neural Networks (PINNs) introduce a new paradigm by embedding physical laws into deep learning frameworks, offering a mesh-free, data-efficient approach that unifies forward predictions and inverse inference. This review synthesizes recent advances in PINNs for fluid dynamics, spotlighting their prowess in reconstructing flow fields from sparse data, capturing multiscale features, and tackling complex geometries—exemplified by applications in three-dimensional wake simulations, supersonic shock capturing, and blood hemodynamics. Innovations such as domain decomposition, adaptive sampling, and loss function optimization enhance computational efficiency and robustness, extending PINNs’ potential to multi-physics coupling and non-Newtonian flow modeling. Nevertheless, challenges persist, including training instability in high-Reynolds-number turbulence, computational resource demands, and limited interpretability. Future progress, driven by algorithmic refinements, uncertainty quantification, and integration with experimental data, positions PINNs to surpass traditional CFD, heralding a new era of intelligent, precise computational fluid dynamics.",
+    "tldr": "流体动力学以Navier-Stokes方程为核心，在航空航天、生物医学及环境科学等领域发挥关键作用。传统计算流体动力学(CFD)通过离散化方法求解复杂流动问题，然而在高维、高雷诺数场景下，网格依赖导致计算成本剧增，且在噪声数据或逆问题中精度受限。物理信息神经网络(PINNs)通过将物理定律嵌入深度学习框架，开辟了流体力学计算的新范式。其无网格特性与高数据效率突破了传统方法的局限，为正向预测与逆向推断提供了统一工具。本文综述了PINNs在流体力学中的最新进展，聚焦其在稀疏数据流场重构、多尺度特征捕捉及复杂几何问题中的应用，如三维尾流模拟、超声速激波捕获及血...",
+    "fieldsOfStudy": [
+      "Artificial neural network",
+      "Statistical physics",
+      "Dynamics (music)"
     ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
+    "doi": "https://doi.org/10.12677/app.2025.155039",
+    "url": "https://doi.org/https://doi.org/10.12677/app.2025.155039",
+    "pdf_url": "https://pdf.hanspub.org/app_1270964.pdf",
+    "openalex_id": "W4410617435",
+    "references": [
+      {
+        "paperId": "W2899283552",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2948230027",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2979786244",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3022471935",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3041682155",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3133608513",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3163993681",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3184908771",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3201958666",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4205948453",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4210729890",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4307638470",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4309208391",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4310153797",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4379533000",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4399365403",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4399742452",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4404229894",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W4407430485",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.5
   },
   {
-    "id": "00026d262354b33598ae7d5de3b41dde327f47b5",
-    "s2_paper_id": "00026d262354b33598ae7d5de3b41dde327f47b5",
-    "title": "Multi-objective Reinforcement Learning in Factored MDPs with Graph Neural Networks",
+    "id": "3d0f101190df",
+    "title": "COMPUTATIONAL FLUID DYNAMICS ENHANCEMENT USING PHYSICS-INFORMED NEURAL NETWORKS",
+    "year": 2022,
+    "venue": "International journal of engineering science and advanced technology.",
+    "citationCount": 0,
+    "influentialCitationCount": 0,
     "authors": [
-      "M. Vincent",
-      "A. El Fallah Seghrouchni",
-      "V. Corruble",
-      "Narayan Bernardin",
-      "Rami Kassab",
-      "F. Barbaresco"
+      {
+        "name": "Mr. Swamynath Kavali"
+      },
+      {
+        "name": "Jagadeesh Kummarikuntla"
+      },
+      {
+        "name": "Balaji Kunderu"
+      }
     ],
-    "year": 2023,
-    "doi": "10.5555/3545946.3599094",
-    "source": "semanticscholar",
-    "abstract": "Many potential applications of reinforcement learning involve complex, structured environments. Some of these problems can be analyzed as factored MDPs, where the dynamics are decomposed into locally independent state transitions and the reward is rewritten as the sum of local rewards. However, in some scenarios, these rewards may represent conflicting objectives, so that the problem is better interpreted as a multi-objective one, with a weight associated to each reward. To deal with such multi-objective factored MDPs, we propose a method which combines the use of graph neural networks, to process structured representations, and vector-valued Q-learning. We show that our approach empirically outperforms methods that directly learn from the scalarized reward and demonstrate its ability to generalize to different weights and number of entities.",
-    "tldr": "To deal with such multi-objective factored MDPs, we propose a method which combines the use of graph neural networks, to process structured representations, and vector-valued Q-learning.",
-    "citation_count": 0,
-    "influential_citation_count": 0,
-    "venue": "Adaptive Agents and Multi-Agent Systems",
-    "publication_types": [
-      "JournalArticle",
-      "Conference"
+    "abstract": "Computational Fluid Dynamics (CFD) has become an essential tool for analyzing complex fluid flow phenomena across aerospace, automotive, energy, and industrial applications.However, traditional CFD methods often require significant computational resources and extensive numerical discretization to solve governing equations accurately.Recent advancements in artificial intelligence have introduced Physics-Informed Neural Networks (PINNs) as a promising alternative for accelerating fluid flow simulations while preserving physical consistency.This study investigates the enhancement of CFD analysis through the integration of PINNs, which embed fundamental conservation laws directly into the neural network training process.The proposed framework combines data-driven learning with the Navier-Stokes equations to improve prediction accuracy, reduce computational complexity, and enhance generalization across different flow conditions.The methodology involves domain discretization, physicsconstrained neural network training, residual error minimization, and CFD solution refinement.Performance evaluation is conducted using benchmark fluid flow scenarios including laminar and turbulent regimes.Results demonstrate that PINN-assisted CFD significantly reduces computational time while maintaining high levels of accuracy compared with conventional numerical approaches.The study highlights the potential of physicsinformed machine learning for next-generation CFD applications, enabling faster simulations, improved scalability, and efficient optimization of engineering systems.",
+    "tldr": "Computational Fluid Dynamics (CFD) has become an essential tool for analyzing complex fluid flow phenomena across aerospace, automotive, energy, and industrial applications.However, traditional CFD methods often require significant computational resources and extensive numerical ...",
+    "fieldsOfStudy": [
+      "Artificial neural network",
+      "Computer science",
+      "Artificial intelligence"
     ],
-    "s2_fields_of_study": [
-      "Computer Science"
-    ],
+    "doi": "https://doi.org/10.64771/ijesat.2022.v22.i12.3926",
+    "url": "https://doi.org/https://doi.org/10.64771/ijesat.2022.v22.i12.3926",
+    "pdf_url": "https://ijesat.com/ijesat/files/V22I12014_1789550624.pdf",
+    "openalex_id": "W7213554961",
     "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.5
   },
   {
-    "id": "2602.18005",
-    "s2_paper_id": "00026e7824a68abd6c595d1b1ab260d6dff6ce20",
-    "title": "Multi-Modal Sensing Residual-Corrected GNN for mmWave Path Loss Prediction via Synesthesia of Machines",
+    "id": "f7379cf28097",
+    "title": "Physics-informed neural networks with hard and soft boundary conditions for problems in fluid dynamics",
+    "year": 2025,
+    "venue": "Chalmers Research (Chalmers University of Technology)",
+    "citationCount": 0,
+    "influentialCitationCount": 0,
     "authors": [
-      "Meng-Yuan Lu",
-      "Lu Bai",
-      "Xiang Cheng"
+      {
+        "name": "Mohammad Sheikholeslami"
+      }
     ],
-    "year": 2026,
+    "abstract": "This thesis investigates the use of Physics-Informed Neural Networks (PINNs) for solving forward problems in fluid dynamics through two classical cases: linear waves and lid-driven cavity problem. The linear wave case, based on potential flow theory, involves periodic waves over a flat bed and serves to examine how PINNs handle periodic boundary conditions and smooth solutions. The lid-driven cavity problem, a benchmark for viscous incompressible flow, introduces sharp gradients and corner singularities, challenging the network’s ability to handle discontinuous boundary conditions. Together, these cases evaluate PINNs across both smooth and complex flow regimes.For the linear wave problem, both hard and soft strategies were used to enforce periodic boundary conditions (PBCs). The vanilla PINN predicted the velocity field with 2.31 % error. A periodic input achieved a 0.16 % velocity error, while soft constraints performed slightly better (0.10 %) but did not fully enforce periodicity. Hard enforcement of the kinematic bottom boundary condition (KBBC) using trial functions satisfied the constraint at machine precision, though at the cost of increased velocity error (2.36 %). The network also predicted the angular frequency omega with 0.03 % error and maintained velocity errors below 0.2 % without labeled data.In the cavity flow case, a baseline PINN with soft boundary enforcement performed well across most of the domain but struggled near the top corners due to singularities. To improve accuracy, two strategies were tested: trial functions for hard boundary conditions and spatially varying loss weights. Hard Constraints 1, which left the top boundary soft, led to a marginal improvement, reducing MAE(v) by about 8 %, while Hard Constraints 2, which enforced the top boundary with a trial function, worsened the results. Weighting strategies were more effective: applying omega_mw reduced MAE(u) by 63 % and MAE(v) by 68 %, and using both omega_F and omega_mw yielded the best accuracy, with reductions of 81 % in MAE(u) and 78 % in MAE(v). These findings highlight the challenge of handling singularities.Overall, the study provides practical insights and quantitative benchmarks to guide the design and training of PINNs for fluid dynamics problems.",
+    "tldr": "This thesis investigates the use of Physics-Informed Neural Networks (PINNs) for solving forward problems in fluid dynamics through two classical cases: linear waves and lid-driven cavity problem. The linear wave case, based on potential flow theory, involves periodic waves over ...",
+    "fieldsOfStudy": [
+      "Boundary (topology)",
+      "Different types of boundary conditions in fluid dynamics",
+      "Boundary value problem"
+    ],
     "doi": null,
-    "source": "semanticscholar",
-    "abstract": "To support sixth-generation (6G)-enabled intelligent transportation systems (ITSs), a multi-modal sensing residual-corrected graph neural network (MM-ResGNN) framework is proposed for millimeter-wave (mmWave) path loss prediction in vehicular communications for the first time. The propagation environment is formulated as an environment sensing path loss graph (ESPL-Graph), where nodes represent the transmitter (Tx) and receiver (Rx) entities and edges jointly describe Tx--Rx transmission links and Rx--Rx spatial correlation links. Meanwhile, a geometry-driven physical baseline is introduced to decouple deterministic attenuation trends from stochastic residual variations. A vehicular multi-modal path loss dataset (VMMPL) is constructed, which covers three representative scenarios, including the urban wide lane, urban crossroad, and suburban forking road environments, and achieves precise alignment between RGB images and global semantic information in the physical space, and link-level ray-tracing (RT)-based path loss data in the electromagnetic space. In MM-ResGNN, topology-aware graph representations and fine-grained visual semantics are synergistically integrated through a gated fusion mechanism to estimate the path loss residual relative to the physical baseline. Experimental results demonstrate that MM-ResGNN achieves significant improvements over empirical models and conventional data-driven baselines, with a normalized mean squared error (NMSE) of 0.0098, a mean absolute error (MAE) of 5.7991~dB, and a mean absolute percentage error (MAPE) of 5.0498\\%. Furthermore, MM-ResGNN exhibits robust cross-scenario generalization through a few-shot fine-tuning strategy, enabling accurate path loss prediction in unseen vehicular environments with limited labeled data.",
-    "tldr": "To support sixth-generation (6G)-enabled intelligent transportation systems (ITSs), a multi-modal sensing residual-corrected graph neural network (MM-ResGNN) framework is proposed for millimeter-wave (mmWave) path loss prediction in vehicular communications for the first time.",
-    "citation_count": 0,
-    "influential_citation_count": 0,
-    "venue": null,
-    "publication_types": [],
-    "s2_fields_of_study": [
-      "Engineering",
-      "Computer Science"
-    ],
+    "url": "https://openalex.org/W7205145685",
+    "pdf_url": null,
+    "openalex_id": "W7205145685",
     "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.5
   },
   {
-    "id": "2502.06327",
-    "s2_paper_id": "0002ff7ccc921d572672591e21551a58bdb99fc1",
-    "title": "Prompt-Driven Continual Graph Learning",
-    "authors": [
-      "Qi Wang",
-      "Tianfei Zhou",
-      "Ye Yuan",
-      "Rui Mao"
-    ],
-    "year": 2025,
-    "doi": "10.48550/arXiv.2502.06327",
-    "source": "semanticscholar",
-    "abstract": "Continual Graph Learning (CGL), which aims to accommodate new tasks over evolving graph data without forgetting prior knowledge, is garnering significant research interest. Mainstream solutions adopt the memory replay-based idea, ie, caching representative data from earlier tasks for retraining the graph model. However, this strategy struggles with scalability issues for constantly evolving graphs and raises concerns regarding data privacy. Inspired by recent advancements in the prompt-based learning paradigm, this paper introduces a novel prompt-driven continual graph learning (PROMPTCGL) framework, which learns a separate prompt for each incoming task and maintains the underlying graph neural network model fixed. In this way, PROMPTCGL naturally avoids catastrophic forgetting of knowledge from previous tasks. More specifically, we propose hierarchical prompting to instruct the model from both feature- and topology-level to fully address the variability of task graphs in dynamic continual learning. Additionally, we develop a personalized prompt generator to generate tailored prompts for each graph node while minimizing the number of prompts needed, leading to constant memory consumption regardless of the graph scale. Extensive experiments on four benchmarks show that PROMPTCGL achieves superior performance against existing CGL approaches while significantly reducing memory consumption. Our code is available at https://github.com/QiWang98/PromptCGL.",
-    "tldr": "Inspired by recent advancements in the prompt-based learning paradigm, this paper introduces a novel prompt-driven continual graph learning (PROMPTCGL) framework, which learns a separate prompt for each incoming task and maintains the underlying graph neural network model fixed.",
-    "citation_count": 2,
-    "influential_citation_count": 0,
-    "venue": "arXiv.org",
-    "publication_types": [
-      "JournalArticle"
-    ],
-    "s2_fields_of_study": [
-      "Computer Science"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
-  },
-  {
-    "id": "2001.05311",
-    "s2_paper_id": "0004355303b5962457ce9554c32620ae782a9ec8",
-    "title": "ABCNet: an attention-based method for particle tagging",
-    "authors": [
-      "V. Mikuni",
-      "F. Canelli"
-    ],
-    "year": 2020,
-    "doi": "10.1140/epjp/s13360-020-00497-3",
-    "source": "semanticscholar",
-    "abstract": "In high energy physics, graph-based implementations have the advantage of treating the input data sets in a similar way as they are collected by collider experiments. To expand on this concept, we propose a graph neural network enhanced by attention mechanisms called ABCNet. To exemplify the advantages and flexibility of treating collider data as a point cloud, two physically motivated problems are investigated: quark–gluon discrimination and pileup reduction. The former is an event-by-event classification, while the latter requires each reconstructed particle to receive a classification score. For both tasks, ABCNet shows an improved performance compared to other algorithms available.",
-    "tldr": "To expand on this concept, we propose a graph neural network enhanced by attention mechanisms called ABCNet.",
-    "citation_count": 92,
-    "influential_citation_count": 3,
-    "venue": "The European Physical Journal Plus",
-    "publication_types": [
-      "JournalArticle"
-    ],
-    "s2_fields_of_study": [
-      "Computer Science",
-      "Physics",
-      "Medicine"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": "https://link.springer.com/content/pdf/10.1140/epjp/s13360-020-00497-3.pdf"
-  },
-  {
-    "id": "0005f6d4318b963c623ce471083c04236fd46b6c",
-    "s2_paper_id": "0005f6d4318b963c623ce471083c04236fd46b6c",
-    "title": "A Spatial–Temporal Adaptive Graph Convolutional Network with Multi-Sensor Signals for Tool Wear Prediction",
-    "authors": [
-      "Yu Xia",
-      "Guangji Zheng",
-      "Ye Li",
-      "Hui Liu"
-    ],
-    "year": 2025,
-    "doi": "10.3390/app15042058",
-    "source": "semanticscholar",
-    "abstract": "Tool wear monitoring is crucial for optimizing cutting performance, reducing costs, and improving production efficiency. Existing tool wear prediction models usually design integrated models based on a convolutional neural network (CNN) and recurrent neural network (RNN) to extract spatial and temporal features separately. However, the topological structures between multi-sensor networks are ignored, and the ability to extract spatial features is limited. To overcome these limitations, a novel spatial–temporal adaptive graph convolutional network (STAGCN) is proposed to capture spatial–temporal dependencies with multi-sensor signals. First, a simple linear model is used to capture temporal patterns in individual time-series data. Second, a spatial–temporal layer composed of a bidirectional Mamba and an adaptive graph convolution is established to extract degradation features and reflect the dynamic degradation trend using an adaptive graph. Third, multi-scale triple linear attention (MTLA) is used to fuse the extracted multi-scale features across spatial, temporal, and channel dimensions, which can assign different weights adaptively to retain important information and weaken the influence of redundant features. Finally, the fused features are fed into a linear regression layer to estimate the tool wear. Experimental results conducted on the PHM2010 dataset demonstrate the effectiveness of the proposed STAGCN model, achieving a mean absolute error (MAE) of 3.40 μm and a root mean square error (RMSE) of 4.32 μm in the average results across three datasets.",
-    "tldr": "Tool wear monitoring is crucial for optimizing cutting performance, reducing costs, and improving production efficiency.",
-    "citation_count": 7,
-    "influential_citation_count": 0,
-    "venue": "Applied Sciences",
-    "publication_types": [
-      "JournalArticle"
-    ],
-    "s2_fields_of_study": [
-      "Engineering",
-      "Computer Science"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": "https://doi.org/10.3390/app15042058"
-  },
-  {
-    "id": "000689234da288947171d318b6293759c6f1b8ef",
-    "s2_paper_id": "000689234da288947171d318b6293759c6f1b8ef",
-    "title": "Malware Detection Based on Deep Learning of Behavior Graphs",
-    "authors": [
-      "Fei Xiao",
-      "Zhaowen Lin",
-      "Yi Sun",
-      "Yan Ma"
-    ],
-    "year": 2019,
-    "doi": "10.1155/2019/8195395",
-    "source": "semanticscholar",
-    "abstract": "The Internet of Things (IoT) provides various benefits, which makes smart device even closer. With more and more smart devices in IoT, security is not a one-device affair. Many attacks targeted at traditional computers in IoT environment may also aim at other IoT devices. In this paper, we consider an approach to protect IoT devices from being attacked by local computers. In response to this issue, we propose a novel behavior-based deep learning framework (BDLF) which is built in cloud platform for detecting malware in IoT environment. In the proposed BDLF, we first construct behavior graphs to provide efficient information of malware behaviors using extracted API calls. We then use a neural network-Stacked AutoEncoders (SAEs) for extracting high-level features from behavior graphs. The layers of SAEs are inserted one after another and the last layer is connected to some added classifiers. The architecture of the SAEs is 6,000-2,000-500. The experiment results demonstrate that the proposed BDLF can learn the semantics of higher-level malicious behaviors from behavior graphs and further increase the average detection precision by 1.5%.",
-    "tldr": "In this paper, we consider an approach to protect IoT devices from being attacked by local computers.",
-    "citation_count": 98,
-    "influential_citation_count": 6,
-    "venue": "Mathematical Problems in Engineering",
-    "publication_types": [],
-    "s2_fields_of_study": [
-      "Computer Science",
-      "Engineering"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": "https://doi.org/10.1155/2019/8195395"
-  },
-  {
-    "id": "2411.14554",
-    "s2_paper_id": "00086799eac391486574e4e725381a114adf4d45",
-    "title": "Swift: A Multi-FPGA Framework for Scaling Up Accelerated Graph Analytics",
-    "authors": [
-      "Oluwole Jaiyeoba",
-      "Abdullah T. Mughrabi",
-      "Morteza Baradaran",
-      "Beenish Gul",
-      "Kevin Skadron"
-    ],
-    "year": 2024,
-    "doi": "10.1109/ICFPT64416.2024.11113456",
-    "source": "semanticscholar",
-    "abstract": "Graph analytics are vital in fields such as social networks, biomedical research, and graph neural networks (GNNs). However, traditional CPUs and GPUs struggle with the memory bottlenecks caused by large graph datasets and their finegrained memory accesses. While specialized graph accelerators address these challenges, they often support only moderate-sized graphs (under 500 million edges). Our paper proposes Swift, a novel scale-up graph accelerator framework that processes large graphs by leveraging the flexibility of FPGA custom datapath and memory resources, and optimizes utilization of high-bandwidth 3D memory (HBM). Swift supports up to 8 FPGAs in a node. Swift introduces a decoupled, asynchronous model based on the Gather-Apply-Scatter (GAS) scheme. It subgraphs across FPGAs, and each subgraph into intervals based on source vertex IDs. Processing on these intervals is decoupled and executed asynchronously, instead of bulksynchonous operation, where throughput is limited by the slowest task. This enables simultaneous processing within each multi-FPGA node and optimizes the utilization of communication (PCIe), off-chip (HBM), and on-chip BRAM/URAM resources. Swift demonstrates significant performance improvements compared to prior scalable FPGA-based frameworks, performing 12.8 times better than the ForeGraph. Performance against Gunrock on NVIDIA A40 GPUs is mixed, because NVlink gives the GPU system a nearly 5X bandwidth advantage, but the FPGA system nevertheless achieves 2.6 x greater energy efficiency.",
-    "tldr": "Graph analytics are vital in fields such as social networks, biomedical research, and graph neural networks (GNNs).",
-    "citation_count": 5,
-    "influential_citation_count": 0,
-    "venue": "International Conference on Field-Programmable Technology",
-    "publication_types": [
-      "JournalArticle",
-      "Conference"
-    ],
-    "s2_fields_of_study": [
-      "Computer Science",
-      "Engineering"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
-  },
-  {
-    "id": "000a9f529fdcac451cd35d7303bcc64ea2a9fcbc",
-    "s2_paper_id": "000a9f529fdcac451cd35d7303bcc64ea2a9fcbc",
-    "title": "Embedding-Based Deep Neural Network and Convolutional Neural Network Graph Classifiers",
-    "authors": [
-      "Sarah G. Elnaggar",
-      "I. E. Elsemman",
-      "T. Soliman"
-    ],
-    "year": 2023,
-    "doi": "10.3390/electronics12122715",
-    "source": "semanticscholar",
-    "abstract": "One of the most significant graph data analysis tasks is graph classification, as graphs are complex data structures used for illustrating relationships between entity pairs. Graphs are essential in many domains, such as the description of chemical molecules, biological networks, social relationships, etc. Real-world graphs are complicated and large. As a result, there is a need to find a way to represent or encode a graph’s structure so that it can be easily utilized by machine learning models. Therefore, graph embedding is considered one of the most powerful solutions for graph representation. Inspired by the Doc2Vec model in Natural Language Processing (NLP), this paper first investigates different ways of (sub)graph embedding to represent each graph or subgraph as a fixed-length feature vector, which is then used as input to any classifier. Thus, two supervised classifiers—a deep neural network (DNN) and a convolutional neural network (CNN)—are proposed to enhance graph classification. Experimental results on five benchmark datasets indicate that the proposed models obtain competitive results and are superior to some traditional classification methods and deep-learning-based approaches on three out of five benchmark datasets, with an impressive accuracy rate of 94% on the NCI1 dataset.",
-    "tldr": "One of the most significant graph data analysis tasks is graph classification, as graphs are complex data structures used for illustrating relationships between entity pairs.",
-    "citation_count": 7,
-    "influential_citation_count": 1,
-    "venue": "Electronics",
-    "publication_types": [
-      "JournalArticle"
-    ],
-    "s2_fields_of_study": [
-      "Computer Science"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": "https://www.mdpi.com/2079-9292/12/12/2715/pdf?version=1686994463"
-  },
-  {
-    "id": "000ae9d974cb78e5ef8f6f051d61197096a536b9",
-    "s2_paper_id": "000ae9d974cb78e5ef8f6f051d61197096a536b9",
-    "title": "Physical information-enhanced graph neural network for predicting phase separation",
-    "authors": [
-      "Ya-Qian Zhang",
-      "Xu-Wen Wang",
-      "Ya-Nan Wang",
-      "Wen Zheng"
-    ],
-    "year": 2024,
-    "doi": "10.1088/1674-1056/ad4328",
-    "source": "semanticscholar",
-    "abstract": "Although phase separation is a ubiquitous phenomenon, the interactions between multiple components make it difficult to accurately model and predict. In recent years, machine learning has been widely used in physics simulations. Here, we present a physical information-enhanced graph neural network (PIENet) to simulate and predict the evolution of phase separation. The accuracy of our model in predicting particle positions is improved by 40.3% and 51.77% compared with CNN and SVM respectively. Moreover, we design an order parameter based on local density to measure the evolution of phase separation and analyze the systematic changes with different repulsion coefficients and different Schmidt numbers. The results demonstrate that our model can achieve long-term accurate predictions of order parameters without requiring complex handcrafted features. These results prove that graph neural networks can become new tools and methods for predicting the structure and properties of complex physical systems.",
-    "tldr": "Here, we present a physical information-enhanced graph neural network (PIENet) to simulate and predict the evolution of phase separation.",
-    "citation_count": 1,
-    "influential_citation_count": 0,
-    "venue": "Chinese Physics B",
-    "publication_types": [
-      "JournalArticle"
-    ],
-    "s2_fields_of_study": [
-      "Physics",
-      "Computer Science"
-    ],
-    "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
-  },
-  {
-    "id": "000bb9ad1d38354a9e285af0d6daa0bbc51606c4",
-    "s2_paper_id": "000bb9ad1d38354a9e285af0d6daa0bbc51606c4",
-    "title": "CAS-ODE: Jointly Learning Adaptive Structures and Continuous Dynamics for Emotion Recognition in Conversation",
-    "authors": [
-      "Guangzi Zhang",
-      "Yupeng Zhang",
-      "Liang Wang",
-      "Junru Zhang",
-      "Xingquan Cai"
-    ],
+    "id": "80813294be47",
+    "title": "Hybrid Computational Fluid Dynamics and Physics-Informed Neural Networks for Cerebral Aneurysm FSI Analysis",
     "year": 2026,
-    "doi": "10.1109/LSP.2026.3699337",
-    "source": "semanticscholar",
-    "abstract": "Multimodal emotion recognition in conversation (MERC) plays a crucial role in applications such as empathetic dialogue systems, intelligent tutoring, and mental health monitoring. Existing graph neural network (GNN)-based approaches often rely on fixed conversational topologies, which may introduce redundant message passing and fail to capture evolving high-order dependencies. In addition, conventional GNNs model temporal dynamics in discrete steps, leading to oversmoothing and a limited ability to represent continuous emotional changes. To address these limitations, we propose CAS-ODE (Contrastive Adaptive Spatiotemporal ODE Network), a novel framework that jointly learns adaptive conversational structures and continuous temporal dynamics. CAS-ODE employs a variational hypergraph autoencoder with contrastive regularization to infer robust high-order relations, while a graph ordinary differential equation models the smooth evolution of emotional states. Extensive experiments on the IEMOCAP and MELD benchmarks validate the superiority of CAS-ODE, which achieves state-of-the-art performance and highlights the effectiveness of synergistically learning conversational structures and their continuous temporal evolution.",
-    "tldr": "To address these limitations, we propose CAS-ODE (Contrastive Adaptive Spatiotemporal ODE Network), a novel framework that jointly learns adaptive conversational structures and continuous temporal dynamics.",
-    "citation_count": 0,
-    "influential_citation_count": 0,
-    "venue": "IEEE Signal Processing Letters",
-    "publication_types": [
-      "JournalArticle"
+    "venue": "International Journal of Information and Electronics Engineering",
+    "citationCount": 0,
+    "influentialCitationCount": 0,
+    "authors": [
+      {
+        "name": "K. Prasanthi T. Lakshmi Prasanthi"
+      }
     ],
-    "s2_fields_of_study": [
-      "Computer Science"
+    "abstract": "Accurate modeling of fluid-structure interaction (FSI) in Cerebral aneurysms is crucial for assessing rupture risk and guiding clinical decisions. Traditional computational fluid dynamics",
+    "tldr": "Accurate modeling of fluid-structure interaction (FSI) in Cerebral aneurysms is crucial for assessing rupture risk and guiding clinical decisions. Traditional computational fluid dynamics",
+    "fieldsOfStudy": [
+      "Computer science",
+      "Artificial neural network",
+      "Artificial intelligence"
     ],
+    "doi": "https://doi.org/10.48047/0x3p7j07",
+    "url": "https://doi.org/https://doi.org/10.48047/0x3p7j07",
+    "pdf_url": "https://ijiee.org/index.php/ijiee/article/download/1179/1149",
+    "openalex_id": "W7220454093",
     "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": ""
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.67
   },
   {
-    "id": "000cb413f279fc93d3e3b3247bd313029a01ca70",
-    "s2_paper_id": "000cb413f279fc93d3e3b3247bd313029a01ca70",
-    "title": "Deep Image Understanding Using Multilayered Contexts",
+    "id": "a9d93d948caf",
+    "title": "Advancements in Physics-Informed Neural Networks (PINNs) for Real-Time Prediction of Complex Fluid Dynamics",
+    "year": 2026,
+    "venue": "International Journal of Global Innovations and Solutions (IJGIS)",
+    "citationCount": 0,
+    "influentialCitationCount": 0,
     "authors": [
-      "Donghyeop Shin",
-      "Incheol Kim"
+      {
+        "name": "RaviKumar Bhuvanagiri"
+      }
     ],
-    "year": 2018,
-    "doi": "10.1155/2018/5847460",
-    "source": "semanticscholar",
-    "abstract": "Generation of scene graphs and natural language captions from images for deep image understanding is an ongoing research problem. Scene graphs and natural language captions have a common characteristic in that they are generated by considering the objects in the images and the relationships between the objects. This study proposes a deep neural network model named the Context-based Captioning and Scene Graph Generation Network (C2SGNet), which simultaneously generates scene graphs and natural language captions from images. The proposed model generates results through communication of context information between these two tasks. For effective communication of context information, the two tasks are structured into three layers: the object detection, relationship detection, and caption generation layers. Each layer receives related context information from the lower layer. In this study, the proposed model was experimentally assessed using the Visual Genome benchmark data set. The performance improvement effect of the context information was verified through various experiments. Further, the high performance of the proposed model was confirmed through performance comparison with existing models.",
-    "tldr": "Generation of scene graphs and natural language captions from images for deep image understanding is an ongoing research problem.",
-    "citation_count": 9,
-    "influential_citation_count": 0,
-    "venue": "Mathematical Problems in Engineering",
-    "publication_types": [],
-    "s2_fields_of_study": [
-      "Computer Science"
+    "abstract": "The integration of physical laws into deep learning architectures has emerged as a transformative paradigm for solving complex partial differential equations (PDEs) in fluid mechanics. Traditional Computational Fluid Dynamics (CFD) methods, while accurate, are computationally expensive and often unsuitable for real-time applications. This paper proposes an enhanced Physics-Informed Neural Network (PINN) framework that utilizes a multi-objective loss function and adaptive weight refinement to solve the Navier-Stokes equations under turbulent conditions. We introduce a novel residual-based attention mechanism that prioritizes steep gradient regions, significantly improving convergence speed by 40%. Our results demonstrate that the proposed model achieves a Mean Squared Error (MSE) of $1.2 \\times 10^{-5}$ compared to high-fidelity DNS data, while reducing inference time by three orders of magnitude. This research paves the way for the deployment of deep learning models in safety-critical autonomous systems and real-time industrial monitoring.",
+    "tldr": "The integration of physical laws into deep learning architectures has emerged as a transformative paradigm for solving complex partial differential equations (PDEs) in fluid mechanics. Traditional Computational Fluid Dynamics (CFD) methods, while accurate, are computationally exp...",
+    "fieldsOfStudy": [
+      "Artificial neural network",
+      "Computer science",
+      "Convergence (economics)"
     ],
+    "doi": "https://doi.org/10.63412/5beg8z46",
+    "url": "https://doi.org/https://doi.org/10.63412/5beg8z46",
+    "pdf_url": "https://ijgis.org/home/article/download/52/35",
+    "openalex_id": "W7162461771",
     "references": [],
-    "processed": false,
-    "cluster_id": null,
-    "pdf_url": "https://downloads.hindawi.com/journals/mpe/2018/5847460.pdf"
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.67
+  },
+  {
+    "id": "55f341b566e4",
+    "title": "Wall shear stress in coronary arteries and grafts using computational fluid dynamics and physics-informed neural networks",
+    "year": 2026,
+    "venue": "Physics of Fluids",
+    "citationCount": 0,
+    "influentialCitationCount": 0,
+    "authors": [
+      {
+        "name": "Muhammad Abaid Ur Rehman"
+      },
+      {
+        "name": "Özgür Ekici"
+      },
+      {
+        "name": "Şefik Evren Erdener"
+      },
+      {
+        "name": "Michael Ajao-Olarinoye"
+      },
+      {
+        "name": "Alex G. Kuchumov"
+      },
+      {
+        "name": "Fei Long Jia"
+      }
+    ],
+    "abstract": "Computational fluid dynamics (CFD) were used to quantify wall shear stress (WSS) in 12 patient-specific coronary geometries, including four healthy cases, five coronary artery bypass graft cases with saphenous vein grafts, and three coronary artery disease cases without bypass grafts, under both Newtonian and Carreau–Yasuda blood viscosity models. The analysis focused on area-weighted average WSS, average WSS at bifurcations, the area fraction where WSS exceeds 40 dynes/cm2 normalized by the total vessel area, area-weighted average WSS above 40 dynes/cm2, and the interquartile range (IQR) of WSS. Diseased coronary arteries and diseased grafts (DGs) exhibited elevated WSS compared with healthy arteries and healthy grafts. The area-weighted average WSS above 40 dynes/cm2 in DGs reached up to ∼148 dynes/cm2, while healthy vessels showed lower values in the present cohort. IQR values were also higher in diseased vessels, indicating increased spatial heterogeneity of WSS. An exploratory elevated WSS threshold of 40 dynes/cm2 effectively differentiated healthy and diseased regions. Compared with the Newtonian model, the Carreau–Yasuda formulation captured shear-rate-dependent viscosity effects in stenotic and bifurcation regions. Furthermore, physics-informed neural network surrogate models incorporating random Fourier feature encoding were trained to reconstruct the CFD fields for the 12 patient-specific cases. Under a dense 20% within-geometry holdout of CFD target values, the Newtonian surrogate achieved a mean normalized root mean square error of 0.93% with a coefficient of determination (R2) of 0.98, while the Carreau–Yasuda surrogate achieved 0.97% with a coefficient of determination of 0.98, with both rheologies evaluated on a common per-patient vessel subset so that the comparison is strictly like-for-like. Both models showed strong agreement with CFD results within their respective training geometries, with holdout Pearson correlation coefficients of 0.99 and 0.99, respectively.",
+    "tldr": "Computational fluid dynamics (CFD) were used to quantify wall shear stress (WSS) in 12 patient-specific coronary geometries, including four healthy cases, five coronary artery bypass graft cases with saphenous vein grafts, and three coronary artery disease cases without bypass gr...",
+    "fieldsOfStudy": [
+      "Shear stress",
+      "Coronary arteries",
+      "Computational fluid dynamics"
+    ],
+    "doi": "https://doi.org/10.1063/5.0335500",
+    "url": "https://doi.org/https://doi.org/10.1063/5.0335500",
+    "pdf_url": "https://pureportal.coventry.ac.uk/en/publications/eec1c280-29f4-4965-b3a3-57ed19fe8112",
+    "openalex_id": "W7212192504",
+    "references": [
+      {
+        "paperId": "W14751780",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W75129238",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W192738711",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1546378856",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1970195808",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1973326405",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1980379826",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1981386994",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1984794700",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1992992347",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1993564152",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1993846817",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2001280255",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2014497476",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2015152525",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2016220389",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2024697557",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2026115968",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2039195990",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2041436326",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2049539003",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2057214672",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2059471356",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2061763807",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2066242930",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.67
+  },
+  {
+    "id": "23b4f4693e5b",
+    "title": "Modeling of Double Descending Thoracic Aortic Aneurysms Using Computational Fluid Dynamics (CFD) and Residual-Based Physics-Informed Neural Networks (ResNets-PINNs)",
+    "year": 2026,
+    "venue": "Pure (Coventry University)",
+    "citationCount": 0,
+    "influentialCitationCount": 0,
+    "authors": [
+      {
+        "name": "Noor Fatima"
+      },
+      {
+        "name": "Muhammad Hamza"
+      },
+      {
+        "name": "M. Asif Farooq"
+      },
+      {
+        "name": "Michael Ajao-Olarinoye"
+      }
+    ],
+    "abstract": "Descending thoracic aortic aneurysms (DTAA) present significant clinical challenges due to their propensity to rupture, which is strongly influenced by hemodynamic parameters such as wall shear stress (WSS) and flow patterns. This study investigates the relationship between aneurysm size and hemodynamic behaviour through computational fluid dynamics (CFD) analysis of double aortic aneurysms with systematically varied diameters of 4cm, 5cm, and 6cm. CFD simulations reveal that an increase in aneurysm diameter significantly amplifies flow disruption, creating pronounced recirculation zones and low-shear regions that promote thrombus formation and increase the risk of rupture. Velocity streamlines along the medial and transverse planes demonstrate the development of complex secondary flows and vortex structures that intensify with larger aneurysm geometries. Building on these CFD findings, we develop a physics-informed neural network (PINN) approach to predict WSS using only wall surface data. The method integrates WSS supervision with interior physics constraints, employing a residual neural network architecture with Fourier feature embeddings to capture complex geometric patterns across multiple spatial scales. The PINN enforces the incompressible Navier–Stokes equations at interior collocation points while maintaining WSS consistency through the velocity gradient computation at wall boundaries. The framework employs global non-dimensionalisation for improved numerical stability and robust surface normal estimation for accurate WSS computation, and a self adaptive loss weighting mechanism automatically balances competing objectives of the loss function. Evaluation against CFD reference data demonstrates excellent agreement, achieving an overall R2 = 0.9916 with RMSE = 0.040432 Pa across the 4, 5, and 6cm cases. The model accurately reproduces elevated WSS at vessel necks and low-shear recirculation zones within the aneurysm domes, with normalised RMSE values in the 0.76–1.32% range. These results establish the proposed wall-supervised PINN as a computationally efficient alternative to full-domain CFD reconstruction for comparative hemodynamic evaluation in aneurysm enlargement studies.",
+    "tldr": "Descending thoracic aortic aneurysms (DTAA) present significant clinical challenges due to their propensity to rupture, which is strongly influenced by hemodynamic parameters such as wall shear stress (WSS) and flow patterns. This study investigates the relationship between aneur...",
+    "fieldsOfStudy": [
+      "Computational fluid dynamics",
+      "Streamlines, streaklines, and pathlines",
+      "Vortex"
+    ],
+    "doi": null,
+    "url": "https://openalex.org/W7220323973",
+    "pdf_url": null,
+    "openalex_id": "W7220323973",
+    "references": [],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [
+      "Fluid Dynamics"
+    ],
+    "tier_used": "title_strict",
+    "title_match_ratio": 0.67
+  },
+  {
+    "id": "b0ac3aceb7ec",
+    "title": "Machine learning for metal additive manufacturing: predicting temperature and melt pool fluid dynamics using physics-informed neural networks",
+    "year": 2021,
+    "venue": "Computational Mechanics",
+    "citationCount": 501,
+    "influentialCitationCount": 75,
+    "authors": [
+      {
+        "name": "Qiming Zhu"
+      },
+      {
+        "name": "Zeliang Liu"
+      },
+      {
+        "name": "Jinhui Yan"
+      }
+    ],
+    "abstract": "",
+    "tldr": null,
+    "fieldsOfStudy": [
+      "Artificial intelligence",
+      "Artificial neural network",
+      "Machine learning"
+    ],
+    "doi": "https://doi.org/10.1007/s00466-020-01952-9",
+    "url": "https://doi.org/https://doi.org/10.1007/s00466-020-01952-9",
+    "pdf_url": "https://arxiv.org/pdf/2008.13547",
+    "openalex_id": "W3119602513",
+    "references": [
+      {
+        "paperId": "W179875071",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W413978409",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1019891831",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1522301498",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1601795611",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1606347560",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1628714285",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1663973292",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1874882403",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1972457400",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1973963306",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2007095458",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2014317103",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2015654870",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2025801959",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2028815369",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2032314804",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2034176295",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2041824785",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2045327490",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2047197763",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2048074073",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2064740288",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2065993835",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2071273485",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [],
+    "tier_used": "title_strict",
+    "title_match_ratio": 1.0
+  },
+  {
+    "id": "3f0e753f042f",
+    "title": "Enhancement of physics-informed neural networks in applications to fluid dynamics",
+    "year": 2025,
+    "venue": "Physics of Fluids",
+    "citationCount": 11,
+    "influentialCitationCount": 1,
+    "authors": [
+      {
+        "name": "Ievgen Mochalin"
+      },
+      {
+        "name": "Jinxia Wang"
+      },
+      {
+        "name": "Jiancheng Cai"
+      },
+      {
+        "name": "E Shiju"
+      }
+    ],
+    "abstract": "In this work, a novel deep learning algorithm is proposed within the framework of the physics-informed neural network (PINN) architecture. Physical constraints are incorporated through the Navier–Stokes and continuity equations, which are commonly used in fluid mechanics applications. The proposed approach addresses the challenge posed by the multicomponent nature of the PINN's loss function. This challenge arises from the need to determine an optimal weight configuration for the various components of the loss function. The issue is resolved by dynamically updating the weight configuration to balance the influence of different data types during training. The procedure, known as GradNorm, originally developed for deep multitask networks in computer vision, is adapted and integrated into the PINN framework. GradNorm adjusts the weight configuration to equalize the gradients of the loss function components. The new algorithm achieves a 50% improvement in accuracy compared to the conventional PINN in reconstructing the back-facing step flow. For the Taylor–Couette flow (Taylor vortex mode) test case, where the conventional PINN fails to capture the flow structure, the proposed approach demonstrates high accuracy even with sparse training datasets. Additionally, it does not require known flow parameter values in close proximity to walls to achieve accurate near-wall resolution. The application of the new algorithm shows great potential for processing sparse experimental datasets to reconstruct detailed flow fields and for providing a continuous representation of discrete solutions.",
+    "tldr": "In this work, a novel deep learning algorithm is proposed within the framework of the physics-informed neural network (PINN) architecture. Physical constraints are incorporated through the Navier–Stokes and continuity equations, which are commonly used in fluid mechanics applicat...",
+    "fieldsOfStudy": [
+      "Physics",
+      "Fluid dynamics",
+      "Dynamics (music)"
+    ],
+    "doi": "https://doi.org/10.1063/5.0269943",
+    "url": "https://doi.org/https://doi.org/10.1063/5.0269943",
+    "pdf_url": null,
+    "openalex_id": "W4410520112",
+    "references": [
+      {
+        "paperId": "W1522301498",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1974466542",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1977028945",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W1994670499",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2021693958",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2027954883",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2062392012",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2066329349",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2092941459",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2098920641",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2108497923",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2137772908",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2585298970",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2767434619",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2889522259",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2899283552",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2975003945",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2981408712",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2993158195",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2997588930",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3007149244",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3008118574",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3033069537",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3098546160",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3103242213",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [],
+    "tier_used": "title_strict",
+    "title_match_ratio": 1.0
+  },
+  {
+    "id": "8d6c32c750b3",
+    "title": "Entropy production minimization in channel flows using computational fluid dynamics and physics-informed neural networks",
+    "year": 2024,
+    "venue": "Physics of Fluids",
+    "citationCount": 5,
+    "influentialCitationCount": 0,
+    "authors": [
+      {
+        "name": "Huadong Jiang"
+      },
+      {
+        "name": "Jianyang Yu"
+      },
+      {
+        "name": "Sichao Lan"
+      },
+      {
+        "name": "Fu Chen"
+      }
+    ],
+    "abstract": "This study is based on two objective functions: minimizing heat transfer entropy production and minimizing viscous dissipation. The reverse-temperature equation and volumetric force sources are derived using variational methods for optimizing convective heat transfer in two-dimensional flows. Linear weights are adjusted to generate velocity and temperature fields corresponding to different performance metrics. The research demonstrates that the flow patterns determined through optimization effectively characterize optimal heat transfer performance under varying flow power consumption. Furthermore, compared to non-optimized flows, linear weights induce transitions in velocity and temperature fields from mild to highly perturbed states. Additionally, addressing the reverse-temperature equation with a negative diffusion coefficient that is challenging for traditional numerical methods, we utilize a physics-informed neural network strategy for solution. This approach significantly reduces the required grid resolution. The findings of this study can be applied to design passive techniques enhancing wall-to-fluid heat transfer and provide a novel approach for solving systems of mixed conventional and non-classical partial differential equations.",
+    "tldr": "This study is based on two objective functions: minimizing heat transfer entropy production and minimizing viscous dissipation. The reverse-temperature equation and volumetric force sources are derived using variational methods for optimizing convective heat transfer in two-dimen...",
+    "fieldsOfStudy": [
+      "Physics",
+      "Statistical physics",
+      "Entropy (arrow of time)"
+    ],
+    "doi": "https://doi.org/10.1063/5.0231867",
+    "url": "https://doi.org/https://doi.org/10.1063/5.0231867",
+    "pdf_url": null,
+    "openalex_id": "W4403100986",
+    "references": [
+      {
+        "paperId": "W1990672426",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2005798935",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2042622099",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2043713168",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2045057070",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2072305683",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2081517403",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2083846085",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2086366871",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2086823156",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2120546533",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2149047504",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2156247750",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2550918479",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2560272357",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2593039676",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2604737202",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2772097715",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2777645235",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W2964121744",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3008974780",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3040336230",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3099369428",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3193505540",
+        "title": "Referenced Work"
+      },
+      {
+        "paperId": "W3200673624",
+        "title": "Referenced Work"
+      }
+    ],
+    "matched_in_title": [
+      "Physics-Informed Neural Networks",
+      "Fluid Dynamics"
+    ],
+    "matched_in_abstract": [],
+    "tier_used": "title_strict",
+    "title_match_ratio": 1.0
   }
 ]

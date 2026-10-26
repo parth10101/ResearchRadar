@@ -275,10 +275,10 @@ def _narrate_with_groq(gap: dict, evidence_papers: list[dict], api_key: str, cor
                 {"role": "user", "content": user_p},
             ],
             "temperature": 0.2,
-            "max_tokens": 2500,
+            "max_tokens": 650,
         }
         try:
-            resp = requests.post(GROQ_COMPLETIONS_URL, json=payload, headers=headers, timeout=15.0)
+            resp = requests.post(GROQ_COMPLETIONS_URL, json=payload, headers=headers, timeout=4.0)
             if resp.status_code == 200:
                 data = resp.json()
                 content = data["choices"][0]["message"]["content"]
@@ -398,7 +398,7 @@ def run_stage8(
             pass
 
     # Narrate Top 3 Gaps
-    top_gaps = gaps[:3] if gaps else []
+    top_gaps = gaps[:2] if gaps else []
     narrated_gaps = []
     
     for i, g in enumerate(top_gaps, 1):

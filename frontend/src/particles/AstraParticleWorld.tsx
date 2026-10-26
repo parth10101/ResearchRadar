@@ -189,7 +189,11 @@ export const AstraParticleWorld: React.FC<Props> = ({
     ptsMesh.renderOrder = 999; // Always render particles in front of coordinate grids
     scene.add(ptsMesh);
 
-    // In-place attribute updates: NEVER dispose geometry or reset transitionClock mid-flight
+    // Coordinated Physical Transition State
+    const TRANSITION_DURATION = 2.4; // 2.4s immersive physical GPU flight
+    let transitionClock = 0.0;
+
+    // In-place attribute updates: Dynamically updates to each query's authentic clusters
     updateGeometryRef.current = (newData: Points3DData | null) => {
       const { points: rawPoints, clusters } = convertPoints3DData(newData);
       const points = rawPoints.length > 0
@@ -204,37 +208,22 @@ export const AstraParticleWorld: React.FC<Props> = ({
       const { midX: nMidX, midY: nMidY, midZ: nMidZ, worldScale: nScale } = getEmbeddingBoundsAndScale(points);
       cameraSplineRig.setBoundsAndScale(nMidX, nMidY, nMidZ, nScale);
 
-      const targetPosAttr = ptsGeo.getAttribute('aTargetPosition') as THREE.BufferAttribute;
-      const colorTargetAttr = ptsGeo.getAttribute('aColorTarget') as THREE.BufferAttribute;
-      const delayAttr = ptsGeo.getAttribute('aDelay') as THREE.BufferAttribute;
-      const sizeAttr = ptsGeo.getAttribute('aSize') as THREE.BufferAttribute;
-      const clusterIdAttr = ptsGeo.getAttribute('aClusterId') as THREE.BufferAttribute;
-      const isOutlierAttr = ptsGeo.getAttribute('aIsOutlier') as THREE.BufferAttribute;
+      // Dynamically rebind buffer attributes with exact target coordinates and colors for this query
+      ptsGeo.setAttribute('position', new THREE.BufferAttribute(pData.homePositions, 3));
+      ptsGeo.setAttribute('aTargetPosition', new THREE.BufferAttribute(pData.targetPositions, 3));
+      ptsGeo.setAttribute('aColorHome', new THREE.BufferAttribute(pData.colorsHome, 3));
+      ptsGeo.setAttribute('aColorTarget', new THREE.BufferAttribute(pData.colorsTarget, 3));
+      ptsGeo.setAttribute('aDelay', new THREE.BufferAttribute(pData.delays, 1));
+      ptsGeo.setAttribute('aRandom', new THREE.BufferAttribute(pData.randomSeeds, 1));
+      ptsGeo.setAttribute('aSize', new THREE.BufferAttribute(pData.sizes, 1));
+      ptsGeo.setAttribute('aClusterId', new THREE.BufferAttribute(pData.clusterIds, 1));
+      ptsGeo.setAttribute('aIsOutlier', new THREE.BufferAttribute(pData.isOutliers, 1));
 
-      if (targetPosAttr && pData.targetPositions.length === targetPosAttr.array.length) {
-        targetPosAttr.copyArray(pData.targetPositions);
-        targetPosAttr.needsUpdate = true;
-      }
-      if (colorTargetAttr && pData.colorsTarget.length === colorTargetAttr.array.length) {
-        colorTargetAttr.copyArray(pData.colorsTarget);
-        colorTargetAttr.needsUpdate = true;
-      }
-      if (delayAttr && pData.delays.length === delayAttr.array.length) {
-        delayAttr.copyArray(pData.delays);
-        delayAttr.needsUpdate = true;
-      }
-      if (sizeAttr && pData.sizes.length === sizeAttr.array.length) {
-        sizeAttr.copyArray(pData.sizes);
-        sizeAttr.needsUpdate = true;
-      }
-      if (clusterIdAttr && pData.clusterIds.length === clusterIdAttr.array.length) {
-        clusterIdAttr.copyArray(pData.clusterIds);
-        clusterIdAttr.needsUpdate = true;
-      }
-      if (isOutlierAttr && pData.isOutliers.length === isOutlierAttr.array.length) {
-        isOutlierAttr.copyArray(pData.isOutliers);
-        isOutlierAttr.needsUpdate = true;
-      }
+      ptsGeo.setDrawRange(0, pData.homePositions.length / 3);
+      ptsGeo.computeBoundingSphere();
+
+      // Trigger GPU flight into the unique cluster formation of this specific inquiry
+      transitionClock = 0.0;
     };
 
     // 4. Subtle 3D Metric Coordinate Frame on Dark Cosmic Canvas
@@ -683,8 +672,6 @@ export const AstraParticleWorld: React.FC<Props> = ({
     window.addEventListener('resize', onResize);
 
     // 7. Deterministic Paced Physical Simulation Loop (2.4s Coordinated Transition)
-    const TRANSITION_DURATION = 2.4; // 2.4s immersive physical GPU flight
-    let transitionClock = 0.0;
     let animId = 0;
     let t = 0;
     let lastTimestamp = performance.now();

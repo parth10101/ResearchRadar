@@ -116,7 +116,8 @@ def _print_paper_sample(paper: dict) -> None:
     print(f"  S2 Paper ID    : {paper.get('s2_paper_id') or 'N/A'}")
     print(f"  Title          : {paper.get('title')}")
     authors = paper.get('authors') or []
-    print(f"  Authors        : {', '.join(authors[:3])}{'...' if len(authors) > 3 else ''}")
+    author_names = [a.get('name', str(a)) if isinstance(a, dict) else str(a) for a in authors]
+    print(f"  Authors        : {', '.join(author_names[:3])}{'...' if len(author_names) > 3 else ''}")
     print(f"  Year           : {paper.get('year')}")
     print(f"  Source         : {paper.get('source')}")
     print(f"  Venue          : {paper.get('venue') or 'N/A'}")
@@ -171,15 +172,16 @@ def run_stage1(
             print("[ERROR] --query is required when the corpus file doesn't exist yet, is empty, or --force-fetch is set.", file=sys.stderr)
             sys.exit(1)
 
-        print(f"  Source         : Semantic Scholar API (S2AG)")
+        print(f"  Source         : {source.upper()} Academic Graph Engine")
         print(f"  Query          : '{query}'")
         print(f"  Max Results    : {max_results}")
         if year:
             print(f"  Year Filter    : {year}")
-        papers = s1.fetch_from_semanticscholar(
+        papers = s1.fetch_papers(
             query=query,
             max_results=max_results,
             year=year,
+            source=source,
             bypass_cache=force_fetch,
         )
 
@@ -455,6 +457,7 @@ def run_stage4(
     out_dir: Path,
     min_cluster_size: int | None = None,
     target_topics: int | None = None,
+    skip_clustering: bool = False,
 ) -> None:
     _banner(4, "TOPIC MODELLING")
     import logging as _logging
@@ -515,15 +518,25 @@ def run_stage4(
     print(f"  {'-' * 66}")
 
     t0 = time.time()
-    result = s4.fit_topics(
-        ids=ids,
-        embeddings=embeddings,
-        documents=documents,
-        papers=papers,
-        min_cluster_size=min_cluster_size,
-        target_topics=target_topics,
-        coherence_corpus=raw_documents,  # B3-fix: pass raw text for coherence
-    )
+    if skip_clustering:
+        print("  [Fast Niche Mode] Skipping UMAP/HDBSCAN manifold modeling (~0.01s)...")
+        result = s4.fit_fast_niche_topics(
+            ids=ids,
+            embeddings=embeddings,
+            documents=documents,
+            papers=papers,
+            out_dir=out_dir,
+        )
+    else:
+        result = s4.fit_topics(
+            ids=ids,
+            embeddings=embeddings,
+            documents=documents,
+            papers=papers,
+            min_cluster_size=min_cluster_size,
+            target_topics=target_topics,
+            coherence_corpus=raw_documents,  # B3-fix: pass raw text for coherence
+        )
     elapsed = time.time() - t0
 
     paper_to_topic: dict = result["paper_to_topic"]
@@ -674,14 +687,14 @@ def run_stage6(papers: list[dict], out_dir: Path) -> dict:
     return s6.run_stage6(papers=papers, out_dir=out_dir)
 
 
-def run_stage7(papers: list[dict], out_dir: Path) -> dict:
+def run_stage7(papers: list[dict], out_dir: Path, cutoff_year: int = 2023) -> dict:
     _banner(7, "GAP IDENTIFICATION")
     from research_radar import stage7_gap_detection as s7
     topics_path = out_dir / "topic_results.json"
     topics_data = None
     if topics_path.exists():
         topics_data = json.loads(topics_path.read_text(encoding="utf-8"))
-    return s7.run_stage7(papers=papers, topics_data=topics_data, out_dir=out_dir)
+    return s7.run_stage7(papers=papers, topics_data=topics_data, out_dir=out_dir, cutoff_year=cutoff_year)
 
 
 def run_stage8(detected_gaps_data: dict, papers: list[dict], out_dir: Path) -> dict:
@@ -728,13 +741,20 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--source",
-        choices=["semanticscholar"],
-        default="semanticscholar",
+        choices=["auto", "semanticscholar", "openalex"],
+        default="auto",
         help=(
             "Data source for Stage 1 ingestion. "
-            "'semanticscholar' (default) fetches via S2AG batch API with TLDR, "
-            "citation intents, influentialCitationCount, and references embedded."
+            "'auto' (default) attempts Semantic Scholar with fail-fast circuit breaker and OpenAlex fallback. "
+            "'openalex' directly queries OpenAlex 250M+ records. "
+            "'semanticscholar' queries Semantic Scholar."
         ),
+    )
+    parser.add_argument(
+        "--cutoff-year",
+        type=int,
+        default=2023,
+        help="Temporal validation cutoff year (Default: 2023).",
     )
     parser.add_argument(
         "--year",
@@ -764,6 +784,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--no-stage3", "--skip-stage3",
         action="store_true",
         help="Skip Stage 3 semantic embedding.",
+    )
+    parser.add_argument(
+        "--skip-clustering",
+        action="store_true",
+        help="Skip UMAP/HDBSCAN manifold modeling for fast niche query runs (~0.01s).",
     )
     parser.add_argument(
         "--no-stage4", "--skip-stage4",
@@ -890,6 +915,7 @@ def main(argv: list[str] | None = None) -> None:
             out_dir=args.out,
             min_cluster_size=args.min_cluster_size,
             target_topics=args.target_topics,
+            skip_clustering=getattr(args, "skip_clustering", False),
         )
 
     # HOW: Execute Stage 5 (Citation Graph)
@@ -913,7 +939,7 @@ def main(argv: list[str] | None = None) -> None:
     if args.no_stage7:
         _skip(7, "GAP IDENTIFICATION", reason="--no-stage7 flag set")
     else:
-        detected_gaps_data = run_stage7(papers=papers, out_dir=args.out)
+        detected_gaps_data = run_stage7(papers=papers, out_dir=args.out, cutoff_year=getattr(args, "cutoff_year", 2023))
 
     # HOW: Execute Stage 8 (Gap Narration)
     if args.no_stage8:

@@ -49,10 +49,14 @@ function extractIntactPhrases(query?: string): TermHighlight[] {
   const q = query.trim();
   if (!q) return [];
 
+  // Exclude terms from negative NOT clauses so only positive search targets are highlighted
+  const notSplit = q.split(/\bNOT\b/i);
+  const positivePart = notSplit[0] || q;
+
   const rawClauses: string[] = [];
 
-  // Check if query has explicit quotes
-  const quotedMatches = q.match(/\"([^\"]+)\"|\'([^\']+)\'/g);
+  // 1. Check if positive query has explicit quotes
+  const quotedMatches = positivePart.match(/\"([^\"]+)\"|\'([^\']+)\'/g);
   if (quotedMatches && quotedMatches.length > 0) {
     for (const qm of quotedMatches) {
       const clean = qm.replace(/[\"']/g, '').trim();
@@ -60,8 +64,8 @@ function extractIntactPhrases(query?: string): TermHighlight[] {
     }
   }
 
-  // Split on top-level Boolean operators (AND, OR, NOT, &)
-  const opSplit = q.split(/\b(?:AND|OR|NOT)\b|\s+&\s+/i);
+  // 2. Split on top-level Boolean operators (AND, OR, &)
+  const opSplit = positivePart.split(/\b(?:AND|OR)\b|\s+&\s+/i);
   for (const part of opSplit) {
     const cleaned = part.replace(/[()[\]"{}]/g, ' ').trim();
     if (cleaned.length >= 2) {
@@ -85,13 +89,73 @@ function extractIntactPhrases(query?: string): TermHighlight[] {
     }
   }
 
-  // Sort by length descending so longer composite phrases match before shorter substrings
-  uniquePhrases.sort((a, b) => b.length - a.length);
+  // For 3+ word phrases (e.g. "Hyperspectral Image Processing"), also include core 2-word concept ("Hyperspectral Image")
+  const expandedPhrases: string[] = [...uniquePhrases];
+  for (const p of uniquePhrases) {
+    const tokens = p.split(/\s+/);
+    if (tokens.length >= 3) {
+      const head = tokens.slice(0, 2).join(' ');
+      if (!seen.has(head.toLowerCase())) {
+        seen.add(head.toLowerCase());
+        expandedPhrases.push(head);
+      }
+    }
+  }
 
-  return uniquePhrases.map((phrase, idx) => {
-    // Build hyphen & whitespace-tolerant regex for matching the phrase in titles
-    const words = phrase.split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-    const patternStr = `\\b${words.join('[\\s\\-_]+')}\\b`;
+  // Sort by length descending so longer composite phrases match before shorter substrings
+  expandedPhrases.sort((a, b) => b.length - a.length);
+
+  return expandedPhrases.map((phrase, idx) => {
+    // Build inflection & morphology-tolerant regex for matching the phrase in titles.
+    // Handles all hyphens (-), en-dashes (–), em-dashes (—), underscores (_), and plurals (s, es, ies)
+    const words = phrase.split(/[\s\-_–—]+/).filter(Boolean).map((w) => {
+      const cleanW = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const lower = cleanW.toLowerCase();
+
+      // Common acronym expansions
+      if (/^gnns?$/i.test(lower)) {
+        return '(?:gnns?|graph[\\s\\-_–—]+neural[\\s\\-_–—]+networks?)';
+      }
+      if (/^cnns?$/i.test(lower)) {
+        return '(?:cnns?|convolutional[\\s\\-_–—]+neural[\\s\\-_–—]+networks?)';
+      }
+      if (/^vits?$/i.test(lower)) {
+        return '(?:vits?|vision[\\s\\-_–—]+transformers?)';
+      }
+      if (/^kgs?$/i.test(lower)) {
+        return '(?:kgs?|knowledge[\\s\\-_–—]+graphs?)';
+      }
+
+      // Morphological domain variants
+      if (/^image(?:s|ry)?$/i.test(lower)) {
+        return '(?:image|images|imagery)';
+      }
+      if (/^classif(?:y|ication|ications|ying|ied)?$/i.test(lower)) {
+        return '(?:classification|classifications|classify|classifying)';
+      }
+      if (/^segment(?:ation|ations|ing|ed)?$/i.test(lower)) {
+        return '(?:segmentation|segmentations|segment|segmenting)';
+      }
+
+      // Universal English singular / plural root:
+      // 1. -ies <-> -y (e.g. "trajectories" <-> "trajectory", "methodologies" <-> "methodology", "properties" <-> "property")
+      let base = cleanW;
+      if (base.length > 4 && base.toLowerCase().endsWith('ies')) {
+        const rootY = base.slice(0, -3);
+        return `${rootY}(?:y|ies)`;
+      }
+
+      // 2. -es and -s stripping (e.g. "graphs" -> "graph", "networks" -> "network", "transformers" -> "transformer")
+      if (base.length > 3 && base.toLowerCase().endsWith('es')) {
+        base = base.slice(0, -2);
+      } else if (base.length > 3 && base.toLowerCase().endsWith('s')) {
+        base = base.slice(0, -1);
+      }
+
+      return `${base}(?:s|es)?`;
+    });
+    // Join with pattern matching spaces, hyphens, en-dashes, em-dashes, and underscores
+    const patternStr = `\\b${words.join('[\\s\\-_–—]+')}\\b`;
     return {
       phrase,
       regex: new RegExp(patternStr, 'i'),

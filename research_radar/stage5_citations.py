@@ -547,21 +547,22 @@ def _format_smart_paper_summary(paper: dict) -> str:
         tldr_text = _clean_leading_transition(tldr_text)
     first_s = _clean_leading_transition(sentences[0].rstrip(".") + ".") if sentences else ""
 
-    # Check if primary candidate (TLDR or sentence 1) is a generic background opener
-    is_tldr_fluff = _is_background_opener(tldr_text) if tldr_text else False
+    # Check if primary candidate (TLDR or sentence 1) is a generic background opener or title duplicate
+    is_title_repeat = bool(tldr_text and (tldr_text.lower().strip() == title.lower().strip() or len(tldr_text.split()) <= 6 or tldr_text.lower() in title.lower()))
+    is_tldr_fluff = (_is_background_opener(tldr_text) or is_title_repeat) if tldr_text else False
     is_first_fluff = _is_background_opener(first_s) if first_s else False
 
     candidate_text = ""
 
-    # Case 1: S2 TLDR is available and NOT a background opener
-    if tldr_text and len(tldr_text.split()) >= 12 and not is_tldr_fluff:
+    # Case 1: S2 TLDR is available, has substance, and is NOT a title repeat or background opener
+    if tldr_text and len(tldr_text.split()) >= 10 and not is_tldr_fluff:
         candidate_text = tldr_text.rstrip(".") + "."
         if contrib_sentence and contrib_sentence.lower() not in tldr_text.lower() and len(candidate_text.split()) <= 20:
             candidate_text = f"{candidate_text} {contrib_sentence}"
 
     # Case 2: Background Opener detected -> MUST pair with Action/Contribution sentence
     elif (is_tldr_fluff or is_first_fluff) and contrib_sentence:
-        base_s = tldr_text if (tldr_text and len(tldr_text.split()) >= 10) else first_s
+        base_s = tldr_text if (tldr_text and not is_title_repeat and len(tldr_text.split()) >= 10) else first_s
         if base_s and contrib_sentence.lower() not in base_s.lower():
             combined = f"{base_s.rstrip('.')} {contrib_sentence}"
             if len(combined.split()) <= 42:
@@ -767,6 +768,7 @@ def compute_related_papers_intelligence(papers):
             'global_cits': cits,
             'ref_count': _get_paper_ref_count(p),
             'tldr': tldr_val,
+            'abstract': (p.get('abstract') or '').strip(),
             'arxiv_url': action_btn['url'],
             'action_label': action_btn['label'],
             'action_class': action_btn['btn_class'],
@@ -775,6 +777,7 @@ def compute_related_papers_intelligence(papers):
             'ref_status_tooltip': ref_status['tooltip'],
             'ref_is_zero': ref_status['is_zero'],
             'authority_score': authority,
+            'title_match_score': p.get('_title_match_score', 0),
             'journey_foundation': is_foundation,
             'journey_frontier': is_frontier,
         }
@@ -871,7 +874,12 @@ def compute_related_papers_intelligence(papers):
             
     for y in range(1997, 2027):
         if y in by_year:
-            best = max(by_year[y], key=lambda x: x['global_cits'])
+            # Rank candidates: prioritize papers that match query in title, then authority score, then citations
+            best = max(by_year[y], key=lambda x: (
+                x.get('title_match_score', 0) * 1000 +
+                x.get('authority_score', 0) * 100 +
+                math.log10(x.get('global_cits', 0) + 1)
+            ))
             milestones.append({
                 'year': y,
                 'paper': best

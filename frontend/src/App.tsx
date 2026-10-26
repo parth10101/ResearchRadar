@@ -58,6 +58,19 @@ export const App: React.FC = () => {
   const [stageStates, setStageStates] = useState<StageDisplayState[]>(['active', 'hidden', 'hidden', 'hidden']);
 
   const [targetPaperId, setTargetPaperId] = useState<string>('');
+  const [skipDomainClusters, setSkipDomainClusters] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('rr_skip_clusters') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('rr_skip_clusters', String(skipDomainClusters));
+    } catch {}
+  }, [skipDomainClusters]);
 
   const stageIndexRef = useRef(0);
   useEffect(() => { stageIndexRef.current = stageIndex; }, [stageIndex]);
@@ -96,8 +109,13 @@ export const App: React.FC = () => {
     accumulatedDeltaRef.current = 0;
     clearTransitionTimers();
 
+    let effectiveTarget = targetIndex;
+    if (skipDomainClusters && targetIndex === 1) {
+      effectiveTarget = currentIndex === 0 ? 2 : 0;
+    }
     const fromStage = STAGES[currentIndex];
-    const toStage = STAGES[targetIndex];
+    const toStage = STAGES[effectiveTarget];
+    targetIndex = effectiveTarget;
 
     // SCENARIO 1: Hero -> Epistemic Map (Snappy, Fluid Particle Formation)
     if (currentIndex === 0 && targetIndex === 1) {
@@ -319,13 +337,14 @@ export const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, [selectedDataset]);
 
-  const handleTriggerRun = async (query: string, maxResults: number, year?: string) => {
+  const handleTriggerRun = async (query: string, maxResults: number, year?: string, skipClustering?: boolean) => {
     setIsRunning(true);
     setProgressEvents([]);
     setPipelineError(null);
     try {
       const payload: Record<string, any> = { query, max_results: maxResults };
       if (year) payload.year = year;
+      if (skipClustering) payload.skip_clustering = true;
       const response = await fetch('/api/pipeline/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -346,7 +365,7 @@ export const App: React.FC = () => {
             setIsRunning(false);
             if (event.dataset_id) {
               setSelectedDataset(event.dataset_id);
-              goToStage(1);
+              goToStage(skipDomainClusters ? 2 : 1);
             }
           }
         } catch { }
@@ -437,13 +456,13 @@ export const App: React.FC = () => {
       >
         {/* 00 — Hero Observatory & Search Deck */}
         {stageStates[0] !== 'hidden' && (
-          <div style={getStageStyle(stageStates[0])}>
+          <div style={{ ...getStageStyle(stageStates[0]), overflowY: 'auto' }}>
             <HeroSection
               onLaunch={(tab) => scrollToSection(tab || 'archipelago')}
               isRunning={isRunning}
               progressEvents={progressEvents}
               pipelineError={pipelineError}
-              onSearch={(searchQuery, corpusSize, datasetId, year) => {
+              onSearch={(searchQuery, corpusSize, datasetId, year, skipClustering) => {
                 setPipelineError(null);
                 setActiveQuery(searchQuery);
                 if (datasetId) {
@@ -464,14 +483,14 @@ export const App: React.FC = () => {
                   scrollToSection('archipelago');
                   return;
                 }
-                handleTriggerRun(searchQuery, corpusSize || 300, year);
+                handleTriggerRun(searchQuery, corpusSize || 50, year, skipClustering);
               }}
             />
           </div>
         )}
 
         {/* 01 — Epistemic Archipelago & Algorithmic Gap Matrix */}
-        {stageStates[1] !== 'hidden' && (
+        {!skipDomainClusters && stageStates[1] !== 'hidden' && (
           <div style={getStageStyle(stageStates[1])}>
             <OmniScopeStudio
               data3d={points3dData}
@@ -527,7 +546,8 @@ export const App: React.FC = () => {
             zIndex: 40,
           }}
         >
-          {STAGES.map((stageId, i) => {
+          {STAGES.filter(s => !skipDomainClusters || s !== 'archipelago').map((stageId) => {
+            const i = STAGES.indexOf(stageId);
             const isActive = i === stageIndex;
             return (
               <button

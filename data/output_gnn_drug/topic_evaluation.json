@@ -1,8 +1,0 @@
-{
-  "silhouette_score": 0.4689,
-  "dbcv_density_index": 0.5898,
-  "coherence_c_v": 0.3583,
-  "coherence_npmi": 0.1837,
-  "topic_diversity": 0.6556,
-  "noise_rate": 0.1078
-}

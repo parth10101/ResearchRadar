@@ -70,6 +70,7 @@ interface Stage5Paper {
   global_cits: number;
   ref_count: number;
   tldr: string;
+  abstract?: string;
   arxiv_url: string;
   action_label?: string;
   action_class?: string;
@@ -333,6 +334,7 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
   // Part 1 Lens filter: 'foundation' | 'frontier' | 'all'
   const [activeJourney, setActiveJourney] = useState<'foundation' | 'frontier' | 'all'>(initialLens);
   const [selectedPaperId, setSelectedPaperId] = useState<string>(initialPaper);
+  const [summaryViewMode, setSummaryViewMode] = useState<'summary' | 'abstract'>('summary');
 
   // Synchronize target paper selection from outside (e.g. Cluster Deep Dive)
   useEffect(() => {
@@ -423,6 +425,21 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
     });
   }, [data]);
 
+  // Corpus papers in descending order of citation count
+  const sortedCorpusPapers: Stage5Paper[] = useMemo(() => {
+    return [...allPapers].sort((a, b) => (b.global_cits ?? 0) - (a.global_cits ?? 0));
+  }, [allPapers]);
+
+  // Scroll to selected paper if opened with targetPaperId
+  useEffect(() => {
+    if (viewMode === 'deepdive' && selectedPaperId) {
+      const el = document.getElementById(`paper-row-${selectedPaperId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  }, [viewMode, selectedPaperId]);
+
   // =========================================================================
   // UNIVERSAL 7 EPOCH-MAKER CHRONOLOGICAL SELECTION LOGIC
   // True for ALL scientific & humanistic disciplines in the world
@@ -512,32 +529,34 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
   // Unified Methodological Summary / TLDR for the single focal block
   const currentMilestoneSummary = useMemo(() => {
     if (!currentMilestone) return '';
+    const title = (currentMilestone.paper.title || '').trim();
     const tldr = (currentMilestone.paper.tldr || '').trim();
+    const abstract = (currentMilestone.paper.abstract || '').trim();
     const breakthrough = (currentMilestone.breakthrough || '').trim();
 
-    const lower = tldr.toLowerCase();
-    const hasMethod =
-      lower.includes('model') ||
-      lower.includes('method') ||
-      lower.includes('algorithm') ||
-      lower.includes('propos') ||
-      lower.includes('framework') ||
-      lower.includes('approach') ||
-      lower.includes('estimat') ||
-      lower.includes('evaluat') ||
-      lower.includes('study') ||
-      lower.includes('identif') ||
-      lower.includes('present');
+    const isTitleDuplicate = tldr.toLowerCase() === title.toLowerCase() || tldr.length <= 15;
 
-    if (tldr && hasMethod && tldr.length > 45) {
+    if (!isTitleDuplicate && tldr && tldr.length > 35) {
       return tldr;
     }
 
-    if (breakthrough && tldr && !tldr.toLowerCase().includes(breakthrough.toLowerCase().slice(0, 15))) {
-      return `${tldr} ${breakthrough}`;
+    if (abstract && abstract.length > 40) {
+      // Extract primary contribution sentences from abstract
+      const sentences = abstract.split(/(?<=[.!?])\s+/);
+      const contrib = sentences.find((s) =>
+        /we propose|we introduce|we develop|this paper|in this|our approach|results show|demonstrates/i.test(s)
+      );
+      if (contrib && contrib.length > 30) {
+        return contrib;
+      }
+      return sentences.slice(0, 2).join(' ');
     }
 
-    return tldr || breakthrough || 'Methodological summary unavailable for this publication.';
+    if (breakthrough && breakthrough !== 'None') {
+      return breakthrough;
+    }
+
+    return tldr || 'Methodological summary unavailable for this publication.';
   }, [currentMilestone]);
 
   // Direct PDF or DOI action link metadata
@@ -833,14 +852,49 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
                   {/* Precision Hairline Divider */}
                   <div className="focal-hairline-rule" />
 
-                  {/* Single Unified Methodological Summary / TLDR */}
+                  {/* Single Unified Methodological Summary / TLDR & Full Abstract */}
                   <div className="focal-summary-block">
-                    <div className="focal-summary-header font-mono">
-                      <span className="focal-summary-pip" />
-                      <span>METHODOLOGICAL SUMMARY</span>
+                    <div className="focal-summary-header font-mono flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="focal-summary-pip" />
+                        <span>{summaryViewMode === 'abstract' ? 'ORIGINAL PUBLICATION ABSTRACT' : 'METHODOLOGICAL SUMMARY'}</span>
+                      </div>
+                      {currentMilestone.paper.abstract && (
+                        <div className="flex items-center gap-1.5 text-[10px]">
+                          <button
+                            type="button"
+                            onClick={() => setSummaryViewMode('summary')}
+                            className={`px-2 py-0.5 rounded transition-all cursor-pointer font-mono ${
+                              summaryViewMode === 'summary'
+                                ? 'bg-[#ff4300]/25 text-[#ff8a50] font-bold border border-[#ff4300]/50'
+                                : 'text-zinc-400 hover:text-white bg-white/[0.04]'
+                            }`}
+                          >
+                            Summary
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSummaryViewMode('abstract')}
+                            className={`px-2 py-0.5 rounded transition-all cursor-pointer font-mono ${
+                              summaryViewMode === 'abstract'
+                                ? 'bg-[#ff4300]/25 text-[#ff8a50] font-bold border border-[#ff4300]/50'
+                                : 'text-zinc-400 hover:text-white bg-white/[0.04]'
+                            }`}
+                          >
+                            Full Abstract
+                          </button>
+                        </div>
+                      )}
                     </div>
                     <p className="focal-summary-text">
-                      {currentMilestoneSummary}
+                      <HighlightedTitle
+                        title={
+                          summaryViewMode === 'abstract' && currentMilestone.paper.abstract
+                            ? currentMilestone.paper.abstract
+                            : currentMilestoneSummary
+                        }
+                        query={searchQuery}
+                      />
                     </p>
                   </div>
 
@@ -896,388 +950,126 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
       )}
 
       {/* ========================================================================= */}
-      {/* MODE 2: APPLE-GRADE GLASSMORPHIC PUBLICATION CARD (PART 1)                */}
-      {/* Exact First-Glance Match to media_1789323347560.png | Expandable Prior Art */}
+      {/* MODE 2: PUBLICATION DEEP DIVE — CORPUS PAPERS (DESCENDING CITATIONS)      */}
+      {/* Central-aligned Apple-grade glassmorphic layout                           */}
       {/* ========================================================================= */}
       {viewMode === 'deepdive' && (
         <main className="citation-integrated-layout">
           <section
-            className="research-instrument-panel apple-glass-card overflow-y-auto custom-scrollbar"
+            className="research-instrument-panel apple-glass-card custom-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
-            
-            {/* 1. Top Observatory Control Bar */}
+            {/* Top Navigation & Header Bar */}
             <div className="instrument-top-bar">
-              
-              {/* Left: Journey quick return */}
+              {/* Left: Journey return button */}
               <div className="stage-and-return-group">
                 <button
                   onClick={() => setViewMode('journey')}
                   className="return-to-journey-btn font-mono"
                   title="Return to the full-screen Citation Journey timeline"
                 >
-                  <ChevronLeft className="h-3 w-3" />
+                  <ChevronLeft className="h-4 w-4" />
                   <span>Journey</span>
                 </button>
               </div>
 
-              {/* Center: Literature Lenses Switcher */}
-              <div className="observatory-lenses-track" role="tablist" aria-label="Literature Lenses">
-                <button
-                  role="tab"
-                  aria-selected={activeJourney === 'foundation'}
-                  onClick={() => {
-                    setActiveJourney('foundation');
-                    const p = allPapers.find((x) => x.journey_foundation);
-                    if (p) setSelectedPaperId(p.id);
-                  }}
-                  className={`lens-switch-btn ${activeJourney === 'foundation' ? 'active-canon' : ''}`}
-                >
-                  <Layers className="h-3.5 w-3.5" />
-                  <span>Foundations</span>
-                </button>
-
-                <button
-                  role="tab"
-                  aria-selected={activeJourney === 'frontier'}
-                  onClick={() => {
-                    setActiveJourney('frontier');
-                    const p = allPapers.find((x) => x.journey_frontier);
-                    if (p) setSelectedPaperId(p.id);
-                  }}
-                  className={`lens-switch-btn ${activeJourney === 'frontier' ? 'active-frontier' : ''}`}
-                >
-                  <Sparkles className="h-3.5 w-3.5" />
-                  <span>Frontier</span>
-                </button>
-
-                <button
-                  role="tab"
-                  aria-selected={activeJourney === 'all'}
-                  onClick={() => {
-                    setActiveJourney('all');
-                    const sorted = [...allPapers].sort((a, b) => b.global_cits - a.global_cits);
-                    if (sorted[0]) setSelectedPaperId(sorted[0].id);
-                  }}
-                  className={`lens-switch-btn ${activeJourney === 'all' ? 'active-topcited' : ''}`}
-                >
-                  <TrendingUp className="h-3.5 w-3.5" />
-                  <span>Top Cited</span>
-                </button>
-              </div>
-
-              {/* Right: Direct Pager & Catalog Popover */}
-              <div className="observatory-pager-anchor" ref={browseTrayRef}>
-                <div className="pager-pill-controls font-mono">
-                  <button
-                    onClick={handlePrevPaper}
-                    disabled={currentIndex === 0}
-                    className="pager-step-btn"
-                    title="Previous publication (Arrow Left)"
-                    aria-label="Previous publication"
-                  >
-                    <ChevronLeft className="h-3.5 w-3.5" />
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsBrowseTrayOpen((prev) => !prev);
-                    }}
-                    className={`pager-index-trigger ${isBrowseTrayOpen ? 'open' : ''}`}
-                    title="Open publication catalog index"
-                  >
-                    <BookOpen className="h-3 w-3 text-amber-400" />
-                    <span>{currentIndex + 1} / {filteredPapers.length}</span>
-                    <ChevronDown className="h-3 w-3 opacity-60 ml-0.5" />
-                  </button>
-
-                  <button
-                    onClick={handleNextPaper}
-                    disabled={currentIndex === filteredPapers.length - 1}
-                    className="pager-step-btn"
-                    title="Next publication (Arrow Right)"
-                    aria-label="Next publication"
-                  >
-                    <ChevronRight className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-
-                {/* Catalog Search Popover */}
-                {isBrowseTrayOpen && (
-                  <div className="catalog-floating-popover" onClick={(e) => e.stopPropagation()}>
-                    <div className="catalog-search-row">
-                      <Search className="h-3.5 w-3.5 text-slate-400" />
-                      <input
-                        ref={searchInputRef}
-                        type="text"
-                        placeholder="Search title, author..."
-                        value={catalogSearch}
-                        onChange={(e) => setCatalogSearch(e.target.value)}
-                        className="catalog-search-input"
-                        autoFocus
-                      />
-                      {catalogSearch && (
-                        <button
-                          onClick={() => setCatalogSearch('')}
-                          className="catalog-search-clear font-mono"
-                        >
-                          ✕
-                        </button>
-                      )}
-                    </div>
-
-                    <div className="catalog-scroll-list">
-                      {filteredPapers.map((p) => {
-                        const isSel = p.id === activePaper.id;
-                        return (
-                          <div
-                            key={p.id}
-                            className={`catalog-row ${isSel ? 'active' : ''}`}
-                            onClick={() => {
-                              setSelectedPaperId(p.id);
-                              setIsBrowseTrayOpen(false);
-                            }}
-                          >
-                            <div className="catalog-row-title">
-                              <HighlightedTitle title={p.title} query={searchQuery} />
-                            </div>
-                            <div className="catalog-row-meta font-mono">
-                              <span>{p.authors.split(',')[0]} et al. ({p.year})</span>
-                              <span className="text-sky-400">{p.global_cits.toLocaleString()} cits</span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-            </div>
-
-            {/* Precision Hairline Separator */}
-            <div className="instrument-divider" />
-
-            {/* 2. Primary Publication Details (Exact match to user reference image) */}
-            <div className="publication-instrument-core">
-              
-              {/* Header: Lens Pill Badge & Citations Count */}
-              <div className="pub-status-line font-mono">
-                <span className={`pub-lens-badge ${activePaper.badge_class || 'top_cited'}`}>
-                  {activeJourney === 'foundation' ? 'FOUNDATIONS' : activeJourney === 'frontier' ? 'FRONTIER' : 'TOP CITED'}
+              {/* Center/Right: Deep Dive Title and Count Badge */}
+              <div className="deepdive-header-meta font-mono">
+                <span className="deepdive-header-title">CORPUS PUBLICATIONS</span>
+                <span className="deepdive-header-badge">
+                  {sortedCorpusPapers.length} Papers · Ranked by Citation Count
                 </span>
-
-                <div className="pub-metrics-counter">
-                  <span className="text-cyan-400 font-semibold">{activePaper.global_cits.toLocaleString()} CITATION{activePaper.global_cits === 1 ? '' : 'S'}</span>
-                  <span className="text-slate-600">·</span>
-                  <span className="text-emerald-400 font-semibold">{activePaper.ref_count} REFERENCES</span>
-                </div>
               </div>
-
-              {/* Dominant Academic Title */}
-              <h1 className="pub-main-title">
-                <HighlightedTitle title={activePaper.title} query={searchQuery} />
-              </h1>
-
-              {/* Authors & Venue Byline */}
-              <div className="pub-byline-line">
-                <div className="pub-authors-wrap">
-                  <span className="byline-authors-text">{activePaper.authors}</span>
-                  <span className="byline-sep">·</span>
-                  <span className="byline-year-badge font-mono">{activePaper.year}</span>
-                </div>
-                <div className="byline-venue-text font-mono">{activePaper.venue}</div>
-              </div>
-
-              {/* Subtle Rule Before Summary */}
-              <div className="pub-subtle-rule" />
-
-              {/* Executive Summary (Clean, elegant, zero nested boxes) */}
-              <div className="pub-summary-section">
-                <div className="summary-eyebrow font-mono">
-                  <span className="summary-accent-marker" />
-                  <span>EXECUTIVE SUMMARY</span>
-                </div>
-                <p className="summary-body-text">
-                  {activePaper.tldr}
-                </p>
-              </div>
-
-              {/* Action Buttons (PDF/DOI + Copy) */}
-              <div className="pub-action-bar">
-                <a
-                  href={activePaper.arxiv_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="antimetal-pill-button font-mono"
-                  title="Open full-text document"
-                >
-                  <FileText className="h-3.5 w-3.5 text-amber-400" />
-                  <span>{actionMeta.label}</span>
-                  <ArrowUpRight className="h-3 w-3 opacity-60" />
-                </a>
-
-                <button
-                  onClick={() => handleCopyLink(activePaper.arxiv_url)}
-                  className="antimetal-ghost-button font-mono"
-                  title="Copy publication link"
-                >
-                  {copiedLink ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5 text-slate-400" />}
-                  <span>{copiedLink ? 'Copied' : 'Copy'}</span>
-                </button>
-              </div>
-
             </div>
 
             {/* Precision Hairline Separator */}
             <div className="instrument-divider" />
 
-            {/* 3. Collapsible Connected Prior Art Accordion (Tucked away at first glance!) */}
-            <div className="related-prior-art-accordion-wrap">
-              
-              {/* Accordion Trigger Bar (Matches media_1789323347560.png resting state) */}
-              <button
-                onClick={() => setIsPriorArtExpanded((prev) => !prev)}
-                className={`prior-art-accordion-trigger font-mono ${isPriorArtExpanded ? 'expanded' : ''}`}
-                aria-expanded={isPriorArtExpanded}
-              >
-                <div className="accordion-trigger-left">
-                  <GitFork className="h-3.5 w-3.5 text-sky-400" />
-                  <span className="trigger-title">CONNECTED PRIOR ART · SHARED CITATION ROOTS</span>
-                  <span className="trigger-count-badge">
-                    {activePaper.related_papers.length} Linked Investigation{activePaper.related_papers.length === 1 ? '' : 's'}
-                  </span>
-                </div>
+            {/* Plain List of Corpus Papers in Descending Order of Citation Count */}
+            <div className="corpus-papers-list">
+              {sortedCorpusPapers.map((paper, index) => {
+                const actionMeta = resolveActionMeta(paper.arxiv_url, paper.action_label);
+                const isSelected = selectedPaperId === paper.id;
 
-                <div className="accordion-trigger-right">
-                  {isPriorArtExpanded ? (
-                    <ChevronUp className="h-4 w-4 text-slate-400" />
-                  ) : (
-                    <ChevronDown className="h-4 w-4 text-slate-400" />
-                  )}
-                </div>
-              </button>
-
-              {/* Expandable Prior Art & Shared References Drawer */}
-              {isPriorArtExpanded && (
-                <div className="prior-art-expandable-drawer">
-                  {activePaper.related_papers.length === 0 ? (
-                    <div className="prior-art-empty-note font-mono">
-                      No direct bibliographic overlap links indexed in this subset. Explore via lenses above.
+                return (
+                  <article
+                    key={paper.id || `paper-${index}`}
+                    id={`paper-row-${paper.id}`}
+                    className={`corpus-paper-row ${isSelected ? 'selected' : ''}`}
+                    onClick={() => setSelectedPaperId(paper.id)}
+                  >
+                    <div className="corpus-paper-rank-col font-mono">
+                      <span className="corpus-paper-rank">#{index + 1}</span>
                     </div>
-                  ) : (
-                    <div className="related-items-stream">
-                      {activePaper.related_papers.map((rel, idx) => {
-                        const refKey = rel.id || `rel-${idx}`;
-                        const isRefExpanded = !!expandedRefs[refKey];
 
-                        return (
-                          <article key={refKey} className="prior-art-entry">
-                            
-                            {/* Title (Clickable link to switch focus to that paper) */}
-                            <button
-                              onClick={() => setSelectedPaperId(rel.id)}
-                              className="entry-title-btn"
-                              title="Pivot observatory to this publication"
-                            >
-                              <HighlightedTitle title={rel.title} query={searchQuery} />
-                            </button>
+                    <div className="corpus-paper-main-col">
+                      <div className="corpus-paper-top-row">
+                        <div className="corpus-paper-cits-pill font-mono">
+                          <span className="cits-count">
+                            {paper.global_cits.toLocaleString()}
+                          </span>
+                          <span className="cits-label">
+                            {paper.global_cits === 1 ? 'CITATION' : 'CITATIONS'}
+                          </span>
+                          {paper.ref_count > 0 && (
+                            <>
+                              <span className="cits-sep">·</span>
+                              <span className="refs-count">
+                                {paper.ref_count} REFERENCES
+                              </span>
+                            </>
+                          )}
+                        </div>
 
-                            {/* Meta Line */}
-                            <div className="entry-meta-line font-mono">
-                              <span className="text-slate-300">{rel.authors}</span>
-                              <span className="meta-dot">·</span>
-                              <span className="text-slate-400">{rel.venue}</span>
-                              <span className="meta-dot">·</span>
-                              <span className="text-slate-200 font-semibold">{rel.year}</span>
-                              <span className="meta-dot">·</span>
-                              <span className="text-sky-400">{rel.global_cits.toLocaleString()} citations</span>
-                            </div>
+                        {paper.arxiv_url && paper.arxiv_url !== '#' && (
+                          <a
+                            href={paper.arxiv_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="corpus-paper-action-btn font-mono"
+                            title="Open publication document"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <FileText className="h-3.5 w-3.5 text-amber-400" />
+                            <span>{actionMeta.label}</span>
+                            <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
+                          </a>
+                        )}
+                      </div>
 
-                            {/* Methodological Relationship */}
-                            <div className="relationship-anchor-block">
-                              <div className="relationship-tag font-mono">
-                                RELATIONSHIP WITH SELECTED PAPER
-                              </div>
-                              <div
-                                className="relationship-content"
-                                dangerouslySetInnerHTML={{ __html: highlightRelationshipText(rel.relationship) }}
-                              />
-                            </div>
+                      <h2 className="corpus-paper-title">
+                        {paper.arxiv_url && paper.arxiv_url !== '#' ? (
+                          <a
+                            href={paper.arxiv_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="corpus-title-link"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <HighlightedTitle title={paper.title} query={searchQuery} />
+                          </a>
+                        ) : (
+                          <HighlightedTitle title={paper.title} query={searchQuery} />
+                        )}
+                      </h2>
 
-                            {/* Bibliographic Overlap Disclosure */}
-                            <div className="overlap-disclosure-wrap">
-                              <button
-                                onClick={() => toggleExpand(rel.id, idx)}
-                                className="overlap-trigger-btn font-mono"
-                              >
-                                <span>Bibliographic Overlap ({rel.shared_count} Shared References)</span>
-                                {isRefExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-                              </button>
-
-                              {isRefExpanded && (
-                                <div className="overlap-detail-drawer">
-                                  {rel.why_key && (
-                                    <div className="theoretical-grounding-item">
-                                      <span className="grounding-label font-mono">THEORETICAL GROUNDING:</span>
-                                      <p className="grounding-body-text">{rel.why_key}</p>
-                                    </div>
-                                  )}
-
-                                  <div className="shared-refs-listing">
-                                    {rel.shared_refs_list.map((refItem, rIdx) => (
-                                      <div key={rIdx} className="shared-ref-row">
-                                        <div className="ref-primary-title">
-                                          <HighlightedTitle title={refItem.title} query={searchQuery} />
-                                        </div>
-                                        <div className="ref-secondary-meta font-mono">
-                                          <span>{refItem.authors || 'Unknown Authors'} ({refItem.year || 'N/A'})</span>
-                                          {refItem.citationCount !== undefined && refItem.citationCount > 0 && (
-                                            <span className="text-sky-400">{refItem.citationCount.toLocaleString()} cits</span>
-                                          )}
-                                        </div>
-                                        <div className="ref-links-strip">
-                                          {refItem.pdf_url && (
-                                            <a href={refItem.pdf_url} target="_blank" rel="noreferrer" className="ref-outbound-link font-mono">
-                                              <FileText className="h-3 w-3" />
-                                              <span>PDF ↗</span>
-                                            </a>
-                                          )}
-                                          {refItem.doi_url && (
-                                            <a href={refItem.doi_url} target="_blank" rel="noreferrer" className="ref-outbound-link font-mono">
-                                              <ExternalLink className="h-3 w-3" />
-                                              <span>DOI ↗</span>
-                                            </a>
-                                          )}
-                                          {refItem.scholar_url && !refItem.pdf_url && !refItem.doi_url && (
-                                            <a href={refItem.scholar_url} target="_blank" rel="noreferrer" className="ref-outbound-link font-mono">
-                                              <Search className="h-3 w-3" />
-                                              <span>Scholar ↗</span>
-                                            </a>
-                                          )}
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-
-                          </article>
-                        );
-                      })}
+                      <div className="corpus-paper-byline font-mono">
+                        <span className="corpus-authors-text">{paper.authors}</span>
+                        <span className="corpus-byline-sep">·</span>
+                        <span className="corpus-year-text">{paper.year}</span>
+                        {paper.venue && (
+                          <>
+                            <span className="corpus-byline-sep">·</span>
+                            <span className="corpus-venue-text">{paper.venue}</span>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-              )}
-
+                  </article>
+                );
+              })}
             </div>
-
           </section>
-
-          {/* Right Ambient Zone: Living 3D Vector Cosmos Unobstructed */}
-          <div className="citation-ambient-zone" aria-hidden="true" />
         </main>
       )}
 

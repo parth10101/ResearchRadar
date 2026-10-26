@@ -15,15 +15,15 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 STATE_PATH = ROOT_DIR / "data" / "cache" / ".s2_rate_state.json"
 LOCK_PATH = ROOT_DIR / "data" / "cache" / ".s2_rate.lock"
 
-BASE_DELAY = 1.15       # calibrated gap between S2 requests (safely within S2 key rate)
-MIN_DELAY = 1.0         # safe floor
-MAX_DELAY = 3.0         # hard ceiling
+BASE_DELAY = 1.25       # calibrated gap between S2 requests (safely within S2 key rate)
+MIN_DELAY = 1.20         # safe floor
+MAX_DELAY = 3.50         # hard ceiling
 DECAY = 0.95            # multiplicative decrease on success
 GROWTH = 1.25           # mild increase on transient 429
 
-CIRCUIT_WINDOW = 20.0   # seconds
-CIRCUIT_THRESHOLD = 5   # 429s before brief pause
-CIRCUIT_COOLDOWN = 4.0  # seconds to pause if triggered
+CIRCUIT_WINDOW = 30.0   # seconds
+CIRCUIT_THRESHOLD = 2   # 429s before tripping circuit
+CIRCUIT_COOLDOWN = 180.0  # seconds to pause if triggered (3 minutes)
 
 
 class RateState:
@@ -36,11 +36,12 @@ class RateState:
                 now = time.time()
                 last_seen = existing.get("last", 0.0)
                 delay = existing.get("delay", BASE_DELAY)
-                # Reset if: malformed types, or state is stale (> 60s since last request)
+                circuit_until = existing.get("circuit_until", 0.0)
+                # Reset if: malformed types, or state is stale (> 60s since last request) AND circuit is not active
                 is_stale = (
                     not isinstance(last_seen, (int, float)) or
                     not isinstance(delay, (int, float)) or
-                    (now - last_seen) > 60.0
+                    ((now - last_seen) > 60.0 and now >= circuit_until)
                 )
                 if is_stale:
                     self._save_atomic({"delay": BASE_DELAY, "last": 0.0, "fail_times": [], "circuit_until": 0.0})
@@ -59,6 +60,35 @@ class RateState:
         tmp = STATE_PATH.with_suffix(".tmp")
         tmp.write_text(json.dumps(state), encoding="utf-8")
         os.replace(tmp, STATE_PATH)  # atomic on POSIX and Windows
+
+    def is_circuit_open(self) -> bool:
+        """Returns True if the circuit breaker is active (S2 is throttled/rate-limited)."""
+        try:
+            with self.lock:
+                state = self._load()
+                return time.time() < state.get("circuit_until", 0.0)
+        except Exception:
+            return False
+
+    def trip_circuit(self, cooldown: float = CIRCUIT_COOLDOWN) -> None:
+        """Immediately trip the circuit breaker to stop hitting throttled S2."""
+        with self.lock:
+            state = self._load()
+            now = time.time()
+            state["circuit_until"] = now + cooldown
+            state["delay"] = MAX_DELAY
+            state["fail_times"] = []
+            self._save_atomic(state)
+            print(f"  [Circuit Breaker] Trip activated — routing all requests away from S2 for {cooldown:.0f}s")
+
+    def reset_circuit(self) -> None:
+        """Reset the circuit breaker manually."""
+        with self.lock:
+            state = self._load()
+            state["circuit_until"] = 0.0
+            state["fail_times"] = []
+            state["delay"] = BASE_DELAY
+            self._save_atomic(state)
 
     def acquire(self) -> float:
         """Blocks until safe to fire, reserving time slot atomically across processes/threads."""
@@ -87,12 +117,15 @@ class RateState:
         with self.lock:
             state = self._load()
             state["delay"] = max(MIN_DELAY, state.get("delay", BASE_DELAY) * DECAY)
+            # Ensure next request is spaced from the COMPLETION of this request
+            state["last"] = max(state.get("last", 0.0), time.time())
             self._save_atomic(state)
 
     def report_429(self) -> None:
         with self.lock:
             state = self._load()
             state["delay"] = min(MAX_DELAY, state.get("delay", BASE_DELAY) * GROWTH)
+            state["last"] = max(state.get("last", 0.0), time.time())
             now = time.time()
             fails = [t for t in state.get("fail_times", []) if now - t < CIRCUIT_WINDOW]
             fails.append(now)

@@ -20,7 +20,8 @@ class PipelineRunRequest(BaseModel):
     force_fetch: bool = Field(False, description="Force fresh download bypassing existing cache")
     skip_stage1: bool = Field(False, description="Skip Stage 1 ingestion if corpus exists")
     skip_stage6: bool = Field(False, description="Skip Stage 6 Knowledge Graph compilation")
-    skip_stage8: bool = Field(False, description="Skip Stage 8 Groq RAG narration")
+    skip_stage8: bool = Field(False, description="Skip Stage 8 Groq RAG narration"),
+    skip_clustering: bool = Field(False, description="Skip UMAP/HDBSCAN manifold modeling for fast niche runs")
 
 
 class PipelineStatusResponse(BaseModel):

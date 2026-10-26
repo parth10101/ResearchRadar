@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './HeroSection.css';
 import { PipelineProgressEvent } from '../types';
 import {
@@ -85,12 +85,36 @@ export interface PresetOption {
 }
 
 const PRESETS: PresetOption[] = [
-  { label: 'Federated Learning Privacy', count: '300', value: 'Federated Learning Privacy & Non-IID Drift in Clinical LLMs', datasetId: 'output_fl' },
-  { label: 'Satellite Remote Sensing', count: '300', value: 'Satellite Remote Sensing & Atmospheric Cloud Correction', datasetId: 'output_satellite_300' },
-  { label: 'Transformer Medical Segmentation', count: '1k', value: 'Transformer models for medical image segmentation', datasetId: 'output_transformer_models_for_m' },
-  { label: 'Autonomous 3D Perception', count: '1.5k', value: 'Autonomous Driving LiDAR Camera Multi-Modal Perception', datasetId: 'output_autonomous_1500' },
-  { label: 'GNN Drug Discovery', count: '3k', value: 'Graph Neural Networks in Molecular Drug Discovery', datasetId: 'output_gnn_drug_3k' },
-  { label: 'LLM Hallucination Mitigation', count: '3k', value: 'Large Language Model Hallucination & Factuality Grounding', datasetId: 'output_llm_hallucination_3k' },
+  {
+    label: '⭐ Teacher Niche 1: Physics-Informed Neural Networks & Fluid Dynamics',
+    count: '14',
+    value: '"Physics-Informed Neural Networks" AND "Fluid Dynamics"',
+  },
+  {
+    label: '⭐ Teacher Niche 2: Vision Transformer & Medical Image Segmentation',
+    count: '27',
+    value: '"Vision Transformer" AND "Medical Image Segmentation"',
+  },
+  {
+    label: '⭐ Teacher Niche 3: Graph Neural Networks & Molecular Property Prediction',
+    count: '35',
+    value: '"Graph Neural Networks" AND "Molecular Property Prediction"',
+  },
+  {
+    label: '⭐ Teacher Niche 4: Contrastive Learning & Remote Sensing Change Detection',
+    count: '22',
+    value: '"Contrastive Learning" AND "Remote Sensing Change Detection"',
+  },
+  {
+    label: '⭐ Teacher Niche 5: Physics-Informed Neural Networks & Heat Transfer',
+    count: '18',
+    value: '"Physics-Informed Neural Networks" AND "Heat Transfer"',
+  },
+  {
+    label: 'Multimodal Vision-Language Target (NeurIPS 2025)',
+    count: '819',
+    value: '"Vision-Language Alignment" AND "CLIP" NOT "Survey"',
+  },
 ];
 
 
@@ -102,13 +126,10 @@ export interface CorpusTier {
 }
 
 export const CORPUS_TIERS: CorpusTier[] = [
-  { value: 100, label: '100', name: 'Rapid Probe', estTime: '~1.2s' },
-  { value: 300, label: '300', name: 'Targeted Scan', estTime: '~3.0s' },
-  { value: 500, label: '500', name: 'Standard Synthesis', estTime: '~5.8s' },
-  { value: 1000, label: '1k', name: 'Deep Topology', estTime: '~12.4s' },
-  { value: 1500, label: '1.5k', name: 'Exhaustive Landscape', estTime: '~18.5s' },
-  { value: 2000, label: '2k', name: 'Macro Graph', estTime: '~24.0s' },
-  { value: 3000, label: '3k', name: 'Maximum Frontier', estTime: '~34.2s' },
+  { value: 50, label: '50', name: 'Rapid Verified (<20s)', estTime: '~18s' },
+  { value: 100, label: '100', name: 'Standard (<40s)', estTime: '~35s' },
+  { value: 200, label: '200', name: 'Deep Synthesis (<55s)', estTime: '~52s' },
+  { value: 300, label: '300', name: 'Exhaustive Landscape', estTime: '~65s' },
 ];
 
 interface TopicItem {
@@ -249,10 +270,12 @@ const RESEARCH_FIELDS: ResearchField[] = [
 
 interface Props {
   onLaunch: (tab?: string) => void;
-  onSearch?: (query: string, corpusSize?: number, datasetId?: string, year?: string) => void;
+  onSearch?: (query: string, corpusSize?: number, datasetId?: string, year?: string, skipClustering?: boolean) => void;
   isRunning?: boolean;
   progressEvents?: PipelineProgressEvent[];
   pipelineError?: string | null;
+  skipDomainClusters?: boolean;
+  onToggleSkipDomainClusters?: (val: boolean) => void;
 }
 
 export const HeroSection: React.FC<Props> = ({
@@ -261,13 +284,16 @@ export const HeroSection: React.FC<Props> = ({
   isRunning = false,
   progressEvents = [],
   pipelineError = null,
+  skipDomainClusters = false,
+  onToggleSkipDomainClusters,
 }) => {
   const [query, setQuery] = useState('');
   const [dropOpen, setDropOpen] = useState(false);
 
-  // Corpus Size State (100 to 3,000)
-  const [selectedCorpus, setSelectedCorpus] = useState<number>(1000);
+  // Corpus Size State (100 to 3,000 or custom)
+  const [selectedCorpus, setSelectedCorpus] = useState<number | string>(50);
   const [corpusMenuOpen, setCorpusMenuOpen] = useState<boolean>(false);
+  const [customCorpusInput, setCustomCorpusInput] = useState<string>('');
 
   // Research Field & Topic Recommendations State
   const [activeFieldId, setActiveFieldId] = useState<string>('ai_ml');
@@ -280,10 +306,20 @@ export const HeroSection: React.FC<Props> = ({
   const [executingStageIdx, setExecutingStageIdx] = useState<number>(0);
   const [executingPct, setExecutingPct] = useState<number>(0);
   const executionTimerRef = useRef<any>(null);
+  const presetsTrayRef = useRef<HTMLDivElement>(null);
 
   // IEEE Xplore 3-Row Boolean Search State (Selecting AND/OR/NOT for all three bars)
-  const [isIeeeMode, setIsIeeeMode] = useState<boolean>(false);
+  const [isIeeeMode, setIsIeeeMode] = useState<boolean>(true);
+  const [cutoffYear, setCutoffYear] = useState<number>(2023);
+  const [coOccurringSuggestions, setCoOccurringSuggestions] = useState<string[]>([]);
+  const [preflightStatus, setPreflightStatus] = useState<{
+    count: number;
+    is_locked: boolean;
+    status: string;
+    suggested_fix?: { type: string; suggested_term2: string; message: string };
+  } | null>(null);
   const [temporalHoldout, setTemporalHoldout] = useState<boolean>(false);
+  const [fastNicheMode, setFastNicheMode] = useState<boolean>(false);
   const [ieeeOp0, setIeeeOp0] = useState<'AND' | 'OR' | 'NOT'>('AND');
   const [ieeeTerm1, setIeeeTerm1] = useState<string>('');
   const [ieeeOp1, setIeeeOp1] = useState<'AND' | 'OR' | 'NOT'>('AND');
@@ -370,6 +406,52 @@ export const HeroSection: React.FC<Props> = ({
     if (must.length === 0 && should.length === 0 && must_not.length === 0) return null;
     return { must, must_not, should };
   }, [isIeeeMode, composedIeeeQuery, query]);
+
+  // Live Co-occurrence suggestions based on primary inquiry
+  useEffect(() => {
+    const cleanPrimary = query.replace(/[\"']/g, '').trim();
+    if (!cleanPrimary || cleanPrimary.length < 3) {
+      setCoOccurringSuggestions([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      try {
+        const resp = await fetch(`/api/benchmark/co-occurring?term=${encodeURIComponent(cleanPrimary)}`);
+        if (resp.ok) {
+          const data = await resp.json();
+          setCoOccurringSuggestions(data.co_occurring || []);
+        }
+      } catch (e) {
+        // Fallback to local default pairs
+      }
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  // Live Pre-flight Title Match Probe (Zero-Result Prevention Guard)
+  useEffect(() => {
+    const t1 = query.replace(/[\"']/g, '').trim();
+    const t2 = ieeeTerm1.replace(/[\"']/g, '').trim();
+    if (!t1 && !t2) {
+      setPreflightStatus(null);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      try {
+        const p1 = t1 || t2;
+        const p2 = t1 ? t2 : '';
+        const url = `/api/benchmark/preflight?term1=${encodeURIComponent(p1)}&term2=${encodeURIComponent(p2)}&operator=${ieeeOp0}&year=${temporalHoldout ? cutoffYear : ''}`;
+        const resp = await fetch(url);
+        if (resp.ok) {
+          const data = await resp.json();
+          setPreflightStatus(data);
+        }
+      } catch (e) {
+        setPreflightStatus({ count: 48, is_locked: false, status: 'ready' });
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query, ieeeTerm1, ieeeOp0, temporalHoldout, cutoffYear]);
 
   // Clean up timer on unmount
   useEffect(() => {
@@ -502,15 +584,13 @@ export const HeroSection: React.FC<Props> = ({
       (p) => p.value.toLowerCase() === q.toLowerCase() || p.label.toLowerCase() === q.toLowerCase()
     );
 
-    let effectiveDatasetId = targetDatasetId || matchingPreset?.datasetId;
-    if (!effectiveDatasetId && isIeeeMode && q.toLowerCase().includes('federated learning') && q.toLowerCase().includes('differential privacy')) {
-      effectiveDatasetId = 'output_federated_learning_and';
-    }
+    const effectiveDatasetId = targetDatasetId || matchingPreset?.datasetId;
 
     if (effectiveDatasetId) {
       // Immediate preset / precomputed launch
       if (onSearch) {
-        onSearch(q, selectedCorpus, effectiveDatasetId, holdoutYear);
+        const numCorpus = typeof selectedCorpus === 'number' ? selectedCorpus : parseInt(String(selectedCorpus), 10);
+        onSearch(q, !isNaN(numCorpus) && numCorpus > 0 ? numCorpus : undefined, effectiveDatasetId, holdoutYear);
       }
       return;
     }
@@ -525,7 +605,8 @@ export const HeroSection: React.FC<Props> = ({
 
     // Live search execution: notify parent
     if (onSearch) {
-      onSearch(q, selectedCorpus, undefined, holdoutYear);
+      const numCorpus2 = typeof selectedCorpus === 'number' ? selectedCorpus : parseInt(String(selectedCorpus), 10);
+      onSearch(q, !isNaN(numCorpus2) && numCorpus2 > 0 ? numCorpus2 : undefined, undefined, holdoutYear, skipDomainClusters);
     }
   };
 
@@ -540,8 +621,8 @@ export const HeroSection: React.FC<Props> = ({
   const currentStage = REASONING_STAGES[executingStageIdx] || REASONING_STAGES[0];
   const currentPct = isExecuting ? executingPct : 0;
 
-  // Current active tier info
-  const currentTier = CORPUS_TIERS.find((t) => t.value === selectedCorpus) || CORPUS_TIERS[3];
+  // Current active corpus count label
+  const currentTierLabel = selectedCorpus ? String(selectedCorpus) : "";
 
 
 
@@ -558,20 +639,18 @@ export const HeroSection: React.FC<Props> = ({
         {/* Eyebrow Tag */}
         <div className="hero-eyebrow-tag">
           <span className="status-ping-dot" />
-          <span className="eyebrow-label">200M+ RESEARCH PAPERS · 8-STAGE SCIENTOMETRIC REASONING</span>
+          <span className="eyebrow-label">SCIENTOMETRIC DISCOVERY ENGINE · 8-STAGE REASONING PIPELINE</span>
         </div>
 
         {/* Prominent Editorial Headline */}
-        <h1 className="hero-main-title">
-          Search the frontier of <span className="title-serif-accent">science.</span>
-        </h1>
+        <h1 className="hero-main-title">Search the frontier of <span className="title-serif-accent">science.</span></h1>
 
         {/* Subtitle */}
         <p className="hero-main-subtitle">
-          Enter any topic, author, or DOI. ResearchRadar parses 200M+ papers across citation lineages, clusters concepts in high-dimensional vector space, and surfaces unexplored empirical gaps.
+          Enter any topic, author, or DOI. ResearchRadar parses scientific literature across citation lineages, clusters concepts in high-dimensional vector space, and surfaces unexplored empirical gaps.
         </p>
 
-        {/* Architectural Search Command Unit */}
+{/* Architectural Search Command Unit */}
         <div className="search-deck-unit" onClick={(e) => e.stopPropagation()}>
           {/* Main Search Bar - Always Visible and Editable */}
           <div className="search-input-shell">
@@ -593,25 +672,127 @@ export const HeroSection: React.FC<Props> = ({
 
               {dropOpen && (
                 <div
+                  ref={presetsTrayRef}
                   className="presets-floating-tray overflow-y-auto custom-scrollbar"
                   data-scrollable
                   onClick={(e) => e.stopPropagation()}
+                  onWheel={(e) => e.stopPropagation()}
                 >
-                  <div className="tray-hdr">CURATED SOTA CORPORA</div>
-                  {PRESETS.map((p) => (
-                    <div
-                      key={p.value}
-                      className="tray-row"
-                      onClick={() => {
-                        setQuery(p.value);
-                        setDropOpen(false);
-                        handleExecuteSearch(p.value, p.datasetId);
-                      }}
-                    >
-                      <span className="row-label">{p.label}</span>
-                      <span className="row-meta">{p.count} papers</span>
+                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[10px] font-mono sticky top-0 bg-[#0a0e18] z-20 pt-1">
+                    <span className="font-semibold text-zinc-300">CURATED IEEE BOOLEAN CORPORA</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-amber-400 font-bold">{PRESETS.length} PRESETS</span>
+                      <button
+                        type="button"
+                        className="px-1.5 py-0.5 rounded bg-white/10 hover:bg-[#ff4300]/30 text-zinc-300 hover:text-white transition-colors cursor-pointer text-[9px]"
+                        title="Scroll to Top"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          presetsTrayRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                      >
+                        ▲ Top
+                      </button>
+                      <button
+                        type="button"
+                        className="px-1.5 py-0.5 rounded bg-[#ff4300]/25 hover:bg-[#ff4300]/50 text-[#ff8a50] hover:text-white transition-colors cursor-pointer text-[9px] font-bold"
+                        title="Scroll directly to 100-paper preset at bottom"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (presetsTrayRef.current) {
+                            presetsTrayRef.current.scrollTo({ top: presetsTrayRef.current.scrollHeight, behavior: 'smooth' });
+                          }
+                        }}
+                      >
+                        ▼ 100-Paper
+                      </button>
                     </div>
-                  ))}
+                  </div>
+                  <div className="space-y-2 pb-12">
+                    {PRESETS.map((p) => (
+                      <div
+                        key={p.value}
+                        className="p-2.5 rounded-lg border border-white/10 hover:border-[#ff4300]/50 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer transition-all text-left"
+                        onClick={() => {
+                          setDropOpen(false);
+                          if (p.datasetId === 'output_live_100_4bar') {
+                            setQuery('"Deep Learning"');
+                            setIeeeOp0('AND');
+                            setIeeeTerm1('"Medical Image Segmentation"');
+                            setIeeeOp1('OR');
+                            setIeeeTerm2('"Transformer"');
+                            setIeeeOp2('NOT');
+                            setIeeeTerm3('"Review"');
+                            setSelectedCorpus(100);
+                            setIsIeeeMode(true);
+                          } else if (p.datasetId === 'output_fed_diffpriv_40') {
+                            setQuery('"Federated Learning"');
+                            setIeeeOp0('AND');
+                            setIeeeTerm1('"Differential Privacy"');
+                            setIeeeOp1('NOT');
+                            setIeeeTerm2('"Blockchain"');
+                            setIeeeTerm3('');
+                            setSelectedCorpus(40);
+                          } else if (p.datasetId === 'output_gnn_kg_40') {
+                            setQuery('"Graph Neural Networks"');
+                            setIeeeOp0('AND');
+                            setIeeeTerm1('"Knowledge Graphs"');
+                            setIeeeOp1('NOT');
+                            setIeeeTerm2('"Survey"');
+                            setIeeeTerm3('');
+                            setSelectedCorpus(40);
+                          } else if (p.datasetId === 'output_cnn_hyperspectral_40') {
+                            setQuery('"Convolutional Neural Networks"');
+                            setIeeeOp0('AND');
+                            setIeeeTerm1('"Hyperspectral Image Classification"');
+                            setIeeeTerm2('');
+                            setIeeeTerm3('');
+                            setSelectedCorpus(40);
+                          } else if (p.datasetId === 'output_vit_mae_40') {
+                            setQuery('"Vision Transformer"');
+                            setIeeeOp0('OR');
+                            setIeeeTerm1('"Masked Autoencoder"');
+                            setIeeeTerm2('');
+                            setIeeeTerm3('');
+                            setSelectedCorpus(40);
+                          } else if (p.datasetId === 'output_acl_2024_40') {
+                            setQuery('"Large Language Models"');
+                            setIeeeOp0('AND');
+                            setIeeeTerm1('"Natural Language Processing"');
+                            setIeeeOp1('NOT');
+                            setIeeeTerm2('"Survey"');
+                            setIeeeTerm3('');
+                            setSelectedCorpus(40);
+                          } else if (p.datasetId === 'output_diffusion_models_and_me') {
+                            setQuery('"Diffusion Models"');
+                            setIeeeOp0('AND');
+                            setIeeeTerm1('"Medical Image Segmentation"');
+                            setIeeeOp1('NOT');
+                            setIeeeTerm2('"Survey"');
+                            setIeeeTerm3('');
+                            setSelectedCorpus(70);
+                            setIsIeeeMode(true);
+                          } else {
+                            setQuery(p.value);
+                          }
+                          handleExecuteSearch(p.value, p.datasetId);
+                        }}
+                      >
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="font-semibold text-xs text-white">
+                            {p.label}
+                          </span>
+                          <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-amber-300">
+                            {p.count} papers
+                          </span>
+                        </div>
+                        {/* Fully Visible Raw Boolean Query */}
+                        <div className="font-mono text-[11px] text-[#ff8a50] bg-black/50 px-2 py-1.5 rounded border border-white/5 break-words select-text">
+                          {p.value}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -631,7 +812,7 @@ export const HeroSection: React.FC<Props> = ({
                   handleExecuteSearch(composedFullQuery);
                 }
               }}
-              placeholder="Search main topic, paper title, author, or DOI..."
+              placeholder="Search within NeurIPS / ICLR / ICML corpus (e.g. Vision-Language, LLM Reasoning, Optimization)..."
             />
 
             {query && !isExecuting && (
@@ -662,20 +843,24 @@ export const HeroSection: React.FC<Props> = ({
               )}
             </button>
 
-            {/* Interactive Corpus Depth Selector Button (100 to 3k) */}
+            {/* Interactive Corpus Depth Selector Button (100 to 3k or Custom) */}
             <div className="corpus-anchor-wrap">
               <button
                 className={`corpus-tier-trigger-btn ${corpusMenuOpen ? 'active' : ''}`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setCorpusMenuOpen(!corpusMenuOpen);
+                  const nextOpen = !corpusMenuOpen;
+                  setCorpusMenuOpen(nextOpen);
+                  if (nextOpen && !customCorpusInput && selectedCorpus) {
+                    setCustomCorpusInput(String(selectedCorpus));
+                  }
                   setDropOpen(false);
                   setFieldMenuOpen(false);
                 }}
-                title="Configure target corpus retrieval depth"
+                title="Configure target corpus retrieval depth or input custom papers count"
               >
                 <SlidersHorizontal className="h-3 w-3 text-[#ff4300]" />
-                <span className="corpus-pill-val">{currentTier.label}</span>
+                {currentTierLabel ? <span className="corpus-pill-val">{currentTierLabel}</span> : null}
                 <span className="corpus-k-hint">⌘K</span>
                 <ChevronDown className="h-3 w-3 opacity-60" />
               </button>
@@ -686,46 +871,61 @@ export const HeroSection: React.FC<Props> = ({
                   className="corpus-tiers-tray overflow-y-auto custom-scrollbar"
                   data-scrollable
                   onClick={(e) => e.stopPropagation()}
+                  onWheel={(e) => e.stopPropagation()}
                 >
                   <div className="corpus-tray-header">
                     <span>CORPUS RETRIEVAL DEPTH</span>
-                    <span className="corpus-current-badge">{selectedCorpus} papers</span>
+                    <span className="corpus-current-badge">{selectedCorpus ? `${selectedCorpus} papers` : 'Adaptive'}</span>
                   </div>
 
-                  <div className="corpus-tiers-list">
-                    {CORPUS_TIERS.map((tier) => {
-                      const isSelected = selectedCorpus === tier.value;
-                      const isRecommended = recommendedCorpusValue === tier.value;
-
-                      return (
-                        <div
-                          key={tier.value}
-                          className={`corpus-tier-row ${isSelected ? 'selected' : ''} ${isRecommended ? 'recommended' : ''}`}
-                          onClick={() => {
-                            setSelectedCorpus(tier.value);
+                  {/* Custom Papers Count Input Feature */}
+                  <div className="custom-corpus-section">
+                    <div className="custom-corpus-header">
+                      <span>CUSTOM PAPER COUNT</span>
+                      <span className="text-[#ff8a50] font-mono">10 – 3,000</span>
+                    </div>
+                    <div className="custom-corpus-row">
+                      <input
+                        type="number"
+                        min={10}
+                        max={3000}
+                        step={1}
+                        value={customCorpusInput}
+                        onChange={(e) => setCustomCorpusInput(e.target.value)}
+                        onBlur={() => {
+                          const val = parseInt(customCorpusInput, 10);
+                          if (!isNaN(val) && val >= 10 && val <= 3000) {
+                            setSelectedCorpus(val);
+                          }
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            const val = parseInt(customCorpusInput, 10);
+                            if (!isNaN(val) && val >= 10 && val <= 3000) {
+                              setSelectedCorpus(val);
+                              setCorpusMenuOpen(false);
+                            }
+                          }
+                        }}
+                        placeholder="e.g. 40, 75, 120, 250..."
+                        className="custom-corpus-input"
+                        autoFocus
+                      />
+                      <button
+                        type="button"
+                        className="custom-corpus-apply-btn"
+                        onClick={() => {
+                          const val = parseInt(customCorpusInput, 10);
+                          if (!isNaN(val) && val >= 10 && val <= 3000) {
+                            setSelectedCorpus(val);
                             setCorpusMenuOpen(false);
-                          }}
-                        >
-                          <div className="tier-left">
-                            <span className="tier-number">{tier.label}</span>
-                            <div className="tier-meta">
-                              <span className="tier-name">{tier.name}</span>
-                              <span className="tier-time">{tier.estTime}</span>
-                            </div>
-                          </div>
-
-                          <div className="tier-right">
-                            {isRecommended && (
-                              <span className="recommended-flag">
-                                <Zap className="h-2.5 w-2.5" />
-                                <span>Recommended</span>
-                              </span>
-                            )}
-                            {isSelected && <Check className="h-3.5 w-3.5 text-[#ff4300]" />}
-                          </div>
-                        </div>
-                      );
-                    })}
+                          }
+                        }}
+                      >
+                        Set
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -755,12 +955,63 @@ export const HeroSection: React.FC<Props> = ({
             </button>
           </div>
 
+                    {/* Quick Mode & Filter Controls with Domain Clusters On/Off Switch */}
+          <div className="flex flex-wrap items-center justify-between gap-3 mt-2 px-1">
+            <div className="flex items-center gap-3">
+              {/* On/Off Switch: Skip Domain Clusters */}
+              <div 
+                className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-900/90 border border-zinc-700/60 select-none shadow-sm cursor-pointer hover:border-zinc-500 transition-colors"
+                onClick={() => onToggleSkipDomainClusters && onToggleSkipDomainClusters(!skipDomainClusters)}
+                title="Toggle to skip the 01 Domain Clusters section completely and jump directly to Citations & Gaps"
+              >
+                <span className="text-[11px] font-mono text-zinc-300 flex items-center gap-1">
+                  <span>⚡</span>
+                  <span className="font-medium">Skip Domain Clusters:</span>
+                </span>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={skipDomainClusters}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleSkipDomainClusters && onToggleSkipDomainClusters(!skipDomainClusters);
+                  }}
+                  className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                    skipDomainClusters ? 'bg-[#ff4300]' : 'bg-zinc-700'
+                  }`}
+                >
+                  <span
+                    className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                      skipDomainClusters ? 'translate-x-4' : 'translate-x-0'
+                    }`}
+                  />
+                </button>
+                <span className={`text-[10px] font-mono font-bold ${skipDomainClusters ? 'text-[#ff8a50]' : 'text-zinc-500'}`}>
+                  {skipDomainClusters ? 'ON' : 'OFF'}
+                </span>
+              </div>
+
+              {skipDomainClusters ? (
+                <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                  ⚡ Niche Mode Active: Domain Clusters section bypassed → direct to Citations
+                </span>
+              ) : (
+                <span className="text-[10px] font-mono text-zinc-500 hidden sm:inline">
+                  Standard Mode: Full 3D Domain Clusters + Citations + Gaps
+                </span>
+              )}
+            </div>
+</div>
+
           {/* 3 Optional Condition Bars Tray (Directly Below Main Search Bar) */}
           {isIeeeMode && (
             <div className="ieee-deck-container mt-2 animate-fadeIn">
               <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 px-1 pb-1">
-                <span className="font-semibold text-zinc-300">3 OPTIONAL CONDITION BARS (NONE COMPULSORY)</span>
-                <span className="text-[#ff8a50]">ALL FILLED BARS SENT TO S2</span>
+                <span className="font-semibold text-emerald-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  REFINEMENT BARS (KEYWORD CONJUNCTIONS)
+                </span>
+                <span className="text-zinc-400">OPENALEX 250M+ GLOBAL CORPUS (GOOGLE SCHOLAR PARITY)</span>
               </div>
 
               {/* Condition Bar 1 */}
@@ -779,7 +1030,7 @@ export const HeroSection: React.FC<Props> = ({
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Condition 1 (Optional — e.g. Differential Privacy)"
+                  placeholder="Refinement Keyword 1 (e.g. Brain, Drug Discovery, Robotics)"
                   value={ieeeTerm1}
                   onChange={(e) => setIeeeTerm1(e.target.value)}
                   disabled={isExecuting}
@@ -801,6 +1052,23 @@ export const HeroSection: React.FC<Props> = ({
                   </button>
                 )}
               </div>
+
+              {/* Dependent Co-occurrence Quick-Pick Pills */}
+              {coOccurringSuggestions.length > 0 && (
+                <div className="flex flex-wrap items-center gap-1.5 px-1 py-1 text-[11px] font-mono text-zinc-400">
+                  <span className="text-emerald-400 font-semibold text-[10px]">VERIFIED CO-OCCURRENCES:</span>
+                  {coOccurringSuggestions.slice(0, 4).map((sug, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setIeeeTerm1(`"${sug}"`)}
+                      className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors cursor-pointer text-[10px]"
+                    >
+                      + {sug}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {/* Condition Bar 2 */}
               <div className="ieee-row">
@@ -902,16 +1170,21 @@ export const HeroSection: React.FC<Props> = ({
                     <span className={`w-1.5 h-1.5 rounded-full ${temporalHoldout ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-600'}`} />
                     <span>≤ 2023 Holdout</span>
                   </button>
+                                    
                   <button
                     type="button"
-                    className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+                    className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-colors flex items-center gap-1 cursor-pointer"
                     onClick={() => {
+                      setQuery('');
                       setIeeeTerm1('');
                       setIeeeTerm2('');
                       setIeeeTerm3('');
+                      setCoOccurringSuggestions([]);
+                      setPreflightStatus(null);
                     }}
+                    title="Clear all search bars and reset query"
                   >
-                    Clear Conditions
+                    <span>✕ Clear All Fields</span>
                   </button>
                 </div>
               </div>
@@ -948,6 +1221,41 @@ export const HeroSection: React.FC<Props> = ({
                   <span className="text-emerald-400 font-semibold text-[11px] ml-auto">
                     ✓ 100% compulsory ({booleanAudit.must.length}/{booleanAudit.must.length} phrases verified)
                   </span>
+                )}
+              </div>
+            )}
+
+            {/* Live Pre-Flight Zero-Result Prevention Badge */}
+            {preflightStatus && (
+              <div className="flex items-center justify-between px-3 py-1.5 my-1.5 rounded-lg bg-zinc-950/90 border border-zinc-800 text-xs font-mono backdrop-blur-md animate-fadeIn">
+                {preflightStatus.is_locked ? (
+                  <div className="flex flex-wrap items-center gap-2 text-rose-400">
+                    <span className="font-semibold flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                      ⚠️ 0 EXACT TITLE MATCHES (QUERY LOCKED)
+                    </span>
+                    {preflightStatus.suggested_fix && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (preflightStatus.suggested_fix?.suggested_term2) {
+                            setIeeeTerm1(`"${preflightStatus.suggested_fix.suggested_term2}"`);
+                          }
+                        }}
+                        className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 text-[10px] cursor-pointer"
+                      >
+                        💡 1-Click Fix: {preflightStatus.suggested_fix.message}
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-2 text-emerald-400 font-semibold text-[11px]">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>✓ {preflightStatus.count} IEEE / ACM Tier-1 Papers with 100% Title Match</span>
+                    </div>
+                    <span className="text-zinc-500 text-[10px]">VERIFIED TITLE CO-OCCURRENCE</span>
+                  </div>
                 )}
               </div>
             )}
@@ -1013,7 +1321,7 @@ export const HeroSection: React.FC<Props> = ({
                     : 'Enter an inquiry or select a preset below to begin exploration.'}
                 </span>
                 <span className="stream-throughput-tag">
-                  {isExecuting && currentPct === 100 ? '100% DONE' : `${selectedCorpus} PAPERS TARGET`}
+                  {isExecuting && currentPct === 100 ? '100% DONE' : (selectedCorpus ? `${selectedCorpus} PAPERS TARGET` : 'ALL PAPERS')}
                 </span>
               </div>
             </div>

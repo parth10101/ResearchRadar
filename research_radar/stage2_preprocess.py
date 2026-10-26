@@ -289,7 +289,8 @@ def assemble_paper_text(paper: dict) -> str:
     Title + TLDR (deduplicated) + Abstract + Fields of Study.
     """
     title = (paper.get("title") or "").strip()
-    tldr = (paper.get("tldr") or "").strip()
+    raw_tldr = paper.get("tldr")
+    tldr = (raw_tldr.get("text", "") if isinstance(raw_tldr, dict) else str(raw_tldr or "")).strip()
     abstract = (paper.get("abstract") or "").strip()
     fos = " ".join(paper.get("s2_fields_of_study") or [])
 

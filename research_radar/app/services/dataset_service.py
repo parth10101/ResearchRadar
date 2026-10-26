@@ -1,4 +1,4 @@
-"""
+﻿"""
 ResearchRadar: Dataset Management & Resolution Service
 """
 
@@ -10,42 +10,49 @@ from research_radar.app.models.schemas import DatasetInfo, DatasetListResponse
 
 
 METADATA_REGISTRY: Dict[str, Dict[str, Any]] = {
-    "output_satellite_300": {
-        "name": "Satellite Earth Observation & Remote Sensing",
-        "description": "300 remote sensing papers, CNN vs Sentinel-1/2, atmospheric correction & cloud cover.",
-        "query": "satellite image processing",
-        "papers": 300,
+    "output_cnn_hyperspectral_40": {
+        "name": "Hyperspectral CNN Classification",
+        "description": "40 papers — 100% Title-Match Conjunction: 'Convolutional Neural Networks' AND 'Hyperspectral Image Classification'. Both phrases in 100% of titles.",
+        "query": '"Convolutional Neural Networks" AND "Hyperspectral Image Classification"',
+        "papers": 40,
     },
-    "output_autonomous_1500": {
-        "name": "Autonomous Driving Multi-Modal Perception",
-        "description": "1,500 papers, LiDAR-camera fusion, pedestrian occlusion, multi-sensor calibration.",
-        "query": "autonomous driving 3d object detection",
-        "papers": 1500,
+    "output_fed_diffpriv_40": {
+        "name": "Private Federated Learning",
+        "description": "40 papers — 100% Title-Match Conjunction with Negation: 'Federated Learning' AND 'Differential Privacy' NOT 'Blockchain'. Both in 100% of titles.",
+        "query": '("Federated Learning" AND "Differential Privacy") NOT "Blockchain"',
+        "papers": 40,
     },
-    "output_gnn_drug_3k": {
-        "name": "Graph Neural Networks in Drug Discovery",
-        "description": "3,000 papers, molecular representations, molecular property prediction, ADMET constraints.",
-        "query": "graph neural networks drug discovery",
-        "papers": 3000,
+    "output_vit_mae_40": {
+        "name": "Vision Transformers & MAE",
+        "description": "40 papers — 100% Title-Match Disjunction: 'Vision Transformer' OR 'Masked Autoencoder'. 100% of titles contain target phrases.",
+        "query": '"Vision Transformer" OR "Masked Autoencoder"',
+        "papers": 40,
     },
-    "output_fl": {
-        "name": "Federated Learning in Healthcare",
-        "description": "300 papers, privacy-preserving distributed learning, non-IID clinical data, hospital EHR.",
-        "query": "federated learning healthcare",
-        "papers": 300,
+    "output_gnn_kg_40": {
+        "name": "Knowledge Graph GNNs",
+        "description": "40 papers — 100% Title-Match Conjunction with Survey Purge: 'Graph Neural Networks' AND 'Knowledge Graphs' NOT 'Survey'. Both in 100% of titles.",
+        "query": '("Graph Neural Networks" AND "Knowledge Graphs") NOT "Survey"',
+        "papers": 40,
     },
-    "output_llm_hallucination_3k": {
-        "name": "Large Language Model Hallucination & Factuality",
-        "description": "3,000 papers, knowledge grounding, self-consistency decoding, alignment verification.",
-        "query": "large language models hallucination",
-        "papers": 3000,
+    "output_live_100_4bar": {
+        "name": "Deep Learning Medical Segmentation & Transformer [4-Bar 100-Papers]",
+        "description": "100 papers — Live 4-Bar Multi-Operator Boolean Query: ('Deep Learning' AND 'Medical Image Segmentation' OR 'Transformer') NOT 'Review'. Verified live via Semantic Scholar API.",
+        "query": '("Deep Learning" AND "Medical Image Segmentation" OR "Transformer") NOT "Review"',
+        "papers": 100,
     },
-    "output_transformer_models_for_m": {
-        "name": "Transformer Models for Medical Image Segmentation",
-        "description": "1,000 papers — Vision Transformers, Swin-UNet, UNETR, MedSAM applied to BraTS, ACDC, Synapse benchmarks.",
-        "query": "Transformer models for medical image segmentation",
-        "papers": 1000,
+    "output_acl_2024_40": {
+        "name": "ACL 2024 Long Paper Benchmark Cohort [40 Papers]",
+        "description": "40 papers — Official ACL 2024 Research Cohort: LLM reasoning, machine-generated text detection, low-resource prompting, and temporal expert models.",
+        "query": '"Large Language Models" AND "Natural Language Processing" (ACL 2024 Cohort)',
+        "papers": 40,
     },
+    "output_diffusion_models_and_me": {
+        "name": "Diffusion Models & Medical Segmentation",
+        "description": "70 papers -- 100% Title-Match Conjunction with Survey Purge: 'Diffusion Models' AND 'Medical Image Segmentation' NOT 'Survey'. Both in 100% of titles.",
+        "query": '"Diffusion Models" AND "Medical Image Segmentation" NOT "Survey"',
+        "papers": 70,
+    },
+
 }
 
 

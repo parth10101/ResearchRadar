@@ -208,6 +208,24 @@ export interface ResearchGap {
   description_plain?: string;
   description_rigor?: string;
   papers_involved: string[];
+  author_evidence?: {
+    quoted_limitation: string;
+    paper_title: string;
+    paper_year: number;
+    doi?: string;
+    pdf_url?: string;
+    donor_technique: string;
+    donor_paper_title: string;
+    donor_doi?: string;
+    temporal_validation?: {
+      status: string;
+      badge: string;
+      realizing_paper_title?: string;
+      realizing_paper_year?: number;
+    };
+    wang_2026_fas_score: number;
+    google_scholar_url: string;
+  };
   realized?: boolean;
   verifying_paper_title?: string;
   verifying_paper_year?: number;
