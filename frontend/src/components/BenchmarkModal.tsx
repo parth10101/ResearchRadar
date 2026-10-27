@@ -6397,56 +6397,6 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
               </div>
             </div>
 
-            {/* FEATURED SCIENTIFIC TRIAD & GENERATED HYPOTHESIS */}
-            <div className="rounded-xl border border-white/15 bg-[#090d16] p-4 space-y-3">
-              <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
-                <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-mono text-[10px] font-bold border border-blue-500/30">
-                    FEATURED DISCOVERY TRIAD & HYPOTHESIS
-                  </span>
-                  <span className="text-white font-semibold text-xs">
-                    Synthesized Cross-Domain Triad and Resulting Hypothesis
-                  </span>
-                </div>
-                <span className="font-mono text-[11px] text-purple-400 font-bold">
-                  Uzzi Novelty: {currentDataset.meanUzziZ}
-                </span>
-              </div>
-
-              {/* SCIENTOMETRIC DISCOVERY TRIAD & HYPOTHESIS BOX */}
-              <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-3">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
-                  <div className="p-2.5 rounded-lg bg-black/50 border border-white/5 space-y-0.5">
-                    <span className="text-[10px] text-cyan-400 font-bold block">1. THE TOOL (METHOD):</span>
-                    <span className="text-slate-100 font-semibold">{currentDataset.featuredTriad.method}</span>
-                  </div>
-
-                  <div className="p-2.5 rounded-lg bg-black/50 border border-white/5 space-y-0.5">
-                    <span className="text-[10px] text-emerald-400 font-bold block">+. TARGET BENCHMARK:</span>
-                    <span className="text-slate-100 font-semibold">{currentDataset.featuredTriad.dataset}</span>
-                  </div>
-
-                  <div className="p-2.5 rounded-lg bg-black/50 border border-white/5 space-y-0.5">
-                    <span className="text-[10px] text-rose-400 font-bold block">=. UNADDRESSED LIMITATION:</span>
-                    <span className="text-slate-300 text-[11px] leading-relaxed">{currentDataset.featuredTriad.limitation}</span>
-                  </div>
-                </div>
-
-                <div className="p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/30 space-y-1.5 mt-2">
-                  <span className="text-xs text-amber-300 font-bold flex items-center gap-1 font-mono">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    GENERATED RESEARCH HYPOTHESIS:
-                  </span>
-                  <p className="text-slate-100 text-xs leading-relaxed font-sans font-medium">
-                    "{currentDataset.featuredTriad.hypothesis}"
-                  </p>
-                  <span className="text-[10px] text-amber-400/80 block pt-0.5 font-mono">
-                    Verification status: {currentDataset.featuredTriad.cooccurrence}
-                  </span>
-                </div>
-              </div>
-            </div>
-
             {/* GENERATED HYPOTHESES EXPLORER (120 Evaluated Hypotheses) */}
             <div className="rounded-xl border border-white/15 bg-[#090d16] p-4 space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
