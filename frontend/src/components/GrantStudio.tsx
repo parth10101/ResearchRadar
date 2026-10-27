@@ -90,16 +90,6 @@ ${activeGap.llm_narration}
   };
 
   const opHyp = activeGap.operational_hypothesis;
-  const specRigor =
-    activeGap.scientific_basis?.specificity_rigor ||
-    (activeGap.specificity_score
-      ? `${Math.round(activeGap.specificity_score * 100)}% Rigor`
-      : '98% Rigor');
-  const litTier =
-    activeGap.literature_tier ||
-    activeGap.global_verification?.literature_tier ||
-    'Tier 5: Verified Unexplored';
-
   // High-legibility, large-typography Markdown Renderer
   const renderTerminalNarrative = (rawMarkdown: string) => {
     if (!rawMarkdown) return null;
@@ -294,13 +284,8 @@ ${activeGap.llm_narration}
                   <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
                   <span>Uzzi Novelty: {(Number(activeGap.uzzi_z_score) || -1.45).toFixed(2)}σ</span>
                 </span>
-                <span className="px-3 py-1 rounded-full bg-[#ff5500]/10 border border-[#ff5500]/25 text-[#ff7744] flex items-center space-x-1.5">
-                  <Award className="w-3 h-3 text-[#ff5500]" />
-                  <span>{specRigor}</span>
-                </span>
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 flex items-center space-x-1.5">
-                  <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                  <span>{litTier}</span>
+                <span className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-zinc-400 flex items-center space-x-1.5">
+                  <span>C_obs = 0</span>
                 </span>
               </div>
             </div>
