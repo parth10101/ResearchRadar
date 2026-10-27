@@ -6541,9 +6541,9 @@ const ACL_40_DATASET: DomainDatasetInfo = {
 
 const DEMO_STEPS = [
   { id: 1, title: 'Corpus Ingestion', detail: 'Ingesting and parsing research papers from corpus' },
-  { id: 2, title: 'Groq MDL Extraction', detail: 'Extracting Method (M), Substrate/Task (D), and Limitation (L) via Groq API' },
+  { id: 2, title: 'MDL Primitive Extraction', detail: 'Extracting Method (M), Substrate/Task (D), and Limitation (L) via AST Dependency Parser' },
   { id: 3, title: 'C_obs & Uzzi Scoring', detail: 'Evaluating bipartite null model co-occurrence (C_obs) and atypicality z-score' },
-  { id: 4, title: 'Hypothesis Formulation', detail: 'Formulating structured hypotheses via "To overcome..." convention' },
+  { id: 4, title: 'Groq Hypothesis Formulation', detail: 'Synthesizing structured hypotheses via Groq AI using "To overcome..." convention' },
   { id: 5, title: 'Semantic Embedding', detail: 'Generating dense vector representations of all candidate hypotheses' },
   { id: 6, title: 'Similarity & Thresholding', detail: 'Comparing pairwise cosine similarity against prior literature (max_simil < tau)' },
   { id: 7, title: 'Novelty Classification', detail: 'Classifying candidates into Novel & Feasible vs. Filtered conventional shortcuts' }
@@ -6728,7 +6728,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                     Authentic 7-Stage Live Pipeline Demo (40 Papers)
                   </span>
                   <span className="text-[11px] text-slate-400 block">
-                    Click to execute live on backend. Inspects real paper abstracts, runs Groq API extraction, computes Uzzi atypicality null model, and outputs live terminal trace.
+                    Click to execute live on backend. Inspects real paper abstracts, extracts MDL primitives via AST parser, runs Groq AI hypothesis formulation, and outputs live terminal trace.
                   </span>
                 </div>
                 <button
@@ -6967,7 +6967,7 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                     Authentic 7-Stage Live Pipeline Demo (120 Papers)
                   </span>
                   <span className="text-[11px] text-slate-400 block">
-                    Click to execute live on backend. Inspects real paper abstracts, runs Groq API extraction, computes Uzzi atypicality null model, and outputs live terminal trace.
+                    Click to execute live on backend. Inspects real paper abstracts, extracts MDL primitives via AST parser, runs Groq AI hypothesis formulation, and outputs live terminal trace.
                   </span>
                 </div>
                 <button

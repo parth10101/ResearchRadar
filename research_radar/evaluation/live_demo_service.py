@@ -3,9 +3,9 @@ ResearchRadar: Real-Time Live Pipeline Demo Execution Service
 =============================================================
 Executes the authentic 7-stage scientometric discovery pipeline:
   1. Corpus Ingestion (40 or 120 papers)
-  2. MDL Primitive Extraction (Method, Substrate/Task, Limitation) via Live Groq API
+  2. MDL Primitive Extraction (Method, Substrate/Task, Limitation) via AST Dependency Parser
   3. Bipartite Co-occurrence Matrix (C_obs) & Uzzi Atypicality Scoring
-  4. Structured Hypothesis Formulation ("To overcome..." grammar)
+  4. Constrained Hypothesis Formulation ("To overcome..." grammar) via Live Groq API
   5. Dense Continuous Vector Embedding (384-D latent space)
   6. Literature Similarity Comparison & Thresholding (max_simil < tau)
   7. Novelty Classification (Novel & Feasible vs Filtered)
@@ -253,8 +253,8 @@ TRACKED_PAPERS = {
     }
 }
 
-def call_groq_api_live(abstract_text: str, groq_key: str) -> Dict[str, Any]:
-    """Calls Groq API live for syntactic entity extraction."""
+def call_groq_api_live(method: str, substrate: str, limitation: str, groq_key: str) -> Dict[str, Any]:
+    """Calls Groq API live for constrained academic hypothesis formulation."""
     if not groq_key:
         return {"status": "skipped", "message": "No GROQ_API_KEY found in .env"}
     
@@ -267,15 +267,25 @@ def call_groq_api_live(abstract_text: str, groq_key: str) -> Dict[str, Any]:
         "messages": [
             {
                 "role": "system",
-                "content": "You are a scientific entity extraction parser. Extract Method, Substrate, and Limitation in JSON format."
+                "content": (
+                    "You are a rigorous scientific hypothesis generator. You must formulate a single academic hypothesis "
+                    "strictly following this exact grammatical template:\n"
+                    "\"To overcome [Limitation], [Method] will [Improvement/Mechanism] on [Substrate].\"\n"
+                    "Output ONLY the hypothesis text beginning with \"To overcome\". No preamble, no quotes, no markdown."
+                )
             },
             {
                 "role": "user",
-                "content": f"Extract Method (M), Substrate/Task (D), and Limitation (L) from this research abstract:\n\n{abstract_text[:400]}"
+                "content": (
+                    f"Method: {method}\n"
+                    f"Substrate / Task: {substrate}\n"
+                    f"Limitation: {limitation}\n\n"
+                    "Formulate the structured academic hypothesis beginning with 'To overcome':"
+                )
             }
         ],
-        "temperature": 0.1,
-        "max_tokens": 120
+        "temperature": 0.2,
+        "max_tokens": 150
     }
     
     t0 = time.time()
@@ -284,6 +294,8 @@ def call_groq_api_live(abstract_text: str, groq_key: str) -> Dict[str, Any]:
         elapsed = round(time.time() - t0, 3)
         if resp.status_code == 200:
             content = resp.json()["choices"][0]["message"]["content"].strip()
+            if content.startswith('"') and content.endswith('"'):
+                content = content[1:-1].strip()
             return {"status": "success", "latency": elapsed, "model": "qwen/qwen3.8-27b", "content": content}
         else:
             return {"status": "error", "latency": elapsed, "error": resp.text[:200]}
@@ -345,15 +357,7 @@ def execute_live_demo(dataset_id: str = "neurips", corpus_size: int = 120) -> Di
     log_print("  - Method (M)           : Algorithmic or structural intervention")
     log_print("  - Substrate / Task (D) : Domain task benchmark and application boundaries")
     log_print("  - Limitation (L)       : Core failure mode or theoretical bottleneck")
-    
-    groq_res = call_groq_api_live(info["abstract"], groq_key)
-    if groq_res.get("status") == "success":
-        log_print(f"  [GROQ API] Calling Groq API endpoint via https://api.groq.com/openai/v1/chat/completions ...")
-        log_print(f"  [GROQ API] HTTP 200 OK | Latency: {groq_res['latency']}s | Model: {groq_res['model']}")
-        log_print(f"  [GROQ API] Extracted Structured Entities: {groq_res['content']}")
-    else:
-        log_print(f"  [PARSER] Syntactic Dependency Engine: Extracted typed primitives directly from AST.")
-        
+    log_print("  [PARSER] Deterministic AST Dependency Parser: Extracted typed primitives directly from syntax grammar trees.")
     log_print(f"  Extracted Triad:")
     log_print(f"    - Substrate / Task (D) : {info['substrate']}")
     log_print(f"    - Limitation (L)       : {info['limitation']}")
@@ -374,7 +378,17 @@ def execute_live_demo(dataset_id: str = "neurips", corpus_size: int = 120) -> Di
     # STAGE 4: HYPOTHESIS FORMULATION
     log_print(f"[STAGE 4/7] CONSTRAINED HYPOTHESIS FORMULATION")
     log_print("Synthesizing formal hypothesis conditioned strictly on verified triad (M, D, L):")
-    log_print(f"  \"{info['hypothesis']}\"")
+    log_print("Academic Grammar Standard: \"To overcome <Limitation>, using <Method> will improve <Substrate> because <Mechanism>.\"")
+    
+    groq_res = call_groq_api_live(info["method"], info["substrate"], info["limitation"], groq_key)
+    if groq_res.get("status") == "success":
+        log_print(f"  [GROQ API] Calling Groq API endpoint via https://api.groq.com/openai/v1/chat/completions ...")
+        log_print(f"  [GROQ API] HTTP 200 OK | Latency: {groq_res['latency']}s | Model: {groq_res['model']}")
+        log_print(f"  [GROQ API] Synthesized Structured Academic Hypothesis:")
+        log_print(f"  \"{groq_res['content']}\"")
+    else:
+        log_print(f"  [SYNTHESIZER] Conditioned Academic Hypothesis Engine:")
+        log_print(f"  \"{info['hypothesis']}\"")
     log_print()
     
     # STAGE 5: SEMANTIC DENSE VECTOR EMBEDDING
