@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './HeroSection.css';
 import { PipelineProgressEvent } from '../types';
 import {
@@ -77,45 +77,6 @@ const REASONING_STAGES: StageStep[] = [
 ];
 
 
-export interface PresetOption {
-  label: string;
-  count: string;
-  value: string;
-  datasetId?: string;
-}
-
-const PRESETS: PresetOption[] = [
-  {
-    label: '⭐ Teacher Niche 1: Physics-Informed Neural Networks & Fluid Dynamics',
-    count: '14',
-    value: '"Physics-Informed Neural Networks" AND "Fluid Dynamics"',
-  },
-  {
-    label: '⭐ Teacher Niche 2: Vision Transformer & Medical Image Segmentation',
-    count: '27',
-    value: '"Vision Transformer" AND "Medical Image Segmentation"',
-  },
-  {
-    label: '⭐ Teacher Niche 3: Graph Neural Networks & Molecular Property Prediction',
-    count: '35',
-    value: '"Graph Neural Networks" AND "Molecular Property Prediction"',
-  },
-  {
-    label: '⭐ Teacher Niche 4: Contrastive Learning & Remote Sensing Change Detection',
-    count: '22',
-    value: '"Contrastive Learning" AND "Remote Sensing Change Detection"',
-  },
-  {
-    label: '⭐ Teacher Niche 5: Physics-Informed Neural Networks & Heat Transfer',
-    count: '18',
-    value: '"Physics-Informed Neural Networks" AND "Heat Transfer"',
-  },
-  {
-    label: 'Multimodal Vision-Language Target (NeurIPS 2025)',
-    count: '819',
-    value: '"Vision-Language Alignment" AND "CLIP" NOT "Survey"',
-  },
-];
 
 
 export interface CorpusTier {
@@ -287,9 +248,8 @@ export const HeroSection: React.FC<Props> = ({
   skipDomainClusters = false,
   onToggleSkipDomainClusters,
 }) => {
-  const [query, setQuery] = useState('');
-  const [dropOpen, setDropOpen] = useState(false);
-
+  const [query, setQuery] = useState('"Neural Networks" AND "Fluid Dynamics"');
+  
   // Corpus Size State (100 to 3,000 or custom)
   const [selectedCorpus, setSelectedCorpus] = useState<number | string>(50);
   const [corpusMenuOpen, setCorpusMenuOpen] = useState<boolean>(false);
@@ -306,10 +266,9 @@ export const HeroSection: React.FC<Props> = ({
   const [executingStageIdx, setExecutingStageIdx] = useState<number>(0);
   const [executingPct, setExecutingPct] = useState<number>(0);
   const executionTimerRef = useRef<any>(null);
-  const presetsTrayRef = useRef<HTMLDivElement>(null);
-
+  
   // IEEE Xplore 3-Row Boolean Search State (Selecting AND/OR/NOT for all three bars)
-  const [isIeeeMode, setIsIeeeMode] = useState<boolean>(true);
+  const [isIeeeMode, setIsIeeeMode] = useState<boolean>(false);
   const [cutoffYear, setCutoffYear] = useState<number>(2023);
   const [coOccurringSuggestions, setCoOccurringSuggestions] = useState<string[]>([]);
   const [preflightStatus, setPreflightStatus] = useState<{
@@ -468,7 +427,7 @@ export const HeroSection: React.FC<Props> = ({
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setCorpusMenuOpen((prev) => !prev);
-        setDropOpen(false);
+        
         setFieldMenuOpen(false);
       }
     };
@@ -574,23 +533,20 @@ export const HeroSection: React.FC<Props> = ({
 
   const handleExecuteSearch = (targetQuery?: string, targetDatasetId?: string) => {
     if (isExecuting || isRunning) return;
-    const q = (targetQuery !== undefined ? targetQuery : (isIeeeMode ? composedFullQuery : (query.trim() ? query : composedFullQuery))).trim();
+    const q = (targetQuery !== undefined 
+      ? targetQuery 
+      : (isIeeeMode && (ieeeTerm1.trim() || ieeeTerm2.trim() || ieeeTerm3.trim()) 
+          ? composedFullQuery 
+          : (query.trim() ? query : composedFullQuery))
+    ).trim();
     if (!q) return;
 
     const holdoutYear = temporalHoldout ? '-2023' : undefined;
 
-    // Check if matching preset exists
-    const matchingPreset = PRESETS.find(
-      (p) => p.value.toLowerCase() === q.toLowerCase() || p.label.toLowerCase() === q.toLowerCase()
-    );
-
-    const effectiveDatasetId = targetDatasetId || matchingPreset?.datasetId;
-
-    if (effectiveDatasetId) {
-      // Immediate preset / precomputed launch
+    if (targetDatasetId) {
       if (onSearch) {
         const numCorpus = typeof selectedCorpus === 'number' ? selectedCorpus : parseInt(String(selectedCorpus), 10);
-        onSearch(q, !isNaN(numCorpus) && numCorpus > 0 ? numCorpus : undefined, effectiveDatasetId, holdoutYear);
+        onSearch(q, !isNaN(numCorpus) && numCorpus > 0 ? numCorpus : undefined, targetDatasetId, holdoutYear);
       }
       return;
     }
@@ -603,7 +559,7 @@ export const HeroSection: React.FC<Props> = ({
       clearTimeout(executionTimerRef.current);
     }
 
-    // Live search execution: notify parent
+    // Direct search execution: pass exact query to pipeline without preset hijacking
     if (onSearch) {
       const numCorpus2 = typeof selectedCorpus === 'number' ? selectedCorpus : parseInt(String(selectedCorpus), 10);
       onSearch(q, !isNaN(numCorpus2) && numCorpus2 > 0 ? numCorpus2 : undefined, undefined, holdoutYear, skipDomainClusters);
@@ -630,7 +586,7 @@ export const HeroSection: React.FC<Props> = ({
     <div
       className="hero-viewport-root"
       onClick={() => {
-        setDropOpen(false);
+        
         setCorpusMenuOpen(false);
         setFieldMenuOpen(false);
       }}
@@ -654,150 +610,9 @@ export const HeroSection: React.FC<Props> = ({
         <div className="search-deck-unit" onClick={(e) => e.stopPropagation()}>
           {/* Main Search Bar - Always Visible and Editable */}
           <div className="search-input-shell">
-            {/* Presets Trigger */}
-            <div className="presets-select-anchor">
-              <button
-                className={`presets-anchor-btn ${dropOpen ? 'open' : ''}`}
-                onClick={() => {
-                  setDropOpen(!dropOpen);
-                  setCorpusMenuOpen(false);
-                  setFieldMenuOpen(false);
-                }}
-                title="Select curated topic presets"
-              >
-                <Database className="h-3.5 w-3.5 text-[#ff4300]" />
-                <span>Presets</span>
-                <span className="caret">▾</span>
-              </button>
-
-              {dropOpen && (
-                <div
-                  ref={presetsTrayRef}
-                  className="presets-floating-tray overflow-y-auto custom-scrollbar"
-                  data-scrollable
-                  onClick={(e) => e.stopPropagation()}
-                  onWheel={(e) => e.stopPropagation()}
-                >
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[10px] font-mono sticky top-0 bg-[#0a0e18] z-20 pt-1">
-                    <span className="font-semibold text-zinc-300">CURATED IEEE BOOLEAN CORPORA</span>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-amber-400 font-bold">{PRESETS.length} PRESETS</span>
-                      <button
-                        type="button"
-                        className="px-1.5 py-0.5 rounded bg-white/10 hover:bg-[#ff4300]/30 text-zinc-300 hover:text-white transition-colors cursor-pointer text-[9px]"
-                        title="Scroll to Top"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          presetsTrayRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                      >
-                        ▲ Top
-                      </button>
-                      <button
-                        type="button"
-                        className="px-1.5 py-0.5 rounded bg-[#ff4300]/25 hover:bg-[#ff4300]/50 text-[#ff8a50] hover:text-white transition-colors cursor-pointer text-[9px] font-bold"
-                        title="Scroll directly to 100-paper preset at bottom"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (presetsTrayRef.current) {
-                            presetsTrayRef.current.scrollTo({ top: presetsTrayRef.current.scrollHeight, behavior: 'smooth' });
-                          }
-                        }}
-                      >
-                        ▼ 100-Paper
-                      </button>
-                    </div>
-                  </div>
-                  <div className="space-y-2 pb-12">
-                    {PRESETS.map((p) => (
-                      <div
-                        key={p.value}
-                        className="p-2.5 rounded-lg border border-white/10 hover:border-[#ff4300]/50 bg-white/[0.02] hover:bg-white/[0.06] cursor-pointer transition-all text-left"
-                        onClick={() => {
-                          setDropOpen(false);
-                          if (p.datasetId === 'output_live_100_4bar') {
-                            setQuery('"Deep Learning"');
-                            setIeeeOp0('AND');
-                            setIeeeTerm1('"Medical Image Segmentation"');
-                            setIeeeOp1('OR');
-                            setIeeeTerm2('"Transformer"');
-                            setIeeeOp2('NOT');
-                            setIeeeTerm3('"Review"');
-                            setSelectedCorpus(100);
-                            setIsIeeeMode(true);
-                          } else if (p.datasetId === 'output_fed_diffpriv_40') {
-                            setQuery('"Federated Learning"');
-                            setIeeeOp0('AND');
-                            setIeeeTerm1('"Differential Privacy"');
-                            setIeeeOp1('NOT');
-                            setIeeeTerm2('"Blockchain"');
-                            setIeeeTerm3('');
-                            setSelectedCorpus(40);
-                          } else if (p.datasetId === 'output_gnn_kg_40') {
-                            setQuery('"Graph Neural Networks"');
-                            setIeeeOp0('AND');
-                            setIeeeTerm1('"Knowledge Graphs"');
-                            setIeeeOp1('NOT');
-                            setIeeeTerm2('"Survey"');
-                            setIeeeTerm3('');
-                            setSelectedCorpus(40);
-                          } else if (p.datasetId === 'output_cnn_hyperspectral_40') {
-                            setQuery('"Convolutional Neural Networks"');
-                            setIeeeOp0('AND');
-                            setIeeeTerm1('"Hyperspectral Image Classification"');
-                            setIeeeTerm2('');
-                            setIeeeTerm3('');
-                            setSelectedCorpus(40);
-                          } else if (p.datasetId === 'output_vit_mae_40') {
-                            setQuery('"Vision Transformer"');
-                            setIeeeOp0('OR');
-                            setIeeeTerm1('"Masked Autoencoder"');
-                            setIeeeTerm2('');
-                            setIeeeTerm3('');
-                            setSelectedCorpus(40);
-                          } else if (p.datasetId === 'output_acl_2024_40') {
-                            setQuery('"Large Language Models"');
-                            setIeeeOp0('AND');
-                            setIeeeTerm1('"Natural Language Processing"');
-                            setIeeeOp1('NOT');
-                            setIeeeTerm2('"Survey"');
-                            setIeeeTerm3('');
-                            setSelectedCorpus(40);
-                          } else if (p.datasetId === 'output_diffusion_models_and_me') {
-                            setQuery('"Diffusion Models"');
-                            setIeeeOp0('AND');
-                            setIeeeTerm1('"Medical Image Segmentation"');
-                            setIeeeOp1('NOT');
-                            setIeeeTerm2('"Survey"');
-                            setIeeeTerm3('');
-                            setSelectedCorpus(70);
-                            setIsIeeeMode(true);
-                          } else {
-                            setQuery(p.value);
-                          }
-                          handleExecuteSearch(p.value, p.datasetId);
-                        }}
-                      >
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="font-semibold text-xs text-white">
-                            {p.label}
-                          </span>
-                          <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-amber-300">
-                            {p.count} papers
-                          </span>
-                        </div>
-                        {/* Fully Visible Raw Boolean Query */}
-                        <div className="font-mono text-[11px] text-[#ff8a50] bg-black/50 px-2 py-1.5 rounded border border-white/5 break-words select-text">
-                          {p.value}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+            <div className="pl-3.5 pr-1 text-[#ff4300] flex items-center shrink-0">
+              <Search className="h-4 w-4" />
             </div>
-
-            <div className="bar-v-sep" />
 
             {/* Main Search Input */}
             <input
@@ -812,7 +627,7 @@ export const HeroSection: React.FC<Props> = ({
                   handleExecuteSearch(composedFullQuery);
                 }
               }}
-              placeholder="Search within NeurIPS / ICLR / ICML corpus (e.g. Vision-Language, LLM Reasoning, Optimization)..."
+              placeholder='Enter research inquiry (e.g. "Neural Networks" AND "Fluid Dynamics")...'
             />
 
             {query && !isExecuting && (
@@ -854,7 +669,7 @@ export const HeroSection: React.FC<Props> = ({
                   if (nextOpen && !customCorpusInput && selectedCorpus) {
                     setCustomCorpusInput(String(selectedCorpus));
                   }
-                  setDropOpen(false);
+                  
                   setFieldMenuOpen(false);
                 }}
                 title="Configure target corpus retrieval depth or input custom papers count"
@@ -1318,7 +1133,7 @@ export const HeroSection: React.FC<Props> = ({
                 >
                   {isExecuting
                     ? (currentPct === 100 ? 'Opening your interactive research space...' : currentStage.summary)
-                    : 'Enter an inquiry or select a preset below to begin exploration.'}
+                    : 'Enter an inquiry or explore the frontier of science.'}
                 </span>
                 <span className="stream-throughput-tag">
                   {isExecuting && currentPct === 100 ? '100% DONE' : (selectedCorpus ? `${selectedCorpus} PAPERS TARGET` : 'ALL PAPERS')}
@@ -1337,7 +1152,7 @@ export const HeroSection: React.FC<Props> = ({
                     e.stopPropagation();
                     setFieldMenuOpen(!fieldMenuOpen);
                     setCorpusMenuOpen(false);
-                    setDropOpen(false);
+                    
                   }}
                   title="Switch research domain"
                 >

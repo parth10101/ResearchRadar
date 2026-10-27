@@ -43,7 +43,7 @@ export const App: React.FC = () => {
   const [progressEvents, setProgressEvents] = useState<PipelineProgressEvent[]>([]);
   const [selectedGapTitle, setSelectedGapTitle] = useState('');
   const [pipelineError, setPipelineError] = useState<string | null>(null);
-  const [activeQuery, setActiveQuery] = useState<string>('Federated Learning Privacy & Non-IID Drift in Clinical LLMs');
+  const [activeQuery, setActiveQuery] = useState<string>('"Neural Networks" AND "Fluid Dynamics"');
   const [isBenchmarkOpen, setIsBenchmarkOpen] = useState(false);
 
   // Discrete Stage Engine
@@ -470,19 +470,7 @@ export const App: React.FC = () => {
                   scrollToSection('archipelago');
                   return;
                 }
-                // Check if query directly matches any precomputed dataset
-                const qClean = searchQuery.toLowerCase().trim();
-                const matched = datasets.find(d => 
-                  d.id === searchQuery || 
-                  d.id === `output_${qClean.replace(/[^a-z0-9]+/g, '_').slice(0, 24).replace(/_+$/, '')}` ||
-                  (d.query && d.query.toLowerCase() === qClean) ||
-                  d.name.toLowerCase() === qClean
-                );
-                if (matched) {
-                  setSelectedDataset(matched.id);
-                  scrollToSection('archipelago');
-                  return;
-                }
+                // Always execute live search for user's query without defaulting or hijacking
                 handleTriggerRun(searchQuery, corpusSize || 50, year, skipClustering);
               }}
             />
