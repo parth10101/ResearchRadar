@@ -6904,6 +6904,31 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                           </div>
                         </div>
 
+                        {/* MDL Entity Set: Method (M), Substrate / Task (D), Limitation (L) */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 py-2 my-2 bg-black/40 border border-white/10 px-3 rounded-lg font-mono text-[11px]">
+                          <div className="flex flex-col gap-0.5 min-w-0">
+                            <span className="text-[9.5px] uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                              Method (M)
+                            </span>
+                            <span className="text-slate-300 text-[11px] leading-snug break-words">{item.tool}</span>
+                          </div>
+                          <div className="flex flex-col gap-0.5 min-w-0">
+                            <span className="text-[9.5px] uppercase tracking-wider text-cyan-400 font-bold flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                              Substrate / Task (D)
+                            </span>
+                            <span className="text-slate-300 text-[11px] leading-snug break-words">{item.target}</span>
+                          </div>
+                          <div className="flex flex-col gap-0.5 min-w-0">
+                            <span className="text-[9.5px] uppercase tracking-wider text-rose-400 font-bold flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-400 shrink-0" />
+                              Limitation (L)
+                            </span>
+                            <span className="text-slate-300 text-[11px] leading-snug break-words">{item.limitation}</span>
+                          </div>
+                        </div>
+
                         <div className="text-slate-200 text-xs leading-relaxed font-sans pt-1.5">
                           <strong className="text-slate-400 font-mono text-[10px]">Hypothesis: </strong>
                           "{item.generatedHypothesis}"
@@ -7147,6 +7172,31 @@ export const BenchmarkModal: React.FC<BenchmarkModalProps> = ({ isOpen, onClose 
                             <span>Uzzi: <strong className={item.isNovel ? 'text-purple-300' : 'text-slate-400'}>{item.uzziScore}</strong></span>
                             <span>•</span>
                             <span>{item.cObs}</span>
+                          </div>
+                        </div>
+
+                        {/* MDL Entity Set: Method (M), Substrate / Task (D), Limitation (L) */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 py-2 my-2 bg-black/40 border border-white/10 px-3 rounded-lg font-mono text-[11px]">
+                          <div className="flex flex-col gap-0.5 min-w-0">
+                            <span className="text-[9.5px] uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                              Method (M)
+                            </span>
+                            <span className="text-slate-300 text-[11px] leading-snug break-words">{item.tool}</span>
+                          </div>
+                          <div className="flex flex-col gap-0.5 min-w-0">
+                            <span className="text-[9.5px] uppercase tracking-wider text-cyan-400 font-bold flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                              Substrate / Task (D)
+                            </span>
+                            <span className="text-slate-300 text-[11px] leading-snug break-words">{item.target}</span>
+                          </div>
+                          <div className="flex flex-col gap-0.5 min-w-0">
+                            <span className="text-[9.5px] uppercase tracking-wider text-rose-400 font-bold flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-400 shrink-0" />
+                              Limitation (L)
+                            </span>
+                            <span className="text-slate-300 text-[11px] leading-snug break-words">{item.limitation}</span>
                           </div>
                         </div>
 
