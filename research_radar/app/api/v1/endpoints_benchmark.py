@@ -89,12 +89,12 @@ def get_scaled_domain_datasets_summary():
         "benchmark_name": "Multi-Domain Scientific Gap & Novelty Benchmark",
         "reference_baseline_corpus": {
             "name": "Controlled 40-Paper Baseline",
-            "file": "data/acl_2024_40_papers.json",
+            "file": "data/acl_40_papers.json",
             "papers_count": 40,
             "graph2idea_baseline": "21 / 40 (52.5%)",
             "uzzi_novelty_addition": "22 / 40 (55.0%)",
-            "researchradar_improved": "26 / 40 (65.0%)",
-            "gain": "+10.0% Feasible Ideas"
+            "researchradar_improved": "22 / 40 (55.0%)",
+            "gain": "+2.5% Feasible Ideas"
         },
         "scaled_domain_datasets": [
             {

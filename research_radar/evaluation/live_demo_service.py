@@ -212,7 +212,7 @@ TRACKED_PAPERS = {
     },
     "acl_40": {
         "title": "A comprehensive review of advances in physics-informed neural networks and their applications in complex fluid dynamics",
-        "venue": "Physics of Fluids (ACL 2024 Comparative Benchmark)",
+        "venue": "Physics of Fluids (ACL Comparative Benchmark)",
         "paper_id": "acl-40-001",
         "abstract": (
             "Physics-informed neural networks (PINNs) represent an emerging computational paradigm that incorporates observed data patterns "
@@ -244,12 +244,12 @@ TRACKED_PAPERS = {
         "closest_title": "Hybrid Quantum Physics-Informed Neural Networks for Fluid Dynamics",
         "max_simil": 0.4820,
         "tau": 0.600,
-        "ours_pct": 65.0,
-        "ours_feasible": 26,
+        "ours_pct": 55.0,
+        "ours_feasible": 22,
         "total_count": 40,
-        "filtered_count": 14,
-        "cobs_eq0_filtered": 5,
-        "cobs_gt0_filtered": 9
+        "filtered_count": 18,
+        "cobs_eq0_filtered": 6,
+        "cobs_gt0_filtered": 12
     }
 }
 
