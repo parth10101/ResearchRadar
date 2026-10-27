@@ -8,13 +8,15 @@ interface GrantStudioProps {
   narratedGaps: NarratedGap[];
   selectedGapTitle: string;
   onNavigateToHero?: () => void;
+  onNavigateToTimeline?: () => void;
+  onNavigateToClusters?: () => void;
   searchQuery?: string;
 }
 
 // Curated high-fidelity scientometric fallback hypotheses
 const DEFAULT_NARRATED_GAPS: NarratedGap[] = [];
 
-export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selectedGapTitle, onNavigateToHero, searchQuery }) => {
+export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selectedGapTitle, onNavigateToHero, onNavigateToTimeline, onNavigateToClusters, searchQuery }) => {
   // Always default to top gap (index 0) whenever navigating to this section
   const [activeGapIndex, setActiveGapIndex] = useState(0);
   const [isCopied, setIsCopied] = useState(false);
@@ -22,11 +24,18 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({ narratedGaps, selected
 
   // Reset to top gap every time component is mounted/navigated
   useEffect(() => {
+    if (selectedGapTitle && (narratedGaps || []).length > 0) {
+      const idx = (narratedGaps || []).findIndex((g) => g.title === selectedGapTitle);
+      if (idx !== -1) {
+        setActiveGapIndex(idx);
+        return;
+      }
+    }
     setActiveGapIndex(0);
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
     }
-  }, [narratedGaps]);
+  }, [narratedGaps, selectedGapTitle]);
 
   const availableGaps = narratedGaps || [];
 
@@ -77,7 +86,7 @@ ${op?.method_plain || op?.methodology || activeGap.method}
 ${op?.dataset_plain || op?.dataset || activeGap.dataset}
 
 ## 4. Testable Scientific Hypothesis
-"${op?.hypothesis_statement || ''}"
+"${typeof op === 'string' ? op : (op?.hypothesis_statement || activeGap.suggested_title || '')}"
 
 ## 5. Synthesis & Literature Audit
 ${activeGap.llm_narration}
@@ -230,7 +239,25 @@ ${activeGap.llm_narration}
           </div>
 
           {/* Right: Actions (Copy Proposal, Prev / Next) */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            {onNavigateToClusters && (
+              <button
+                onClick={onNavigateToClusters}
+                className="hidden sm:inline-flex px-2.5 py-1 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 hover:text-white border border-white/[0.08] text-xs font-mono transition-all cursor-pointer"
+                title="Navigate back to Stage 01: Domain Clusters"
+              >
+                ← 01 Clusters
+              </button>
+            )}
+            {onNavigateToTimeline && (
+              <button
+                onClick={onNavigateToTimeline}
+                className="px-2.5 py-1 rounded-lg bg-[#ff4300]/15 hover:bg-[#ff4300]/30 text-[#ff8a50] hover:text-white border border-[#ff4300]/30 text-xs font-mono transition-all cursor-pointer shadow-[0_0_10px_rgba(255,67,0,0.2)]"
+                title="Navigate to Stage 02: Citations Timeline"
+              >
+                ← 02 Citations
+              </button>
+            )}
             <button
               onClick={handleCopyProposal}
               className="px-2.5 py-1 rounded-lg bg-white/[0.05] hover:bg-white/[0.10] text-zinc-300 hover:text-white border border-white/[0.08] text-xs font-mono flex items-center space-x-1.5 transition-all cursor-pointer"
@@ -327,14 +354,14 @@ ${activeGap.llm_narration}
               </div>
 
               {/* Formal Testable Scientific Claim */}
-              {opHyp?.hypothesis_statement && (
+              {(opHyp?.hypothesis_statement || typeof opHyp === 'string' || activeGap.suggested_title) && (
                 <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm space-y-2 mt-4">
                   <div className="flex items-center space-x-1.5 text-[11px] font-mono text-zinc-400 uppercase tracking-widest font-semibold">
                     <Sparkles className="w-3.5 h-3.5 text-[#ff4300]" />
                     <span>TESTABLE SCIENTIFIC HYPOTHESIS</span>
                   </div>
                   <p className="text-sm sm:text-base text-zinc-100 font-serif italic leading-relaxed">
-                    "{opHyp.hypothesis_statement}"
+                    "{typeof opHyp === 'string' ? opHyp : (opHyp?.hypothesis_statement || activeGap.suggested_title)}"
                   </p>
                 </div>
               )}
@@ -349,7 +376,19 @@ ${activeGap.llm_narration}
 
               {/* Parsed Terminal & Synthesis Narrative */}
               <div className="space-y-4">
-                {renderTerminalNarrative(activeGap.llm_narration)}
+                {activeGap.llm_narration ? (
+                  renderTerminalNarrative(activeGap.llm_narration)
+                ) : (
+                  <div className="space-y-3 text-sm leading-relaxed text-zinc-300 font-sans">
+                    <p>{activeGap.description}</p>
+                    <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs text-zinc-300 space-y-1">
+                      <div><strong className="text-amber-400">Donor Method:</strong> {activeGap.method}</div>
+                      <div><strong className="text-cyan-400">Target Benchmark:</strong> {activeGap.dataset}</div>
+                      <div><strong className="text-rose-400">Identified Limitation:</strong> {activeGap.limitation}</div>
+                      <div className="pt-1 text-[#ff8a50]"><strong>Uzzi Novelty:</strong> {activeGap.uzzi_z_score}σ (C_obs = {activeGap.c_obs || '0'})</div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Evidence Papers / Landmark References */}

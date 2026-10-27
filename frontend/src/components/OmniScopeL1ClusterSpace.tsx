@@ -12,6 +12,8 @@ interface OmniScopeL1ClusterSpaceProps {
   onSelectCluster: (id: string) => void;
   onSelectPaper?: (id: string) => void;
   onNavigateToHero?: () => void;
+  onNavigateToTimeline?: () => void;
+  onNavigateToGrant?: () => void;
   activeQuery?: string;
 }
 
@@ -21,6 +23,8 @@ export const OmniScopeL1ClusterSpace: React.FC<OmniScopeL1ClusterSpaceProps> = (
   onSelectCluster,
   onSelectPaper,
   onNavigateToHero,
+  onNavigateToTimeline,
+  onNavigateToGrant,
   activeQuery,
 }) => {
   const [isInspectMode, setIsInspectMode] = useState(false);
@@ -411,6 +415,26 @@ export const OmniScopeL1ClusterSpace: React.FC<OmniScopeL1ClusterSpaceProps> = (
               )}
               <div className="flex items-center space-x-1.5 text-[10px] text-zinc-300 font-mono shrink-0 bg-white/[0.06] border border-white/[0.10] px-2 py-1 rounded-md select-none backdrop-blur-sm">
                 <span>Double-click for Deep-Dive</span>
+              </div>
+              <div className="flex items-center space-x-2 shrink-0">
+                {onNavigateToTimeline && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onNavigateToTimeline(); }}
+                    className="flex items-center space-x-1 text-[11px] font-mono text-[#ff8a50] hover:text-white bg-[#ff4300]/15 hover:bg-[#ff4300]/30 border border-[#ff4300]/40 px-2.5 py-1 rounded-md transition-all cursor-pointer shadow-[0_0_10px_rgba(255,67,0,0.2)]"
+                    title="Navigate to Stage 02: Citations Timeline"
+                  >
+                    <span>02 Citations →</span>
+                  </button>
+                )}
+                {onNavigateToGrant && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onNavigateToGrant(); }}
+                    className="flex items-center space-x-1 text-[11px] font-mono text-cyan-300 hover:text-white bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-500/30 px-2.5 py-1 rounded-md transition-all cursor-pointer shadow-[0_0_10px_rgba(6,182,212,0.15)]"
+                    title="Navigate to Stage 03: Gap Analysis Studio"
+                  >
+                    <span>03 Gap Analysis →</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>

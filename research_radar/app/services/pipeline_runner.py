@@ -120,16 +120,24 @@ async def execute_pipeline_task(job_id: str, req: PipelineRunRequest):
         from research_radar.export_3d import process_directory
 
         # Determine target output folder
+        clean_q = (req.query or '').strip().lower()
+        is_preset_benchmark = ('"neural networks" and "fluid dynamics"' in clean_q or 'neural networks and fluid dynamics' in clean_q) and not getattr(req, "force_fetch", False)
+
         if req.query:
-            slug = re.sub(r'[^a-zA-Z0-9]+', '_', req.query.strip().lower())[:24].strip('_')
-            out_path = settings.DATA_DIR / f"output_{slug}"
+            if is_preset_benchmark:
+                out_path = settings.DATA_DIR / "output_neural_networks_and_flu"
+            else:
+                import hashlib
+                q_hash = hashlib.md5(req.query.strip().encode('utf-8')).hexdigest()[:6]
+                slug = re.sub(r'[^a-zA-Z0-9]+', '_', req.query.strip().lower())[:18].strip('_')
+                out_path = settings.DATA_DIR / f"output_{slug}_{q_hash}"
         else:
             out_path = Path(req.out_dir) if req.out_dir else settings.DATA_DIR / "output"
 
         out_path.mkdir(parents=True, exist_ok=True)
 
-        # Check if dataset already fully computed and verified on disk
-        if not getattr(req, "force_fetch", False) and (out_path / "detected_gaps.json").exists() and (out_path / "cluster_3d_points.json").exists():
+        # Check if dataset already fully computed and verified on disk (ONLY for preset benchmark when force_fetch is false)
+        if is_preset_benchmark and not getattr(req, "force_fetch", False) and (out_path / "detected_gaps.json").exists() and (out_path / "cluster_3d_points.json").exists():
             print(f"[PIPELINE RUNNER] Precomputed dataset '{out_path.name}' detected on disk. Bypassing execution for instant response.", flush=True)
             _update_stage(1, "Stage 1: Verified Corpus Loaded", 30, f"Loaded precomputed corpus '{out_path.name}' from disk")
             await asyncio.sleep(0.15)

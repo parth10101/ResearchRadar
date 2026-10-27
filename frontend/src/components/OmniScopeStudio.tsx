@@ -9,6 +9,7 @@ interface OmniScopeStudioProps {
   datasetName?: string;
   onNavigateToGrant?: (gapTitle: string) => void;
   onNavigateToHero?: () => void;
+  onNavigateToTimeline?: () => void;
   onSelectPaper?: (paperId: string) => void;
   selectedClusterId?: string;
   onSelectCluster?: (id: string) => void;
@@ -24,6 +25,7 @@ export const OmniScopeStudio: React.FC<OmniScopeStudioProps> = ({
   data3d,
   onNavigateToGrant,
   onNavigateToHero,
+  onNavigateToTimeline,
   onSelectPaper,
   selectedClusterId,
   onSelectCluster,
@@ -71,6 +73,8 @@ export const OmniScopeStudio: React.FC<OmniScopeStudioProps> = ({
             onSelectCluster={handleSelectCluster}
             onSelectPaper={onSelectPaper}
             onNavigateToHero={onNavigateToHero}
+            onNavigateToTimeline={onNavigateToTimeline}
+            onNavigateToGrant={onNavigateToGrant ? () => onNavigateToGrant('') : undefined}
             activeQuery={activeQuery}
           />
         )}

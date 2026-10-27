@@ -99,7 +99,11 @@ export const App: React.FC = () => {
 
   // Coordinated Stage Navigation
   const goToStage = useCallback((targetIndex: number) => {
-    if (isAnimatingRef.current) return;
+    if (isAnimatingRef.current) {
+      clearTransitionTimers();
+      isAnimatingRef.current = false;
+      setIsTransitioning(false);
+    }
     const currentIndex = stageIndexRef.current;
     if (targetIndex === currentIndex) return;
     if (targetIndex < 0 || targetIndex >= STAGES.length) return;
@@ -116,6 +120,7 @@ export const App: React.FC = () => {
     const fromStage = STAGES[currentIndex];
     const toStage = STAGES[effectiveTarget];
     targetIndex = effectiveTarget;
+    stageIndexRef.current = targetIndex;
 
     // SCENARIO 1: Hero -> Epistemic Map (Snappy, Fluid Particle Formation)
     if (currentIndex === 0 && targetIndex === 1) {
@@ -260,7 +265,11 @@ export const App: React.FC = () => {
 
   // Keyboard Handlers (Arrow navigation)
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (isAnimatingRef.current) return;
+    if (isAnimatingRef.current) {
+      clearTransitionTimers();
+      isAnimatingRef.current = false;
+      setIsTransitioning(false);
+    }
     if (e.key === 'ArrowDown' || e.key === 'PageDown') {
       e.preventDefault();
       goToStage(stageIndexRef.current + 1);
@@ -306,6 +315,18 @@ export const App: React.FC = () => {
       }).catch(() => {});
   }, []);
 
+  const loadDatasetArtifacts = useCallback((datasetId: string) => {
+    if (!datasetId) return;
+    fetch(`/api/graph/points3d?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(setPoints3dData).catch(() => setPoints3dData(null));
+    fetch(`/api/graph/archipelago?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(setArchipelagoData).catch(() => setArchipelagoData(null));
+    fetch(`/api/graph/citation?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(setCitationData).catch(() => setCitationData(null));
+    fetch(`/api/gaps/detected?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(d => setDetectedGaps(d?.gaps ?? [])).catch(() => setDetectedGaps([]));
+    fetch(`/api/gaps/narrated?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(d => {
+      if (d?.gaps?.length > 0) { setNarratedGaps(d.gaps); setSelectedGapTitle(d.gaps[0].title); }
+      else setNarratedGaps([]);
+    }).catch(() => setNarratedGaps([]));
+  }, []);
+
   // Fetch dataset artifacts when selectedDataset is set
   useEffect(() => {
     if (!selectedDataset) {
@@ -317,32 +338,15 @@ export const App: React.FC = () => {
       setSelectedGapTitle('');
       return;
     }
-    // 1. High-priority immediate fetch for Stage 1 visual rendering & particles
-    fetch(`/api/graph/points3d?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setPoints3dData).catch(() => setPoints3dData(null));
-    fetch(`/api/graph/archipelago?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(setArchipelagoData).catch(() => setArchipelagoData(null));
-    fetch(`/api/gaps/detected?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(d => setDetectedGaps(d?.gaps ?? [])).catch(() => setDetectedGaps([]));
-    fetch(`/api/gaps/narrated?dataset=${selectedDataset}`).then(r => r.ok ? r.json() : null).then(d => {
-      if (d?.gaps?.length > 0) { setNarratedGaps(d.gaps); setSelectedGapTitle(d.gaps[0].title); }
-      else setNarratedGaps([]);
-    }).catch(() => setNarratedGaps([]));
-
-    // 2. Defer heavy citation dataset fetch slightly so WebGL particle transition stays locked at 60 FPS
-    const timer = setTimeout(() => {
-      fetch(`/api/graph/citation?dataset=${selectedDataset}`)
-        .then(r => r.ok ? r.json() : null)
-        .then(setCitationData)
-        .catch(() => setCitationData(null));
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, [selectedDataset]);
+    loadDatasetArtifacts(selectedDataset);
+  }, [selectedDataset, loadDatasetArtifacts]);
 
   const handleTriggerRun = async (query: string, maxResults: number, year?: string, skipClustering?: boolean) => {
     setIsRunning(true);
     setProgressEvents([]);
     setPipelineError(null);
     try {
-      const payload: Record<string, any> = { query, max_results: maxResults };
+      const payload: Record<string, any> = { query, max_results: maxResults, force_fetch: true };
       if (year) payload.year = year;
       if (skipClustering) payload.skip_clustering = true;
       const response = await fetch('/api/pipeline/run', {
@@ -365,6 +369,7 @@ export const App: React.FC = () => {
             setIsRunning(false);
             if (event.dataset_id) {
               setSelectedDataset(event.dataset_id);
+              loadDatasetArtifacts(event.dataset_id);
               goToStage(skipDomainClusters ? 2 : 1);
             }
           }
@@ -467,6 +472,7 @@ export const App: React.FC = () => {
                 setActiveQuery(searchQuery);
                 if (datasetId) {
                   setSelectedDataset(datasetId);
+                  loadDatasetArtifacts(datasetId);
                   scrollToSection('archipelago');
                   return;
                 }
@@ -485,6 +491,7 @@ export const App: React.FC = () => {
               activeQuery={activeQuery}
               onNavigateToGrant={handleSelectGapForGrant}
               onNavigateToHero={() => scrollToSection('hero')}
+              onNavigateToTimeline={() => scrollToSection('timeline')}
               onSelectPaper={handleSelectPaper}
               selectedClusterId={selectedClusterId}
               onSelectCluster={setSelectedClusterId}
@@ -503,6 +510,8 @@ export const App: React.FC = () => {
               data={citationData}
               searchQuery={activeQuery}
               onNavigateToHero={() => scrollToSection('hero')}
+              onNavigateToGrant={() => scrollToSection('grant')}
+              onNavigateToClusters={() => scrollToSection('archipelago')}
               targetPaperId={targetPaperId}
             />
           </div>
@@ -516,6 +525,8 @@ export const App: React.FC = () => {
               selectedGapTitle={selectedGapTitle}
               searchQuery={activeQuery}
               onNavigateToHero={() => scrollToSection('hero')}
+              onNavigateToTimeline={() => scrollToSection('timeline')}
+              onNavigateToClusters={() => scrollToSection('archipelago')}
             />
           </div>
         )}

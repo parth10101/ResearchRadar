@@ -245,7 +245,9 @@ export interface NarratedGap extends ResearchGap {
   llm_narration: string;
   llm_model: string;
   llm_provider: string;
-  evidence_papers: EvidencePaper[];
+  evidence_papers?: EvidencePaper[];
+  suggested_title?: string;
+  c_obs?: string | number;
 }
 
 export interface PipelineProgressEvent {

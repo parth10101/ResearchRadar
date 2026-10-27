@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Center Floating Navigation Tabs (Visible only when not on home page) */}
         {!isHome && (
-          <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center gap-7 lg:gap-9 pointer-events-auto">
+          <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-4 sm:gap-7 lg:gap-9 pointer-events-auto">
             {navTabs.map((tab) => {
               const isActive = activeTab === tab.id;
               return (

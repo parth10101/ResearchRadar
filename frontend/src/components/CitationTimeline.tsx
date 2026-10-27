@@ -31,6 +31,8 @@ import './CitationTimeline.css';
 interface CitationTimelineProps {
   data: CitationData | null;
   onNavigateToHero?: () => void;
+  onNavigateToGrant?: () => void;
+  onNavigateToClusters?: () => void;
   targetPaperId?: string;
   searchQuery?: string;
 }
@@ -95,9 +97,17 @@ interface UniversalMilestone {
 }
 
 // Clean text from legacy emojis while preserving domain terminology
-function cleanAcademicText(text: string): string {
+function cleanAcademicText(text: any): string {
   if (!text) return '';
-  return text
+  let str = '';
+  if (Array.isArray(text)) {
+    str = text.map(t => (typeof t === 'string' ? t : (t?.name || t?.display_name || String(t)))).join(', ');
+  } else if (typeof text === 'object') {
+    str = text.name || text.display_name || JSON.stringify(text);
+  } else {
+    str = String(text);
+  }
+  return str
     .replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F600}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]/gu, '')
     .trim();
 }
@@ -315,7 +325,7 @@ function extractUniversalEpistemicNarrative(
   return { epochPhase, epochRole, breakthrough, limitation };
 }
 
-export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavigateToHero, targetPaperId, searchQuery }) => {
+export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavigateToHero, onNavigateToGrant, onNavigateToClusters, targetPaperId, searchQuery }) => {
   const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
   const initialMode = urlParams?.get('mode') === 'deepdive' ? 'deepdive' : 'journey';
   const initialLens = (urlParams?.get('lens') as 'foundation' | 'frontier' | 'all') || 'all';
@@ -372,8 +382,8 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
     const sourceCards = data.cards || [];
     return sourceCards.map((c: any) => {
       const idStr = String(c.id || '');
-      const rawUrl = c.arxiv_url || c.doi_url || c.url || '#';
-      const cleanTldr = cleanAcademicText(c.tldr || 'No abstract summary indexed for this publication.');
+      const rawUrl = c.arxiv_url || c.doi_url || c.doi || c.url || '#';
+      const cleanTldr = cleanAcademicText(c.tldr || c.abstract || 'No abstract summary indexed for this publication.');
       const isFound = !!c.journey_foundation || (c.badge_label && c.badge_label.toLowerCase().includes('foundation'));
       const isFront = !!c.journey_frontier || (c.badge_label && c.badge_label.toLowerCase().includes('frontier'));
 
@@ -383,7 +393,7 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
         year: Number(c.year || 2024),
         authors: cleanAcademicText(c.authors || 'Unknown Authors'),
         venue: cleanAcademicText(c.venue || 'Peer-Reviewed Venue'),
-        global_cits: Number(c.global_cits ?? c.citationCount ?? 0),
+        global_cits: Number(c.global_cits ?? c.citation_count ?? c.citationCount ?? 0),
         ref_count: Number(c.ref_count ?? c.reference_count ?? 10),
         tldr: cleanTldr,
         arxiv_url: rawUrl,
@@ -720,7 +730,26 @@ export const CitationTimeline: React.FC<CitationTimelineProps> = ({ data, onNavi
           
           {/* Top Control Bar with Mode Switcher */}
           <header className="journey-top-bar">
-            <div className="journey-top-bar-left" />
+            <div className="journey-top-bar-left flex items-center space-x-2">
+              {onNavigateToClusters && (
+                <button
+                  onClick={onNavigateToClusters}
+                  className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-all cursor-pointer"
+                  title="Return to Domain Clusters"
+                >
+                  <span>← 01 Clusters</span>
+                </button>
+              )}
+              {onNavigateToGrant && (
+                <button
+                  onClick={onNavigateToGrant}
+                  className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-500/30 text-xs font-mono text-cyan-300 hover:text-white transition-all cursor-pointer shadow-[0_0_12px_rgba(6,182,212,0.2)]"
+                  title="Proceed to Gap Analysis"
+                >
+                  <span>03 Gap Analysis →</span>
+                </button>
+              )}
+            </div>
 
             {/* Mode Toggle Capsule */}
             <div className="mode-toggle-track font-mono" role="tablist" aria-label="Observatory View Mode">
