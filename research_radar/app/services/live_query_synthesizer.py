@@ -45,28 +45,28 @@ def _classify_roles(term1: str, term2: str):
 
     # If term2 is a challenge (e.g. "noise", "speed", "latency")
     if c2_chal > 0 and c1_chal == 0:
-        method = f"Adaptive Latent Invariant Projection for {p1}"
-        benchmark = f"{p1} Evaluation Suite"
-        limitation = f"Severe {t2_lower} vulnerability and catastrophic performance breakdown under {t2_lower} constraints"
-        paper_title = f"Mitigating {p2} in {p1} via Robust Invariant Projections"
+        method = f"Adaptive {p1} Architecture"
+        benchmark = f"{p1} Benchmark Suite"
+        limitation = f"Performance breakdown under severe {t2_lower} conditions"
+        paper_title = f"{p1} for Robust {p2}"
     # If term1 is a challenge (e.g. "llm hallucination") and term2 is a domain (e.g. "medical data")
     elif c1_chal > 0 and c2_dom > 0:
-        method = f"Grounded Evidential Alignment for {p1}"
-        benchmark = f"{p2} Clinical & Scientific Benchmarks"
-        limitation = f"Pervasive {t1_lower} and factual inconsistency when deploying models on sensitive {t2_lower}"
-        paper_title = f"Suppressing {p1} on {p2} via Evidential Alignment"
+        method = f"Evidential {p1} Architecture"
+        benchmark = f"{p2} Benchmark Dataset"
+        limitation = f"High error rates and unreliability on sensitive {t2_lower}"
+        paper_title = f"Suppressing {p1} on {p2}"
     # If term1 is a method and term2 is a domain
     elif c1_meth >= c2_meth and c2_dom > c1_dom:
-        method = f"{p1} (Cross-Domain Donor Tool)"
-        benchmark = f"{p2} Benchmark Suite"
-        limitation = f"Optimization collapse and failure to maintain stability when deploying {p1} to {p2}"
-        paper_title = f"Scalable {p1} for Robust {p2} Prediction"
+        method = f"Physics-Grounded {p1}"
+        benchmark = f"{p2} Evaluation Benchmark"
+        limitation = f"Instability when applying {p1} to {p2}"
+        paper_title = f"{p1} in {p2}"
     # Standard 2-term combinatorial
     else:
-        method = f"{p1} (Cross-Domain Method)"
+        method = f"Neural {p1} Architecture"
         benchmark = f"{p2} Evaluation Benchmark"
-        limitation = f"Unaddressed representation collapse and severe variance degradation when scaling {p1} on {p2}"
-        paper_title = f"Bridging {p1} and {p2}: Empirical Bounds and Scalable Formulations"
+        limitation = f"High error rates and variance when deploying {p1} on {p2}"
+        paper_title = f"{p1} in {p2}"
 
     return method, benchmark, limitation, paper_title, p1, p2
 
@@ -306,8 +306,8 @@ def synthesize_live_query_corpus(query: str, out_path: Path, max_papers: int = 5
         "milestones": [c for c in citation_cards if c["is_milestone"]][:8]
     }
 
-    # 6. Algorithmic Gap Analysis with "To overcome..." grammar
-    hypothesis_text = f"To overcome {limitation}, integrating {method} will enhance empirical performance in {benchmark} by enforcing structural invariance across domain boundaries."
+    # 6. Algorithmic Gap Analysis with clean, simple, readable grammar
+    hypothesis_text = f"To overcome {limitation.lower()}, applying {method} to {benchmark} will improve prediction accuracy and empirical stability."
 
     llm_markdown = f"""## 1. Topological Research Void & Structural Null Bridge
 Across the ingested corpus of {len(papers_list)} peer-reviewed publications, a profound topological disconnection is observed between **{p1}** and **{p2}**. While each literature sub-branch exhibits dense internal co-citation clustering, zero historical cross-boundary co-occurrences exist (**C_obs = 0 / {len(papers_list)}**). Configuration-model random graph permutations yield an Uzzi atypicality z-score of **-1.86σ**, establishing that this absence represents a statistically verified structural void rather than random citation sparsity.
@@ -333,8 +333,8 @@ Validation will be conducted directly against standard empirical tasks in **{ben
         "gaps": [
             {
                 "id": "gap-live-01",
-                "gap_type": f"Combinatorial Bridge: {p1} ∩ {p2} (C_obs = 0)",
-                "title": f"Structural Disconnect: {p1} <-> {p2}",
+                "gap_type": "Combinatorial Bridge (C_obs = 0)",
+                "title": f"Research Gap: {p1} in {p2}",
                 "topic_a": clusters_def[0]["name"],
                 "topic_b": clusters_def[1]["name"],
                 "topic_1": clusters_def[0]["name"],
