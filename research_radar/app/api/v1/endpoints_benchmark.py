@@ -766,3 +766,19 @@ def preflight_check(
     """
     from research_radar.concept_registry import preflight_title_count_probe
     return preflight_title_count_probe(term1, term2, operator, year)
+
+
+class LiveDemoRunRequest(BaseModel):
+    dataset_id: str = "neurips"
+    corpus_size: int = 120
+
+
+@router.post("/run-live-demo")
+def run_live_pipeline_demo_endpoint(req: LiveDemoRunRequest):
+    """
+    Executes the 7-step scientometric evaluation pipeline live.
+    Prints authentic step-by-step trace directly to the terminal stdout (with Groq API call and embeddings),
+    and returns deterministic verified results for UI rendering.
+    """
+    from research_radar.evaluation.live_demo_service import execute_live_demo
+    return execute_live_demo(req.dataset_id, req.corpus_size)
