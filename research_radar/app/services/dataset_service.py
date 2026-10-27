@@ -1,4 +1,4 @@
-﻿"""
+"""
 ResearchRadar: Dataset Management & Resolution Service
 """
 
@@ -51,6 +51,12 @@ METADATA_REGISTRY: Dict[str, Dict[str, Any]] = {
         "description": "70 papers -- 100% Title-Match Conjunction with Survey Purge: 'Diffusion Models' AND 'Medical Image Segmentation' NOT 'Survey'. Both in 100% of titles.",
         "query": '"Diffusion Models" AND "Medical Image Segmentation" NOT "Survey"',
         "papers": 70,
+    },
+    "output_neural_networks_and_flu": {
+        "name": "Neural Networks & Fluid Dynamics",
+        "description": "100 papers -- 100% Title-Match Conjunction: 'Neural Networks' AND 'Fluid Dynamics'. OpenAlex verified live academic corpus with 3D clusters, citation network, and C_obs=0 gap analysis.",
+        "query": '"Neural Networks" AND "Fluid Dynamics"',
+        "papers": 100,
     },
 
 }

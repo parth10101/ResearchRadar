@@ -43,7 +43,7 @@ export const App: React.FC = () => {
   const [progressEvents, setProgressEvents] = useState<PipelineProgressEvent[]>([]);
   const [selectedGapTitle, setSelectedGapTitle] = useState('');
   const [pipelineError, setPipelineError] = useState<string | null>(null);
-  const [activeQuery, setActiveQuery] = useState<string>('"Neural Networks" AND "Fluid Dynamics"');
+  const [activeQuery, setActiveQuery] = useState<string>('');
   const [isBenchmarkOpen, setIsBenchmarkOpen] = useState(false);
 
   // Discrete Stage Engine

@@ -152,7 +152,7 @@ async def execute_pipeline_task(job_id: str, req: PipelineRunRequest):
             _update_stage(5, "Stage 5: Citation Topology", 70, "Verifying structural holes and null co-occurrence (C_obs = 0)")
             await asyncio.sleep(0.4)
             _update_stage(7, "Stage 7: Gap Synthesis", 90, "Formulating combinatorial gaps and holdout verification")
-            synthesize_live_query_corpus(req.query, out_path)
+            synthesize_live_query_corpus(req.query, out_path, max_papers=req.max_results or 50)
             await asyncio.sleep(0.3)
             _update_stage(8, "Pipeline Complete", 100, f"Synthesized research space ready ({out_path.name})")
             job["dataset_id"] = out_path.name

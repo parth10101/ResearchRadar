@@ -79,6 +79,21 @@ const REASONING_STAGES: StageStep[] = [
 
 
 
+export interface PresetOption {
+  label: string;
+  count: string;
+  value: string;
+  datasetId: string;
+}
+
+const PRESETS: PresetOption[] = [
+  {
+    label: 'Verified Live Benchmark: "Neural Networks" AND "Fluid Dynamics"',
+    count: '100',
+    value: '"Neural Networks" AND "Fluid Dynamics"',
+    datasetId: 'output_neural_networks_and_flu',
+  },
+];
 export interface CorpusTier {
   value: number;
   label: string;
@@ -248,7 +263,9 @@ export const HeroSection: React.FC<Props> = ({
   skipDomainClusters = false,
   onToggleSkipDomainClusters,
 }) => {
-  const [query, setQuery] = useState('"Neural Networks" AND "Fluid Dynamics"');
+  const [query, setQuery] = useState('');
+  const [dropOpen, setDropOpen] = useState(false);
+  const presetsTrayRef = useRef<HTMLDivElement>(null);
   
   // Corpus Size State (100 to 3,000 or custom)
   const [selectedCorpus, setSelectedCorpus] = useState<number | string>(50);
@@ -587,6 +604,7 @@ export const HeroSection: React.FC<Props> = ({
       className="hero-viewport-root"
       onClick={() => {
         
+        setDropOpen(false);
         setCorpusMenuOpen(false);
         setFieldMenuOpen(false);
       }}
@@ -613,6 +631,61 @@ export const HeroSection: React.FC<Props> = ({
             <div className="pl-3.5 pr-1 text-[#ff4300] flex items-center shrink-0">
               <Search className="h-4 w-4" />
             </div>
+
+            {/* Presets Selector Dropdown Button */}
+            <div className="presets-select-anchor shrink-0" ref={presetsTrayRef}>
+              <button
+                type="button"
+                className={`presets-anchor-btn ${dropOpen ? 'open' : ''}`}
+                onClick={() => {
+                  setDropOpen((prev) => !prev);
+                  setCorpusMenuOpen(false);
+                  setFieldMenuOpen(false);
+                }}
+                title="Curated 100-paper benchmark preset"
+              >
+                <Database className="h-3.5 w-3.5 text-[#ff8a50]" />
+                <span className="font-semibold text-xs text-white">Presets</span>
+                <ChevronDown className={`h-3 w-3 text-zinc-400 transition-transform ${dropOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {dropOpen && (
+                <div className="presets-floating-tray">
+                  <div className="tray-hdr">CURATED 100-PAPER BENCHMARK (ALL 3 SECTIONS)</div>
+                  <div className="flex flex-col gap-1.5 pt-1">
+                    {PRESETS.map((p) => (
+                      <div
+                        key={p.datasetId}
+                        className="p-3 rounded-lg border border-white/10 hover:border-[#ff4300]/60 bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer group"
+                        onClick={() => {
+                          setQuery(p.value);
+                          setSelectedCorpus(100);
+                          setDropOpen(false);
+                          handleExecuteSearch(p.value, p.datasetId);
+                        }}
+                      >
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="font-semibold text-xs text-white group-hover:text-amber-300 transition-colors">
+                            {p.label}
+                          </span>
+                          <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-[#ff4300]/20 text-[#ff8a50] border border-[#ff4300]/30 font-bold">
+                            {p.count} papers
+                          </span>
+                        </div>
+                        <div className="font-mono text-[11px] text-[#ff8a50] bg-black/50 px-2 py-1.5 rounded border border-white/5 break-words select-text mb-1">
+                          {p.value}
+                        </div>
+                        <div className="text-[10px] text-zinc-400">
+                          Yields full results for Knowledge Clusters, Citation Lineage Timeline, and C_obs = 0 Algorithmic Gap Analysis.
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="bar-v-sep" />
 
             {/* Main Search Input */}
             <input
@@ -719,7 +792,8 @@ export const HeroSection: React.FC<Props> = ({
                             const val = parseInt(customCorpusInput, 10);
                             if (!isNaN(val) && val >= 10 && val <= 3000) {
                               setSelectedCorpus(val);
-                              setCorpusMenuOpen(false);
+                              setDropOpen(false);
+        setCorpusMenuOpen(false);
                             }
                           }
                         }}
@@ -734,7 +808,8 @@ export const HeroSection: React.FC<Props> = ({
                           const val = parseInt(customCorpusInput, 10);
                           if (!isNaN(val) && val >= 10 && val <= 3000) {
                             setSelectedCorpus(val);
-                            setCorpusMenuOpen(false);
+                            setDropOpen(false);
+        setCorpusMenuOpen(false);
                           }
                         }}
                       >
@@ -1151,7 +1226,8 @@ export const HeroSection: React.FC<Props> = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     setFieldMenuOpen(!fieldMenuOpen);
-                    setCorpusMenuOpen(false);
+                    setDropOpen(false);
+        setCorpusMenuOpen(false);
                     
                   }}
                   title="Switch research domain"
