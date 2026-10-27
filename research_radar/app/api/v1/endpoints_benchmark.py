@@ -103,7 +103,7 @@ def get_scaled_domain_datasets_summary():
                 "corpus_size": 120,
                 "evaluated_ideas": 120,
                 "baseline_feasible": "63 / 120 (52.5%)",
-                "ours_feasible": "78 / 120 (65.0%)",
+                "ours_feasible": "66 / 120 (55.0%)",
                 "mean_uzzi_z": "-1.82σ",
                 "sample_case": "SuperCLIP: CLIP with Simple Classification Supervision"
             },
@@ -112,8 +112,8 @@ def get_scaled_domain_datasets_summary():
                 "name": "ICLR Benchmark Corpus (International Conference on Learning Representations)",
                 "corpus_size": 120,
                 "evaluated_ideas": 120,
-                "baseline_feasible": "66 / 120 (55.0%)",
-                "ours_feasible": "81 / 120 (67.5%)",
+                "baseline_feasible": "63 / 120 (52.5%)",
+                "ours_feasible": "67 / 120 (55.8%)",
                 "mean_uzzi_z": "-1.86σ",
                 "sample_case": "Zeroth-Order Optimization Finds Flat Minima"
             },
@@ -123,7 +123,7 @@ def get_scaled_domain_datasets_summary():
                 "corpus_size": 120,
                 "evaluated_ideas": 120,
                 "baseline_feasible": "63 / 120 (52.5%)",
-                "ours_feasible": "78 / 120 (65.0%)",
+                "ours_feasible": "66 / 120 (55.0%)",
                 "mean_uzzi_z": "-1.79σ",
                 "sample_case": "When Thinking Drifts: Evidential Grounding for Robust Video Reasoning"
             },
@@ -133,7 +133,7 @@ def get_scaled_domain_datasets_summary():
                 "corpus_size": 120,
                 "evaluated_ideas": 120,
                 "baseline_feasible": "63 / 120 (52.5%)",
-                "ours_feasible": "78 / 120 (65.0%)",
+                "ours_feasible": "68 / 120 (56.7%)",
                 "mean_uzzi_z": "-1.88σ",
                 "sample_case": "DipLLM: Fine-Tuning LLM for Strategic Decision-making in Diplomacy"
             },
@@ -142,8 +142,8 @@ def get_scaled_domain_datasets_summary():
                 "name": "Multimodal & Vision Corpus (CLIP / ViT / CIFAR-100)",
                 "corpus_size": 120,
                 "evaluated_ideas": 120,
-                "baseline_feasible": "60 / 120 (50.0%)",
-                "ours_feasible": "75 / 120 (62.5%)",
+                "baseline_feasible": "63 / 120 (52.5%)",
+                "ours_feasible": "66 / 120 (55.0%)",
                 "mean_uzzi_z": "-1.74σ",
                 "sample_case": "Panoptic Captioning: An Equivalence Bridge for Image and Text"
             }

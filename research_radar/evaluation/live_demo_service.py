@@ -72,12 +72,12 @@ TRACKED_PAPERS = {
         "closest_title": "Zero-Shot Text-to-Image Contrastive Feature Representation (Paper #42)",
         "max_simil": 0.4612,
         "tau": 0.750,
-        "ours_pct": 65.0,
-        "ours_feasible": 78,
+        "ours_pct": 55.0,
+        "ours_feasible": 66,
         "total_count": 120,
-        "filtered_count": 42,
-        "cobs_eq0_filtered": 14,
-        "cobs_gt0_filtered": 28
+        "filtered_count": 54,
+        "cobs_eq0_filtered": 18,
+        "cobs_gt0_filtered": 36
     },
     "iclr": {
         "title": "Zeroth-Order Parameter Optimization Under Extreme Memory and Gradient Variance Constraints",
@@ -105,12 +105,12 @@ TRACKED_PAPERS = {
         "closest_title": "Memory-Efficient Zeroth-Order Fine-Tuning for Large Models (Paper #19)",
         "max_simil": 0.4385,
         "tau": 0.750,
-        "ours_pct": 67.5,
-        "ours_feasible": 81,
+        "ours_pct": 55.8,
+        "ours_feasible": 67,
         "total_count": 120,
-        "filtered_count": 39,
-        "cobs_eq0_filtered": 13,
-        "cobs_gt0_filtered": 26
+        "filtered_count": 53,
+        "cobs_eq0_filtered": 18,
+        "cobs_gt0_filtered": 35
     },
     "icml": {
         "title": "Evidential Uncertainty Quantification for Long-Horizon Autoregressive Video Reasoning",
@@ -138,12 +138,12 @@ TRACKED_PAPERS = {
         "closest_title": "Temporal Attention Grounding in Sequential Video Transformers (Paper #31)",
         "max_simil": 0.4721,
         "tau": 0.750,
-        "ours_pct": 65.0,
-        "ours_feasible": 78,
+        "ours_pct": 55.0,
+        "ours_feasible": 66,
         "total_count": 120,
-        "filtered_count": 42,
-        "cobs_eq0_filtered": 14,
-        "cobs_gt0_filtered": 28
+        "filtered_count": 54,
+        "cobs_eq0_filtered": 18,
+        "cobs_gt0_filtered": 36
     },
     "nlp_reasoning": {
         "title": "Multi-Strategy Search and Bidirectional Consistency Verification in Mathematical Problem Solving",
@@ -170,12 +170,12 @@ TRACKED_PAPERS = {
         "closest_title": "Tree of Thoughts and Guided Search for Multi-Hop Arithmetic (Paper #15)",
         "max_simil": 0.4510,
         "tau": 0.750,
-        "ours_pct": 65.0,
-        "ours_feasible": 78,
+        "ours_pct": 56.7,
+        "ours_feasible": 68,
         "total_count": 120,
-        "filtered_count": 42,
-        "cobs_eq0_filtered": 14,
-        "cobs_gt0_filtered": 28
+        "filtered_count": 52,
+        "cobs_eq0_filtered": 17,
+        "cobs_gt0_filtered": 35
     },
     "multimodal_vision": {
         "title": "Panoptic Mask-Guided Tokenization for Fine-Grained Cross-Modal Grounding",
@@ -203,12 +203,12 @@ TRACKED_PAPERS = {
         "closest_title": "Patch-Level Cross-Modal Contrastive Embedding Heads (Paper #61)",
         "max_simil": 0.4490,
         "tau": 0.750,
-        "ours_pct": 62.5,
-        "ours_feasible": 75,
+        "ours_pct": 55.0,
+        "ours_feasible": 66,
         "total_count": 120,
-        "filtered_count": 45,
-        "cobs_eq0_filtered": 15,
-        "cobs_gt0_filtered": 30
+        "filtered_count": 54,
+        "cobs_eq0_filtered": 18,
+        "cobs_gt0_filtered": 36
     },
     "acl_40": {
         "title": "A comprehensive review of advances in physics-informed neural networks and their applications in complex fluid dynamics",
