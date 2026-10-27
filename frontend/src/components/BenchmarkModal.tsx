@@ -4907,7 +4907,7 @@ const DOMAIN_DATASETS: DomainDatasetInfo[] = [
   },
   {
     "id": "multimodal_vision",
-    "name": "Multimodal & Vision Corpus (CLIP / ViT / CIFAR-100)",
+    "name": "Multimodal & Vision Corpus",
     "domain": "Dense Visual Perception, Cross-Modal Grounding & Image-Text Understanding",
     "corpusSize": 120,
     "evaluatedCount": 120,

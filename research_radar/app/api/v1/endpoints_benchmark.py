@@ -139,7 +139,7 @@ def get_scaled_domain_datasets_summary():
             },
             {
                 "id": "multimodal_vision",
-                "name": "Multimodal & Vision Corpus (CLIP / ViT / CIFAR-100)",
+                "name": "Multimodal & Vision Corpus",
                 "corpus_size": 120,
                 "evaluated_ideas": 120,
                 "baseline_feasible": "63 / 120 (52.5%)",
