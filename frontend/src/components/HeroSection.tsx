@@ -88,9 +88,9 @@ export interface PresetOption {
 
 const PRESETS: PresetOption[] = [
   {
-    label: 'Verified Live Benchmark: "Neural Networks" AND "Fluid Dynamics"',
+    label: 'Verified Live Benchmark: "Neural Networks" AND "Fluid Dynamics" AND "Turbulence"',
     count: '100',
-    value: '"Neural Networks" AND "Fluid Dynamics"',
+    value: '"Neural Networks" AND "Fluid Dynamics" AND "Turbulence"',
     datasetId: 'output_neural_networks_and_flu',
   },
 ];
@@ -700,7 +700,7 @@ export const HeroSection: React.FC<Props> = ({
                   handleExecuteSearch(composedFullQuery);
                 }
               }}
-              placeholder='Enter research inquiry (e.g. "Neural Networks" AND "Fluid Dynamics")...'
+              placeholder='Enter research inquiry (e.g. "Neural Networks" AND "Fluid Dynamics" AND "Turbulence")...'
             />
 
             {query && !isExecuting && (
