@@ -71,3 +71,17 @@ desktop.ini
 # Scratch
 scratch_pdf_text.txt
 
+scratch/
+scratch_*.py
+apply_pristine_*.py
+remove_fallback.py
+test_fetch_multi.py
+test_multi_clause.py
+test_openalex_title_and_abstract.py
+test_boolean_engine.py
+*.pdf
+data/output/papers.json
+data/output/cluster_3d_points.json
+data/output/archipelago_data.json
+data/output/detected_gaps.json
+data/output/narrated_gaps.json

@@ -16,7 +16,10 @@ import {
   SlidersHorizontal,
   Check,
   Compass,
+  ShieldCheck,
+  ExternalLink,
 } from 'lucide-react';
+import { LiveProofModal } from './LiveProofModal';
 
 interface StageStep {
   num: string;
@@ -279,13 +282,14 @@ export const HeroSection: React.FC<Props> = ({
   const [isShuffling, setIsShuffling] = useState<boolean>(false);
 
   // Dynamic Scientometric Pipeline Execution State
-  const [isExecuting, setIsExecuting] = useState<boolean>(false);
+  const [isExecutingLocal, setIsExecutingLocal] = useState<boolean>(false);
+  const isExecuting = isExecutingLocal || isRunning;
   const [executingStageIdx, setExecutingStageIdx] = useState<number>(0);
   const [executingPct, setExecutingPct] = useState<number>(0);
   const executionTimerRef = useRef<any>(null);
   
-  // IEEE Xplore 3-Row Boolean Search State (Selecting AND/OR/NOT for all three bars)
-  const [isIeeeMode, setIsIeeeMode] = useState<boolean>(false);
+  // 3-Bar Boolean Search State: 1 Main Search Bar + 2 Condition Bars (Toggleable)
+  const [showSubBars, setShowSubBars] = useState<boolean>(false);
   const [cutoffYear, setCutoffYear] = useState<number>(2023);
   const [coOccurringSuggestions, setCoOccurringSuggestions] = useState<string[]>([]);
   const [preflightStatus, setPreflightStatus] = useState<{
@@ -295,65 +299,53 @@ export const HeroSection: React.FC<Props> = ({
     suggested_fix?: { type: string; suggested_term2: string; message: string };
   } | null>(null);
   const [temporalHoldout, setTemporalHoldout] = useState<boolean>(false);
+  const [proofModalOpen, setProofModalOpen] = useState<boolean>(false);
   const [fastNicheMode, setFastNicheMode] = useState<boolean>(false);
   const [ieeeOp0, setIeeeOp0] = useState<'AND' | 'OR' | 'NOT'>('AND');
   const [ieeeTerm1, setIeeeTerm1] = useState<string>('');
   const [ieeeOp1, setIeeeOp1] = useState<'AND' | 'OR' | 'NOT'>('AND');
   const [ieeeTerm2, setIeeeTerm2] = useState<string>('');
-  const [ieeeOp2, setIeeeOp2] = useState<'AND' | 'OR' | 'NOT'>('NOT');
-  const [ieeeTerm3, setIeeeTerm3] = useState<string>('');
 
-  // Composed 4-Bar Boolean Expression across Main Search Bar + 3 Optional Condition Bars
+  // Composed 3-Bar Boolean Expression across Main Search Bar + 2 Boolean Condition Bars (Total 3 Search Bars)
   const composedFullQuery = useMemo(() => {
     const main = query.trim();
+    if (!showSubBars) return main;
     const t1 = ieeeTerm1.trim();
     const t2 = ieeeTerm2.trim();
-    const t3 = ieeeTerm3.trim();
-    if (!main && !t1 && !t2 && !t3) return '';
+    if (!main && !t1 && !t2) return '';
 
     const formatTerm = (t: string) => (t.includes(' ') && !t.startsWith('"') ? `"${t}"` : t);
     const parts: string[] = [];
 
-    // Bar 1: Main Search Bar (Primary inquiry)
+    // Bar 1: Main Search Bar (Primary Concept A)
     if (main) {
       parts.push(formatTerm(main));
     }
 
-    // Bar 2: Optional Condition Bar 1
+    // Bar 2: Boolean Condition Bar 1 (Concept B)
     if (t1) {
       if (parts.length > 0) parts.push(ieeeOp0);
       else if (ieeeOp0 === 'NOT') parts.push('NOT');
       parts.push(formatTerm(t1));
     }
 
-    // Bar 3: Optional Condition Bar 2
+    // Bar 3: Boolean Condition Bar 2 (Concept C)
     if (t2) {
       if (parts.length > 0) parts.push(ieeeOp1);
       else if (ieeeOp1 === 'NOT') parts.push('NOT');
       parts.push(formatTerm(t2));
     }
 
-    // Bar 4: Optional Condition Bar 3
-    if (t3) {
-      if (parts.length > 0) parts.push(ieeeOp2);
-      else if (ieeeOp2 === 'NOT') parts.push('NOT');
-      parts.push(formatTerm(t3));
-    }
-
     return parts.join(' ');
-  }, [query, ieeeOp0, ieeeTerm1, ieeeOp1, ieeeTerm2, ieeeOp2, ieeeTerm3]);
+  }, [query, showSubBars, ieeeOp0, ieeeTerm1, ieeeOp1, ieeeTerm2]);
 
   // Backward compatibility alias
   const composedIeeeQuery = composedFullQuery;
 
-  // Seamless switching between Single Search Bar and 4-Bar Boolean Deck (Preserves all inputs independently)
-  const handleToggleIeeeMode = (enable: boolean) => {
-    setIsIeeeMode(enable);
-  };
 
   // Real-time Boolean Clause & Conjunction Audit for UI transparency
   const booleanAudit = useMemo(() => {
-    const raw = (isIeeeMode ? composedIeeeQuery : query).trim();
+    const raw = composedFullQuery.trim();
     if (!raw) return null;
     if (!/\b(AND|OR|NOT)\b|&/i.test(raw) && !raw.includes('"')) return null;
 
@@ -381,7 +373,7 @@ export const HeroSection: React.FC<Props> = ({
 
     if (must.length === 0 && should.length === 0 && must_not.length === 0) return null;
     return { must, must_not, should };
-  }, [isIeeeMode, composedIeeeQuery, query]);
+  }, [composedFullQuery]);
 
   // Live Co-occurrence suggestions based on primary inquiry
   useEffect(() => {
@@ -459,19 +451,26 @@ export const HeroSection: React.FC<Props> = ({
   // Synchronize live backend execution — update progress bar UI only.
   // Navigation to studio is owned by App.tsx (it calls handleLaunchWithTransition after dataset_id arrives).
   useEffect(() => {
+    if (isRunning) {
+      setIsExecutingLocal(true);
+    } else {
+      setIsExecutingLocal(false);
+    }
+  }, [isRunning]);
+
+  useEffect(() => {
     if (progressEvents && progressEvents.length > 0) {
       const latest = progressEvents[progressEvents.length - 1];
-      setIsExecuting(true);
+      setIsExecutingLocal(true);
       setExecutingPct(latest.progress_pct);
       const sIdx = Math.max(0, Math.min(7, (latest.stage ? latest.stage - 1 : 0)));
       setExecutingStageIdx(sIdx);
 
       if (latest.is_terminal) {
-        // Pipeline finished (success or fail) — stop executing indicator
         if (executionTimerRef.current) clearTimeout(executionTimerRef.current);
         executionTimerRef.current = setTimeout(() => {
-          setIsExecuting(false);
-        }, 350);
+          setIsExecutingLocal(false);
+        }, 500);
       }
     }
   }, [progressEvents]);
@@ -552,9 +551,7 @@ export const HeroSection: React.FC<Props> = ({
     if (isExecuting || isRunning) return;
     const q = (targetQuery !== undefined 
       ? targetQuery 
-      : (isIeeeMode && (ieeeTerm1.trim() || ieeeTerm2.trim() || ieeeTerm3.trim()) 
-          ? composedFullQuery 
-          : (query.trim() ? query : composedFullQuery))
+      : (composedFullQuery.trim() ? composedFullQuery : query)
     ).trim();
     if (!q) return;
 
@@ -568,7 +565,7 @@ export const HeroSection: React.FC<Props> = ({
       return;
     }
 
-    setIsExecuting(true);
+    setIsExecutingLocal(true);
     setExecutingPct(6);
     setExecutingStageIdx(0);
 
@@ -700,7 +697,7 @@ export const HeroSection: React.FC<Props> = ({
                   handleExecuteSearch(composedFullQuery);
                 }
               }}
-              placeholder='Enter research inquiry (e.g. "Neural Networks" AND "Fluid Dynamics" AND "Turbulence")...'
+              placeholder='Primary Concept A (e.g. Artificial Intelligence, Neural Networks, Quantum Computing)...'
             />
 
             {query && !isExecuting && (
@@ -714,21 +711,19 @@ export const HeroSection: React.FC<Props> = ({
               </button>
             )}
 
-            {/* Toggle for 3 Optional Condition Bars */}
+
+            {/* Toggle Condition Bars Button */}
             <button
               type="button"
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 border cursor-pointer select-none ${
-                isIeeeMode
-                  ? 'bg-[#ff4300]/15 text-[#ff8a50] border-[#ff4300]/40'
-                  : 'bg-white/[0.04] text-zinc-400 border-white/10 hover:text-white hover:border-white/20'
+              onClick={() => setShowSubBars(!showSubBars)}
+              className={`text-xs font-mono px-2.5 py-1 rounded transition-all flex items-center gap-1 shrink-0 border ${
+                showSubBars
+                  ? 'bg-[#ff4300]/20 text-[#ff8a50] border-[#ff4300]/50 shadow-[0_0_10px_rgba(255,67,0,0.2)]'
+                  : 'bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-white border-zinc-700/60'
               }`}
-              onClick={() => setIsIeeeMode(!isIeeeMode)}
-              title="Toggle 3 optional condition bars (AND / OR / NOT)"
+              title={showSubBars ? 'Hide condition refinement sub-bars' : 'Add 2 Boolean condition refinement sub-bars (AND / OR / NOT)'}
             >
-              <span>{isIeeeMode ? '− Hide Conditions' : '+ Conditions (AND / OR / NOT)'}</span>
-              {(ieeeTerm1.trim() || ieeeTerm2.trim() || ieeeTerm3.trim()) && (
-                <span className="w-1.5 h-1.5 rounded-full bg-[#ff4300]" />
-              )}
+              <span>{showSubBars ? '− Hide Conditions' : '+ Conditions (AND / OR / NOT)'}</span>
             </button>
 
             {/* Interactive Corpus Depth Selector Button (100 to 3k or Custom) */}
@@ -845,56 +840,8 @@ export const HeroSection: React.FC<Props> = ({
             </button>
           </div>
 
-                    {/* Quick Mode & Filter Controls with Domain Clusters On/Off Switch */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mt-2 px-1">
-            <div className="flex items-center gap-3">
-              {/* On/Off Switch: Skip Domain Clusters */}
-              <div 
-                className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-900/90 border border-zinc-700/60 select-none shadow-sm cursor-pointer hover:border-zinc-500 transition-colors"
-                onClick={() => onToggleSkipDomainClusters && onToggleSkipDomainClusters(!skipDomainClusters)}
-                title="Toggle to skip the 01 Domain Clusters section completely and jump directly to Citations & Gaps"
-              >
-                <span className="text-[11px] font-mono text-zinc-300 flex items-center gap-1">
-                  <span>⚡</span>
-                  <span className="font-medium">Skip Domain Clusters:</span>
-                </span>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={skipDomainClusters}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleSkipDomainClusters && onToggleSkipDomainClusters(!skipDomainClusters);
-                  }}
-                  className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                    skipDomainClusters ? 'bg-[#ff4300]' : 'bg-zinc-700'
-                  }`}
-                >
-                  <span
-                    className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                      skipDomainClusters ? 'translate-x-4' : 'translate-x-0'
-                    }`}
-                  />
-                </button>
-                <span className={`text-[10px] font-mono font-bold ${skipDomainClusters ? 'text-[#ff8a50]' : 'text-zinc-500'}`}>
-                  {skipDomainClusters ? 'ON' : 'OFF'}
-                </span>
-              </div>
-
-              {skipDomainClusters ? (
-                <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
-                  ⚡ Niche Mode Active: Domain Clusters section bypassed → direct to Citations
-                </span>
-              ) : (
-                <span className="text-[10px] font-mono text-zinc-500 hidden sm:inline">
-                  Standard Mode: Full 3D Domain Clusters + Citations + Gaps
-                </span>
-              )}
-            </div>
-</div>
-
-          {/* 3 Optional Condition Bars Tray (Directly Below Main Search Bar) */}
-          {isIeeeMode && (
+                    {/* 3 Search Bars: 2 Boolean Refinement Sub-Bars (Toggleable via button) */}
+          {showSubBars && (
             <div className="ieee-deck-container mt-2 animate-fadeIn">
               <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 px-1 pb-1">
                 <span className="font-semibold text-emerald-400 flex items-center gap-1.5">
@@ -920,7 +867,7 @@ export const HeroSection: React.FC<Props> = ({
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Refinement Keyword 1 (e.g. Brain, Drug Discovery, Robotics)"
+                  placeholder="Concept B (e.g. CNN, Medical Imaging, Fluid Dynamics)"
                   value={ieeeTerm1}
                   onChange={(e) => setIeeeTerm1(e.target.value)}
                   disabled={isExecuting}
@@ -976,7 +923,7 @@ export const HeroSection: React.FC<Props> = ({
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Condition 2 (Optional — e.g. Edge devices)"
+                  placeholder="Concept C (e.g. Transfer Learning, Brain MRI, Turbulence)"
                   value={ieeeTerm2}
                   onChange={(e) => setIeeeTerm2(e.target.value)}
                   disabled={isExecuting}
@@ -998,91 +945,10 @@ export const HeroSection: React.FC<Props> = ({
                   </button>
                 )}
               </div>
-
-              {/* Condition Bar 3 */}
-              <div className="ieee-row">
-                <select
-                  className="ieee-operator-dropdown"
-                  value={ieeeOp2}
-                  onChange={(e) => setIeeeOp2(e.target.value as any)}
-                  disabled={isExecuting}
-                  title="Select Boolean Operator for Condition Bar 3 (AND / OR / NOT)"
-                >
-                  <option value="NOT">NOT</option>
-                  <option value="AND">AND</option>
-                  <option value="OR">OR</option>
-                </select>
-                <input
-                  type="text"
-                  className="ieee-input-field"
-                  placeholder="Condition 3 (Optional — e.g. Medical / Healthcare)"
-                  value={ieeeTerm3}
-                  onChange={(e) => setIeeeTerm3(e.target.value)}
-                  disabled={isExecuting}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedFullQuery.trim()) {
-                      e.preventDefault();
-                      handleExecuteSearch(composedFullQuery);
-                    }
-                  }}
-                />
-                {ieeeTerm3 && (
-                  <button
-                    type="button"
-                    onClick={() => setIeeeTerm3('')}
-                    className="text-zinc-500 hover:text-white font-mono text-xs px-1.5 py-0.5 rounded hover:bg-white/10"
-                    title="Clear Condition 3"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Expression Preview & Actions */}
-              <div className="ieee-preview-strip">
-                <div className="flex items-center gap-2 overflow-hidden flex-1">
-                  <span className="ieee-preview-label shrink-0">Expression sent to S2:</span>
-                  <span className="ieee-preview-formula truncate">
-                    {composedFullQuery || '(Enter main topic or conditions)'}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  <button
-                    type="button"
-                    className={`text-xs font-mono transition-colors flex items-center gap-1.5 ${
-                      temporalHoldout
-                        ? 'text-emerald-400'
-                        : 'text-zinc-400 hover:text-zinc-200'
-                    }`}
-                    onClick={() => setTemporalHoldout(!temporalHoldout)}
-                    title="Constrain training corpus strictly to literature <= 2023"
-                  >
-                    <span className={`w-1.5 h-1.5 rounded-full ${temporalHoldout ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-600'}`} />
-                    <span>≤ 2023 Holdout</span>
-                  </button>
-                                    
-                  <button
-                    type="button"
-                    className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-colors flex items-center gap-1 cursor-pointer"
-                    onClick={() => {
-                      setQuery('');
-                      setIeeeTerm1('');
-                      setIeeeTerm2('');
-                      setIeeeTerm3('');
-                      setCoOccurringSuggestions([]);
-                      setPreflightStatus(null);
-                    }}
-                    title="Clear all search bars and reset query"
-                  >
-                    <span>✕ Clear All Fields</span>
-                  </button>
-                </div>
-              </div>
             </div>
           )}
 
-
-            {/* Real-time Boolean Conjunction Audit Pill */}
+          {/* Real-time Boolean Conjunction Audit Pill */}
             {booleanAudit && (
               <div className="flex flex-wrap items-center gap-2 px-3 py-2 my-2 rounded-lg bg-zinc-950/90 border border-zinc-800 text-xs font-mono backdrop-blur-md animate-fadeIn">
                 <span className="flex items-center gap-1.5 text-zinc-400 font-semibold tracking-wider text-[10px]">
@@ -1298,6 +1164,14 @@ export const HeroSection: React.FC<Props> = ({
           </div>
         </div>
       </div>
+
+      {/* Live Scholar Proof & Parity Audit Modal */}
+      <LiveProofModal
+        isOpen={proofModalOpen}
+        onClose={() => setProofModalOpen(false)}
+        query={composedFullQuery || query}
+        paperCount={0}
+      />
     </div>
   );
 };

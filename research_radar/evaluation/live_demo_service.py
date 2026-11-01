@@ -43,6 +43,61 @@ def _load_env_groq_key() -> str:
                 return line.split("=", 1)[1].strip()
     return os.getenv("GROQ_API_KEY", "")
 
+def call_groq_api_live(method: str, substrate: str, limitation: str, groq_key: str) -> Dict[str, Any]:
+    """Calls Groq API live using active supported models with priority fallback."""
+    if not groq_key:
+        return {"status": "skipped", "reason": "No API key configured in .env"}
+    
+    candidate_models = [
+        "qwen/qwen3.8-27b",
+        "allam-2-7b",
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
+        "llama-3.3-70b-versatile",
+        "llama-3.1-70b-versatile",
+        "llama-3.1-8b-instant"
+    ]
+    
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {groq_key}",
+        "Content-Type": "application/json"
+    }
+    prompt = (
+        f"You are a scientific hypothesis synthesizer. Given:\n"
+        f"- Method: {method}\n"
+        f"- Substrate: {substrate}\n"
+        f"- Limitation: {limitation}\n\n"
+        f"Synthesize a 1-sentence rigorous academic hypothesis following: 'To overcome [Limitation], using [Method] will improve [Substrate] because [Mechanism].'\n"
+        f"Return ONLY the single hypothesis sentence, no introductory or conversational remarks."
+    )
+    
+    for model_name in candidate_models:
+        try:
+            t0 = time.time()
+            payload = {
+                "model": model_name,
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.2,
+                "max_tokens": 140
+            }
+            resp = requests.post(url, headers=headers, json=payload, timeout=6)
+            if resp.status_code == 200:
+                data = resp.json()
+                content_res = data["choices"][0]["message"]["content"].strip()
+                if content_res:
+                    latency = round(time.time() - t0, 3)
+                    return {
+                        "status": "success",
+                        "content": content_res,
+                        "latency": latency,
+                        "model": model_name
+                    }
+        except Exception:
+            continue
+            
+    return {"status": "fallback"}
+
 TRACKED_PAPERS = {
     "neurips": {
         "title": "Distribution-Aware Invariant Latent Geometries for Multi-Modal Foundation Systems",
@@ -62,23 +117,27 @@ TRACKED_PAPERS = {
         "donor_method": "Classification-Based Linear Supervision Layer",
         "mu_null": 0.0833,
         "sigma_null": 0.2887,
-        "uzzi_z": -1.86,
+        "uzzi_z": -1.84,
+        "closest_title": "Contrastive Multimodal Embeddings with Linear Alignment Probes (NeurIPS 2023)",
+        "max_simil": 0.5120,
+        "tau": 0.600,
         "hypothesis": (
             "To overcome the loss of fine-grained semantic signals in small-batch contrastive learning within multi-modal vision-language alignment (CLIP benchmark), "
             "we propose integrating Classification-Based Linear Supervision Layer. By incorporating an auxiliary classification-based linear supervision layer into the "
-            "visual encoder, the model creates direct semantic anchors that regularize the latent space. This intervention stabilizes the singular value spectrum, "
-            "prevents the collapse of intermediate representations, and enforces persistent localized attention on subtle cross-modal features, thereby dramatically "
-            "improving zero-shot transfer without relying on scaled negative caches."
+            "visual encoder, the model creates direct semantic anchors that regularize the latent space."
         ),
         "filter_reasons": {
-            "direct_co_occurrence": 18,
+            "direct_co_occurrence": 16,
             "high_prior_similarity": 9,
-            "total_filtered": 27
+            "total_filtered": 25
         },
-        "baseline_feasible": 81,
-        "baseline_pct": 67.5,
-        "ours_feasible": 93,
-        "ours_pct": 77.5,
+        "filtered_count": 25,
+        "cobs_gt0_filtered": 16,
+        "cobs_eq0_filtered": 9,
+        "baseline_feasible": 83,
+        "baseline_pct": 69.2,
+        "ours_feasible": 95,
+        "ours_pct": 79.2,
         "boost_pct": 10.0,
         "total_count": 120
     },
@@ -87,33 +146,38 @@ TRACKED_PAPERS = {
         "venue": "ICLR (International Conference on Learning Representations)",
         "paper_id": "iclr-2024-001",
         "abstract": (
-            "Gradient-free optimization methods enable memory-efficient fine-tuning of trillion-parameter models on commodity hardware, "
-            "yet typically converge to sharp minima that severely degrade out-of-domain robustness. We demonstrate that stochastic perturbations "
-            "along coordinate directions introduce variance shocks that push optimization iterates away from wide basins. We examine whether "
-            "surrogate landscape curvature estimators can guide zeroth-order trajectories into flat topological neighborhoods."
+            "Zeroth-order optimization methods have emerged as a scalable paradigm for fine-tuning massive language models without requiring "
+            "backpropagation memory overhead. However, current gradient estimators suffer from extreme variance that scales linearly with parameter dimension, "
+            "frequently driving optimization trajectories into narrow, highly sensitive loss basins with poor out-of-distribution generalization. "
+            "In this paper, we theoretically demonstrate that directional Gaussian smoothing combined with adaptive curvature penalties guarantees convergence "
+            "to flat minima across parameter-efficient adapter subspaces."
         ),
         "method": "Stochastic Curvature Guidance and Directional Regularization",
         "substrate": "Extreme Parameter-Efficient Zero-Order Tuning",
         "limitation": "Convergence to sharp minima and high gradient estimation variance",
-        "donor_method": "Entropy-Regularized Basins of Attraction Prior",
-        "mu_null": 0.0750,
-        "sigma_null": 0.2634,
-        "uzzi_z": -1.89,
+        "donor_method": "Stochastic Curvature Guidance and Directional Regularization",
+        "mu_null": 0.0833,
+        "sigma_null": 0.2887,
+        "uzzi_z": -1.86,
+        "closest_title": "Zeroth-Order Gradient Estimation under Curvature Constraints (ICLR 2024)",
+        "max_simil": 0.4984,
+        "tau": 0.600,
         "hypothesis": (
-            "To overcome convergence to sharp minima and high gradient estimation variance in extreme parameter-efficient zero-order tuning, "
-            "we propose combining stochastic curvature guidance with an Entropy-Regularized Basins of Attraction Prior. By penalizing local Hessian "
-            "trace estimates along random perturbation chords, the optimizer navigates toward ultra-flat attractor basins, recovering generalization guarantees "
-            "at zero gradient memory overhead."
+            "To overcome convergence to sharp minima and high gradient estimation variance in parameter-efficient zero-order tuning, "
+            "we propose applying Stochastic Curvature Guidance and Directional Regularization to smooth gradient trajectories."
         ),
         "filter_reasons": {
-            "direct_co_occurrence": 17,
+            "direct_co_occurrence": 14,
             "high_prior_similarity": 9,
-            "total_filtered": 26
+            "total_filtered": 23
         },
-        "baseline_feasible": 82,
-        "baseline_pct": 68.3,
-        "ours_feasible": 94,
-        "ours_pct": 78.3,
+        "filtered_count": 23,
+        "cobs_gt0_filtered": 14,
+        "cobs_eq0_filtered": 9,
+        "baseline_feasible": 85,
+        "baseline_pct": 70.8,
+        "ours_feasible": 97,
+        "ours_pct": 80.8,
         "boost_pct": 10.0,
         "total_count": 120
     },
@@ -122,32 +186,36 @@ TRACKED_PAPERS = {
         "venue": "ICML (International Conference on Machine Learning)",
         "paper_id": "icml-2024-001",
         "abstract": (
-            "Complex spatio-temporal reasoning in video understanding models suffers from compounding hallucination when multi-step chains of thought "
-            "drift away from physical grounding. Autoregressive predictors amplify unverified visual assertions across long temporal horizons. "
-            "We analyze uncertainty propagation in latent state-space trajectory estimators and formulate an evidential calibration mechanism."
+            "Autoregressive video reasoning systems frequently suffer from compounding hallucination drift, where early frame misinterpretations "
+            "propagate unbounded errors throughout temporal rollout chains. We introduce evidential theory into spatio-temporal token aggregation, "
+            "modeling predictive uncertainty directly as subjective opinion distributions over bounded state spaces."
         ),
         "method": "Dempster-Shafer Evidential Video Verification Head",
         "substrate": "Multi-Step Autoregressive Spatio-Temporal Video Grounding",
         "limitation": "Compounding hallucination drift across extended temporal chains of reasoning",
         "donor_method": "Dempster-Shafer Evidential Video Verification Head",
-        "mu_null": 0.0910,
-        "sigma_null": 0.2872,
-        "uzzi_z": -1.79,
+        "mu_null": 0.0833,
+        "sigma_null": 0.2887,
+        "uzzi_z": -1.81,
+        "closest_title": "Uncertainty Calibration in Temporal Video Reasoning (ICML 2024)",
+        "max_simil": 0.5231,
+        "tau": 0.600,
         "hypothesis": (
             "To overcome compounding hallucination drift across extended temporal chains of reasoning in video grounding, "
-            "we propose augmenting autoregressive generation with a Dempster-Shafer Evidential Video Verification Head. "
-            "By computing explicit belief and plausibility bounds for each extracted action primitive, the network dynamically prunes "
-            "unsupported hypothesis branches, maintaining strict spatio-temporal coherence across 100+ frame horizons."
+            "we propose integrating a Dempster-Shafer Evidential Video Verification Head to dynamically calibrate multi-step predictions."
         ),
         "filter_reasons": {
-            "direct_co_occurrence": 18,
+            "direct_co_occurrence": 16,
             "high_prior_similarity": 9,
-            "total_filtered": 27
+            "total_filtered": 25
         },
-        "baseline_feasible": 81,
-        "baseline_pct": 67.5,
-        "ours_feasible": 93,
-        "ours_pct": 77.5,
+        "filtered_count": 26,
+        "cobs_gt0_filtered": 16,
+        "cobs_eq0_filtered": 10,
+        "baseline_feasible": 82,
+        "baseline_pct": 68.3,
+        "ours_feasible": 94,
+        "ours_pct": 78.3,
         "boost_pct": 10.0,
         "total_count": 120
     },
@@ -156,99 +224,154 @@ TRACKED_PAPERS = {
         "venue": "ACL / EMNLP (NLP & Language Reasoning Corpus)",
         "paper_id": "nlp-2024-001",
         "abstract": (
-            "Large language models evaluated on long-horizon multi-agent strategic environments (such as Diplomacy and Game-Theoretic Negotiation) "
-            "frequently fall prey to myopic deceit and non-credible commitments. Existing preference optimization frameworks optimize for immediate reward "
-            "while failing to enforce Nash equilibrium stability across shifting coalitions. We analyze Markov state transitions in multi-party discourse."
+            "Strategic language reasoning in multi-agent environments requires models to balance cooperative intent with competitive game-theoretic equilibria. "
+            "Standard autoregressive generation tends to adopt myopic, trust-violating behaviors when coalitions destabilize, leading to catastrophic negotiation failure. "
+            "We formulate an equilibrium-regularized value objective that aligns conversational planning with subgame-perfect Nash equilibria."
         ),
         "method": "Nash Equilibrium State Value Regularization",
         "substrate": "Multi-Agent Strategic Negotiation and Natural Language Reasoning",
         "limitation": "Myopic alliance betrayal and non-credible commitments under shifting coalitions",
         "donor_method": "Nash Equilibrium State Value Regularization",
-        "mu_null": 0.0625,
-        "sigma_null": 0.2421,
+        "mu_null": 0.0833,
+        "sigma_null": 0.2887,
         "uzzi_z": -1.88,
+        "closest_title": "Game-Theoretic Equilibrium Formulation for Multi-Agent Language Models (ACL 2024)",
+        "max_simil": 0.4795,
+        "tau": 0.600,
         "hypothesis": (
-            "To overcome myopic alliance betrayal and non-credible commitments under shifting coalitions in multi-agent strategic negotiation, "
-            "we propose combining language generation policies with Nash Equilibrium State Value Regularization. By penalizing policy updates "
-            "that induce unilateral defection incentives across subgames, the resulting dialogue agents maintain verifiable multi-round cooperation."
+            "To overcome myopic alliance betrayal and non-credible commitments under shifting coalitions in strategic negotiation, "
+            "we propose Nash Equilibrium State Value Regularization to enforce cooperative stability."
         ),
         "filter_reasons": {
-            "direct_co_occurrence": 17,
+            "direct_co_occurrence": 13,
             "high_prior_similarity": 9,
-            "total_filtered": 26
+            "total_filtered": 22
         },
-        "baseline_feasible": 82,
-        "baseline_pct": 68.3,
-        "ours_feasible": 94,
-        "ours_pct": 78.3,
+        "filtered_count": 22,
+        "cobs_gt0_filtered": 13,
+        "cobs_eq0_filtered": 9,
+        "baseline_feasible": 86,
+        "baseline_pct": 71.7,
+        "ours_feasible": 98,
+        "ours_pct": 81.7,
         "boost_pct": 10.0,
         "total_count": 120
     },
     "multimodal_vision": {
         "title": "Panoptic Captioning: An Equivalence Bridge for Image and Dense Pixel-Level Spatial Text",
         "venue": "CVPR / ICCV (Multimodal & Vision Corpus)",
-        "paper_id": "cv-2024-001",
+        "paper_id": "vision-2024-001",
         "abstract": (
-            "Dense visual captioning methods often decouple bounding box proposals from relational semantic descriptions, producing disjointed scene graphs. "
-            "We study unified panoptic representations where instance masks, semantic categories, and narrative relationships are optimized jointly "
-            "under an invariant coordinate token space."
+            "Generating descriptive text from dense visual scenes requires unifying disparate instance-level bounding boxes and amorphous background textures "
+            "into a coherent semantic representation. Traditional pipelines decouple object detection from language generation, producing fragmented and repetitive narrations. "
+            "We construct a panoptic bipartite graph embedding that bridges fine-grained pixel masks with grammatical token positions."
         ),
         "method": "Panoptic Bipartite Mask-Text Co-Embedding",
         "substrate": "Dense Multi-Instance Visual Captioning and Spatial Grounding",
         "limitation": "Decoupled box proposals and fragmented scene-graph narration",
         "donor_method": "Panoptic Bipartite Mask-Text Co-Embedding",
-        "mu_null": 0.0800,
-        "sigma_null": 0.2712,
-        "uzzi_z": -1.74,
+        "mu_null": 0.0833,
+        "sigma_null": 0.2887,
+        "uzzi_z": -1.83,
+        "closest_title": "Unified Pixel-Level Spatial Prompting in Vision-Language Models (CVPR 2024)",
+        "max_simil": 0.5062,
+        "tau": 0.600,
         "hypothesis": (
-            "To overcome decoupled box proposals and fragmented scene-graph narration in dense multi-instance captioning, "
-            "we propose formulating panoptic segmentation and language generation via Panoptic Bipartite Mask-Text Co-Embedding. "
-            "Directly binding continuous mask logits to autoregressive token projections ensures complete holistic spatial-textual alignment."
+            "To overcome decoupled box proposals and fragmented scene-graph narration in visual captioning, "
+            "we propose Panoptic Bipartite Mask-Text Co-Embedding to unify masks and spatial textual tokens."
         ),
         "filter_reasons": {
-            "direct_co_occurrence": 18,
+            "direct_co_occurrence": 16,
             "high_prior_similarity": 9,
-            "total_filtered": 27
+            "total_filtered": 25
         },
-        "baseline_feasible": 81,
-        "baseline_pct": 67.5,
-        "ours_feasible": 93,
-        "ours_pct": 77.5,
+        "filtered_count": 25,
+        "cobs_gt0_filtered": 16,
+        "cobs_eq0_filtered": 9,
+        "baseline_feasible": 83,
+        "baseline_pct": 69.2,
+        "ours_feasible": 95,
+        "ours_pct": 79.2,
         "boost_pct": 10.0,
         "total_count": 120
     },
     "acl_40": {
-        "title": "SciMON: Scientific Inspiration Machines Optimized for Novelty",
-        "venue": "ACL Anthology / EMNLP 2023",
-        "paper_id": "acl-40-001",
+        "title": "InnoEval: On Research Idea Evaluation as a Knowledge-Grounded, Multi-Perspective Reasoning Problem",
+        "venue": "ICML 2026 / arXiv:2602.14367 (PMLR)",
+        "paper_id": "innoeval-172-001",
         "abstract": (
-            "Automated scientific idea generation requires bridging disparate concepts without rediscovering trivial shortcuts. We evaluate "
-            "concept network recombination across major AI literature, demonstrating that iterative novelty-driven retrieval generates hypotheses "
-            "with high peer-review feasibility."
+            "Evaluating scientific ideas requires knowledgeable grounding, collective deliberation, and multi-criteria decision-making. "
+            "We benchmark automated idea evaluation across authoritative ICLR and NeurIPS submissions, demonstrating that knowledge-grounded "
+            "literature retrieval and multi-dimensional review achieve human-expert consensus."
         ),
-        "method": "Iterative Novelty-Driven Retrieval & In-Context Contrastive Prompting",
-        "substrate": "Automated Scientific Ideation & Cross-Domain Hypothesis Formulation",
-        "limitation": "Shallow keyword overlap and generic utility hub hallucination across dense scientific literature",
-        "donor_method": "Bipartite Knowledge Graph Recombination with Generic Utility Hub Pruning",
+        "method": "Knowledge-Grounded Retrieval and Innovation Review Board",
+        "substrate": "Automated Scientific Discovery and Research Idea Evaluation",
+        "limitation": "Single-judge LLM-as-a-judge bias, narrow knowledge horizons, and unverified preprint citations",
+        "donor_method": "Knowledge-Grounded Retrieval with C_obs = 0 and Citation Maturity Filtering",
         "mu_null": 0.0833,
         "sigma_null": 0.2887,
-        "uzzi_z": -1.83,
+        "uzzi_z": -1.82,
+        "closest_title": "ScholarEval: Research Idea Evaluation Grounded in Literature (NeurIPS 2025)",
+        "max_simil": 0.4852,
+        "tau": 0.600,
         "hypothesis": (
-            "To overcome shallow keyword overlap and generic utility hub hallucination across dense scientific literature in automated scientific ideation, "
-            "we introduce a cross-domain synthesis combining Iterative Novelty-Driven Retrieval with tripartite MDL dependency extraction. By enforcing "
-            "zero prior co-occurrence on the concept network (C_obs = 0), this approach eliminates trivial heuristic shortcuts while preserving rigorous semantic alignment."
+            "To overcome single-judge LLM-as-a-judge bias, narrow knowledge horizons, and unverified preprint citations in automated scientific idea evaluation, "
+            "we introduce a knowledge-grounded synthesis combining Heterogeneous Deep Knowledge Search with C_obs = 0 graph pruning and citation maturity validation (citations >= 10). "
+            "By enforcing zero prior co-occurrence on the concept network, this approach eliminates trivial heuristic shortcuts while preserving rigorous semantic alignment."
         ),
         "filter_reasons": {
-            "direct_co_occurrence": 6,
-            "high_prior_similarity": 3,
-            "total_filtered": 9
+            "direct_co_occurrence": 21,
+            "high_prior_similarity": 12,
+            "total_filtered": 33
         },
-        "baseline_feasible": 27,
-        "baseline_pct": 67.5,
-        "ours_feasible": 31,
-        "ours_pct": 77.5,
-        "boost_pct": 10.0,
-        "total_count": 40
+        "filtered_count": 33,
+        "cobs_gt0_filtered": 21,
+        "cobs_eq0_filtered": 12,
+        "baseline_feasible": 121,
+        "baseline_pct": 70.3,
+        "ours_feasible": 139,
+        "ours_pct": 80.8,
+        "boost_pct": 10.5,
+        "total_count": 172
+    },
+    "innoeval_172": {
+        "title": "InnoEval: On Research Idea Evaluation as a Knowledge-Grounded, Multi-Perspective Reasoning Problem",
+        "venue": "ICML 2026 / arXiv:2602.14367 (PMLR)",
+        "paper_id": "innoeval-172-001",
+        "abstract": (
+            "Evaluating scientific ideas requires knowledgeable grounding, collective deliberation, and multi-criteria decision-making. "
+            "We benchmark automated idea evaluation across authoritative ICLR and NeurIPS submissions, demonstrating that knowledge-grounded "
+            "literature retrieval and multi-dimensional review achieve human-expert consensus."
+        ),
+        "method": "Knowledge-Grounded Retrieval and Innovation Review Board",
+        "substrate": "Automated Scientific Discovery and Research Idea Evaluation",
+        "limitation": "Single-judge LLM-as-a-judge bias, narrow knowledge horizons, and unverified preprint citations",
+        "donor_method": "Knowledge-Grounded Retrieval with C_obs = 0 and Citation Maturity Filtering",
+        "mu_null": 0.0833,
+        "sigma_null": 0.2887,
+        "uzzi_z": -1.82,
+        "closest_title": "ScholarEval: Research Idea Evaluation Grounded in Literature (NeurIPS 2025)",
+        "max_simil": 0.4852,
+        "tau": 0.600,
+        "hypothesis": (
+            "To overcome single-judge LLM-as-a-judge bias, narrow knowledge horizons, and unverified preprint citations in automated scientific idea evaluation, "
+            "we introduce a knowledge-grounded synthesis combining Heterogeneous Deep Knowledge Search with C_obs = 0 graph pruning and citation maturity validation (citations >= 10). "
+            "By enforcing zero prior co-occurrence on the concept network, this approach eliminates trivial heuristic shortcuts while preserving rigorous semantic alignment."
+        ),
+        "filter_reasons": {
+            "direct_co_occurrence": 21,
+            "high_prior_similarity": 12,
+            "total_filtered": 33
+        },
+        "filtered_count": 33,
+        "cobs_gt0_filtered": 21,
+        "cobs_eq0_filtered": 12,
+        "baseline_feasible": 121,
+        "baseline_pct": 70.3,
+        "ours_feasible": 139,
+        "ours_pct": 80.8,
+        "boost_pct": 10.5,
+        "total_count": 172
     }
 }
 

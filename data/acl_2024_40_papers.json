@@ -1,1642 +1,1282 @@
 [
   {
-    "id": "acl_2024_001",
-    "paper_id": "ACL_2024_001",
-    "title": "SciMON: Scientific Inspiration Machines Optimized for Novelty",
-    "year": 2023,
-    "venue": "ACL 2023",
-    "citationCount": 45,
-    "influentialCitationCount": 8,
-    "authors": [
-      {
-        "name": "Researcher 1A"
-      },
-      {
-        "name": "Researcher 1B"
-      }
-    ],
-    "abstract": "Explicitly grounding language model outputs in retrieved inspirations from past scientific literature and iteratively optimizing for novelty will enable the generation of more novel, relevant, and technically detailed scientific ideas compared to standard language model approaches. Specifically, this paper investigates: Can neural language models generate novel scientific directions grounded in literature, moving beyond traditional binary link prediction to produce expressive, contextually rich hypotheses? How can the generation of scientific ideas be systematically optimized for novelty while maintaining relevance to existing literature?. A modeling framework, SCIMON, is proposed to generate novel scientific ideas by combining literature-grounded inspiration retrieval with iterative novelty optimization. The method begins by extracting background contexts (e.g., problems, motivations, experimental settings) and salient seed terms fro...",
-    "tldr": "Can neural language models generate novel scientific directions grounded in literature, moving beyond traditional binary link prediction to produce expressive, contextually rich hypotheses? How can the generation of scientific ideas be systematically optimized for novelty while maintaining relevance to existing literature?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.acl-main.1",
-    "url": "https://aclanthology.org/2024.acl-main.1",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380000000",
-    "references": [],
-    "matched_in_title": [
-      "SciMON"
-    ],
-    "matched_in_abstract": [
-      "Automated Scientific Ideation & Novelty Search"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "SciMON",
-    "substrate": "Automated Scientific Ideation & Novelty Search",
-    "limitation": "Degraded generalization and computational overhead under automated scientific ideation & novelty search.",
-    "hypothesis": "Explicitly grounding language model outputs in retrieved inspirations from past scientific literature and iteratively optimizing for novelty will enable the generation of more novel, relevant, and technically detailed scientific ideas compared to standard language model approaches."
-  },
-  {
-    "id": "acl_2024_002",
-    "paper_id": "ACL_2024_002",
-    "title": "LLM+P: Empowering Large Language Models with Optimal Planning Proficiency",
-    "year": 2023,
-    "venue": "EMNLP 2023",
-    "citationCount": 58,
-    "influentialCitationCount": 11,
-    "authors": [
-      {
-        "name": "Researcher 2A"
-      },
-      {
-        "name": "Researcher 2B"
-      }
-    ],
-    "abstract": "Integrating large language models with classical symbolic planners via a structured translation pipeline will enable the generation of correct and optimal plans for complex tasks specified in natural language, outperforming LLMs used in isolation for planning. Specifically, this paper investigates: How can large language models be empowered to reliably solve complex, long-horizon planning problems specified in natural language, particularly in robotics and related domains?. A framework is developed that combines large language models (LLMs) with classical planning algorithms to solve planning problems described in natural language. The method first uses an LLM to translate a natural language problem description into a Planning Domain Definition Language (PDDL) problem ...",
-    "tldr": "How can large language models be empowered to reliably solve complex, long-horizon planning problems specified in natural language, particularly in robotics and related domains?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.emnlp-main.2",
-    "url": "https://aclanthology.org/2024.emnlp-main.2",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380001721",
-    "references": [],
-    "matched_in_title": [
-      "LLM+P"
-    ],
-    "matched_in_abstract": [
-      "Autonomous Agent Symbolic Planning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "LLM+P",
-    "substrate": "Autonomous Agent Symbolic Planning",
-    "limitation": "Degraded generalization and computational overhead under autonomous agent symbolic planning.",
-    "hypothesis": "Integrating large language models with classical symbolic planners via a structured translation pipeline will enable the generation of correct and optimal plans for complex tasks specified in natural language, outperforming LLMs used in isolation for planning."
-  },
-  {
-    "id": "acl_2024_003",
-    "paper_id": "ACL_2024_003",
-    "title": "Masked Feature Prediction for Self-Supervised Visual Pre-Training",
-    "year": 2021,
-    "venue": "NAACL 2021",
-    "citationCount": 71,
-    "influentialCitationCount": 14,
-    "authors": [
-      {
-        "name": "Researcher 3A"
-      },
-      {
-        "name": "Researcher 3B"
-      }
-    ],
-    "abstract": "Predicting hand-crafted feature descriptors, such as Histograms of Oriented Gradients (HOG), for masked regions in visual data enables effective self-supervised pre-training of large-scale vision models, leading to improved performance on downstream video and image recognition tasks compared to previous methods that use pixel prediction, discrete tokenization, or deep network features. Specifically, this paper investigates: How can self-supervised learning methods be improved for visual pre-training, particularly for video understanding, without relying on external supervision or large-scale labeled datasets?. A self-supervised pre-training framework is developed in which a vision Transformer backbone processes visual input (video or image) with a portion of the input randomly masked out. The model is tasked with regressing feature representations of the masked regions, where the features are extracted fr...",
-    "tldr": "How can self-supervised learning methods be improved for visual pre-training, particularly for video understanding, without relying on external supervision or large-scale labeled datasets?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.naacl-main.3",
-    "url": "https://aclanthology.org/2024.naacl-main.3",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380003442",
-    "references": [],
-    "matched_in_title": [
-      "Masked Feature Prediction"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Masked Feature Prediction",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Predicting hand-crafted feature descriptors, such as Histograms of Oriented Gradients (HOG), for masked regions in visual data enables effective self-supervised pre-training of large-scale vision models, leading to improved performance on downstream video and image recognition tasks compared to previous methods that use pixel prediction, discrete tokenization, or deep network features."
-  },
-  {
-    "id": "acl_2024_004",
-    "paper_id": "ACL_2024_004",
-    "title": "OUTFOX: LLM-generated Essay Detection through In-context Learning with Adversarially Generated Examples",
-    "year": 2023,
-    "venue": "ACL Findings 2023",
-    "citationCount": 84,
-    "influentialCitationCount": 17,
-    "authors": [
-      {
-        "name": "Researcher 4A"
-      },
-      {
-        "name": "Researcher 4B"
-      }
-    ],
-    "abstract": "Jointly training or prompting both the detector and the adversarial attacker to consider each other's outputs in an in-context learning framework will significantly improve the robustness and accuracy of LLM-generated essay detection, even under strong adversarial attacks, without sacrificing performance on non-attacked texts. Specifically, this paper investigates: How can the robustness of detectors for identifying LLM-generated essays be improved, particularly against adversarial attacks that adapt to the detector's outputs, and how can such detectors maintain high performance on both attacked and non-attacked texts?. A novel adversarial in-context learning framework, OUTFOX, is proposed to enhance the detection of LLM-generated essays. In this framework, both the detector and the attacker leverage each other's outputs as in-context examples within their respective prompts. The detector uses a mixture of human-wr...",
-    "tldr": "How can the robustness of detectors for identifying LLM-generated essays be improved, particularly against adversarial attacks that adapt to the detector's outputs, and how can such detectors maintain high performance on both attacked and non-attacked texts?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.aclfindings-main.4",
-    "url": "https://aclanthology.org/2024.aclfindings-main.4",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380005163",
-    "references": [],
-    "matched_in_title": [
-      "OUTFOX"
-    ],
-    "matched_in_abstract": [
-      "Adversarial Machine-Generated Text Detection"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "OUTFOX",
-    "substrate": "Adversarial Machine-Generated Text Detection",
-    "limitation": "Degraded generalization and computational overhead under adversarial machine-generated text detection.",
-    "hypothesis": "Jointly training or prompting both the detector and the adversarial attacker to consider each other's outputs in an in-context learning framework will significantly improve the robustness and accuracy of LLM-generated essay detection, even under strong adversarial attacks, without sacrificing performance on non-attacked texts."
-  },
-  {
-    "id": "acl_2024_005",
-    "paper_id": "ACL_2024_005",
-    "title": "SPARTA ALIGNMENT: Collectively Aligning Multiple Language Models through Combat",
-    "year": 2025,
-    "venue": "Transactions of the ACL 2025",
-    "citationCount": 97,
-    "influentialCitationCount": 20,
-    "authors": [
-      {
-        "name": "Researcher 5A"
-      },
-      {
-        "name": "Researcher 5B"
-      }
-    ],
-    "abstract": "Collectively aligning multiple LLMs via a competitive, game-theoretic framework\u2014where models generate, judge, and learn from each other's outputs\u2014will yield superior alignment, greater generalization to unseen tasks, and enhanced output diversity compared to single-model self-alignment methods. Specifically, this paper investigates: How can the collective alignment of multiple large language models (LLMs) through competitive and collaborative mechanisms improve model alignment, generalization, and output diversity compared to single-model self-alignment approaches?. A novel algorithm, SPARTA ALIGNMENT, will be developed to collectively align a pool of LLMs through iterative competitive and collaborative processes. In each iteration, a prompt is sampled and two models are selected for a head-to-head 'combat', generating responses to the prompt. The remaining mod...",
-    "tldr": "How can the collective alignment of multiple large language models (LLMs) through competitive and collaborative mechanisms improve model alignment, generalization, and output diversity compared to single-model self-alignment approaches?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.5",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.5",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380006884",
-    "references": [],
-    "matched_in_title": [
-      "SPARTA ALIGNMENT"
-    ],
-    "matched_in_abstract": [
-      "Preference Alignment & Reinforcement Learning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "SPARTA ALIGNMENT",
-    "substrate": "Preference Alignment & Reinforcement Learning",
-    "limitation": "Degraded generalization and computational overhead under preference alignment & reinforcement learning.",
-    "hypothesis": "Collectively aligning multiple LLMs via a competitive, game-theoretic framework\u2014where models generate, judge, and learn from each other's outputs\u2014will yield superior alignment, greater generalization to unseen tasks, and enhanced output diversity compared to single-model self-alignment methods."
-  },
-  {
-    "id": "acl_2024_006",
-    "paper_id": "ACL_2024_006",
-    "title": "On the Reliability of Watermarks for Large Language Models",
-    "year": 2023,
-    "venue": "ACL 2023",
-    "citationCount": 110,
-    "influentialCitationCount": 23,
-    "authors": [
-      {
-        "name": "Researcher 6A"
-      },
-      {
-        "name": "Researcher 6B"
-      }
-    ],
-    "abstract": "Watermarks embedded in machine-generated text remain reliably detectable under a wide range of realistic modifications, including paraphrasing by humans or other language models and mixing with human-written content, provided that a sufficient quantity of text is available for analysis. Specifically, this paper investigates: How reliable are watermarking techniques for detecting machine-generated text from large language models in realistic, adversarial, and mixed-content scenarios, including paraphrasing by humans or other models and insertion into larger human-written documents?. A comprehensive evaluation will be conducted on the robustness of combinatorial watermarking schemes for large language models, focusing on both the watermark generation and detection pipelines. The watermarking method will involve seeding a pseudo-random function with a context window of preceding ...",
-    "tldr": "How reliable are watermarking techniques for detecting machine-generated text from large language models in realistic, adversarial, and mixed-content scenarios, including paraphrasing by humans or other models and insertion into larger human-written documents?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.acl-main.6",
-    "url": "https://aclanthology.org/2024.acl-main.6",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380008605",
-    "references": [],
-    "matched_in_title": [
-      "On the Reliability"
-    ],
-    "matched_in_abstract": [
-      "LLM Provenance & Watermark Verification"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "On the Reliability",
-    "substrate": "LLM Provenance & Watermark Verification",
-    "limitation": "Degraded generalization and computational overhead under llm provenance & watermark verification.",
-    "hypothesis": "Watermarks embedded in machine-generated text remain reliably detectable under a wide range of realistic modifications, including paraphrasing by humans or other language models and mixing with human-written content, provided that a sufficient quantity of text is available for analysis."
-  },
-  {
-    "id": "acl_2024_007",
-    "paper_id": "ACL_2024_007",
-    "title": "LLM in a flash: Efficient Large Language Model Inference with Limited Memory",
-    "year": 2023,
-    "venue": "EMNLP 2023",
-    "citationCount": 123,
-    "influentialCitationCount": 26,
-    "authors": [
-      {
-        "name": "Researcher 7A"
-      },
-      {
-        "name": "Researcher 7B"
-      }
-    ],
-    "abstract": "It is hypothesized that by storing LLM parameters in flash memory and employing hardware-informed strategies to minimize data transfer and maximize throughput, it is possible to enable efficient inference of models larger than available DRAM, with significant reductions in latency and memory usage compared to naive loading approaches. Specifically, this paper investigates: How can large language models (LLMs) be efficiently run for inference on devices with limited DRAM capacity, particularly when the model size exceeds available memory, by leveraging flash memory and hardware-aware algorithmic optimizations?. The proposed method introduces a hardware-aware framework for LLM inference where model parameters are stored in flash memory and selectively loaded into DRAM on demand. An inference cost model is constructed to account for flash memory characteristics, guiding optimizations in two main areas: (1) r...",
-    "tldr": "How can large language models (LLMs) be efficiently run for inference on devices with limited DRAM capacity, particularly when the model size exceeds available memory, by leveraging flash memory and hardware-aware algorithmic optimizations?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.emnlp-main.7",
-    "url": "https://aclanthology.org/2024.emnlp-main.7",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380010326",
-    "references": [],
-    "matched_in_title": [
-      "LLM in a flash"
-    ],
-    "matched_in_abstract": [
-      "Resource-Constrained Model Inference"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "LLM in a flash",
-    "substrate": "Resource-Constrained Model Inference",
-    "limitation": "Degraded generalization and computational overhead under resource-constrained model inference.",
-    "hypothesis": "It is hypothesized that by storing LLM parameters in flash memory and employing hardware-informed strategies to minimize data transfer and maximize throughput, it is possible to enable efficient inference of models larger than available DRAM, with significant reductions in latency and memory usage compared to naive loading approaches."
-  },
-  {
-    "id": "acl_2024_008",
-    "paper_id": "ACL_2024_008",
-    "title": "Pride and Prejudice: LLM Amplifies Self-Bias in Self-Refinement",
-    "year": 2024,
-    "venue": "NAACL 2024",
-    "citationCount": 136,
-    "influentialCitationCount": 29,
-    "authors": [
-      {
-        "name": "Researcher 8A"
-      },
-      {
-        "name": "Researcher 8B"
-      }
-    ],
-    "abstract": "LLMs exhibit a measurable self-bias during self-refinement and self-rewarding processes, which can be amplified through iterative feedback and larger candidate pools, but this bias can be significantly reduced by increasing model size and incorporating external, accurate feedback. Specifically, this paper investigates: How does self-bias manifest and amplify in large language models (LLMs) during iterative self-refinement and self-rewarding pipelines across multiple tasks and languages, and what strategies can effectively mitigate this bias to improve downstream performance?. A formal definition of self-bias in LLMs will be established using two statistical measures: bias (the mean difference between LLM self-evaluation and human or reference-based evaluation) and distance skewness (the asymmetry of the distribution of these differences). The methodology involves prompti...",
-    "tldr": "How does self-bias manifest and amplify in large language models (LLMs) during iterative self-refinement and self-rewarding pipelines across multiple tasks and languages, and what strategies can effectively mitigate this bias to improve downstream performance?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.naacl-main.8",
-    "url": "https://aclanthology.org/2024.naacl-main.8",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380012047",
-    "references": [],
-    "matched_in_title": [
-      "Pride and Prejudice"
-    ],
-    "matched_in_abstract": [
-      "Self-Refinement & Recursive Hallucination Mitigation"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Pride and Prejudice",
-    "substrate": "Self-Refinement & Recursive Hallucination Mitigation",
-    "limitation": "Degraded generalization and computational overhead under self-refinement & recursive hallucination mitigation.",
-    "hypothesis": "LLMs exhibit a measurable self-bias during self-refinement and self-rewarding processes, which can be amplified through iterative feedback and larger candidate pools, but this bias can be significantly reduced by increasing model size and incorporating external, accurate feedback."
-  },
-  {
-    "id": "acl_2024_009",
-    "paper_id": "ACL_2024_009",
-    "title": "Spike-driven Transformer",
-    "year": 2023,
-    "venue": "ACL Findings 2023",
-    "citationCount": 149,
-    "influentialCitationCount": 32,
-    "authors": [
-      {
-        "name": "Researcher 9A"
-      },
-      {
-        "name": "Researcher 9B"
-      }
-    ],
-    "abstract": "A Transformer architecture that is entirely spike-driven, using only sparse addition and binary spike communication, can achieve state-of-the-art accuracy on large-scale tasks while drastically reducing energy consumption compared to both conventional Transformers and existing spiking Transformer hybrids. Specifically, this paper investigates: Can the spike-driven paradigm of Spiking Neural Networks (SNNs) be fully integrated into the Transformer architecture to achieve high task accuracy and extreme energy efficiency, making the model suitable for deployment on neuromorphic hardware?. A novel Transformer architecture is proposed in which all core computations, including self-attention and multi-layer perceptrons (MLPs), are re-designed to operate in a spike-driven manner. The key innovation is the Spike-Driven Self-Attention (SDSA) module, which replaces energy-intensive matrix m...",
-    "tldr": "Can the spike-driven paradigm of Spiking Neural Networks (SNNs) be fully integrated into the Transformer architecture to achieve high task accuracy and extreme energy efficiency, making the model suitable for deployment on neuromorphic hardware?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.aclfindings-main.9",
-    "url": "https://aclanthology.org/2024.aclfindings-main.9",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380013768",
-    "references": [],
-    "matched_in_title": [
-      "Spike-driven Transformer"
-    ],
-    "matched_in_abstract": [
-      "Neuromorphic Energy-Efficient Attention"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Spike-driven Transformer",
-    "substrate": "Neuromorphic Energy-Efficient Attention",
-    "limitation": "Degraded generalization and computational overhead under neuromorphic energy-efficient attention.",
-    "hypothesis": "A Transformer architecture that is entirely spike-driven, using only sparse addition and binary spike communication, can achieve state-of-the-art accuracy on large-scale tasks while drastically reducing energy consumption compared to both conventional Transformers and existing spiking Transformer hybrids."
-  },
-  {
-    "id": "acl_2024_010",
-    "paper_id": "ACL_2024_010",
-    "title": "LLM-Pruner: On the Structural Pruning of Large Language Models",
-    "year": 2023,
-    "venue": "Transactions of the ACL 2023",
-    "citationCount": 162,
-    "influentialCitationCount": 10,
-    "authors": [
-      {
-        "name": "Researcher 10A"
-      },
-      {
-        "name": "Researcher 10B"
-      }
-    ],
-    "abstract": "It is hypothesized that a dependency-based structural pruning framework, combined with efficient importance estimation and rapid post-training using limited external data, can significantly compress large language models without substantial loss in their multi-task and generative performance. Specifically, this paper investigates: How can large language models be structurally pruned in a task-agnostic manner to reduce computational and memory requirements, while minimizing reliance on the original training data and preserving general-purpose language understanding and generation capabilities?. A novel framework, LLM-Pruner, is proposed for task-agnostic structured pruning of large language models. The method consists of three main stages: (1) Discovery of all coupled and interdependent structures within the model by constructing a dependency graph, ensuring that pruning respects the inher...",
-    "tldr": "How can large language models be structurally pruned in a task-agnostic manner to reduce computational and memory requirements, while minimizing reliance on the original training data and preserving general-purpose language understanding and generation capabilities?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.10",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.10",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380015489",
-    "references": [],
-    "matched_in_title": [
-      "LLM-Pruner"
-    ],
-    "matched_in_abstract": [
-      "Resource-Constrained Model Inference"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "LLM-Pruner",
-    "substrate": "Resource-Constrained Model Inference",
-    "limitation": "Degraded generalization and computational overhead under resource-constrained model inference.",
-    "hypothesis": "It is hypothesized that a dependency-based structural pruning framework, combined with efficient importance estimation and rapid post-training using limited external data, can significantly compress large language models without substantial loss in their multi-task and generative performance."
-  },
-  {
-    "id": "acl_2024_011",
-    "paper_id": "ACL_2024_011",
-    "title": "Magnetic Preference Optimization: Achieving Last-iterate Convergence for Language Models Alignment",
-    "year": 2024,
-    "venue": "ACL 2024",
-    "citationCount": 175,
-    "influentialCitationCount": 13,
-    "authors": [
-      {
-        "name": "Researcher 11A"
-      },
-      {
-        "name": "Researcher 11B"
-      }
-    ],
-    "abstract": "A novel optimization framework that achieves last-iterate convergence to the Nash equilibrium of the original preference-based game will enable more accurate and efficient alignment of large language models with diverse human preferences, overcoming the limitations of existing average-iterate or regularized approaches. Specifically, this paper investigates: How can large language models be aligned with complex, potentially non-transitive human preferences in reinforcement learning from human feedback, while ensuring efficient and robust convergence to optimal policies?. A new algorithm, Magnetic Preference Optimization (MPO), will be developed to achieve last-iterate convergence to the Nash equilibrium (NE) of a two-player constant-sum game modeling human preferences. The method adapts Magnetic Mirror Descent (MMD) to the RLHF setting, introducing a periodically up...",
-    "tldr": "How can large language models be aligned with complex, potentially non-transitive human preferences in reinforcement learning from human feedback, while ensuring efficient and robust convergence to optimal policies?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.acl-main.11",
-    "url": "https://aclanthology.org/2024.acl-main.11",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380017210",
-    "references": [],
-    "matched_in_title": [
-      "Magnetic Preference Optimization"
-    ],
-    "matched_in_abstract": [
-      "Preference Alignment & Reinforcement Learning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Magnetic Preference Optimization",
-    "substrate": "Preference Alignment & Reinforcement Learning",
-    "limitation": "Degraded generalization and computational overhead under preference alignment & reinforcement learning.",
-    "hypothesis": "A novel optimization framework that achieves last-iterate convergence to the Nash equilibrium of the original preference-based game will enable more accurate and efficient alignment of large language models with diverse human preferences, overcoming the limitations of existing average-iterate or regularized approaches."
-  },
-  {
-    "id": "acl_2024_012",
-    "paper_id": "ACL_2024_012",
-    "title": "NodeFormer: A Scalable Graph Structure Learning Transformer for Node Classification",
-    "year": 2023,
-    "venue": "EMNLP 2023",
-    "citationCount": 188,
-    "influentialCitationCount": 16,
-    "authors": [
-      {
-        "name": "Researcher 12A"
-      },
-      {
-        "name": "Researcher 12B"
-      }
-    ],
-    "abstract": "Learning layer-wise, adaptive latent graph structures via an efficient, differentiable operator will enable scalable, accurate node classification on large graphs, outperforming existing graph neural network and structure learning methods, particularly in challenging settings such as heterophily, long-range dependencies, and absent or incomplete input graphs. Specifically, this paper investigates: How can node classification on large-scale graphs be improved by learning adaptive, latent graph structures in a scalable and efficient manner, especially in scenarios with heterophily, long-range dependencies, incomplete or missing input graphs?. A new framework is proposed that introduces a scalable, Transformer-style graph neural network for node classification, named NODEFORMER. The core component is a kernelized Gumbel-Softmax operator that enables efficient, differentiable learning of discrete, layer-specific latent graph structures wit...",
-    "tldr": "How can node classification on large-scale graphs be improved by learning adaptive, latent graph structures in a scalable and efficient manner, especially in scenarios with heterophily, long-range dependencies, incomplete or missing input graphs?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.emnlp-main.12",
-    "url": "https://aclanthology.org/2024.emnlp-main.12",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380018931",
-    "references": [],
-    "matched_in_title": [
-      "NodeFormer"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "NodeFormer",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Learning layer-wise, adaptive latent graph structures via an efficient, differentiable operator will enable scalable, accurate node classification on large graphs, outperforming existing graph neural network and structure learning methods, particularly in challenging settings such as heterophily, long-range dependencies, and absent or incomplete input graphs."
-  },
-  {
-    "id": "acl_2024_013",
-    "paper_id": "ACL_2024_013",
-    "title": "Data Interpreter: An LLM Agent For Data Science",
-    "year": 2024,
-    "venue": "NAACL 2024",
-    "citationCount": 51,
-    "influentialCitationCount": 19,
-    "authors": [
-      {
-        "name": "Researcher 13A"
-      },
-      {
-        "name": "Researcher 13B"
-      }
-    ],
-    "abstract": "A hierarchical graph-based framework that decomposes data science workflows into dynamically managed subproblems, combined with programmable node generation for iterative code refinement and tool integration, will significantly improve the robustness, adaptability, and overall performance of LLM agents on complex data science tasks compared to existing methods. Specifically, this paper investigates: How can large language model (LLM) agents be designed to autonomously and robustly solve end-to-end data science workflows, including complex, interconnected tasks that require dynamic adaptation to evolving data and task dependencies?. The proposed approach introduces a hierarchical graph modeling framework for LLM-based data science agents. The workflow is decomposed into a task graph, where each node represents a major subproblem (e.g., data exploration, feature engineering, model training), and dependencies are represented as e...",
-    "tldr": "How can large language model (LLM) agents be designed to autonomously and robustly solve end-to-end data science workflows, including complex, interconnected tasks that require dynamic adaptation to evolving data and task dependencies?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.naacl-main.13",
-    "url": "https://aclanthology.org/2024.naacl-main.13",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380020652",
-    "references": [],
-    "matched_in_title": [
-      "Data Interpreter"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Data Interpreter",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "A hierarchical graph-based framework that decomposes data science workflows into dynamically managed subproblems, combined with programmable node generation for iterative code refinement and tool integration, will significantly improve the robustness, adaptability, and overall performance of LLM agents on complex data science tasks compared to existing methods."
-  },
-  {
-    "id": "acl_2024_014",
-    "paper_id": "ACL_2024_014",
-    "title": "GeoCLIP: Clip-Inspired Alignment between Locations and Images for Effective Worldwide Geo-localization",
-    "year": 2023,
-    "venue": "ACL Findings 2023",
-    "citationCount": 64,
-    "influentialCitationCount": 22,
-    "authors": [
-      {
-        "name": "Researcher 14A"
-      },
-      {
-        "name": "Researcher 14B"
-      }
-    ],
-    "abstract": "A CLIP-inspired image-to-GPS retrieval framework that directly aligns image features with continuous GPS location embeddings, using hierarchical positional encoding and contrastive learning, will achieve more accurate and data-efficient worldwide geo-localization than existing classification-based or image-to-image retrieval methods. Specifically, this paper investigates: How can the alignment between images and their corresponding geographic locations be improved to enable accurate and scalable worldwide geo-localization, especially in the absence of dense image galleries and with limited training data?. A novel image-to-GPS retrieval approach is proposed, where the task is formulated as matching a query image to a gallery of GPS coordinates rather than to a gallery of images. The method consists of two main components: an image encoder based on a frozen CLIP Vision Transformer (ViT-L/14) backbone w...",
-    "tldr": "How can the alignment between images and their corresponding geographic locations be improved to enable accurate and scalable worldwide geo-localization, especially in the absence of dense image galleries and with limited training data?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.aclfindings-main.14",
-    "url": "https://aclanthology.org/2024.aclfindings-main.14",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380022373",
-    "references": [],
-    "matched_in_title": [
-      "GeoCLIP"
-    ],
-    "matched_in_abstract": [
-      "Preference Alignment & Reinforcement Learning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "GeoCLIP",
-    "substrate": "Preference Alignment & Reinforcement Learning",
-    "limitation": "Degraded generalization and computational overhead under preference alignment & reinforcement learning.",
-    "hypothesis": "A CLIP-inspired image-to-GPS retrieval framework that directly aligns image features with continuous GPS location embeddings, using hierarchical positional encoding and contrastive learning, will achieve more accurate and data-efficient worldwide geo-localization than existing classification-based or image-to-image retrieval methods."
-  },
-  {
-    "id": "acl_2024_015",
-    "paper_id": "ACL_2024_015",
-    "title": "Safe Latent Diffusion: Mitigating Inappropriate Degeneration in Diffusion Models",
-    "year": 2022,
-    "venue": "Transactions of the ACL 2022",
-    "citationCount": 77,
-    "influentialCitationCount": 25,
-    "authors": [
-      {
-        "name": "Researcher 15A"
-      },
-      {
-        "name": "Researcher 15B"
-      }
-    ],
-    "abstract": "It is hypothesized that leveraging the internal representations and learned concepts of pre-trained diffusion models, without additional training or external classifiers, enables effective suppression of inappropriate content during image generation, thereby reducing undesired degeneration without degrading overall image fidelity or text alignment. Specifically, this paper investigates: How can the generation of inappropriate or biased content in text-to-image diffusion models be systematically measured and effectively mitigated, while preserving image quality and text alignment?. A novel safety guidance mechanism, termed Safe Latent Diffusion (SLD), will be developed for text-to-image diffusion models. SLD operates during inference by manipulating the latent space of the diffusion process, using classifier-free guidance to steer generations away from user-defined inappropria...",
-    "tldr": "How can the generation of inappropriate or biased content in text-to-image diffusion models be systematically measured and effectively mitigated, while preserving image quality and text alignment?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.15",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.15",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380024094",
-    "references": [],
-    "matched_in_title": [
-      "Safe Latent Diffusion"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Safe Latent Diffusion",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "It is hypothesized that leveraging the internal representations and learned concepts of pre-trained diffusion models, without additional training or external classifiers, enables effective suppression of inappropriate content during image generation, thereby reducing undesired degeneration without degrading overall image fidelity or text alignment."
-  },
-  {
-    "id": "acl_2024_016",
-    "paper_id": "ACL_2024_016",
-    "title": "Reward Model Ensembles Help Mitigate Overoptimization",
-    "year": 2023,
-    "venue": "ACL 2023",
-    "citationCount": 90,
-    "influentialCitationCount": 28,
-    "authors": [
-      {
-        "name": "Researcher 16A"
-      },
-      {
-        "name": "Researcher 16B"
-      }
-    ],
-    "abstract": "Ensemble-based conservative optimization objectives, such as worst-case optimization (WCO) and uncertainty-weighted optimization (UWO), will significantly reduce or eliminate overoptimization in RLHF pipelines, outperforming single reward model optimization, even in the presence of label noise. Specifically, this paper investigates: Can ensemble-based conservative optimization methods effectively mitigate the problem of overoptimization in reinforcement learning from human feedback (RLHF) for language model fine-tuning, especially under realistic conditions such as label noise?. The proposed approach involves training an ensemble of proxy reward models, each initialized with different random seeds but trained on the same dataset and with identical hyperparameters. During policy optimization, three ensemble-based objectives are considered: (1) mean optimization, which averag...",
-    "tldr": "Can ensemble-based conservative optimization methods effectively mitigate the problem of overoptimization in reinforcement learning from human feedback (RLHF) for language model fine-tuning, especially under realistic conditions such as label noise?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.acl-main.16",
-    "url": "https://aclanthology.org/2024.acl-main.16",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380025815",
-    "references": [],
-    "matched_in_title": [
-      "Reward Model Ensembles"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Reward Model Ensembles",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Ensemble-based conservative optimization objectives, such as worst-case optimization (WCO) and uncertainty-weighted optimization (UWO), will significantly reduce or eliminate overoptimization in RLHF pipelines, outperforming single reward model optimization, even in the presence of label noise."
-  },
-  {
-    "id": "acl_2024_017",
-    "paper_id": "ACL_2024_017",
-    "title": "Register and CLS tokens yield a decoupling of local and global features in large ViTs",
-    "year": 2025,
-    "venue": "EMNLP 2025",
-    "citationCount": 103,
-    "influentialCitationCount": 31,
-    "authors": [
-      {
-        "name": "Researcher 17A"
-      },
-      {
-        "name": "Researcher 17B"
-      }
-    ],
-    "abstract": "In large ViT models, the introduction of register tokens or the use of [CLS] tokens with residual connections leads to a decoupling of local patch features from global representations, thereby violating the patch integration assumption and reducing the interpretability of attention maps. Specifically, this paper investigates: How do register tokens and [CLS] tokens affect the relationship between local and global feature representations in large Vision Transformer (ViT) models, and what are the implications for model interpretability and the validity of the patch integration assumption?. A systematic analysis will be conducted on Vision Transformer models of varying sizes, both with and without register tokens, to quantify the degree to which global representations rely on local patch features versus register or [CLS] tokens. The methodology involves probing the attention distributi...",
-    "tldr": "How do register tokens and [CLS] tokens affect the relationship between local and global feature representations in large Vision Transformer (ViT) models, and what are the implications for model interpretability and the validity of the patch integration assumption?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.emnlp-main.17",
-    "url": "https://aclanthology.org/2024.emnlp-main.17",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380027536",
-    "references": [],
-    "matched_in_title": [
-      "Register and CLS"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Register and CLS",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "In large ViT models, the introduction of register tokens or the use of [CLS] tokens with residual connections leads to a decoupling of local patch features from global representations, thereby violating the patch integration assumption and reducing the interpretability of attention maps."
-  },
-  {
-    "id": "acl_2024_018",
-    "paper_id": "ACL_2024_018",
-    "title": "Unlocking the Potential of Model Calibration in Federated Learning",
-    "year": 2024,
-    "venue": "NAACL 2024",
-    "citationCount": 116,
+    "id": "innoeval_172_001",
+    "paper_id": "INNOEVAL_001",
+    "title": "InnoEval Research Investigation: Knowledge-Grounded Multi-Perspective Reasoning for Automated Scientific Discovery & Review Consensus",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 55,
     "influentialCitationCount": 9,
     "authors": [
       {
-        "name": "Researcher 18A"
+        "name": "Lead Author 1"
       },
       {
-        "name": "Researcher 18B"
+        "name": "Co-Author 1"
       }
     ],
-    "abstract": "Dynamically adjusting the calibration penalty for each client in federated learning, based on the statistical similarity between local and global models, will improve both the calibration and accuracy of the global model across heterogeneous data distributions. Specifically, this paper investigates: How can model calibration be effectively integrated into federated learning to ensure reliable confidence estimates across heterogeneous client data distributions, without sacrificing model accuracy?. A novel framework, Non-Uniform Calibration for Federated Learning (NUCFL), is developed to integrate model calibration into federated learning (FL) by introducing a dynamic, client-specific calibration penalty during local training. The approach augments the standard FL loss with an auxiliary calibr...",
-    "tldr": "How can model calibration be effectively integrated into federated learning to ensure reliable confidence estimates across heterogeneous client data distributions, without sacrificing model accuracy?",
+    "abstract": "This paper investigates Automated Scientific Discovery & Review Consensus. We evaluate Knowledge-Grounded Multi-Perspective Reasoning applied to Automated Scientific Discovery & Review Consensus to resolve LLM-as-a-judge confirmation bias and narrow parametric knowledge horizons. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Knowledge-Grounded Multi-Perspective Reasoning to address LLM-as-a-judge confirmation bias and narrow parametric knowledge horizons in Automated Scientific Discovery & Review Consensus.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.naacl-main.18",
-    "url": "https://aclanthology.org/2024.naacl-main.18",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380029257",
-    "references": [],
-    "matched_in_title": [
-      "Unlocking the Potential"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Unlocking the Potential",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Dynamically adjusting the calibration penalty for each client in federated learning, based on the statistical similarity between local and global models, will improve both the calibration and accuracy of the global model across heterogeneous data distributions."
+    "doi": "10.18653/innoeval.2026.1",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Knowledge-Grounded Multi-Perspective Reasoning",
+    "substrate": "Automated Scientific Discovery & Review Consensus",
+    "limitation": "LLM-as-a-judge confirmation bias and narrow parametric knowledge horizons",
+    "hypothesis": "To overcome lLM-as-a-judge confirmation bias and narrow parametric knowledge horizons in Automated Scientific Discovery & Review Consensus, we introduce a knowledge-grounded synthesis combining Knowledge-Grounded Multi-Perspective Reasoning with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_019",
-    "paper_id": "ACL_2024_019",
-    "title": "Learning to Clarify: Multi-turn Conversations with Action-Based Contrastive Self-Training",
-    "year": 2024,
-    "venue": "ACL Findings 2024",
-    "citationCount": 129,
+    "id": "innoeval_172_002",
+    "paper_id": "INNOEVAL_002",
+    "title": "InnoEval Research Investigation: Iterative Idea Refinement Tree Search for Automated Research Hypothesis Generation",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 68,
     "influentialCitationCount": 12,
     "authors": [
       {
-        "name": "Researcher 19A"
+        "name": "Lead Author 2"
       },
       {
-        "name": "Researcher 19B"
+        "name": "Co-Author 2"
       }
     ],
-    "abstract": "A quasi-online contrastive self-training approach that leverages action-based preference optimization can enable large language models to more efficiently learn dialogue policies for ambiguity recognition and clarification, outperforming standard supervised fine-tuning and preference optimization baselines in multi-turn conversational tasks. Specifically, this paper investigates: How can large language models be adapted to function as mixed-initiative conversational agents capable of effectively handling ambiguity and disambiguation in multi-turn conversations, particularly in data-scarce settings?. A novel framework, Action-Based Contrastive Self-Training (ACT), will be developed to adapt large language models for mixed-initiative conversational settings. The method models dialogue action planning as an implicit subtask of response generation, focusing on contrasting pragmatic conversational a...",
-    "tldr": "How can large language models be adapted to function as mixed-initiative conversational agents capable of effectively handling ambiguity and disambiguation in multi-turn conversations, particularly in data-scarce settings?",
+    "abstract": "This paper investigates Automated Research Hypothesis Generation. We evaluate Iterative Idea Refinement Tree Search applied to Automated Research Hypothesis Generation to resolve Superficial single-round prompting lacking evolutionary depth and backtracking. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Iterative Idea Refinement Tree Search to address Superficial single-round prompting lacking evolutionary depth and backtracking in Automated Research Hypothesis Generation.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.aclfindings-main.19",
-    "url": "https://aclanthology.org/2024.aclfindings-main.19",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380030978",
-    "references": [],
-    "matched_in_title": [
-      "Learning to Clarify"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Learning to Clarify",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "A quasi-online contrastive self-training approach that leverages action-based preference optimization can enable large language models to more efficiently learn dialogue policies for ambiguity recognition and clarification, outperforming standard supervised fine-tuning and preference optimization baselines in multi-turn conversational tasks."
+    "doi": "10.18653/innoeval.2026.2",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Iterative Idea Refinement Tree Search",
+    "substrate": "Automated Research Hypothesis Generation",
+    "limitation": "Superficial single-round prompting lacking evolutionary depth and backtracking",
+    "hypothesis": "To overcome superficial single-round prompting lacking evolutionary depth and backtracking in Automated Research Hypothesis Generation, we introduce a knowledge-grounded synthesis combining Iterative Idea Refinement Tree Search with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_020",
-    "paper_id": "ACL_2024_020",
-    "title": "RWKV: Reinventing RNNs for the Transformer Era",
-    "year": 2023,
-    "venue": "Transactions of the ACL 2023",
-    "citationCount": 142,
+    "id": "innoeval_172_003",
+    "paper_id": "INNOEVAL_003",
+    "title": "InnoEval Research Investigation: Bipartite Literature Graph Message Passing for Cross-Disciplinary Scientific Ideation",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 81,
     "influentialCitationCount": 15,
     "authors": [
       {
-        "name": "Researcher 20A"
+        "name": "Lead Author 3"
       },
       {
-        "name": "Researcher 20B"
+        "name": "Co-Author 3"
       }
     ],
-    "abstract": "A novel architecture that integrates linear attention mechanisms with recurrent structures, enabling both parallelized training and efficient, linear-time inference, will achieve performance comparable to state-of-the-art Transformers while significantly reducing computational and memory costs, especially for long sequences. Specifically, this paper investigates: How can a neural network architecture be designed to combine the efficient, linear-scaling inference of recurrent neural networks (RNNs) with the parallelizable and expressive training capabilities of Transformers, in order to improve scalability and performance on large-scale sequence modeling tasks such as natural language processing?. A new model architecture, termed Receptance Weighted Key Value (RWKV), will be developed that reformulates the attention mechanism using a channel-wise, time-decay vector, allowing it to function as either a Transformer or an RNN. The architecture consists of stacked residual blocks, each containing...",
-    "tldr": "How can a neural network architecture be designed to combine the efficient, linear-scaling inference of recurrent neural networks (RNNs) with the parallelizable and expressive training capabilities of Transformers, in order to improve scalability and performance on large-scale sequence modeling tasks such as natural language processing?",
+    "abstract": "This paper investigates Cross-Disciplinary Scientific Ideation. We evaluate Bipartite Literature Graph Message Passing applied to Cross-Disciplinary Scientific Ideation to resolve Flat pairwise text comparison ignoring structural citation graph topology. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Bipartite Literature Graph Message Passing to address Flat pairwise text comparison ignoring structural citation graph topology in Cross-Disciplinary Scientific Ideation.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.20",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.20",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380032699",
-    "references": [],
-    "matched_in_title": [
-      "RWKV"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "RWKV",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "A novel architecture that integrates linear attention mechanisms with recurrent structures, enabling both parallelized training and efficient, linear-time inference, will achieve performance comparable to state-of-the-art Transformers while significantly reducing computational and memory costs, especially for long sequences."
+    "doi": "10.18653/innoeval.2026.3",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Bipartite Literature Graph Message Passing",
+    "substrate": "Cross-Disciplinary Scientific Ideation",
+    "limitation": "Flat pairwise text comparison ignoring structural citation graph topology",
+    "hypothesis": "To overcome flat pairwise text comparison ignoring structural citation graph topology in Cross-Disciplinary Scientific Ideation, we introduce a knowledge-grounded synthesis combining Bipartite Literature Graph Message Passing with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_021",
-    "paper_id": "ACL_2024_021",
-    "title": "Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback",
-    "year": 2022,
-    "venue": "ACL 2022",
-    "citationCount": 155,
+    "id": "innoeval_172_004",
+    "paper_id": "INNOEVAL_004",
+    "title": "InnoEval Research Investigation: Counterfactual Literature Evidence Probing for Scientific Soundness & Validity Scoring",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 94,
     "influentialCitationCount": 18,
     "authors": [
       {
-        "name": "Researcher 21A"
+        "name": "Lead Author 4"
       },
       {
-        "name": "Researcher 21B"
+        "name": "Co-Author 4"
       }
     ],
-    "abstract": "It is hypothesized that reinforcement learning from human feedback (RLHF), combined with preference modeling for helpfulness and harmlessness, can align large language models to be both helpful and harmless without degrading, and potentially improving, their performance on standard NLP and specialized skill evaluations. Specifically, this paper investigates: How can large language models be trained to act as helpful and harmless assistants using human feedback, and what are the effects of such alignment training on model performance, robustness, and the ability to integrate specialized skills?. The proposed method involves collecting separate datasets of human preferences for helpfulness and harmlessness through open-ended dialogue interactions with crowdworkers. Preference models (PMs) are trained on these datasets to evaluate model responses for helpfulness and harmlessness. These PMs ar...",
-    "tldr": "How can large language models be trained to act as helpful and harmless assistants using human feedback, and what are the effects of such alignment training on model performance, robustness, and the ability to integrate specialized skills?",
+    "abstract": "This paper investigates Scientific Soundness & Validity Scoring. We evaluate Counterfactual Literature Evidence Probing applied to Scientific Soundness & Validity Scoring to resolve Hallucinatory claim verification without negative citation-pair evidence. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Counterfactual Literature Evidence Probing to address Hallucinatory claim verification without negative citation-pair evidence in Scientific Soundness & Validity Scoring.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.acl-main.21",
-    "url": "https://aclanthology.org/2024.acl-main.21",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380034420",
-    "references": [],
-    "matched_in_title": [
-      "Training a Helpful"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Training a Helpful",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "It is hypothesized that reinforcement learning from human feedback (RLHF), combined with preference modeling for helpfulness and harmlessness, can align large language models to be both helpful and harmless without degrading, and potentially improving, their performance on standard NLP and specialized skill evaluations."
+    "doi": "10.18653/innoeval.2026.4",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Counterfactual Literature Evidence Probing",
+    "substrate": "Scientific Soundness & Validity Scoring",
+    "limitation": "Hallucinatory claim verification without negative citation-pair evidence",
+    "hypothesis": "To overcome hallucinatory claim verification without negative citation-pair evidence in Scientific Soundness & Validity Scoring, we introduce a knowledge-grounded synthesis combining Counterfactual Literature Evidence Probing with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_022",
-    "paper_id": "ACL_2024_022",
-    "title": "BOND: Aligning LLMs with Best-of-N Distillation",
-    "year": 2024,
-    "venue": "EMNLP 2024",
-    "citationCount": 168,
+    "id": "innoeval_172_005",
+    "paper_id": "INNOEVAL_005",
+    "title": "InnoEval Research Investigation: Multi-Agent Peer Review Deliberation for Conference Meta-Review Aggregation",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 107,
     "influentialCitationCount": 21,
     "authors": [
       {
-        "name": "Researcher 22A"
+        "name": "Lead Author 5"
       },
       {
-        "name": "Researcher 22B"
+        "name": "Co-Author 5"
       }
     ],
-    "abstract": "It is hypothesized that aligning the policy of a large language model to match the distribution of outputs produced by Best-of-N sampling, using a distribution matching approach based on Jeffreys divergence and iterative distillation, will enable the model to generate outputs of comparable quality to Best-of-N sampling with only a single sample at inference time, thus achieving superior reward/KL trade-offs and improved alignment with human preferences. Specifically, this paper investigates: How can large language models be aligned to emulate the high-quality outputs of Best-of-N sampling strategies, while avoiding the significant computational overhead at inference time associated with sampling and ranking multiple generations?. A novel RLHF algorithm, Best-of-N Distillation (BOND), will be developed to align the policy of a large language model with the distribution induced by Best-of-N sampling from a reference policy. The approach begins by analytically deriving the Best-of-N distribution, then formulates policy alignmen...",
-    "tldr": "How can large language models be aligned to emulate the high-quality outputs of Best-of-N sampling strategies, while avoiding the significant computational overhead at inference time associated with sampling and ranking multiple generations?",
+    "abstract": "This paper investigates Conference Meta-Review Aggregation. We evaluate Multi-Agent Peer Review Deliberation applied to Conference Meta-Review Aggregation to resolve Homogeneous score flattening and echo-chamber consensus among identical agent roles. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Multi-Agent Peer Review Deliberation to address Homogeneous score flattening and echo-chamber consensus among identical agent roles in Conference Meta-Review Aggregation.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.emnlp-main.22",
-    "url": "https://aclanthology.org/2024.emnlp-main.22",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380036141",
-    "references": [],
-    "matched_in_title": [
-      "BOND"
-    ],
-    "matched_in_abstract": [
-      "Preference Alignment & Reinforcement Learning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "BOND",
-    "substrate": "Preference Alignment & Reinforcement Learning",
-    "limitation": "Degraded generalization and computational overhead under preference alignment & reinforcement learning.",
-    "hypothesis": "It is hypothesized that aligning the policy of a large language model to match the distribution of outputs produced by Best-of-N sampling, using a distribution matching approach based on Jeffreys divergence and iterative distillation, will enable the model to generate outputs of comparable quality to Best-of-N sampling with only a single sample at inference time, thus achieving superior reward/KL trade-offs and improved alignment with human preferences."
+    "doi": "10.18653/innoeval.2026.5",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Multi-Agent Peer Review Deliberation",
+    "substrate": "Conference Meta-Review Aggregation",
+    "limitation": "Homogeneous score flattening and echo-chamber consensus among identical agent roles",
+    "hypothesis": "To overcome homogeneous score flattening and echo-chamber consensus among identical agent roles in Conference Meta-Review Aggregation, we introduce a knowledge-grounded synthesis combining Multi-Agent Peer Review Deliberation with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_023",
-    "paper_id": "ACL_2024_023",
-    "title": "Ring Attention with Blockwise Transformers for Near-Infinite Context",
-    "year": 2023,
-    "venue": "NAACL 2023",
-    "citationCount": 181,
+    "id": "innoeval_172_006",
+    "paper_id": "INNOEVAL_006",
+    "title": "InnoEval Research Investigation: Entity-Centric Citation Lineage Browsing for Automated Prior Art Discovery",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 120,
     "influentialCitationCount": 24,
     "authors": [
       {
-        "name": "Researcher 23A"
+        "name": "Lead Author 6"
       },
       {
-        "name": "Researcher 23B"
+        "name": "Co-Author 6"
       }
     ],
-    "abstract": "It is hypothesized that by distributing blockwise self-attention and feedforward computations across multiple devices in a ring topology, and overlapping the communication of key-value blocks with computation, it is possible to scale Transformer context length linearly with device count, achieving near-infinite context size without additional overhead or loss of performance. Specifically, this paper investigates: How can the memory constraints of Transformers be overcome to enable efficient training and inference on extremely long sequences, scaling context length linearly with the number of devices, without incurring additional communication or computation overheads or resorting to attention approximations?. A novel framework, Ring Attention with Blockwise Transformers, is proposed to address the memory bottleneck in large-context Transformer models. The method splits input sequences into blocks, assigning each block to a separate device in a ring topology. Each device computes blockwise self-attention ...",
-    "tldr": "How can the memory constraints of Transformers be overcome to enable efficient training and inference on extremely long sequences, scaling context length linearly with the number of devices, without incurring additional communication or computation overheads or resorting to attention approximations?",
+    "abstract": "This paper investigates Automated Prior Art Discovery. We evaluate Entity-Centric Citation Lineage Browsing applied to Automated Prior Art Discovery to resolve Lexical keyword search missing conceptually analogous methods across distinct disciplines. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Entity-Centric Citation Lineage Browsing to address Lexical keyword search missing conceptually analogous methods across distinct disciplines in Automated Prior Art Discovery.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.naacl-main.23",
-    "url": "https://aclanthology.org/2024.naacl-main.23",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380037862",
-    "references": [],
-    "matched_in_title": [
-      "Ring Attention with"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Ring Attention with",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "It is hypothesized that by distributing blockwise self-attention and feedforward computations across multiple devices in a ring topology, and overlapping the communication of key-value blocks with computation, it is possible to scale Transformer context length linearly with device count, achieving near-infinite context size without additional overhead or loss of performance."
+    "doi": "10.18653/innoeval.2026.6",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Entity-Centric Citation Lineage Browsing",
+    "substrate": "Automated Prior Art Discovery",
+    "limitation": "Lexical keyword search missing conceptually analogous methods across distinct disciplines",
+    "hypothesis": "To overcome lexical keyword search missing conceptually analogous methods across distinct disciplines in Automated Prior Art Discovery, we introduce a knowledge-grounded synthesis combining Entity-Centric Citation Lineage Browsing with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_024",
-    "paper_id": "ACL_2024_024",
-    "title": "Preserve Your Own Correlation: A Noise Prior for Video Diffusion Models",
-    "year": 2023,
-    "venue": "ACL Findings 2023",
-    "citationCount": 194,
+    "id": "innoeval_172_007",
+    "paper_id": "INNOEVAL_007",
+    "title": "InnoEval Research Investigation: Empirical Feasibility AST Dependency Check for Algorithmic Research Proposal Verification",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 133,
     "influentialCitationCount": 27,
     "authors": [
       {
-        "name": "Researcher 24A"
+        "name": "Lead Author 7"
       },
       {
-        "name": "Researcher 24B"
+        "name": "Co-Author 7"
       }
     ],
-    "abstract": "Introducing a temporally correlated noise prior, rather than the conventional i.i.d. noise prior, during the fine-tuning of pretrained image diffusion models on video data will significantly improve the photorealism and temporal consistency of generated videos, while also enabling efficient knowledge transfer from image to video generation tasks. Specifically, this paper investigates: How can text-to-video diffusion models be efficiently trained to generate photorealistic and temporally coherent videos, especially in the context of limited large-scale video datasets and high computational costs?. A novel video diffusion noise prior will be developed to better align with the temporal correlations present in real video data. The approach involves fine-tuning a state-of-the-art pretrained text-to-image diffusion model (such as eDiff-I) jointly on large-scale image and video datasets. The conven...",
-    "tldr": "How can text-to-video diffusion models be efficiently trained to generate photorealistic and temporally coherent videos, especially in the context of limited large-scale video datasets and high computational costs?",
+    "abstract": "This paper investigates Algorithmic Research Proposal Verification. We evaluate Empirical Feasibility AST Dependency Check applied to Algorithmic Research Proposal Verification to resolve Unexecutable mathematical pseudocode passing superficial token-level review. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Empirical Feasibility AST Dependency Check to address Unexecutable mathematical pseudocode passing superficial token-level review in Algorithmic Research Proposal Verification.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.aclfindings-main.24",
-    "url": "https://aclanthology.org/2024.aclfindings-main.24",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380039583",
-    "references": [],
-    "matched_in_title": [
-      "Preserve Your Own Correlation"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Preserve Your Own Correlation",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Introducing a temporally correlated noise prior, rather than the conventional i.i.d. noise prior, during the fine-tuning of pretrained image diffusion models on video data will significantly improve the photorealism and temporal consistency of generated videos, while also enabling efficient knowledge transfer from image to video generation tasks."
+    "doi": "10.18653/innoeval.2026.7",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Empirical Feasibility AST Dependency Check",
+    "substrate": "Algorithmic Research Proposal Verification",
+    "limitation": "Unexecutable mathematical pseudocode passing superficial token-level review",
+    "hypothesis": "To overcome unexecutable mathematical pseudocode passing superficial token-level review in Algorithmic Research Proposal Verification, we introduce a knowledge-grounded synthesis combining Empirical Feasibility AST Dependency Check with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_025",
-    "paper_id": "ACL_2024_025",
-    "title": "A theory of continuous generative flow networks",
-    "year": 2023,
-    "venue": "Transactions of the ACL 2023",
-    "citationCount": 57,
+    "id": "innoeval_172_008",
+    "paper_id": "INNOEVAL_008",
+    "title": "InnoEval Research Investigation: Epistemic Uncertainty Margin Calibration for Scientific Discovery Novelty Ranking",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 146,
     "influentialCitationCount": 30,
     "authors": [
       {
-        "name": "Researcher 25A"
+        "name": "Lead Author 8"
       },
       {
-        "name": "Researcher 25B"
+        "name": "Co-Author 8"
       }
     ],
-    "abstract": "Generalized GFlowNets, equipped with appropriate theoretical foundations and training objectives, can efficiently and accurately sample from unnormalized target distributions over arbitrary state spaces, including those with continuous and hybrid structures, thereby retaining or surpassing the advantages observed in discrete GFlowNets. Specifically, this paper investigates: Can generative flow networks (GFlowNets) be extended to sample from unnormalized target distributions over general state spaces, including continuous and hybrid (discrete-continuous) domains, and what are the theoretical and practical implications of such a generalization for probabilistic inference and modeling tasks?. A comprehensive theoretical framework for generalized GFlowNets will be developed, extending existing flow-matching, detailed balance, and trajectory balance conditions to measurable pointed graphs that encompass both discrete and continuous state spaces. The methodology will formalize the necessary...",
-    "tldr": "Can generative flow networks (GFlowNets) be extended to sample from unnormalized target distributions over general state spaces, including continuous and hybrid (discrete-continuous) domains, and what are the theoretical and practical implications of such a generalization for probabilistic inference and modeling tasks?",
+    "abstract": "This paper investigates Scientific Discovery Novelty Ranking. We evaluate Epistemic Uncertainty Margin Calibration applied to Scientific Discovery Novelty Ranking to resolve Overconfident reward models misclassifying incremental variants as breakthrough ideas. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Epistemic Uncertainty Margin Calibration to address Overconfident reward models misclassifying incremental variants as breakthrough ideas in Scientific Discovery Novelty Ranking.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.25",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.25",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380041304",
-    "references": [],
-    "matched_in_title": [
-      "A theory of"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "A theory of",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Generalized GFlowNets, equipped with appropriate theoretical foundations and training objectives, can efficiently and accurately sample from unnormalized target distributions over arbitrary state spaces, including those with continuous and hybrid structures, thereby retaining or surpassing the advantages observed in discrete GFlowNets."
+    "doi": "10.18653/innoeval.2026.8",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Epistemic Uncertainty Margin Calibration",
+    "substrate": "Scientific Discovery Novelty Ranking",
+    "limitation": "Overconfident reward models misclassifying incremental variants as breakthrough ideas",
+    "hypothesis": "To overcome overconfident reward models misclassifying incremental variants as breakthrough ideas in Scientific Discovery Novelty Ranking, we introduce a knowledge-grounded synthesis combining Epistemic Uncertainty Margin Calibration with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_026",
-    "paper_id": "ACL_2024_026",
-    "title": "TIPS: Text-Image Pretraining with Spatial Awareness",
-    "year": 2024,
-    "venue": "ACL 2024",
-    "citationCount": 70,
-    "influentialCitationCount": 8,
+    "id": "innoeval_172_009",
+    "paper_id": "INNOEVAL_009",
+    "title": "InnoEval Research Investigation: Multi-Perspective Persona Role Arbitration for Interdisciplinary Scientific Paper Review",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 159,
+    "influentialCitationCount": 33,
     "authors": [
       {
-        "name": "Researcher 26A"
+        "name": "Lead Author 9"
       },
       {
-        "name": "Researcher 26B"
+        "name": "Co-Author 9"
       }
     ],
-    "abstract": "Combining high-quality synthetic image captions with noisy web captions, together with integrating self-distillation and masked image modeling losses into a contrastive image-text pretraining framework, will result in image-text models that achieve spatially-aware and discriminative representations, leading to improved performance on both dense and global vision tasks. Specifically, this paper investigates: How can general-purpose image-text pretraining be enhanced to produce representations that are effective for both dense spatial understanding tasks and global vision tasks, enabling strong off-the-shelf performance in a wide variety of computer vision applications?. A new pretraining framework, Text-Image Pretraining with Spatial awareness (TIPS), will be developed to jointly optimize for spatially-aware and globally discriminative image representations. The approach will enhance weak textual supervision by generating synthetic image captions using state-of-the...",
-    "tldr": "How can general-purpose image-text pretraining be enhanced to produce representations that are effective for both dense spatial understanding tasks and global vision tasks, enabling strong off-the-shelf performance in a wide variety of computer vision applications?",
+    "abstract": "This paper investigates Interdisciplinary Scientific Paper Review. We evaluate Multi-Perspective Persona Role Arbitration applied to Interdisciplinary Scientific Paper Review to resolve Specialized disciplinary jargon causing reviewer misalignment in cross-domain evaluation. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Multi-Perspective Persona Role Arbitration to address Specialized disciplinary jargon causing reviewer misalignment in cross-domain evaluation in Interdisciplinary Scientific Paper Review.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.acl-main.26",
-    "url": "https://aclanthology.org/2024.acl-main.26",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380043025",
-    "references": [],
-    "matched_in_title": [
-      "TIPS"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "TIPS",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Combining high-quality synthetic image captions with noisy web captions, together with integrating self-distillation and masked image modeling losses into a contrastive image-text pretraining framework, will result in image-text models that achieve spatially-aware and discriminative representations, leading to improved performance on both dense and global vision tasks."
+    "doi": "10.18653/innoeval.2026.9",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Multi-Perspective Persona Role Arbitration",
+    "substrate": "Interdisciplinary Scientific Paper Review",
+    "limitation": "Specialized disciplinary jargon causing reviewer misalignment in cross-domain evaluation",
+    "hypothesis": "To overcome specialized disciplinary jargon causing reviewer misalignment in cross-domain evaluation in Interdisciplinary Scientific Paper Review, we introduce a knowledge-grounded synthesis combining Multi-Perspective Persona Role Arbitration with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_027",
-    "paper_id": "ACL_2024_027",
-    "title": "Diffusion for World Modeling: Visual Details Matter in Atari",
-    "year": 2024,
-    "venue": "EMNLP 2024",
-    "citationCount": 83,
-    "influentialCitationCount": 11,
-    "authors": [
-      {
-        "name": "Researcher 27A"
-      },
-      {
-        "name": "Researcher 27B"
-      }
-    ],
-    "abstract": "Employing diffusion models as world models for reinforcement learning will enable more accurate modeling of environment dynamics, particularly in preserving critical visual details, leading to improved agent performance and sample efficiency relative to world models based on discrete latent variables. Specifically, this paper investigates: Can diffusion models, when adapted for world modeling, improve the fidelity of visual details and agent performance in reinforcement learning environments compared to existing discrete latent variable approaches?. A diffusion-based world model will be developed, leveraging the EDM (Elucidated Diffusion Models) framework for stable and efficient generation of future environment observations conditioned on past observations and actions. The model will use a U-Net architecture, conditioning on a buffer of past f...",
-    "tldr": "Can diffusion models, when adapted for world modeling, improve the fidelity of visual details and agent performance in reinforcement learning environments compared to existing discrete latent variable approaches?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.emnlp-main.27",
-    "url": "https://aclanthology.org/2024.emnlp-main.27",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380044746",
-    "references": [],
-    "matched_in_title": [
-      "Diffusion for World Modeling"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Diffusion for World Modeling",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Employing diffusion models as world models for reinforcement learning will enable more accurate modeling of environment dynamics, particularly in preserving critical visual details, leading to improved agent performance and sample efficiency relative to world models based on discrete latent variables."
-  },
-  {
-    "id": "acl_2024_028",
-    "paper_id": "ACL_2024_028",
-    "title": "Norm-guided latent space exploration for text-to-image generation",
-    "year": 2023,
-    "venue": "NAACL 2023",
-    "citationCount": 96,
-    "influentialCitationCount": 14,
-    "authors": [
-      {
-        "name": "Researcher 28A"
-      },
-      {
-        "name": "Researcher 28B"
-      }
-    ],
-    "abstract": "Guiding latent space exploration in text-to-image diffusion models using a norm-based prior derived from the statistical properties of the seed distribution will result in higher-quality image generation, improved semantic fidelity for rare concepts, and more efficient data augmentation for few-shot and long-tail learning tasks. Specifically, this paper investigates: How can the structure of the latent seed space in text-to-image diffusion models be better exploited to improve the quality and efficiency of image generation, particularly for rare concepts and few-shot learning scenarios?. A novel framework will be developed for latent space exploration in text-to-image diffusion models, leveraging a norm-based prior derived from the chi distribution of high-dimensional Gaussian seed vectors. The method will introduce a new interpolation technique between latent seeds by formulating a...",
-    "tldr": "How can the structure of the latent seed space in text-to-image diffusion models be better exploited to improve the quality and efficiency of image generation, particularly for rare concepts and few-shot learning scenarios?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.naacl-main.28",
-    "url": "https://aclanthology.org/2024.naacl-main.28",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380046467",
-    "references": [],
-    "matched_in_title": [
-      "Norm-guided latent space"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Norm-guided latent space",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Guiding latent space exploration in text-to-image diffusion models using a norm-based prior derived from the statistical properties of the seed distribution will result in higher-quality image generation, improved semantic fidelity for rare concepts, and more efficient data augmentation for few-shot and long-tail learning tasks."
-  },
-  {
-    "id": "acl_2024_029",
-    "paper_id": "ACL_2024_029",
-    "title": "Chronos: Learning the Language of Time Series",
-    "year": 2024,
-    "venue": "ACL Findings 2024",
-    "citationCount": 109,
-    "influentialCitationCount": 17,
-    "authors": [
-      {
-        "name": "Researcher 29A"
-      },
-      {
-        "name": "Researcher 29B"
-      }
-    ],
-    "abstract": "A language modeling framework that tokenizes time series data via scaling and quantization, and trains standard transformer-based language models on these tokenized sequences, will enable effective probabilistic forecasting and strong zero-shot generalization, rivaling or surpassing both classical and deep learning baselines without requiring time-series-specific architectural modifications. Specifically, this paper investigates: Can a general-purpose, pretrained language model framework be developed for probabilistic time series forecasting, leveraging large-scale data and minimal architectural changes, to achieve strong in-domain and zero-shot forecasting performance across diverse datasets?. The proposed method introduces a framework that adapts existing transformer-based language models for probabilistic time series forecasting by tokenizing real-valued time series into discrete tokens. This is achieved through a two-step process: first, each time series is normalized using mean scalin...",
-    "tldr": "Can a general-purpose, pretrained language model framework be developed for probabilistic time series forecasting, leveraging large-scale data and minimal architectural changes, to achieve strong in-domain and zero-shot forecasting performance across diverse datasets?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.aclfindings-main.29",
-    "url": "https://aclanthology.org/2024.aclfindings-main.29",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380048188",
-    "references": [],
-    "matched_in_title": [
-      "Chronos"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Chronos",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "A language modeling framework that tokenizes time series data via scaling and quantization, and trains standard transformer-based language models on these tokenized sequences, will enable effective probabilistic forecasting and strong zero-shot generalization, rivaling or surpassing both classical and deep learning baselines without requiring time-series-specific architectural modifications."
-  },
-  {
-    "id": "acl_2024_030",
-    "paper_id": "ACL_2024_030",
-    "title": "Proactive Privacy Amnesia for Large Language Models: Safeguarding PII with Negligible Impact on Model Utility",
+    "id": "innoeval_172_010",
+    "paper_id": "INNOEVAL_010",
+    "title": "InnoEval Research Investigation: Citation Maturity Horizon Filtering for Emergent Research Trend Extrapolation",
     "year": 2025,
-    "venue": "Transactions of the ACL 2025",
-    "citationCount": 122,
-    "influentialCitationCount": 20,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 172,
+    "influentialCitationCount": 36,
     "authors": [
       {
-        "name": "Researcher 30A"
+        "name": "Lead Author 10"
       },
       {
-        "name": "Researcher 30B"
+        "name": "Co-Author 10"
       }
     ],
-    "abstract": "It is hypothesized that selectively forgetting only the key elements within memorized PII sequences, identified through sensitivity analysis, and compensating for any resulting performance loss via memory implanting, can effectively safeguard PII in large language models without significantly degrading their utility. Specifically, this paper investigates: How can large language models be protected from leaking personally identifiable information (PII) under adversarial attacks, while maintaining high model utility and performance?. A novel framework, Proactive Privacy Amnesia (PPA), will be developed to proactively protect PII in large language models. The method consists of three main components: (1) Sensitivity Analysis, which identifies the key elements within memorized PII sequences by calculating a memorization factor for...",
-    "tldr": "How can large language models be protected from leaking personally identifiable information (PII) under adversarial attacks, while maintaining high model utility and performance?",
+    "abstract": "This paper investigates Emergent Research Trend Extrapolation. We evaluate Citation Maturity Horizon Filtering applied to Emergent Research Trend Extrapolation to resolve Unverified zero-citation preprint noise skewing scientific breakthrough signals. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Citation Maturity Horizon Filtering to address Unverified zero-citation preprint noise skewing scientific breakthrough signals in Emergent Research Trend Extrapolation.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.30",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.30",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380049909",
-    "references": [],
-    "matched_in_title": [
-      "Proactive Privacy Amnesia"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Proactive Privacy Amnesia",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "It is hypothesized that selectively forgetting only the key elements within memorized PII sequences, identified through sensitivity analysis, and compensating for any resulting performance loss via memory implanting, can effectively safeguard PII in large language models without significantly degrading their utility."
+    "doi": "10.18653/innoeval.2026.10",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Citation Maturity Horizon Filtering",
+    "substrate": "Emergent Research Trend Extrapolation",
+    "limitation": "Unverified zero-citation preprint noise skewing scientific breakthrough signals",
+    "hypothesis": "To overcome unverified zero-citation preprint noise skewing scientific breakthrough signals in Emergent Research Trend Extrapolation, we introduce a knowledge-grounded synthesis combining Citation Maturity Horizon Filtering with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_031",
-    "paper_id": "ACL_2024_031",
-    "title": "VALOR: Vision-Audio-Language Omni-Perception Pretraining Model and Dataset",
-    "year": 2023,
-    "venue": "ACL 2023",
-    "citationCount": 135,
-    "influentialCitationCount": 23,
+    "id": "innoeval_172_011",
+    "paper_id": "INNOEVAL_011",
+    "title": "InnoEval Research Investigation: Selective State Space Discretization for Linear-Time Long Sequence Modeling",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 185,
+    "influentialCitationCount": 39,
     "authors": [
       {
-        "name": "Researcher 31A"
+        "name": "Lead Author 11"
       },
       {
-        "name": "Researcher 31B"
+        "name": "Co-Author 11"
       }
     ],
-    "abstract": "Jointly modeling relationships among vision, audio, and language in an end-to-end framework, using strongly correlated tri-modal data and novel pretraining tasks, will significantly improve generalization and performance on a wide range of multimodal downstream tasks compared to dual-modality or weakly correlated approaches. Specifically, this paper investigates: How can a unified pretraining framework be developed to enable comprehensive understanding and generation across vision, audio, and language modalities, and what are the benefits of leveraging large-scale, strongly correlated tri-modal datasets for such models?. A novel omni-perception pretraining model, VALOR, will be constructed to jointly encode and align vision, audio, and language modalities. The architecture will consist of three separate encoders for each modality (vision, audio, and text) and a multimodal decoder for conditional text generation. Two...",
-    "tldr": "How can a unified pretraining framework be developed to enable comprehensive understanding and generation across vision, audio, and language modalities, and what are the benefits of leveraging large-scale, strongly correlated tri-modal datasets for such models?",
+    "abstract": "This paper investigates Linear-Time Long Sequence Modeling. We evaluate Selective State Space Discretization applied to Linear-Time Long Sequence Modeling to resolve Quadratic memory complexity and inability to dynamically filter content-based tokens. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Selective State Space Discretization to address Quadratic memory complexity and inability to dynamically filter content-based tokens in Linear-Time Long Sequence Modeling.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.acl-main.31",
-    "url": "https://aclanthology.org/2024.acl-main.31",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380051630",
-    "references": [],
-    "matched_in_title": [
-      "VALOR"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "VALOR",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Jointly modeling relationships among vision, audio, and language in an end-to-end framework, using strongly correlated tri-modal data and novel pretraining tasks, will significantly improve generalization and performance on a wide range of multimodal downstream tasks compared to dual-modality or weakly correlated approaches."
+    "doi": "10.18653/innoeval.2026.11",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Selective State Space Discretization",
+    "substrate": "Linear-Time Long Sequence Modeling",
+    "limitation": "Quadratic memory complexity and inability to dynamically filter content-based tokens",
+    "hypothesis": "To overcome quadratic memory complexity and inability to dynamically filter content-based tokens in Linear-Time Long Sequence Modeling, we introduce a knowledge-grounded synthesis combining Selective State Space Discretization with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_032",
-    "paper_id": "ACL_2024_032",
-    "title": "Unlearn What You Want to Forget: Efficient Unlearning for LLMs",
-    "year": 2023,
-    "venue": "EMNLP 2023",
-    "citationCount": 148,
-    "influentialCitationCount": 26,
-    "authors": [
-      {
-        "name": "Researcher 32A"
-      },
-      {
-        "name": "Researcher 32B"
-      }
-    ],
-    "abstract": "It is possible to efficiently unlearn specific data from LLMs by introducing lightweight, parameter-efficient unlearning layers trained with a selective teacher-student objective, and by fusing multiple such layers to handle sequential deletion requests, thereby preserving model performance on retained data and tasks. Specifically, this paper investigates: How can large language models (LLMs) efficiently and effectively remove the influence of specific user-requested data (such as privacy-related or erroneous data) without retraining the entire model, while maintaining predictive quality and supporting sequences of unlearning operations?. A novel unlearning framework for LLMs will be developed by integrating lightweight unlearning layers into transformer architectures. These layers will be trained using a selective teacher-student objective: the student model (augmented with unlearning layers) is optimized to mimic the teacher (origi...",
-    "tldr": "How can large language models (LLMs) efficiently and effectively remove the influence of specific user-requested data (such as privacy-related or erroneous data) without retraining the entire model, while maintaining predictive quality and supporting sequences of unlearning operations?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.emnlp-main.32",
-    "url": "https://aclanthology.org/2024.emnlp-main.32",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380053351",
-    "references": [],
-    "matched_in_title": [
-      "Unlearn What You"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Unlearn What You",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "It is possible to efficiently unlearn specific data from LLMs by introducing lightweight, parameter-efficient unlearning layers trained with a selective teacher-student objective, and by fusing multiple such layers to handle sequential deletion requests, thereby preserving model performance on retained data and tasks."
-  },
-  {
-    "id": "acl_2024_033",
-    "paper_id": "ACL_2024_033",
-    "title": "STAR: A Benchmark for Situated Reasoning in Real-World Videos",
-    "year": 2024,
-    "venue": "NAACL 2024",
-    "citationCount": 161,
-    "influentialCitationCount": 29,
-    "authors": [
-      {
-        "name": "Researcher 33A"
-      },
-      {
-        "name": "Researcher 33B"
-      }
-    ],
-    "abstract": "Current state-of-the-art visual reasoning and video question answering models are insufficient for robust situated reasoning in real-world videos, and a benchmark that combines structured situation abstraction with logic-grounded question answering will reveal key challenges and guide the development of more capable reasoning systems. Specifically, this paper investigates: How can machine intelligence be evaluated and advanced in its ability to perform situated reasoning in real-world video scenarios, specifically involving dynamic, compositional, and logical understanding of human-object interactions, temporal sequences, action prediction, and feasibility inference?. A comprehensive benchmark will be constructed to evaluate situated reasoning in real-world videos, focusing on four core reasoning skills: interaction understanding, temporal sequence reasoning, action prediction, and feasibility inference. The methodology involves curating a large-scale dataset of ...",
-    "tldr": "How can machine intelligence be evaluated and advanced in its ability to perform situated reasoning in real-world video scenarios, specifically involving dynamic, compositional, and logical understanding of human-object interactions, temporal sequences, action prediction, and feasibility inference?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.naacl-main.33",
-    "url": "https://aclanthology.org/2024.naacl-main.33",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380055072",
-    "references": [],
-    "matched_in_title": [
-      "STAR"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "STAR",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Current state-of-the-art visual reasoning and video question answering models are insufficient for robust situated reasoning in real-world videos, and a benchmark that combines structured situation abstraction with logic-grounded question answering will reveal key challenges and guide the development of more capable reasoning systems."
-  },
-  {
-    "id": "acl_2024_034",
-    "paper_id": "ACL_2024_034",
-    "title": "DragDiffusion: Harnessing Diffusion Models for Interactive Point-Based Image Editing",
-    "year": 2023,
-    "venue": "ACL Findings 2023",
-    "citationCount": 174,
-    "influentialCitationCount": 32,
-    "authors": [
-      {
-        "name": "Researcher 34A"
-      },
-      {
-        "name": "Researcher 34B"
-      }
-    ],
-    "abstract": "Harnessing large-scale pretrained diffusion models and optimizing the latent at a single, carefully selected diffusion step, combined with identity-preserving fine-tuning and reference-latent-control, will enable accurate, efficient, and robust interactive point-based image editing that generalizes well to both real and synthetic images. Specifically, this paper investigates: How can interactive point-based image editing be made more accurate, controllable, and generalizable across diverse image domains using large-scale generative models?. A novel framework will be developed for interactive point-based image editing by leveraging pretrained diffusion models, specifically Stable Diffusion. The method begins with identity-preserving fine-tuning of the diffusion model's UNet using LoRA (Low-Rank Adaptation) to ensure the model encodes th...",
-    "tldr": "How can interactive point-based image editing be made more accurate, controllable, and generalizable across diverse image domains using large-scale generative models?",
-    "fieldsOfStudy": [
-      "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
-    ],
-    "doi": "10.18653/v1/2024.aclfindings-main.34",
-    "url": "https://aclanthology.org/2024.aclfindings-main.34",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380056793",
-    "references": [],
-    "matched_in_title": [
-      "DragDiffusion"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "DragDiffusion",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Harnessing large-scale pretrained diffusion models and optimizing the latent at a single, carefully selected diffusion step, combined with identity-preserving fine-tuning and reference-latent-control, will enable accurate, efficient, and robust interactive point-based image editing that generalizes well to both real and synthetic images."
-  },
-  {
-    "id": "acl_2024_035",
-    "paper_id": "ACL_2024_035",
-    "title": "Accelerating RL for LLM Reasoning with Optimal Advantage Regression",
+    "id": "innoeval_172_012",
+    "paper_id": "INNOEVAL_012",
+    "title": "InnoEval Research Investigation: Hardware-Aware Tiling & Kernel Fusion for Dense Self-Attention Matrix Multiplication",
     "year": 2025,
-    "venue": "Transactions of the ACL 2025",
-    "citationCount": 187,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 198,
+    "influentialCitationCount": 42,
+    "authors": [
+      {
+        "name": "Lead Author 12"
+      },
+      {
+        "name": "Co-Author 12"
+      }
+    ],
+    "abstract": "This paper investigates Dense Self-Attention Matrix Multiplication. We evaluate Hardware-Aware Tiling & Kernel Fusion applied to Dense Self-Attention Matrix Multiplication to resolve GPU SRAM-to-HBM memory bandwidth bottlenecks during long-context forward passes. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Hardware-Aware Tiling & Kernel Fusion to address GPU SRAM-to-HBM memory bandwidth bottlenecks during long-context forward passes in Dense Self-Attention Matrix Multiplication.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.12",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Hardware-Aware Tiling & Kernel Fusion",
+    "substrate": "Dense Self-Attention Matrix Multiplication",
+    "limitation": "GPU SRAM-to-HBM memory bandwidth bottlenecks during long-context forward passes",
+    "hypothesis": "To overcome gPU SRAM-to-HBM memory bandwidth bottlenecks during long-context forward passes in Dense Self-Attention Matrix Multiplication, we introduce a knowledge-grounded synthesis combining Hardware-Aware Tiling & Kernel Fusion with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_013",
+    "paper_id": "INNOEVAL_013",
+    "title": "InnoEval Research Investigation: Dynamic Input-Dependent State Decay for Continuous Audio & Sensor Sequence Tracking",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 211,
+    "influentialCitationCount": 45,
+    "authors": [
+      {
+        "name": "Lead Author 13"
+      },
+      {
+        "name": "Co-Author 13"
+      }
+    ],
+    "abstract": "This paper investigates Continuous Audio & Sensor Sequence Tracking. We evaluate Dynamic Input-Dependent State Decay applied to Continuous Audio & Sensor Sequence Tracking to resolve Fixed linear-time-invariant transitions failing to react to sudden state shifts. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Dynamic Input-Dependent State Decay to address Fixed linear-time-invariant transitions failing to react to sudden state shifts in Continuous Audio & Sensor Sequence Tracking.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.13",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Dynamic Input-Dependent State Decay",
+    "substrate": "Continuous Audio & Sensor Sequence Tracking",
+    "limitation": "Fixed linear-time-invariant transitions failing to react to sudden state shifts",
+    "hypothesis": "To overcome fixed linear-time-invariant transitions failing to react to sudden state shifts in Continuous Audio & Sensor Sequence Tracking, we introduce a knowledge-grounded synthesis combining Dynamic Input-Dependent State Decay with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_014",
+    "paper_id": "INNOEVAL_014",
+    "title": "InnoEval Research Investigation: Bidirectional Mamba State Filtering for Dense Biological Genome Sequence Analysis",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 224,
+    "influentialCitationCount": 48,
+    "authors": [
+      {
+        "name": "Lead Author 14"
+      },
+      {
+        "name": "Co-Author 14"
+      }
+    ],
+    "abstract": "This paper investigates Dense Biological Genome Sequence Analysis. We evaluate Bidirectional Mamba State Filtering applied to Dense Biological Genome Sequence Analysis to resolve Unidirectional causal masking losing upstream spatial regulatory motifs. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Bidirectional Mamba State Filtering to address Unidirectional causal masking losing upstream spatial regulatory motifs in Dense Biological Genome Sequence Analysis.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.14",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Bidirectional Mamba State Filtering",
+    "substrate": "Dense Biological Genome Sequence Analysis",
+    "limitation": "Unidirectional causal masking losing upstream spatial regulatory motifs",
+    "hypothesis": "To overcome unidirectional causal masking losing upstream spatial regulatory motifs in Dense Biological Genome Sequence Analysis, we introduce a knowledge-grounded synthesis combining Bidirectional Mamba State Filtering with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_015",
+    "paper_id": "INNOEVAL_015",
+    "title": "InnoEval Research Investigation: Sub-Quadratic Diagonal State Decoupling for Ultra-Long Document Summarization",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 237,
+    "influentialCitationCount": 51,
+    "authors": [
+      {
+        "name": "Lead Author 15"
+      },
+      {
+        "name": "Co-Author 15"
+      }
+    ],
+    "abstract": "This paper investigates Ultra-Long Document Summarization. We evaluate Sub-Quadratic Diagonal State Decoupling applied to Ultra-Long Document Summarization to resolve Cumulative numerical drift across recurrent hidden states in Million-token horizons. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Sub-Quadratic Diagonal State Decoupling to address Cumulative numerical drift across recurrent hidden states in Million-token horizons in Ultra-Long Document Summarization.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.15",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Sub-Quadratic Diagonal State Decoupling",
+    "substrate": "Ultra-Long Document Summarization",
+    "limitation": "Cumulative numerical drift across recurrent hidden states in Million-token horizons",
+    "hypothesis": "To overcome cumulative numerical drift across recurrent hidden states in Million-token horizons in Ultra-Long Document Summarization, we introduce a knowledge-grounded synthesis combining Sub-Quadratic Diagonal State Decoupling with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_016",
+    "paper_id": "INNOEVAL_016",
+    "title": "InnoEval Research Investigation: Associative Scan Parallel Prefix Reducer for Real-Time Embedded Sequence Inference",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 250,
+    "influentialCitationCount": 54,
+    "authors": [
+      {
+        "name": "Lead Author 16"
+      },
+      {
+        "name": "Co-Author 16"
+      }
+    ],
+    "abstract": "This paper investigates Real-Time Embedded Sequence Inference. We evaluate Associative Scan Parallel Prefix Reducer applied to Real-Time Embedded Sequence Inference to resolve Sequential bottleneck in recurrent step computation on parallel tensor hardware. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Associative Scan Parallel Prefix Reducer to address Sequential bottleneck in recurrent step computation on parallel tensor hardware in Real-Time Embedded Sequence Inference.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.16",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Associative Scan Parallel Prefix Reducer",
+    "substrate": "Real-Time Embedded Sequence Inference",
+    "limitation": "Sequential bottleneck in recurrent step computation on parallel tensor hardware",
+    "hypothesis": "To overcome sequential bottleneck in recurrent step computation on parallel tensor hardware in Real-Time Embedded Sequence Inference, we introduce a knowledge-grounded synthesis combining Associative Scan Parallel Prefix Reducer with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_017",
+    "paper_id": "INNOEVAL_017",
+    "title": "InnoEval Research Investigation: Adaptive Chunked State Compression for Multi-Turn Conversational Memory",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 263,
+    "influentialCitationCount": 57,
+    "authors": [
+      {
+        "name": "Lead Author 17"
+      },
+      {
+        "name": "Co-Author 17"
+      }
+    ],
+    "abstract": "This paper investigates Multi-Turn Conversational Memory. We evaluate Adaptive Chunked State Compression applied to Multi-Turn Conversational Memory to resolve State representation saturation when retaining fine-grained dialogue turns. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Adaptive Chunked State Compression to address State representation saturation when retaining fine-grained dialogue turns in Multi-Turn Conversational Memory.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.17",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Adaptive Chunked State Compression",
+    "substrate": "Multi-Turn Conversational Memory",
+    "limitation": "State representation saturation when retaining fine-grained dialogue turns",
+    "hypothesis": "To overcome state representation saturation when retaining fine-grained dialogue turns in Multi-Turn Conversational Memory, we introduce a knowledge-grounded synthesis combining Adaptive Chunked State Compression with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_018",
+    "paper_id": "INNOEVAL_018",
+    "title": "InnoEval Research Investigation: Multi-Scale Structured State Recurrence for Hierarchical Time-Series Forecasting",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 276,
+    "influentialCitationCount": 60,
+    "authors": [
+      {
+        "name": "Lead Author 18"
+      },
+      {
+        "name": "Co-Author 18"
+      }
+    ],
+    "abstract": "This paper investigates Hierarchical Time-Series Forecasting. We evaluate Multi-Scale Structured State Recurrence applied to Hierarchical Time-Series Forecasting to resolve Single temporal scale recurrence failing to capture multiscale cyclical seasonality. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Multi-Scale Structured State Recurrence to address Single temporal scale recurrence failing to capture multiscale cyclical seasonality in Hierarchical Time-Series Forecasting.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.18",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Multi-Scale Structured State Recurrence",
+    "substrate": "Hierarchical Time-Series Forecasting",
+    "limitation": "Single temporal scale recurrence failing to capture multiscale cyclical seasonality",
+    "hypothesis": "To overcome single temporal scale recurrence failing to capture multiscale cyclical seasonality in Hierarchical Time-Series Forecasting, we introduce a knowledge-grounded synthesis combining Multi-Scale Structured State Recurrence with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_019",
+    "paper_id": "INNOEVAL_019",
+    "title": "InnoEval Research Investigation: Orthogonal Hidden State Projections for Recursive State Space Representation",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 289,
+    "influentialCitationCount": 63,
+    "authors": [
+      {
+        "name": "Lead Author 19"
+      },
+      {
+        "name": "Co-Author 19"
+      }
+    ],
+    "abstract": "This paper investigates Recursive State Space Representation. We evaluate Orthogonal Hidden State Projections applied to Recursive State Space Representation to resolve Vanishing singular values across deep recurrent transitions causing catastrophic forgetfulness. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Orthogonal Hidden State Projections to address Vanishing singular values across deep recurrent transitions causing catastrophic forgetfulness in Recursive State Space Representation.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.19",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Orthogonal Hidden State Projections",
+    "substrate": "Recursive State Space Representation",
+    "limitation": "Vanishing singular values across deep recurrent transitions causing catastrophic forgetfulness",
+    "hypothesis": "To overcome vanishing singular values across deep recurrent transitions causing catastrophic forgetfulness in Recursive State Space Representation, we introduce a knowledge-grounded synthesis combining Orthogonal Hidden State Projections with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_020",
+    "paper_id": "INNOEVAL_020",
+    "title": "InnoEval Research Investigation: Token-Specific Gating Convolution Filter for Phoneme-Level Speech Synthesis",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 302,
+    "influentialCitationCount": 66,
+    "authors": [
+      {
+        "name": "Lead Author 20"
+      },
+      {
+        "name": "Co-Author 20"
+      }
+    ],
+    "abstract": "This paper investigates Phoneme-Level Speech Synthesis. We evaluate Token-Specific Gating Convolution Filter applied to Phoneme-Level Speech Synthesis to resolve Static 1D depthwise convolutions failing to adapt to speaker tempo fluctuations. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Token-Specific Gating Convolution Filter to address Static 1D depthwise convolutions failing to adapt to speaker tempo fluctuations in Phoneme-Level Speech Synthesis.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.20",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Token-Specific Gating Convolution Filter",
+    "substrate": "Phoneme-Level Speech Synthesis",
+    "limitation": "Static 1D depthwise convolutions failing to adapt to speaker tempo fluctuations",
+    "hypothesis": "To overcome static 1D depthwise convolutions failing to adapt to speaker tempo fluctuations in Phoneme-Level Speech Synthesis, we introduce a knowledge-grounded synthesis combining Token-Specific Gating Convolution Filter with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_021",
+    "paper_id": "INNOEVAL_021",
+    "title": "InnoEval Research Investigation: Paged Dynamic KV-Cache Eviction for High-Throughput LLM Batch Serving",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 315,
+    "influentialCitationCount": 69,
+    "authors": [
+      {
+        "name": "Lead Author 21"
+      },
+      {
+        "name": "Co-Author 21"
+      }
+    ],
+    "abstract": "This paper investigates High-Throughput LLM Batch Serving. We evaluate Paged Dynamic KV-Cache Eviction applied to High-Throughput LLM Batch Serving to resolve GPU VRAM exhaustion and head-of-line blocking under variable sequence lengths. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Paged Dynamic KV-Cache Eviction to address GPU VRAM exhaustion and head-of-line blocking under variable sequence lengths in High-Throughput LLM Batch Serving.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.21",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Paged Dynamic KV-Cache Eviction",
+    "substrate": "High-Throughput LLM Batch Serving",
+    "limitation": "GPU VRAM exhaustion and head-of-line blocking under variable sequence lengths",
+    "hypothesis": "To overcome gPU VRAM exhaustion and head-of-line blocking under variable sequence lengths in High-Throughput LLM Batch Serving, we introduce a knowledge-grounded synthesis combining Paged Dynamic KV-Cache Eviction with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_022",
+    "paper_id": "INNOEVAL_022",
+    "title": "InnoEval Research Investigation: Hierarchical Attention Sink Calibration for Infinite-Stream Token Processing",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 328,
+    "influentialCitationCount": 7,
+    "authors": [
+      {
+        "name": "Lead Author 22"
+      },
+      {
+        "name": "Co-Author 22"
+      }
+    ],
+    "abstract": "This paper investigates Infinite-Stream Token Processing. We evaluate Hierarchical Attention Sink Calibration applied to Infinite-Stream Token Processing to resolve Attention score collapse and perplexity divergence after context window exhaustion. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Hierarchical Attention Sink Calibration to address Attention score collapse and perplexity divergence after context window exhaustion in Infinite-Stream Token Processing.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.22",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Hierarchical Attention Sink Calibration",
+    "substrate": "Infinite-Stream Token Processing",
+    "limitation": "Attention score collapse and perplexity divergence after context window exhaustion",
+    "hypothesis": "To overcome attention score collapse and perplexity divergence after context window exhaustion in Infinite-Stream Token Processing, we introduce a knowledge-grounded synthesis combining Hierarchical Attention Sink Calibration with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_023",
+    "paper_id": "INNOEVAL_023",
+    "title": "InnoEval Research Investigation: Low-Rank Cross-Attention Projection for Multi-Modal Document Parsing",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 341,
     "influentialCitationCount": 10,
     "authors": [
       {
-        "name": "Researcher 35A"
+        "name": "Lead Author 23"
       },
       {
-        "name": "Researcher 35B"
+        "name": "Co-Author 23"
       }
     ],
-    "abstract": "Directly approximating the optimal advantage function using offline sampling from a reference policy, followed by on-policy updates via least-squares regression with a single generation per prompt, will enable efficient and effective RL-based fine-tuning of LLMs for reasoning tasks, reducing computational overhead and memory usage while maintaining or improving performance. Specifically, this paper investigates: Can reinforcement learning algorithms for large language model (LLM) reasoning be made more computationally efficient and scalable, particularly for long-context and complex reasoning tasks, without sacrificing performance?. A novel two-stage policy optimization framework, termed A\u22c6-PO (Policy Optimization via Optimal Advantage Regression), will be developed. In the first stage, the optimal value function V\u22c6 for each training prompt will be estimated by generating N independent samples from a fixed reference policy and ...",
-    "tldr": "Can reinforcement learning algorithms for large language model (LLM) reasoning be made more computationally efficient and scalable, particularly for long-context and complex reasoning tasks, without sacrificing performance?",
+    "abstract": "This paper investigates Multi-Modal Document Parsing. We evaluate Low-Rank Cross-Attention Projection applied to Multi-Modal Document Parsing to resolve Redundant high-dimensional projection overhead when aligning vision tokens with text. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Low-Rank Cross-Attention Projection to address Redundant high-dimensional projection overhead when aligning vision tokens with text in Multi-Modal Document Parsing.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.35",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.35",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380058514",
-    "references": [],
-    "matched_in_title": [
-      "Accelerating RL for"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Accelerating RL for",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Directly approximating the optimal advantage function using offline sampling from a reference policy, followed by on-policy updates via least-squares regression with a single generation per prompt, will enable efficient and effective RL-based fine-tuning of LLMs for reasoning tasks, reducing computational overhead and memory usage while maintaining or improving performance."
+    "doi": "10.18653/innoeval.2026.23",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Low-Rank Cross-Attention Projection",
+    "substrate": "Multi-Modal Document Parsing",
+    "limitation": "Redundant high-dimensional projection overhead when aligning vision tokens with text",
+    "hypothesis": "To overcome redundant high-dimensional projection overhead when aligning vision tokens with text in Multi-Modal Document Parsing, we introduce a knowledge-grounded synthesis combining Low-Rank Cross-Attention Projection with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_036",
-    "paper_id": "ACL_2024_036",
-    "title": "Generating Graphs via Spectral Diffusion",
-    "year": 2024,
-    "venue": "ACL 2024",
-    "citationCount": 50,
+    "id": "innoeval_172_024",
+    "paper_id": "INNOEVAL_024",
+    "title": "InnoEval Research Investigation: Speculative Multi-Draft Verification Tree for Autoregressive LLM Text Generation",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 354,
     "influentialCitationCount": 13,
     "authors": [
       {
-        "name": "Researcher 36A"
+        "name": "Lead Author 24"
       },
       {
-        "name": "Researcher 36B"
+        "name": "Co-Author 24"
       }
     ],
-    "abstract": "A generative model that operates in the spectral domain by learning to generate eigenvalues and eigenvectors of the graph Laplacian via a diffusion process, followed by a permutation-invariant graph predictor, will enable efficient, scalable, and accurate graph generation, including the ability to condition on spectral properties and handle node features. Specifically, this paper investigates: How can graph generative models be designed to efficiently and accurately generate graphs that capture complex structural characteristics, node features, and spectral properties, while scaling to large graphs and enabling conditioning on desired spectral attributes?. The proposed approach introduces a graph generative model that leverages the spectral decomposition of the graph Laplacian and a denoising diffusion process. The method represents graphs using a subset of eigenvectors and eigenvalues of the Laplacian, which are generated via a neural diffusion model...",
-    "tldr": "How can graph generative models be designed to efficiently and accurately generate graphs that capture complex structural characteristics, node features, and spectral properties, while scaling to large graphs and enabling conditioning on desired spectral attributes?",
+    "abstract": "This paper investigates Autoregressive LLM Text Generation. We evaluate Speculative Multi-Draft Verification Tree applied to Autoregressive LLM Text Generation to resolve Single-token verification latency causing memory stalls during draft rollouts. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Speculative Multi-Draft Verification Tree to address Single-token verification latency causing memory stalls during draft rollouts in Autoregressive LLM Text Generation.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.acl-main.36",
-    "url": "https://aclanthology.org/2024.acl-main.36",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380060235",
-    "references": [],
-    "matched_in_title": [
-      "Generating Graphs via"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Generating Graphs via",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "A generative model that operates in the spectral domain by learning to generate eigenvalues and eigenvectors of the graph Laplacian via a diffusion process, followed by a permutation-invariant graph predictor, will enable efficient, scalable, and accurate graph generation, including the ability to condition on spectral properties and handle node features."
+    "doi": "10.18653/innoeval.2026.24",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Speculative Multi-Draft Verification Tree",
+    "substrate": "Autoregressive LLM Text Generation",
+    "limitation": "Single-token verification latency causing memory stalls during draft rollouts",
+    "hypothesis": "To overcome single-token verification latency causing memory stalls during draft rollouts in Autoregressive LLM Text Generation, we introduce a knowledge-grounded synthesis combining Speculative Multi-Draft Verification Tree with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_037",
-    "paper_id": "ACL_2024_037",
-    "title": "Toward Extreme Image Compression With Latent Feature Guidance and Diffusion Prior",
-    "year": 2024,
-    "venue": "EMNLP 2024",
-    "citationCount": 63,
+    "id": "innoeval_172_025",
+    "paper_id": "INNOEVAL_025",
+    "title": "InnoEval Research Investigation: Cross-Layer KV Activation Sharing for Edge Device LLM Inference",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 367,
     "influentialCitationCount": 16,
     "authors": [
       {
-        "name": "Researcher 37A"
+        "name": "Lead Author 25"
       },
       {
-        "name": "Researcher 37B"
+        "name": "Co-Author 25"
       }
     ],
-    "abstract": "Incorporating a two-stage framework that combines compressive variational autoencoders with pre-trained diffusion models, guided by latent feature alignment and conditional diffusion decoding, will enable realistic and high-fidelity image reconstruction at extremely low bitrates, outperforming existing state-of-the-art methods. Specifically, this paper investigates: How can extreme image compression at very low bitrates (below 0.1 bits per pixel) be achieved while maintaining high perceptual quality and fidelity in reconstructed images, particularly by leveraging advanced generative models?. A novel two-stage extreme image compression framework is developed. In the first stage, a VAE-based latent feature-guided compression module (LFGCM) is employed to compress images and generate content variables, using the latent representation of images in the diffusion space as external guidance to...",
-    "tldr": "How can extreme image compression at very low bitrates (below 0.1 bits per pixel) be achieved while maintaining high perceptual quality and fidelity in reconstructed images, particularly by leveraging advanced generative models?",
+    "abstract": "This paper investigates Edge Device LLM Inference. We evaluate Cross-Layer KV Activation Sharing applied to Edge Device LLM Inference to resolve Duplicated KV tensor allocations across adjacent feed-forward transformer layers. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Cross-Layer KV Activation Sharing to address Duplicated KV tensor allocations across adjacent feed-forward transformer layers in Edge Device LLM Inference.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.emnlp-main.37",
-    "url": "https://aclanthology.org/2024.emnlp-main.37",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380061956",
-    "references": [],
-    "matched_in_title": [
-      "Toward Extreme Image"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Toward Extreme Image",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Incorporating a two-stage framework that combines compressive variational autoencoders with pre-trained diffusion models, guided by latent feature alignment and conditional diffusion decoding, will enable realistic and high-fidelity image reconstruction at extremely low bitrates, outperforming existing state-of-the-art methods."
+    "doi": "10.18653/innoeval.2026.25",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Cross-Layer KV Activation Sharing",
+    "substrate": "Edge Device LLM Inference",
+    "limitation": "Duplicated KV tensor allocations across adjacent feed-forward transformer layers",
+    "hypothesis": "To overcome duplicated KV tensor allocations across adjacent feed-forward transformer layers in Edge Device LLM Inference, we introduce a knowledge-grounded synthesis combining Cross-Layer KV Activation Sharing with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_038",
-    "paper_id": "ACL_2024_038",
-    "title": "Offline-to-Online Reinforcement Learning with Classifier-Free Diffusion Generation",
+    "id": "innoeval_172_026",
+    "paper_id": "INNOEVAL_026",
+    "title": "InnoEval Research Investigation: Quantized Key-Value Vector Decoupling for Massive Context Retrieval-Augmented Generation",
     "year": 2025,
-    "venue": "NAACL 2025",
-    "citationCount": 76,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 380,
     "influentialCitationCount": 19,
     "authors": [
       {
-        "name": "Researcher 38A"
+        "name": "Lead Author 26"
       },
       {
-        "name": "Researcher 38B"
+        "name": "Co-Author 26"
       }
     ],
-    "abstract": "Utilizing classifier-free guidance within a diffusion model to simultaneously augment both offline and online data will generate higher-quality, better-aligned samples, leading to improved performance and stability in offline-to-online reinforcement learning compared to existing data augmentation methods. Specifically, this paper investigates: How can data augmentation methods be improved to better align generated data with the online policy distribution in offline-to-online reinforcement learning, thereby enhancing the performance and stability of RL agents during online fine-tuning?. A novel data augmentation framework is proposed that employs classifier-free guidance in diffusion models to generate synthetic data for both offline and online distributions in offline-to-online reinforcement learning (O2O RL). The method treats offline and online data as distinct labels, enabling ...",
-    "tldr": "How can data augmentation methods be improved to better align generated data with the online policy distribution in offline-to-online reinforcement learning, thereby enhancing the performance and stability of RL agents during online fine-tuning?",
+    "abstract": "This paper investigates Massive Context Retrieval-Augmented Generation. We evaluate Quantized Key-Value Vector Decoupling applied to Massive Context Retrieval-Augmented Generation to resolve Severe precision loss in attention softmax logits under uniform 4-bit KV quantization. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Quantized Key-Value Vector Decoupling to address Severe precision loss in attention softmax logits under uniform 4-bit KV quantization in Massive Context Retrieval-Augmented Generation.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.naacl-main.38",
-    "url": "https://aclanthology.org/2024.naacl-main.38",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380063677",
-    "references": [],
-    "matched_in_title": [
-      "Offline-to-Online Reinforcement Learning"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Offline-to-Online Reinforcement Learning",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Utilizing classifier-free guidance within a diffusion model to simultaneously augment both offline and online data will generate higher-quality, better-aligned samples, leading to improved performance and stability in offline-to-online reinforcement learning compared to existing data augmentation methods."
+    "doi": "10.18653/innoeval.2026.26",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Quantized Key-Value Vector Decoupling",
+    "substrate": "Massive Context Retrieval-Augmented Generation",
+    "limitation": "Severe precision loss in attention softmax logits under uniform 4-bit KV quantization",
+    "hypothesis": "To overcome severe precision loss in attention softmax logits under uniform 4-bit KV quantization in Massive Context Retrieval-Augmented Generation, we introduce a knowledge-grounded synthesis combining Quantized Key-Value Vector Decoupling with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_039",
-    "paper_id": "ACL_2024_039",
-    "title": "Ring-A-Bell! How Reliable are Concept Removal Methods for Diffusion Models?",
-    "year": 2023,
-    "venue": "ACL Findings 2023",
-    "citationCount": 89,
+    "id": "innoeval_172_027",
+    "paper_id": "INNOEVAL_027",
+    "title": "InnoEval Research Investigation: Sparse Top-K Cluster Routing for Sparse Mixture-of-Experts Token Dispatch",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 393,
     "influentialCitationCount": 22,
     "authors": [
       {
-        "name": "Researcher 39A"
+        "name": "Lead Author 27"
       },
       {
-        "name": "Researcher 39B"
+        "name": "Co-Author 27"
       }
     ],
-    "abstract": "Existing safety mechanisms and concept removal methods in text-to-image diffusion models are insufficiently robust and can be circumvented by systematically crafted adversarial prompts, even without access to the underlying model parameters. Specifically, this paper investigates: How reliable are current concept removal and safety mechanisms in text-to-image diffusion models at preventing the generation of inappropriate or forbidden content, and can their limitations be systematically exposed through automated prompt-based evaluation?. A model-agnostic red-teaming framework, Ring-A-Bell, will be developed to evaluate the effectiveness of safety mechanisms in text-to-image diffusion models. The approach begins by extracting holistic representations of sensitive concepts (e.g., nudity, violence) using prompt pairs that differ only i...",
-    "tldr": "How reliable are current concept removal and safety mechanisms in text-to-image diffusion models at preventing the generation of inappropriate or forbidden content, and can their limitations be systematically exposed through automated prompt-based evaluation?",
+    "abstract": "This paper investigates Sparse Mixture-of-Experts Token Dispatch. We evaluate Sparse Top-K Cluster Routing applied to Sparse Mixture-of-Experts Token Dispatch to resolve Routing collapse where a minority of popular experts suffer memory saturation. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Sparse Top-K Cluster Routing to address Routing collapse where a minority of popular experts suffer memory saturation in Sparse Mixture-of-Experts Token Dispatch.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.aclfindings-main.39",
-    "url": "https://aclanthology.org/2024.aclfindings-main.39",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380065398",
-    "references": [],
-    "matched_in_title": [
-      "Ring-A-Bell! How Reliable"
-    ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
-    ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Ring-A-Bell! How Reliable",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Existing safety mechanisms and concept removal methods in text-to-image diffusion models are insufficiently robust and can be circumvented by systematically crafted adversarial prompts, even without access to the underlying model parameters."
+    "doi": "10.18653/innoeval.2026.27",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Sparse Top-K Cluster Routing",
+    "substrate": "Sparse Mixture-of-Experts Token Dispatch",
+    "limitation": "Routing collapse where a minority of popular experts suffer memory saturation",
+    "hypothesis": "To overcome routing collapse where a minority of popular experts suffer memory saturation in Sparse Mixture-of-Experts Token Dispatch, we introduce a knowledge-grounded synthesis combining Sparse Top-K Cluster Routing with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   },
   {
-    "id": "acl_2024_040",
-    "paper_id": "ACL_2024_040",
-    "title": "Studying Large Language Model Generalization with Influence Functions",
-    "year": 2023,
-    "venue": "Transactions of the ACL 2023",
-    "citationCount": 102,
+    "id": "innoeval_172_028",
+    "paper_id": "INNOEVAL_028",
+    "title": "InnoEval Research Investigation: Activation Sparsity Re-computation for Extreme-Scale Transformer Training",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 406,
     "influentialCitationCount": 25,
     "authors": [
       {
-        "name": "Researcher 40A"
+        "name": "Lead Author 28"
       },
       {
-        "name": "Researcher 40B"
+        "name": "Co-Author 28"
       }
     ],
-    "abstract": "Influence functions, when efficiently scaled to large language models, can reveal meaningful and interpretable patterns of generalization, abstraction, and memorization by identifying which training sequences most affect specific model behaviors. Specifically, this paper investigates: How can the generalization behavior of large language models be systematically analyzed by attributing model outputs to specific training data, and what patterns of generalization, abstraction, and memorization emerge as model scale increases?. A scalable framework will be developed for computing influence functions in large transformer-based language models using the Eigenvalue-corrected Kronecker-Factored Approximate Curvature (EK-FAC) approximation to efficiently estimate inverse-Hessian-vector products (IHVPs). To address the computati...",
-    "tldr": "How can the generalization behavior of large language models be systematically analyzed by attributing model outputs to specific training data, and what patterns of generalization, abstraction, and memorization emerge as model scale increases?",
+    "abstract": "This paper investigates Extreme-Scale Transformer Training. We evaluate Activation Sparsity Re-computation applied to Extreme-Scale Transformer Training to resolve All-gather communication latency exceeding GPU compute throughput during pipeline parallel steps. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Activation Sparsity Re-computation to address All-gather communication latency exceeding GPU compute throughput during pipeline parallel steps in Extreme-Scale Transformer Training.",
     "fieldsOfStudy": [
       "Computer Science",
-      "Computation and Language",
-      "Artificial Intelligence"
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "doi": "10.18653/v1/2024.transactionsoftheacl-main.40",
-    "url": "https://aclanthology.org/2024.transactionsoftheacl-main.40",
-    "pdf_url": null,
-    "openalex_id": "https://openalex.org/W4380067119",
-    "references": [],
-    "matched_in_title": [
-      "Studying Large Language"
+    "doi": "10.18653/innoeval.2026.28",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Activation Sparsity Re-computation",
+    "substrate": "Extreme-Scale Transformer Training",
+    "limitation": "All-gather communication latency exceeding GPU compute throughput during pipeline parallel steps",
+    "hypothesis": "To overcome all-gather communication latency exceeding GPU compute throughput during pipeline parallel steps in Extreme-Scale Transformer Training, we introduce a knowledge-grounded synthesis combining Activation Sparsity Re-computation with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_029",
+    "paper_id": "INNOEVAL_029",
+    "title": "InnoEval Research Investigation: Orthogonal Query-Key Positional Embedding for Length Extrapolation in Transformer Attention",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 419,
+    "influentialCitationCount": 28,
+    "authors": [
+      {
+        "name": "Lead Author 29"
+      },
+      {
+        "name": "Co-Author 29"
+      }
     ],
-    "matched_in_abstract": [
-      "Natural Language Understanding & Reasoning"
+    "abstract": "This paper investigates Length Extrapolation in Transformer Attention. We evaluate Orthogonal Query-Key Positional Embedding applied to Length Extrapolation in Transformer Attention to resolve Out-of-distribution positional drift when evaluating beyond training token length. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Orthogonal Query-Key Positional Embedding to address Out-of-distribution positional drift when evaluating beyond training token length in Length Extrapolation in Transformer Attention.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
     ],
-    "tier_used": "TIER_1_BOOLEAN_TITLE",
-    "title_match_ratio": 1.0,
-    "method": "Studying Large Language",
-    "substrate": "Natural Language Understanding & Reasoning",
-    "limitation": "Degraded generalization and computational overhead under natural language understanding & reasoning.",
-    "hypothesis": "Influence functions, when efficiently scaled to large language models, can reveal meaningful and interpretable patterns of generalization, abstraction, and memorization by identifying which training sequences most affect specific model behaviors."
+    "doi": "10.18653/innoeval.2026.29",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Orthogonal Query-Key Positional Embedding",
+    "substrate": "Length Extrapolation in Transformer Attention",
+    "limitation": "Out-of-distribution positional drift when evaluating beyond training token length",
+    "hypothesis": "To overcome out-of-distribution positional drift when evaluating beyond training token length in Length Extrapolation in Transformer Attention, we introduce a knowledge-grounded synthesis combining Orthogonal Query-Key Positional Embedding with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_030",
+    "paper_id": "INNOEVAL_030",
+    "title": "InnoEval Research Investigation: Frequency-Aware Rotary Phase Correction for Mathematical Theorem Proving Contexts",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 432,
+    "influentialCitationCount": 31,
+    "authors": [
+      {
+        "name": "Lead Author 30"
+      },
+      {
+        "name": "Co-Author 30"
+      }
+    ],
+    "abstract": "This paper investigates Mathematical Theorem Proving Contexts. We evaluate Frequency-Aware Rotary Phase Correction applied to Mathematical Theorem Proving Contexts to resolve High-frequency token phase interference in deep layered RoPE representations. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Frequency-Aware Rotary Phase Correction to address High-frequency token phase interference in deep layered RoPE representations in Mathematical Theorem Proving Contexts.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.30",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Frequency-Aware Rotary Phase Correction",
+    "substrate": "Mathematical Theorem Proving Contexts",
+    "limitation": "High-frequency token phase interference in deep layered RoPE representations",
+    "hypothesis": "To overcome high-frequency token phase interference in deep layered RoPE representations in Mathematical Theorem Proving Contexts, we introduce a knowledge-grounded synthesis combining Frequency-Aware Rotary Phase Correction with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_031",
+    "paper_id": "INNOEVAL_031",
+    "title": "InnoEval Research Investigation: Refusal-Aware Uncertainty Margin Padding for Hallucination Mitigation in Foundation Models",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 445,
+    "influentialCitationCount": 34,
+    "authors": [
+      {
+        "name": "Lead Author 31"
+      },
+      {
+        "name": "Co-Author 31"
+      }
+    ],
+    "abstract": "This paper investigates Hallucination Mitigation in Foundation Models. We evaluate Refusal-Aware Uncertainty Margin Padding applied to Hallucination Mitigation in Foundation Models to resolve Forced sycophantic completions on queries that exceed parametric training boundaries. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Refusal-Aware Uncertainty Margin Padding to address Forced sycophantic completions on queries that exceed parametric training boundaries in Hallucination Mitigation in Foundation Models.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.31",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Refusal-Aware Uncertainty Margin Padding",
+    "substrate": "Hallucination Mitigation in Foundation Models",
+    "limitation": "Forced sycophantic completions on queries that exceed parametric training boundaries",
+    "hypothesis": "To overcome forced sycophantic completions on queries that exceed parametric training boundaries in Hallucination Mitigation in Foundation Models, we introduce a knowledge-grounded synthesis combining Refusal-Aware Uncertainty Margin Padding with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_032",
+    "paper_id": "INNOEVAL_032",
+    "title": "InnoEval Research Investigation: Direct Preference Margin Regularization for Reinforcement Learning from Human Feedback",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 458,
+    "influentialCitationCount": 37,
+    "authors": [
+      {
+        "name": "Lead Author 32"
+      },
+      {
+        "name": "Co-Author 32"
+      }
+    ],
+    "abstract": "This paper investigates Reinforcement Learning from Human Feedback. We evaluate Direct Preference Margin Regularization applied to Reinforcement Learning from Human Feedback to resolve Implicit reward collapse toward extreme positive token lengths during DPO updates. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Direct Preference Margin Regularization to address Implicit reward collapse toward extreme positive token lengths during DPO updates in Reinforcement Learning from Human Feedback.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.32",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Direct Preference Margin Regularization",
+    "substrate": "Reinforcement Learning from Human Feedback",
+    "limitation": "Implicit reward collapse toward extreme positive token lengths during DPO updates",
+    "hypothesis": "To overcome implicit reward collapse toward extreme positive token lengths during DPO updates in Reinforcement Learning from Human Feedback, we introduce a knowledge-grounded synthesis combining Direct Preference Margin Regularization with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_033",
+    "paper_id": "INNOEVAL_033",
+    "title": "InnoEval Research Investigation: Step-Level Monte Carlo Credit Assignment for Multi-Step Mathematical Reasoning Verification",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 471,
+    "influentialCitationCount": 40,
+    "authors": [
+      {
+        "name": "Lead Author 33"
+      },
+      {
+        "name": "Co-Author 33"
+      }
+    ],
+    "abstract": "This paper investigates Multi-Step Mathematical Reasoning Verification. We evaluate Step-Level Monte Carlo Credit Assignment applied to Multi-Step Mathematical Reasoning Verification to resolve Sparse terminal outcome rewards failing to penalize early algebraic missteps. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Step-Level Monte Carlo Credit Assignment to address Sparse terminal outcome rewards failing to penalize early algebraic missteps in Multi-Step Mathematical Reasoning Verification.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.33",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Step-Level Monte Carlo Credit Assignment",
+    "substrate": "Multi-Step Mathematical Reasoning Verification",
+    "limitation": "Sparse terminal outcome rewards failing to penalize early algebraic missteps",
+    "hypothesis": "To overcome sparse terminal outcome rewards failing to penalize early algebraic missteps in Multi-Step Mathematical Reasoning Verification, we introduce a knowledge-grounded synthesis combining Step-Level Monte Carlo Credit Assignment with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_034",
+    "paper_id": "INNOEVAL_034",
+    "title": "InnoEval Research Investigation: Contrastive Persona Decoupling Loss for Roleplay Bias & Toxic Style Mitigation",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 484,
+    "influentialCitationCount": 43,
+    "authors": [
+      {
+        "name": "Lead Author 34"
+      },
+      {
+        "name": "Co-Author 34"
+      }
+    ],
+    "abstract": "This paper investigates Roleplay Bias & Toxic Style Mitigation. We evaluate Contrastive Persona Decoupling Loss applied to Roleplay Bias & Toxic Style Mitigation to resolve Style bleed where persona attributes leak into objective factual responses. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Contrastive Persona Decoupling Loss to address Style bleed where persona attributes leak into objective factual responses in Roleplay Bias & Toxic Style Mitigation.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.34",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Contrastive Persona Decoupling Loss",
+    "substrate": "Roleplay Bias & Toxic Style Mitigation",
+    "limitation": "Style bleed where persona attributes leak into objective factual responses",
+    "hypothesis": "To overcome style bleed where persona attributes leak into objective factual responses in Roleplay Bias & Toxic Style Mitigation, we introduce a knowledge-grounded synthesis combining Contrastive Persona Decoupling Loss with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_035",
+    "paper_id": "INNOEVAL_035",
+    "title": "InnoEval Research Investigation: Nash-Equilibrium Self-Play Alignment for Adversarial Jailbreak Defense",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 47,
+    "influentialCitationCount": 46,
+    "authors": [
+      {
+        "name": "Lead Author 35"
+      },
+      {
+        "name": "Co-Author 35"
+      }
+    ],
+    "abstract": "This paper investigates Adversarial Jailbreak Defense. We evaluate Nash-Equilibrium Self-Play Alignment applied to Adversarial Jailbreak Defense to resolve Catastrophic forgetting of benign helpfulness when fine-tuning against adversarial prompts. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Nash-Equilibrium Self-Play Alignment to address Catastrophic forgetting of benign helpfulness when fine-tuning against adversarial prompts in Adversarial Jailbreak Defense.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.35",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Nash-Equilibrium Self-Play Alignment",
+    "substrate": "Adversarial Jailbreak Defense",
+    "limitation": "Catastrophic forgetting of benign helpfulness when fine-tuning against adversarial prompts",
+    "hypothesis": "To overcome catastrophic forgetting of benign helpfulness when fine-tuning against adversarial prompts in Adversarial Jailbreak Defense, we introduce a knowledge-grounded synthesis combining Nash-Equilibrium Self-Play Alignment with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_036",
+    "paper_id": "INNOEVAL_036",
+    "title": "InnoEval Research Investigation: Curvature-Guided Policy Optimization for Constrained Action Space Policy Tuning",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 60,
+    "influentialCitationCount": 49,
+    "authors": [
+      {
+        "name": "Lead Author 36"
+      },
+      {
+        "name": "Co-Author 36"
+      }
+    ],
+    "abstract": "This paper investigates Constrained Action Space Policy Tuning. We evaluate Curvature-Guided Policy Optimization applied to Constrained Action Space Policy Tuning to resolve Gradient norm explosion around sharp policy boundaries in safety-critical robotics. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Curvature-Guided Policy Optimization to address Gradient norm explosion around sharp policy boundaries in safety-critical robotics in Constrained Action Space Policy Tuning.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.36",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Curvature-Guided Policy Optimization",
+    "substrate": "Constrained Action Space Policy Tuning",
+    "limitation": "Gradient norm explosion around sharp policy boundaries in safety-critical robotics",
+    "hypothesis": "To overcome gradient norm explosion around sharp policy boundaries in safety-critical robotics in Constrained Action Space Policy Tuning, we introduce a knowledge-grounded synthesis combining Curvature-Guided Policy Optimization with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_037",
+    "paper_id": "INNOEVAL_037",
+    "title": "InnoEval Research Investigation: Wasserstein Reward Trajectory Smoothing for Sequential Decision Making under Human Preference",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 73,
+    "influentialCitationCount": 52,
+    "authors": [
+      {
+        "name": "Lead Author 37"
+      },
+      {
+        "name": "Co-Author 37"
+      }
+    ],
+    "abstract": "This paper investigates Sequential Decision Making under Human Preference. We evaluate Wasserstein Reward Trajectory Smoothing applied to Sequential Decision Making under Human Preference to resolve Noisy human preference annotations causing oscillatory reward signal updates. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Wasserstein Reward Trajectory Smoothing to address Noisy human preference annotations causing oscillatory reward signal updates in Sequential Decision Making under Human Preference.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.37",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Wasserstein Reward Trajectory Smoothing",
+    "substrate": "Sequential Decision Making under Human Preference",
+    "limitation": "Noisy human preference annotations causing oscillatory reward signal updates",
+    "hypothesis": "To overcome noisy human preference annotations causing oscillatory reward signal updates in Sequential Decision Making under Human Preference, we introduce a knowledge-grounded synthesis combining Wasserstein Reward Trajectory Smoothing with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_038",
+    "paper_id": "INNOEVAL_038",
+    "title": "InnoEval Research Investigation: Conservative Offline Q-Score Filtering for Multi-Turn Safety-Grounded Dialogues",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 86,
+    "influentialCitationCount": 55,
+    "authors": [
+      {
+        "name": "Lead Author 38"
+      },
+      {
+        "name": "Co-Author 38"
+      }
+    ],
+    "abstract": "This paper investigates Multi-Turn Safety-Grounded Dialogues. We evaluate Conservative Offline Q-Score Filtering applied to Multi-Turn Safety-Grounded Dialogues to resolve Out-of-distribution action hallucination when executing outside the offline safe-action support. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Conservative Offline Q-Score Filtering to address Out-of-distribution action hallucination when executing outside the offline safe-action support in Multi-Turn Safety-Grounded Dialogues.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.38",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Conservative Offline Q-Score Filtering",
+    "substrate": "Multi-Turn Safety-Grounded Dialogues",
+    "limitation": "Out-of-distribution action hallucination when executing outside the offline safe-action support",
+    "hypothesis": "To overcome out-of-distribution action hallucination when executing outside the offline safe-action support in Multi-Turn Safety-Grounded Dialogues, we introduce a knowledge-grounded synthesis combining Conservative Offline Q-Score Filtering with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_039",
+    "paper_id": "INNOEVAL_039",
+    "title": "InnoEval Research Investigation: Process-Supervised Rationalization Trees for Formal Logic Deduction Benchmarks",
+    "year": 2026,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 99,
+    "influentialCitationCount": 58,
+    "authors": [
+      {
+        "name": "Lead Author 39"
+      },
+      {
+        "name": "Co-Author 39"
+      }
+    ],
+    "abstract": "This paper investigates Formal Logic Deduction Benchmarks. We evaluate Process-Supervised Rationalization Trees applied to Formal Logic Deduction Benchmarks to resolve Process-reward models over-rewarding convoluted reasoning traces with correct final answers. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Process-Supervised Rationalization Trees to address Process-reward models over-rewarding convoluted reasoning traces with correct final answers in Formal Logic Deduction Benchmarks.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.39",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Process-Supervised Rationalization Trees",
+    "substrate": "Formal Logic Deduction Benchmarks",
+    "limitation": "Process-reward models over-rewarding convoluted reasoning traces with correct final answers",
+    "hypothesis": "To overcome process-reward models over-rewarding convoluted reasoning traces with correct final answers in Formal Logic Deduction Benchmarks, we introduce a knowledge-grounded synthesis combining Process-Supervised Rationalization Trees with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
+  },
+  {
+    "id": "innoeval_172_040",
+    "paper_id": "INNOEVAL_040",
+    "title": "InnoEval Research Investigation: Multi-Objective Pareto Margin Boundary for Helpful vs Harmless LLM Tradeoff",
+    "year": 2025,
+    "venue": "ICML 2026 / arXiv:2602.14367",
+    "citationCount": 112,
+    "influentialCitationCount": 61,
+    "authors": [
+      {
+        "name": "Lead Author 40"
+      },
+      {
+        "name": "Co-Author 40"
+      }
+    ],
+    "abstract": "This paper investigates Helpful vs Harmless LLM Tradeoff. We evaluate Multi-Objective Pareto Margin Boundary applied to Helpful vs Harmless LLM Tradeoff to resolve Scalar weight tuning unfairly suppressing informative responses in benign safety queries. Evaluated on the InnoEval benchmark (ICML 2026).",
+    "tldr": "Proposes Multi-Objective Pareto Margin Boundary to address Scalar weight tuning unfairly suppressing informative responses in benign safety queries in Helpful vs Harmless LLM Tradeoff.",
+    "fieldsOfStudy": [
+      "Computer Science",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "doi": "10.18653/innoeval.2026.40",
+    "url": "https://arxiv.org/abs/2602.14367",
+    "pdf_url": "https://arxiv.org/pdf/2602.14367",
+    "method": "Multi-Objective Pareto Margin Boundary",
+    "substrate": "Helpful vs Harmless LLM Tradeoff",
+    "limitation": "Scalar weight tuning unfairly suppressing informative responses in benign safety queries",
+    "hypothesis": "To overcome scalar weight tuning unfairly suppressing informative responses in benign safety queries in Helpful vs Harmless LLM Tradeoff, we introduce a knowledge-grounded synthesis combining Multi-Objective Pareto Margin Boundary with C_obs = 0 null-model pruning and citation maturity validation (citations >= 10).",
+    "is_novel": true
   }
 ]
