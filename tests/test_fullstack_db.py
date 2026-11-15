@@ -61,7 +61,7 @@ class TestFullstackDatabase(unittest.TestCase):
         
         # Verify preset presence
         dataset_ids = [d["id"] for d in datasets]
-        self.assertIn("output_satellite_300", dataset_ids)
+        self.assertIn("output_artificial_intelligence", dataset_ids)
         self.assertIn("output_gnn_drug_3k", dataset_ids)
 
     def test_03_zero_state_initialization(self):
@@ -88,15 +88,15 @@ class TestFullstackDatabase(unittest.TestCase):
 
     def test_04_query_dataset_data(self):
         """Querying a valid preset dataset returns rich 3D points, citation graph, and research gaps."""
-        resp = self.client.get("/api/graph/points3d?dataset=output_satellite_300")
+        resp = self.client.get("/api/graph/points3d?dataset=output_artificial_intelligence")
         self.assertEqual(resp.status_code, 200)
         self.assertIn("clusters", resp.json())
 
-        resp = self.client.get("/api/graph/citation?dataset=output_satellite_300")
+        resp = self.client.get("/api/graph/citation?dataset=output_artificial_intelligence")
         self.assertEqual(resp.status_code, 200)
         self.assertIn("cards", resp.json())
 
-        resp = self.client.get("/api/gaps/narrated?dataset=output_satellite_300")
+        resp = self.client.get("/api/gaps/narrated?dataset=output_artificial_intelligence")
         self.assertEqual(resp.status_code, 200)
         self.assertIn("gaps", resp.json())
 

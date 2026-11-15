@@ -40,12 +40,6 @@ METADATA_REGISTRY: Dict[str, Dict[str, Any]] = {
         "query": '("Deep Learning" AND "Medical Image Segmentation" OR "Transformer") NOT "Review"',
         "papers": 100,
     },
-    "output_acl_2024_40": {
-        "name": "ACL 2024 Long Paper Benchmark Cohort [40 Papers]",
-        "description": "40 papers — Official ACL 2024 Research Cohort: LLM reasoning, machine-generated text detection, low-resource prompting, and temporal expert models.",
-        "query": '"Large Language Models" AND "Natural Language Processing" (ACL 2024 Cohort)',
-        "papers": 40,
-    },
     "output_diffusion_models_and_me": {
         "name": "Diffusion Models & Medical Segmentation",
         "description": "70 papers -- 100% Title-Match Conjunction with Survey Purge: 'Diffusion Models' AND 'Medical Image Segmentation' NOT 'Survey'. Both in 100% of titles.",
@@ -101,6 +95,8 @@ def list_datasets() -> DatasetListResponse:
         from research_radar.app.services.db_service import get_corpora, get_corpus_gaps, get_corpus_clusters, get_corpus_edges
         db_corpora = get_corpora()
         for c in db_corpora:
+            if not c.paper_count or c.paper_count <= 0:
+                continue
             seen_ids.add(c.id)
             datasets.append(DatasetInfo(
                 id=c.id,
@@ -144,6 +140,9 @@ def list_datasets() -> DatasetListResponse:
                 "query": key.replace("output_", "").replace("_", " "),
                 "papers": actual_count,
             })
+
+            if actual_count is not None and actual_count <= 0:
+                continue
 
             # Auto-register to SQLite database if missing
             if "detected_gaps.json" in files or papers_file.exists():
