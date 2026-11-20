@@ -370,7 +370,12 @@ export const App: React.FC = () => {
             if (event.dataset_id) {
               setSelectedDataset(event.dataset_id);
               loadDatasetArtifacts(event.dataset_id);
+              fetch('/api/datasets').then(r => r.ok ? r.json() : null).then(d => {
+                if (d?.datasets) setDatasets(d.datasets);
+              }).catch(() => {});
               goToStage(skipDomainClusters ? 2 : 1);
+            } else if (event.status === 'failed' || event.error) {
+              setPipelineError(event.error || event.message || 'Pipeline execution failed.');
             }
           }
         } catch { }

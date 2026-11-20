@@ -261,4 +261,5 @@ export interface PipelineProgressEvent {
   is_terminal?: boolean;
   status?: string;
   dataset_id?: string;
+  error?: string;
 }

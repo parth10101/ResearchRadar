@@ -4,6 +4,7 @@ import random
 import math
 import datetime
 import sqlite3
+from typing import Any, Callable, Dict, List, Optional, Tuple
 from pathlib import Path
 from research_radar.app.core.config import settings
 
