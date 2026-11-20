@@ -1056,89 +1056,8 @@ export const HeroSection: React.FC<Props> = ({
                 </span>
               </div>
             </div>
-
-
-            {/* Dynamic All-Domain Research Recommendations & Shuffle Bar (NO "FRONTIER:" LABEL) */}
-            <div className="domain-recommendations-bar" onClick={(e) => e.stopPropagation()}>
-              {/* Field Selector Dropdown Anchor */}
-              <div className="field-select-anchor">
-                <button
-                  className={`field-select-btn ${fieldMenuOpen ? 'open' : ''}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setFieldMenuOpen(!fieldMenuOpen);
-                    setDropOpen(false);
-        setCorpusMenuOpen(false);
-                    
-                  }}
-                  title="Switch research domain"
-                >
-                  <span className="field-icon">{activeField.icon}</span>
-                  <span className="field-name-label">{activeField.shortName || activeField.name}</span>
-                  <ChevronDown className="h-3 w-3 opacity-60 ml-0.5" />
-                </button>
-
-                {fieldMenuOpen && (
-                  <div
-                    className="fields-dropdown-tray overflow-y-auto custom-scrollbar"
-                    data-scrollable
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="fields-tray-hdr">ALL RESEARCH DISCIPLINES</div>
-                    <div className="fields-grid-options">
-                      {RESEARCH_FIELDS.map((f) => (
-                        <div
-                          key={f.id}
-                          className={`field-option-row ${f.id === activeFieldId ? 'active' : ''}`}
-                          onClick={() => {
-                            setActiveFieldId(f.id);
-                            setShuffleIndex(0);
-                            setFieldMenuOpen(false);
-                          }}
-                        >
-                          <span className="field-opt-icon">{f.icon}</span>
-                          <span className="field-opt-name">{f.name}</span>
-                          {f.id === activeFieldId && <Check className="h-3 w-3 text-[#ff4300]" />}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="domain-v-sep" />
-
-              {/* Recommendation Topic Pills */}
-              <div className="domain-topic-pills-wrap">
-                {visibleTopics.map((c) => (
-                  <button
-                    key={c.label}
-                    className="domain-topic-pill"
-                    onClick={() => {
-                      setQuery(c.query);
-                      handleExecuteSearch(c.query);
-                    }}
-                    disabled={isExecuting}
-                    title={`Search: ${c.query}`}
-                  >
-                    <span className="pill-dot" style={{ backgroundColor: c.color }} />
-                    <span className="pill-text">{c.label}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* 1-Click Shuffle Button */}
-              <button
-                className={`domain-shuffle-trigger ${isShuffling ? 'shuffling' : ''}`}
-                onClick={handleShuffle}
-                title="Shuffle topic recommendations (Press to cycle)"
-              >
-                <RotateCw className="h-3 w-3" />
-                <span>Shuffle</span>
-              </button>
           </div>
         </div>
-      </div>
 
       {/* Live Scholar Proof & Parity Audit Modal */}
       <LiveProofModal
