@@ -4,13 +4,13 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: "pip install -r requirements.txt && npm --prefix frontend install && npm --prefix frontend run build"
+    buildCommand: "rm -rf frontend/node_modules frontend/package-lock.json && pip install -r requirements.txt && npm --prefix frontend install && npm --prefix frontend install @rolldown/binding-linux-x64-gnu && npm --prefix frontend run build"
     startCommand: "uvicorn research_radar.app.main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
       - key: NODE_VERSION
-        value: 20.12.0
+        value: 20.18.0
       - key: OPENALEX_API_KEY
         sync: false
       - key: DATABASE_URL
