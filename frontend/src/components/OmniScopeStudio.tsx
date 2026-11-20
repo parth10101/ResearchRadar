@@ -90,7 +90,7 @@ export const OmniScopeStudio: React.FC<OmniScopeStudioProps> = ({
 
 
 
-  if (!hasDataset && (!data3d || data3d.clusters.length === 0 || data3d.total_points === 0)) {
+  if (!hasDataset || !data3d || !data3d.clusters || data3d.clusters.length === 0 || (data3d.total_points ?? 0) === 0) {
 
     return (
 

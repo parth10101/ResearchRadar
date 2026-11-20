@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: research-radar
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements.txt && npm --prefix frontend install && npm --prefix frontend run build"
+    startCommand: "uvicorn research_radar.app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: NODE_VERSION
+        value: 20.12.0
+      - key: OPENALEX_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: research-radar-db
+          property: connectionString
+
+databases:
+  - name: research-radar-db
+    plan: free
+    databaseName: research_radar
+    user: research_radar_user

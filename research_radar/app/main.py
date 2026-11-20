@@ -7,6 +7,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, JSONResponse
 
 from contextlib import asynccontextmanager
 from research_radar.app.api.router import api_router
@@ -100,6 +101,15 @@ def create_application() -> FastAPI:
     frontend_dist = settings.ROOT_DIR / "frontend" / "dist"
     if frontend_dist.exists():
         app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
+
+    @app.exception_handler(404)
+    async def spa_404_handler(request, exc):
+        if request.url.path.startswith("/api"):
+            return JSONResponse(status_code=404, content={"detail": f"API endpoint '{request.url.path}' not found"})
+        index_file = frontend_dist / "index.html"
+        if index_file.exists():
+            return FileResponse(index_file)
+        return JSONResponse(status_code=404, content={"detail": "Not found"})
 
     return app
 

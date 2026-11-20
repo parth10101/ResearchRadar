@@ -135,16 +135,18 @@ export const AstraParticleWorld: React.FC<Props> = ({
 
     const buildGeometryFromData = (data: Points3DData | null) => {
       const { points: rawPoints, clusters } = convertPoints3DData(data);
-      // For initial hero background stardust when no dataset is loaded yet:
-      const points = rawPoints.length > 0
-        ? sampleRepresentativePoints(rawPoints, clusters, PARTICLE_WORLD_MAX)
-        : sampleRepresentativePoints(ALL_REAL_POINTS, REAL_CLUSTERS, PARTICLE_WORLD_MAX);
+      const isExplicitZero = data !== null && (data.total_points === 0 || rawPoints.length === 0);
+      const points = isExplicitZero
+        ? []
+        : (rawPoints.length > 0
+          ? sampleRepresentativePoints(rawPoints, clusters, PARTICLE_WORLD_MAX)
+          : sampleRepresentativePoints(ALL_REAL_POINTS, REAL_CLUSTERS, PARTICLE_WORLD_MAX));
       currentPoints = points;
       const pData = generateAstraParticleData(
         points,
-        rawPoints.length > 0 ? clusters : REAL_CLUSTERS
+        isExplicitZero ? [] : (rawPoints.length > 0 ? clusters : REAL_CLUSTERS)
       );
-      activeClusterMetasRef.current = pData.clusterMetas;
+      activeClusterMetasRef.current = isExplicitZero ? [] : pData.clusterMetas;
 
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(pData.homePositions, 3));
@@ -196,16 +198,21 @@ export const AstraParticleWorld: React.FC<Props> = ({
     // In-place attribute updates: Dynamically updates to each query's authentic clusters
     updateGeometryRef.current = (newData: Points3DData | null) => {
       const { points: rawPoints, clusters } = convertPoints3DData(newData);
-      const points = rawPoints.length > 0
-        ? sampleRepresentativePoints(rawPoints, clusters, PARTICLE_WORLD_MAX)
-        : sampleRepresentativePoints(ALL_REAL_POINTS, REAL_CLUSTERS, PARTICLE_WORLD_MAX);
+      const isExplicitZero = newData !== null && (newData.total_points === 0 || rawPoints.length === 0);
+      const points = isExplicitZero
+        ? []
+        : (rawPoints.length > 0
+          ? sampleRepresentativePoints(rawPoints, clusters, PARTICLE_WORLD_MAX)
+          : sampleRepresentativePoints(ALL_REAL_POINTS, REAL_CLUSTERS, PARTICLE_WORLD_MAX));
       currentPoints = rawPoints.length > 0 ? points : [];
       const pData = generateAstraParticleData(
         points,
-        rawPoints.length > 0 ? clusters : REAL_CLUSTERS
+        isExplicitZero ? [] : (rawPoints.length > 0 ? clusters : REAL_CLUSTERS)
       );
-      activeClusterMetasRef.current = rawPoints.length > 0 ? pData.clusterMetas : [];
-      const { midX: nMidX, midY: nMidY, midZ: nMidZ, worldScale: nScale } = getEmbeddingBoundsAndScale(points);
+      activeClusterMetasRef.current = isExplicitZero ? [] : (rawPoints.length > 0 ? pData.clusterMetas : []);
+      const { midX: nMidX, midY: nMidY, midZ: nMidZ, worldScale: nScale } = points.length > 0
+        ? getEmbeddingBoundsAndScale(points)
+        : { midX: 0, midY: 0, midZ: 0, worldScale: 1.0 };
       cameraSplineRig.setBoundsAndScale(nMidX, nMidY, nMidZ, nScale);
 
       // Dynamically rebind buffer attributes with exact target coordinates and colors for this query

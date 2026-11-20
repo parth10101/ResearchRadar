@@ -159,6 +159,8 @@ export interface ResearchGap {
   dataset: string;
   limitation: string;
   score: number;
+  feasibility_score?: number;
+  c_obs?: string | number;
   specificity_score?: number;
   literature_tier?: string;
   operational_hypothesis?: {

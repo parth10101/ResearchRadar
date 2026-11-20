@@ -697,7 +697,7 @@ export const HeroSection: React.FC<Props> = ({
                   handleExecuteSearch(composedFullQuery);
                 }
               }}
-              placeholder='Primary Concept A (e.g. Artificial Intelligence, Neural Networks, Quantum Computing)...'
+              placeholder="Search topic, method, or DOI (e.g. Deep Representation Learning)..."
             />
 
             {query && !isExecuting && (
@@ -712,18 +712,18 @@ export const HeroSection: React.FC<Props> = ({
             )}
 
 
-            {/* Toggle Condition Bars Button */}
+            {/* Minimal Toggle Condition Bars Button */}
             <button
               type="button"
               onClick={() => setShowSubBars(!showSubBars)}
-              className={`text-xs font-mono px-2.5 py-1 rounded transition-all flex items-center gap-1 shrink-0 border ${
+              className={`text-xs font-mono px-2 py-1 rounded-md transition-all flex items-center gap-1 shrink-0 border ${
                 showSubBars
-                  ? 'bg-[#ff4300]/20 text-[#ff8a50] border-[#ff4300]/50 shadow-[0_0_10px_rgba(255,67,0,0.2)]'
-                  : 'bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-white border-zinc-700/60'
+                  ? 'bg-[#ff4300]/20 text-[#ff8a50] border-[#ff4300]/50 shadow-[0_0_8px_rgba(255,67,0,0.2)]'
+                  : 'bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white border-white/[0.08]'
               }`}
-              title={showSubBars ? 'Hide condition refinement sub-bars' : 'Add 2 Boolean condition refinement sub-bars (AND / OR / NOT)'}
+              title={showSubBars ? 'Hide Boolean conditions' : 'Add Boolean conditions (AND / OR / NOT)'}
             >
-              <span>{showSubBars ? '− Hide Conditions' : '+ Conditions (AND / OR / NOT)'}</span>
+              <span className="font-medium">{showSubBars ? '− AND/OR' : '+ AND/OR'}</span>
             </button>
 
             {/* Interactive Corpus Depth Selector Button (100 to 3k or Custom) */}
@@ -840,17 +840,9 @@ export const HeroSection: React.FC<Props> = ({
             </button>
           </div>
 
-                    {/* 3 Search Bars: 2 Boolean Refinement Sub-Bars (Toggleable via button) */}
+                    {/* Minimal Boolean Refinement Sub-Bars */}
           {showSubBars && (
-            <div className="ieee-deck-container mt-2 animate-fadeIn">
-              <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 px-1 pb-1">
-                <span className="font-semibold text-emerald-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  REFINEMENT BARS (KEYWORD CONJUNCTIONS)
-                </span>
-                <span className="text-zinc-400">OPENALEX 250M+ GLOBAL CORPUS (GOOGLE SCHOLAR PARITY)</span>
-              </div>
-
+            <div className="ieee-deck-container mt-1.5 animate-fadeIn">
               {/* Condition Bar 1 */}
               <div className="ieee-row">
                 <select
@@ -858,7 +850,7 @@ export const HeroSection: React.FC<Props> = ({
                   value={ieeeOp0}
                   onChange={(e) => setIeeeOp0(e.target.value as any)}
                   disabled={isExecuting}
-                  title="Select Boolean Operator for Condition Bar 1 (AND / OR / NOT)"
+                  title="Boolean Operator (AND / OR / NOT)"
                 >
                   <option value="AND">AND</option>
                   <option value="OR">OR</option>
@@ -867,7 +859,7 @@ export const HeroSection: React.FC<Props> = ({
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Concept B (e.g. CNN, Medical Imaging, Fluid Dynamics)"
+                  placeholder="Concept B (e.g. CNN, Medical Imaging, Fluid Dynamics)..."
                   value={ieeeTerm1}
                   onChange={(e) => setIeeeTerm1(e.target.value)}
                   disabled={isExecuting}
@@ -890,23 +882,6 @@ export const HeroSection: React.FC<Props> = ({
                 )}
               </div>
 
-              {/* Dependent Co-occurrence Quick-Pick Pills */}
-              {coOccurringSuggestions.length > 0 && (
-                <div className="flex flex-wrap items-center gap-1.5 px-1 py-1 text-[11px] font-mono text-zinc-400">
-                  <span className="text-emerald-400 font-semibold text-[10px]">VERIFIED CO-OCCURRENCES:</span>
-                  {coOccurringSuggestions.slice(0, 4).map((sug, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setIeeeTerm1(`"${sug}"`)}
-                      className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors cursor-pointer text-[10px]"
-                    >
-                      + {sug}
-                    </button>
-                  ))}
-                </div>
-              )}
-
               {/* Condition Bar 2 */}
               <div className="ieee-row">
                 <select
@@ -914,7 +889,7 @@ export const HeroSection: React.FC<Props> = ({
                   value={ieeeOp1}
                   onChange={(e) => setIeeeOp1(e.target.value as any)}
                   disabled={isExecuting}
-                  title="Select Boolean Operator for Condition Bar 2 (AND / OR / NOT)"
+                  title="Boolean Operator (AND / OR / NOT)"
                 >
                   <option value="AND">AND</option>
                   <option value="OR">OR</option>
@@ -923,7 +898,7 @@ export const HeroSection: React.FC<Props> = ({
                 <input
                   type="text"
                   className="ieee-input-field"
-                  placeholder="Concept C (e.g. Transfer Learning, Brain MRI, Turbulence)"
+                  placeholder="Concept C (e.g. Transfer Learning, Brain MRI, Turbulence)..."
                   value={ieeeTerm2}
                   onChange={(e) => setIeeeTerm2(e.target.value)}
                   disabled={isExecuting}

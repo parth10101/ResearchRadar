@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Copy, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sparkles, Copy, Check, ChevronLeft, ChevronRight, FileDown } from 'lucide-react';
 import { NarratedGap } from '../types';
 import { ObservatoryStandby } from './ObservatoryStandby';
 import { HighlightedTitle } from './HighlightedTitle';
+import { exportGapsToPdf } from '../utils/pdfExport';
 
 interface GrantStudioProps {
   narratedGaps: NarratedGap[];
@@ -23,6 +24,14 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({
 }) => {
   const [activeGapIndex, setActiveGapIndex] = useState(0);
   const [isCopied, setIsCopied] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExportPdf = () => {
+    if (!activeGap) return;
+    setIsExporting(true);
+    exportGapsToPdf(availableGaps, searchQuery, activeGapIndex);
+    setTimeout(() => setIsExporting(false), 2000);
+  };
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const availableGaps = narratedGaps || [];
@@ -322,6 +331,29 @@ ${activeGap.description_plain || activeGap.description || 'Zero historical co-oc
                 </div>
               </div>
             )}
+
+            {/* Minimal Export PDF Button (Bottom Right) */}
+            <div className="pt-5 border-t border-white/[0.06] flex items-center justify-end">
+              <button
+                type="button"
+                onClick={handleExportPdf}
+                disabled={isExporting}
+                className="px-3 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/[0.08] hover:border-[#ff4300]/40 text-xs font-mono flex items-center gap-2 transition-all cursor-pointer shadow-sm group hover:shadow-[0_0_12px_rgba(255,67,0,0.15)] disabled:opacity-50"
+                title="Export clean, high-signal research brief (Top Gaps) as PDF"
+              >
+                {isExporting ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-emerald-400">Exporting...</span>
+                  </>
+                ) : (
+                  <>
+                    <FileDown className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#ff5500] transition-colors" />
+                    <span>Export PDF</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>

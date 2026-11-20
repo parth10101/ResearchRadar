@@ -82,6 +82,24 @@ def resolve_output_dir(dataset: Optional[str] = None, out_dir: Optional[str] = N
         if c.exists() and c.is_dir():
             return c
 
+    # Cloud Resilience: If folder was purged or deployed on fresh instance, materialize from Database
+    try:
+        from research_radar.app.services.db_service import get_corpus, materialize_corpus_from_db
+        target_id = (dataset or (Path(out_dir).name if out_dir else "")).strip().rstrip("/\\")
+        if target_id:
+            c_rec = get_corpus(target_id)
+            if not c_rec and not target_id.startswith("output_"):
+                c_rec = get_corpus(f"output_{target_id}")
+                if c_rec:
+                    target_id = f"output_{target_id}"
+
+            if c_rec:
+                target_path = data_dir / target_id
+                if materialize_corpus_from_db(target_id, target_path):
+                    return target_path
+    except Exception:
+        pass
+
     return None
 
 

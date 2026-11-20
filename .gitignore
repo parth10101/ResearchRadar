@@ -38,6 +38,13 @@ data/output_llm_hallucination_3k/citation_graph.html
 .ipynb_checkpoints/
 *.ipynb
 
+# Screenshots & visual reports
+page_*.png
+report_page_*.png
+figure_*.png
+updated_report_plots/
+data/test_timing/
+
 # Data & large binary files — keep results JSON but not raw binary embeddings
 data/output/embeddings.npy
 data/output/embeddings_ids.json

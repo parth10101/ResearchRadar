@@ -5,6 +5,7 @@ import { convertPoints3DData } from '../particles/ClusterTargetGenerator';
 import { ClusterGlassMorphPanel } from './ClusterGlassMorphPanel';
 import { spatialJourneyController } from '../particles/SpatialJourneyController';
 import { cameraSplineRig } from '../particles/CameraSplineRig';
+import { ObservatoryStandby } from './ObservatoryStandby';
 
 interface OmniScopeL1ClusterSpaceProps {
   data3d?: Points3DData | null;
@@ -71,6 +72,20 @@ export const OmniScopeL1ClusterSpace: React.FC<OmniScopeL1ClusterSpaceProps> = (
   }, [clusters, selectedClusterId]);
 
   const totalPapers = clusters.reduce((acc, c) => acc + c.pointCount, 0);
+
+  if (clusters.length === 0 || totalPapers === 0) {
+    return (
+      <ObservatoryStandby
+        stageNumber="01"
+        stageName="Domain Clusters"
+        description={activeQuery 
+          ? `0 publications found matching your inquiry: "${activeQuery}". Zero empirical papers exist to form thematic clusters.` 
+          : "No literature corpus currently initialized. Run a research inquiry or choose a curated topic from the search deck to generate high-dimensional thematic clusters."}
+        onLaunchSearch={onNavigateToHero || (() => {})}
+        searchQuery={activeQuery}
+      />
+    );
+  }
 
   const handleToggleAutoRotate = (e: React.MouseEvent) => {
     e.stopPropagation();

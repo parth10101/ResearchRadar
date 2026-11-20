@@ -21,26 +21,18 @@ from __future__ import annotations
 
 
 import hashlib
-
 import json
-
 import os
-
 import re
-
+import time
 import urllib.parse
-
 import urllib.request
-
 from pathlib import Path
-
 from typing import Any
 
-
-
 OPENALEX_BASE_URL = "https://api.openalex.org/works"
-
 DEFAULT_OPENALEX_KEY = "AjZj74YKkEo9UJhxrTwkpc"
+SELECT_FIELDS = "id,doi,title,publication_year,cited_by_count,primary_location,authorships,abstract_inverted_index"
 
 
 
@@ -107,11 +99,9 @@ class OpenAlexClient:
         self.api_key = api_key or _get_api_key()
 
         self.headers = {
-
             "User-Agent": "ResearchRadar/2.0 (mailto:academic-verification@researchradar.edu)",
-
+            "api-key": self.api_key,
             "api_key": self.api_key,
-
         }
 
 
@@ -178,13 +168,23 @@ class OpenAlexClient:
 
 
 
-    def _execute_request(self, url: str) -> dict:
-
-        req = urllib.request.Request(url, headers=self.headers)
-
-        with urllib.request.urlopen(req, timeout=12) as response:
-
-            return json.loads(response.read().decode("utf-8"))
+    def _execute_request(self, url: str, max_retries: int = 3) -> dict:
+        for attempt in range(max_retries):
+            try:
+                req = urllib.request.Request(url, headers=self.headers)
+                with urllib.request.urlopen(req, timeout=12) as response:
+                    return json.loads(response.read().decode("utf-8"))
+            except urllib.error.HTTPError as e:
+                if e.code == 429 and attempt < max_retries - 1:
+                    time.sleep(0.5 * (attempt + 1))
+                    continue
+                raise
+            except Exception:
+                if attempt < max_retries - 1:
+                    time.sleep(0.5)
+                    continue
+                raise
+        return {}
 
 
 
@@ -276,74 +276,67 @@ class OpenAlexClient:
 
 
 
-        # 1. Natural full-text search across all positive terms
+        # 1. Natural full-text search across all positive terms with dynamic pagination
+        target_per_page = min(200, max(50, max_results))
+        max_pages = max(1, min(6, (max_results + target_per_page - 1) // target_per_page + 1))
+
+        seen_raw_ids = set()
 
         unquoted_query = " ".join(pos_terms)
-
         encoded_unquoted = urllib.parse.quote(unquoted_query)
+        filter_unquoted = f"title_and_abstract.search:{encoded_unquoted},type:article|preprint{year_filter}"
 
-        filter_unquoted = f"title_and_abstract.search:{encoded_unquoted},type:article|types:preprint{year_filter}"
+        select_clause = f"&select={SELECT_FIELDS}"
 
-        url_unquoted = f"{OPENALEX_BASE_URL}?filter={filter_unquoted}&per_page={min(100, max_results * 2)}&sort=relevance_score:desc"
-
-        try:
-
-            data_unquoted = self._execute_request(url_unquoted)
-
-            raw_papers.extend(data_unquoted.get("results", []))
-
-        except Exception:
-
-            pass
-
-
+        for page in range(1, max_pages + 1):
+            url_unquoted = f"{OPENALEX_BASE_URL}?filter={filter_unquoted}&per_page={target_per_page}&page={page}&sort=relevance_score:desc{select_clause}"
+            try:
+                data_unquoted = self._execute_request(url_unquoted)
+                page_results = data_unquoted.get("results", [])
+                if not page_results:
+                    break
+                for p in page_results:
+                    pid = p.get("id") or p.get("doi") or p.get("title")
+                    if pid and pid not in seen_raw_ids:
+                        seen_raw_ids.add(pid)
+                        raw_papers.append(p)
+                if len(raw_papers) >= max_results * 2:
+                    break
+            except Exception:
+                break
 
         # 2. Also try phrase query if terms have spaces to catch specific co-occurrences
-
-        if any(" " in t for t in pos_terms):
-
+        if any(" " in t for t in pos_terms) and len(raw_papers) < max_results * 1.5:
             try:
-
                 quoted_query = " ".join([f'"{t}"' if " " in t else t for t in pos_terms])
-
                 encoded_quoted = urllib.parse.quote(quoted_query)
-
-                filter_quoted = f"title_and_abstract.search:{encoded_quoted},type:article|types:preprint{year_filter}"
-
-                url_quoted = f"{OPENALEX_BASE_URL}?filter={filter_quoted}&per_page={min(50, max_results)}&sort=relevance_score:desc"
-
+                filter_quoted = f"title_and_abstract.search:{encoded_quoted},type:article|preprint{year_filter}"
+                url_quoted = f"{OPENALEX_BASE_URL}?filter={filter_quoted}&per_page={target_per_page}&page=1&sort=relevance_score:desc{select_clause}"
                 data_quoted = self._execute_request(url_quoted)
-
-                raw_papers.extend(data_quoted.get("results", []))
-
-            except Exception:
-
-                pass
-
-
-
-        # Search title.search for each positive term to maximize retrieval of title hits
-        for term in pos_terms[:3]:
-            try:
-                filter_str_title = f"title.search:{urllib.parse.quote(term)},type:article|types:preprint{year_filter}"
-                url_title = f"{OPENALEX_BASE_URL}?filter={filter_str_title}&per_page={min(100, max_results * 2)}&sort=cited_by_count:desc"
-                data_title = self._execute_request(url_title)
-                raw_papers.extend(data_title.get("results", []))
+                for p in data_quoted.get("results", []):
+                    pid = p.get("id") or p.get("doi") or p.get("title")
+                    if pid and pid not in seen_raw_ids:
+                        seen_raw_ids.add(pid)
+                        raw_papers.append(p)
             except Exception:
                 pass
 
-                data_title = self._execute_request(url_title)
-
-                raw_papers.extend(data_title.get("results", []))
-
-            except Exception:
-
-                pass
-
-
+        # 3. Search title.search for each positive term to maximize retrieval of title hits if needed
+        if len(raw_papers) < max_results * 1.5:
+            for term in pos_terms[:3]:
+                try:
+                    filter_str_title = f"title.search:{urllib.parse.quote(term)},type:article|preprint{year_filter}"
+                    url_title = f"{OPENALEX_BASE_URL}?filter={filter_str_title}&per_page={min(100, target_per_page)}&sort=cited_by_count:desc{select_clause}"
+                    data_title = self._execute_request(url_title)
+                    for p in data_title.get("results", []):
+                        pid = p.get("id") or p.get("doi") or p.get("title")
+                        if pid and pid not in seen_raw_ids:
+                            seen_raw_ids.add(pid)
+                            raw_papers.append(p)
+                except Exception:
+                    pass
 
         # -------------------------------------------------------------
-
         # STRICT IN-MEMORY BOOLEAN ENFORCEMENT & DEDUPLICATION
 
         # -------------------------------------------------------------

@@ -73,11 +73,23 @@ class TestSciMONCaseStudy(unittest.TestCase):
             self.assertIn("limitations", pe)
 
     def test_scimon_ground_truth_alignment(self):
-        rr_gap_desc = (
-            "Applying contrastive mutual information maximization across bilingual parallel sentence pairs "
-            "to align multilingual sentence representations and overcome cross-lingual subspace collapse in "
-            "mBERT without task-specific labeled fine-tuning."
+        """
+        Dynamically executes OperationalHypothesisGenerator on the SciMON formulation
+        and verifies that our synthesized structural hypothesis aligns significantly higher
+        with the author ground truth than generic LLM hyperparameter tweaking.
+        """
+        from research_radar.operational_hypothesis import OperationalHypothesisGenerator
+
+        gen = OperationalHypothesisGenerator()
+        op_res = gen.operationalize(
+            method="Contrastive Mutual Information Maximization (InfoNCE)",
+            dataset="Cross-Lingual Natural Language Inference across Parallel Corpora",
+            limitation="Representation space collapse and language drift in multilingual models"
         )
+        
+        self.assertTrue(op_res.get("is_admissible"), "Synthesized hypothesis was rejected as non-admissible")
+        rr_gap_desc = op_res.get("hypothesis_statement", "")
+
         author_truth = (
             "The fundamental research gap is that cross-lingual language model pretraining suffers from "
             "representation space collapse and language drift, requiring a contrastive cross-lingual sentence "
@@ -91,7 +103,7 @@ class TestSciMONCaseStudy(unittest.TestCase):
         rouge_rr = compute_rouge_l(rr_gap_desc, author_truth)
         rouge_gpt4 = compute_rouge_l(gpt4_failed, author_truth)
 
-        # ResearchRadar must align higher with ground truth than generic LLM hyperparameter tweaking
+        # ResearchRadar synthesized hypothesis must align higher with ground truth than generic LLM tweaking
         self.assertGreater(rouge_rr, rouge_gpt4)
         self.assertGreaterEqual(rouge_rr, 0.15)
 
