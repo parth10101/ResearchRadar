@@ -8,6 +8,7 @@ import { UniversalBackground } from './components/UniversalBackground';
 import { BenchmarkModal } from './components/BenchmarkModal';
 import { DatasetInfo, ArchipelagoData, CitationData, ResearchGap, NarratedGap, PipelineProgressEvent, Points3DData } from './types';
 import { spatialJourneyController } from './particles/SpatialJourneyController';
+import { DEFAULT_PRESET_DATASET_ID, DEFAULT_PRESET_QUERY, DEFAULT_PRESET_GAPS } from './data/defaultPresetData';
 
 // Stages definition
 const STAGES = ['hero', 'archipelago', 'timeline', 'grant'] as const;
@@ -30,20 +31,20 @@ const STAGE_PROGRESS: Record<StageId, number> = {
 export const App: React.FC = () => {
   const [viewMode, setViewMode] = useState<'hero' | 'studio'>('hero');
   const [datasets, setDatasets] = useState<DatasetInfo[]>([]);
-  const [selectedDataset, setSelectedDataset] = useState<string>('');
+  const [selectedDataset, setSelectedDataset] = useState<string>(DEFAULT_PRESET_DATASET_ID);
   const [activeTab, setActiveTab] = useState<StageId>('hero');
   const [points3dData, setPoints3dData] = useState<Points3DData | null>(null);
   const [archipelagoData, setArchipelagoData] = useState<ArchipelagoData | null>(null);
   const [citationData, setCitationData] = useState<CitationData | null>(null);
   const [detectedGaps, setDetectedGaps] = useState<ResearchGap[]>([]);
-  const [narratedGaps, setNarratedGaps] = useState<NarratedGap[]>([]);
+  const [narratedGaps, setNarratedGaps] = useState<NarratedGap[]>(DEFAULT_PRESET_GAPS);
   const [isRunning, setIsRunning] = useState(false);
   const [selectedClusterId, setSelectedClusterId] = useState<string>('');
   const [activeLayer, setActiveLayer] = useState<1 | 2 | 3>(1);
   const [progressEvents, setProgressEvents] = useState<PipelineProgressEvent[]>([]);
-  const [selectedGapTitle, setSelectedGapTitle] = useState('');
+  const [selectedGapTitle, setSelectedGapTitle] = useState(DEFAULT_PRESET_GAPS[0]?.title || '');
   const [pipelineError, setPipelineError] = useState<string | null>(null);
-  const [activeQuery, setActiveQuery] = useState<string>('');
+  const [activeQuery, setActiveQuery] = useState<string>(DEFAULT_PRESET_QUERY);
   const [isBenchmarkOpen, setIsBenchmarkOpen] = useState(false);
 
   // Discrete Stage Engine
@@ -322,9 +323,23 @@ export const App: React.FC = () => {
     fetch(`/api/graph/citation?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(setCitationData).catch(() => setCitationData(null));
     fetch(`/api/gaps/detected?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(d => setDetectedGaps(d?.gaps ?? [])).catch(() => setDetectedGaps([]));
     fetch(`/api/gaps/narrated?dataset=${datasetId}`).then(r => r.ok ? r.json() : null).then(d => {
-      if (d?.gaps?.length > 0) { setNarratedGaps(d.gaps); setSelectedGapTitle(d.gaps[0].title); }
-      else setNarratedGaps([]);
-    }).catch(() => setNarratedGaps([]));
+      if (d?.gaps?.length > 0) { 
+        setNarratedGaps(d.gaps); 
+        setSelectedGapTitle(d.gaps[0].title); 
+      } else if (datasetId === DEFAULT_PRESET_DATASET_ID) {
+        setNarratedGaps(DEFAULT_PRESET_GAPS);
+        setSelectedGapTitle(DEFAULT_PRESET_GAPS[0].title);
+      } else {
+        setNarratedGaps([]);
+      }
+    }).catch(() => {
+      if (datasetId === DEFAULT_PRESET_DATASET_ID) {
+        setNarratedGaps(DEFAULT_PRESET_GAPS);
+        setSelectedGapTitle(DEFAULT_PRESET_GAPS[0].title);
+      } else {
+        setNarratedGaps([]);
+      }
+    });
   }, []);
 
   // Fetch dataset artifacts when selectedDataset is set
@@ -334,8 +349,8 @@ export const App: React.FC = () => {
       setArchipelagoData(null);
       setCitationData(null);
       setDetectedGaps([]);
-      setNarratedGaps([]);
-      setSelectedGapTitle('');
+      setNarratedGaps(DEFAULT_PRESET_GAPS);
+      setSelectedGapTitle(DEFAULT_PRESET_GAPS[0]?.title || '');
       return;
     }
     loadDatasetArtifacts(selectedDataset);

@@ -266,12 +266,12 @@ export const HeroSection: React.FC<Props> = ({
   skipDomainClusters = false,
   onToggleSkipDomainClusters,
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('"Deep Learning" AND "CNN"');
   const [dropOpen, setDropOpen] = useState(false);
   const presetsTrayRef = useRef<HTMLDivElement>(null);
   
   // Corpus Size State (100 to 3,000 or custom)
-  const [selectedCorpus, setSelectedCorpus] = useState<number | string>(50);
+  const [selectedCorpus, setSelectedCorpus] = useState<number | string>(300);
   const [corpusMenuOpen, setCorpusMenuOpen] = useState<boolean>(false);
   const [customCorpusInput, setCustomCorpusInput] = useState<string>('');
 

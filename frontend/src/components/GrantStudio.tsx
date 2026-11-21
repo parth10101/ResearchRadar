@@ -4,6 +4,7 @@ import { NarratedGap } from '../types';
 import { ObservatoryStandby } from './ObservatoryStandby';
 import { HighlightedTitle } from './HighlightedTitle';
 import { exportGapsToPdf } from '../utils/pdfExport';
+import { DEFAULT_PRESET_GAPS } from '../data/defaultPresetData';
 
 interface GrantStudioProps {
   narratedGaps: NarratedGap[];
@@ -34,7 +35,7 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({
   };
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const availableGaps = narratedGaps || [];
+  const availableGaps = (narratedGaps && narratedGaps.length > 0) ? narratedGaps : DEFAULT_PRESET_GAPS;
 
   // Reset to selected gap or top gap every time component is mounted/navigated
   useEffect(() => {
