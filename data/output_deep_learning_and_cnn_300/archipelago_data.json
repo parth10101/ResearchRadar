@@ -1,0 +1,94 @@
+{
+  "macro_clusters": [
+    {
+      "id": "cluster-1",
+      "name": "Foundational Deep Learning & Theoretical Formulations",
+      "description": "Domain territory investigating Foundational Deep Learning & Theoretical Formulations.",
+      "color": "#ff4300",
+      "x": -262.068,
+      "y": 154.548,
+      "radius": 120,
+      "paper_count": 91,
+      "dominant_terms": [
+        "Foundational",
+        "Deep",
+        "Learning"
+      ]
+    },
+    {
+      "id": "cluster-2",
+      "name": "Scalable Convolutional Neural Networks Optimization & Benchmarks",
+      "description": "Domain territory investigating Scalable Convolutional Neural Networks Optimization & Benchmarks.",
+      "color": "#38bdf8",
+      "x": 356.508,
+      "y": 321.06,
+      "radius": 120,
+      "paper_count": 66,
+      "dominant_terms": [
+        "Scalable",
+        "Convolutional",
+        "Neural"
+      ]
+    },
+    {
+      "id": "cluster-3",
+      "name": "Cross-Domain Deep Learning Transfer to Convolutional Neural Networks",
+      "description": "Domain territory investigating Cross-Domain Deep Learning Transfer to Convolutional Neural Networks.",
+      "color": "#a855f7",
+      "x": -60.983999999999995,
+      "y": -221.00400000000002,
+      "radius": 120,
+      "paper_count": 91,
+      "dominant_terms": [
+        "Cross-Domain",
+        "Deep",
+        "Learning"
+      ]
+    },
+    {
+      "id": "cluster-4",
+      "name": "Empirical Robustness & Boundary Dynamics",
+      "description": "Domain territory investigating Empirical Robustness & Boundary Dynamics.",
+      "color": "#34d399",
+      "x": 398.052,
+      "y": -195.85200000000003,
+      "radius": 120,
+      "paper_count": 52,
+      "dominant_terms": [
+        "Empirical",
+        "Robustness",
+        "&"
+      ]
+    }
+  ],
+  "macro_filaments": [
+    {
+      "source": "cluster-1",
+      "target": "cluster-2",
+      "weight": 0.45,
+      "type": "epistemic_transfer"
+    },
+    {
+      "source": "cluster-2",
+      "target": "cluster-3",
+      "weight": 0.38,
+      "type": "optimization_link"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "gap-arch-1",
+      "title": "Bipartite Null Bridge: Deep Learning <-> Convolutional Neural Networks",
+      "novelty_score": 0.94,
+      "uzzi_z": -1.86,
+      "c_obs": "0 / 300",
+      "cluster_a": "Foundational Deep Learning & Theoretical Formulations",
+      "cluster_b": "Scalable Convolutional Neural Networks Optimization & Benchmarks"
+    }
+  ],
+  "meta": {
+    "corpus_name": "\"Deep Learning\" AND \"CNN\" (300 Papers)",
+    "paper_count": 300,
+    "source": "OpenAlex Live Academic Search"
+  }
+}
