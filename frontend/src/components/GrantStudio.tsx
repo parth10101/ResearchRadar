@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Copy, Check, ChevronLeft, ChevronRight, FileDown } from 'lucide-react';
+import { Sparkles, Copy, Check, FileDown } from 'lucide-react';
 import { NarratedGap } from '../types';
 import { ObservatoryStandby } from './ObservatoryStandby';
 import { HighlightedTitle } from './HighlightedTitle';
@@ -64,24 +64,9 @@ export const GrantStudio: React.FC<GrantStudioProps> = ({
 
   const activeGap =
     (selectedGapTitle ? availableGaps.find((g) => g.title === selectedGapTitle) : null) ||
-    availableGaps[activeGapIndex] ||
     availableGaps[0];
 
-  const handleNextGap = () => {
-    setActiveGapIndex((prev) => (prev + 1) % availableGaps.length);
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  const handlePrevGap = () => {
-    setActiveGapIndex((prev) => (prev - 1 + availableGaps.length) % availableGaps.length);
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  const opHyp = activeGap.operational_hypothesis;
+  const opHyp = activeGap?.operational_hypothesis;
   const methodText =
     (typeof opHyp === 'object' && opHyp?.method_plain) ||
     activeGap.method ||
@@ -149,7 +134,7 @@ ${activeGap.description_plain || activeGap.description || 'Zero historical co-oc
         <header className="px-8 sm:px-12 pt-7 pb-4 flex items-center justify-between border-b border-white/[0.06] shrink-0 z-10">
           <div className="flex items-center space-x-2 text-[11px] font-mono tracking-widest text-[#ff5500] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-[#ff5500] shadow-[0_0_8px_#ff4300]" />
-            <span className="font-semibold">GAP #{String(activeGapIndex + 1).padStart(2, '0')}</span>
+            <span className="font-semibold">TOP RESEARCH GAP</span>
             <span className="text-zinc-600 hidden sm:inline">·</span>
             <span className="text-zinc-400 font-normal hidden sm:inline truncate max-w-[320px]">
               {activeGap.gap_type || 'EMPIRICAL GAP'}
@@ -183,26 +168,6 @@ ${activeGap.description_plain || activeGap.description || 'Zero historical co-oc
               {isCopied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-zinc-400" />}
               <span>{isCopied ? 'Copied' : 'Copy'}</span>
             </button>
-
-            <div className="flex items-center space-x-1 border border-white/[0.08] bg-white/[0.03] rounded-lg p-0.5 text-xs font-mono">
-              <button
-                onClick={handlePrevGap}
-                className="p-1 rounded text-zinc-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
-                title="Previous gap (←)"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-              </button>
-              <span className="px-1 text-[11px] text-zinc-400">
-                {activeGapIndex + 1} / {availableGaps.length}
-              </span>
-              <button
-                onClick={handleNextGap}
-                className="p-1 rounded text-zinc-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
-                title="Next gap (→)"
-              >
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
           </div>
         </header>
 
