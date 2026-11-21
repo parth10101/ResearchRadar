@@ -618,7 +618,7 @@ export const HeroSection: React.FC<Props> = ({
 
         {/* Subtitle */}
         <p className="hero-main-subtitle">
-          Enter any topic, author, or DOI. ResearchRadar parses scientific literature across citation lineages, clusters concepts in high-dimensional vector space, and surfaces unexplored empirical gaps.
+          Enter any topic name and ResearchRadar parses scientific literature across citation lineages, clusters concepts in high-dimensional vector space, and surfaces unexplored empirical gaps.
         </p>
 
 {/* Architectural Search Command Unit */}
