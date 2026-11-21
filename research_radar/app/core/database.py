@@ -39,10 +39,12 @@ def get_engine():
 
     db_url = os.getenv("DATABASE_URL", settings.DATABASE_URL).strip()
     
-    if db_url and (db_url.startswith("postgresql://") or db_url.startswith("postgres://")):
-        # Ensure psycopg2 or standard postgresql dialect prefix
+    if db_url and (db_url.startswith("postgresql://") or db_url.startswith("postgres://") or db_url.startswith("postgresql+")):
+        # Explicitly specify psycopg2 driver if no dialect driver prefix is given
         if db_url.startswith("postgres://"):
-            db_url = db_url.replace("postgres://", "postgresql://", 1)
+            db_url = db_url.replace("postgres://", "postgresql+psycopg2://", 1)
+        elif db_url.startswith("postgresql://"):
+            db_url = db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
         
         try:
             logger.info("[DB] Attempting connection to Supabase / PostgreSQL...")
