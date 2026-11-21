@@ -91,10 +91,10 @@ export interface PresetOption {
 
 const PRESETS: PresetOption[] = [
   {
-    label: 'Verified Live Benchmark: "Neural Networks" AND "Fluid Dynamics" AND "Turbulence"',
-    count: '100',
-    value: '"Neural Networks" AND "Fluid Dynamics" AND "Turbulence"',
-    datasetId: 'output_neural_networks_and_flu',
+    label: 'Verified Live Benchmark: "Deep Learning" AND "CNN"',
+    count: '300',
+    value: '"Deep Learning" AND "CNN"',
+    datasetId: 'output_deep_learning_and_cnn_300',
   },
 ];
 export interface CorpusTier {
@@ -629,7 +629,7 @@ export const HeroSection: React.FC<Props> = ({
                   setCorpusMenuOpen(false);
                   setFieldMenuOpen(false);
                 }}
-                title="Curated 100-paper benchmark preset"
+                title="Curated 300-paper benchmark preset"
               >
                 <Database className="h-3.5 w-3.5 text-[#ff8a50]" />
                 <span className="font-semibold text-xs text-white">Presets</span>
@@ -638,7 +638,7 @@ export const HeroSection: React.FC<Props> = ({
 
               {dropOpen && (
                 <div className="presets-floating-tray">
-                  <div className="tray-hdr">CURATED 100-PAPER BENCHMARK (ALL 3 SECTIONS)</div>
+                  <div className="tray-hdr">CURATED 300-PAPER BENCHMARK (ALL 3 SECTIONS)</div>
                   <div className="flex flex-col gap-1.5 pt-1">
                     {PRESETS.map((p) => (
                       <div
@@ -646,7 +646,7 @@ export const HeroSection: React.FC<Props> = ({
                         className="p-3 rounded-lg border border-white/10 hover:border-[#ff4300]/60 bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer group"
                         onClick={() => {
                           setQuery(p.value);
-                          setSelectedCorpus(100);
+                          setSelectedCorpus(300);
                           setDropOpen(false);
                           handleExecuteSearch(p.value, p.datasetId);
                         }}
