@@ -303,16 +303,13 @@ export const HeroSection: React.FC<Props> = ({
   const [fastNicheMode, setFastNicheMode] = useState<boolean>(false);
   const [ieeeOp0, setIeeeOp0] = useState<'AND' | 'OR' | 'NOT'>('AND');
   const [ieeeTerm1, setIeeeTerm1] = useState<string>('');
-  const [ieeeOp1, setIeeeOp1] = useState<'AND' | 'OR' | 'NOT'>('AND');
-  const [ieeeTerm2, setIeeeTerm2] = useState<string>('');
 
-  // Composed 3-Bar Boolean Expression across Main Search Bar + 2 Boolean Condition Bars (Total 3 Search Bars)
+  // Composed 2-Bar Boolean Expression: Main Search Bar + 1 Extra Condition Bar
   const composedFullQuery = useMemo(() => {
     const main = query.trim();
     if (!showSubBars) return main;
     const t1 = ieeeTerm1.trim();
-    const t2 = ieeeTerm2.trim();
-    if (!main && !t1 && !t2) return '';
+    if (!main && !t1) return '';
 
     const formatTerm = (t: string) => (t.includes(' ') && !t.startsWith('"') ? `"${t}"` : t);
     const parts: string[] = [];
@@ -322,22 +319,15 @@ export const HeroSection: React.FC<Props> = ({
       parts.push(formatTerm(main));
     }
 
-    // Bar 2: Boolean Condition Bar 1 (Concept B)
+    // Bar 2: Extra Boolean Condition Bar (Concept B)
     if (t1) {
       if (parts.length > 0) parts.push(ieeeOp0);
       else if (ieeeOp0 === 'NOT') parts.push('NOT');
       parts.push(formatTerm(t1));
     }
 
-    // Bar 3: Boolean Condition Bar 2 (Concept C)
-    if (t2) {
-      if (parts.length > 0) parts.push(ieeeOp1);
-      else if (ieeeOp1 === 'NOT') parts.push('NOT');
-      parts.push(formatTerm(t2));
-    }
-
     return parts.join(' ');
-  }, [query, showSubBars, ieeeOp0, ieeeTerm1, ieeeOp1, ieeeTerm2]);
+  }, [query, showSubBars, ieeeOp0, ieeeTerm1]);
 
   // Backward compatibility alias
   const composedIeeeQuery = composedFullQuery;
@@ -840,10 +830,10 @@ export const HeroSection: React.FC<Props> = ({
             </button>
           </div>
 
-                    {/* Minimal Boolean Refinement Sub-Bars */}
+          {/* Minimal Boolean Refinement Sub-Bar (1 Extra Condition Bar) */}
           {showSubBars && (
             <div className="ieee-deck-container mt-1.5 animate-fadeIn">
-              {/* Condition Bar 1 */}
+              {/* Extra Condition Bar */}
               <div className="ieee-row">
                 <select
                   className="ieee-operator-dropdown"
@@ -875,46 +865,7 @@ export const HeroSection: React.FC<Props> = ({
                     type="button"
                     onClick={() => setIeeeTerm1('')}
                     className="text-zinc-500 hover:text-white font-mono text-xs px-1.5 py-0.5 rounded hover:bg-white/10"
-                    title="Clear Condition 1"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              {/* Condition Bar 2 */}
-              <div className="ieee-row">
-                <select
-                  className="ieee-operator-dropdown"
-                  value={ieeeOp1}
-                  onChange={(e) => setIeeeOp1(e.target.value as any)}
-                  disabled={isExecuting}
-                  title="Boolean Operator (AND / OR / NOT)"
-                >
-                  <option value="AND">AND</option>
-                  <option value="OR">OR</option>
-                  <option value="NOT">NOT</option>
-                </select>
-                <input
-                  type="text"
-                  className="ieee-input-field"
-                  placeholder="Concept C (e.g. Transfer Learning, Brain MRI, Turbulence)..."
-                  value={ieeeTerm2}
-                  onChange={(e) => setIeeeTerm2(e.target.value)}
-                  disabled={isExecuting}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !isExecuting && composedFullQuery.trim()) {
-                      e.preventDefault();
-                      handleExecuteSearch(composedFullQuery);
-                    }
-                  }}
-                />
-                {ieeeTerm2 && (
-                  <button
-                    type="button"
-                    onClick={() => setIeeeTerm2('')}
-                    className="text-zinc-500 hover:text-white font-mono text-xs px-1.5 py-0.5 rounded hover:bg-white/10"
-                    title="Clear Condition 2"
+                    title="Clear Condition"
                   >
                     ✕
                   </button>
